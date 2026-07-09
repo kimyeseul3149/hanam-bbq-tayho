@@ -82,9 +82,11 @@ window.CONTENT = {
 
     /* ---- Menu ---- */
     menu_eyebrow: "Thực đơn nướng",
-    menu_title: "8 phần thịt nướng đặc trưng",
-    menu_lead: "Thịt heo tươi tuyển chọn, định hình 2cm theo từng phần — nướng chuẩn vị Hàn Quốc.",
+    menu_title: "Thực đơn đầy đủ — Món chính & Món phụ",
+    menu_lead: "Thịt heo tươi tuyển chọn, định hình 2cm theo từng phần, cùng các món phụ đậm đà chuẩn vị Hàn Quốc.",
     menu_note: "Thực đơn đầy đủ và bảng giá có sẵn tại nhà hàng.",
+    menu_tab_main: "Món chính",
+    menu_tab_side: "Món phụ",
 
     /* ---- Visit ---- */
     visit_eyebrow: "Ghé thăm chúng tôi",
@@ -178,9 +180,11 @@ window.CONTENT = {
 
     /* ---- Menu ---- */
     menu_eyebrow: "The grill menu",
-    menu_title: "8 signature grill cuts",
-    menu_lead: "Hand-selected fresh pork, trimmed to 2cm by cut — grilled the authentic Korean way.",
+    menu_title: "Full Menu — Main & Side Dishes",
+    menu_lead: "Hand-selected fresh pork, trimmed to 2cm by cut, paired with signature Korean side dishes.",
     menu_note: "Full menu and prices available in-store.",
+    menu_tab_main: "Main Menu",
+    menu_tab_side: "Side Menu",
 
     /* ---- Visit ---- */
     visit_eyebrow: "Come visit us",

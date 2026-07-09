@@ -53,8 +53,33 @@ nhiều người hơn.
 7. 한돈숙성 오겹살 / Aged Korean Pork Belly (5-layer) / Thịt ba chỉ heo Hàn Quốc (5 lớp) ủ vị
 8. 막창구이 / Grilled Pork Intestine / Lòng heo nướng
 
-- 탭 구조: 메인 메뉴(모둠한판/특별한판) · 사이드 메뉴. 사이드 항목은 원본 사이트가 이미지 위주라 텍스트 미확보 → 서호점 실제 메뉴(FB) 기준으로 보강·검수 필요.
-- 참고 FB 베트남어 부위명: thịt ba chỉ heo(삼겹), thịt nạc vai heo(목살/앞다리), thịt má heo(볼/항정), thịt nạc dày heo(두꺼운 살), bộ tứ heo(돼지 4종 세트).
+## C-REVISED. 메뉴 전체 (공식 사이트 정확 추출 — AUTHORITATIVE, 이미지 매핑 확정)
+
+> 2026-07-09 재확인: 이름↔사진을 hanampig.co.kr DOM에서 caption→img로 정확히 페어링. 기존 8종 매핑(추정) 폐기. 메뉴 섹션은 **메인/사이드 2개 서브탭** 구조(공식 사이트와 동일).
+> 번역 정확도: vi/en 초벌(추정), 원어민 검수 필요.
+
+### 메인 메뉴 (10종) — 형식: KO / EN / VI / 이미지파일
+1. 모둠한판 / Combo Grill Platter / Set thịt nướng thập cẩm / hanam-cut-a.jpg
+2. 특별한판 / Special Grill Platter / Set nướng đặc biệt / hanam-cut-b.jpg
+3. 생삼겹살 / Fresh Pork Belly / Ba chỉ heo tươi / hanam-cut-c.jpg
+4. 특목살 / Premium Pork Collar / Thịt nạc vai đặc biệt / hanam-cut-d.jpg
+5. 생갈비 / Fresh Pork Ribs / Sườn heo tươi / hanam-cut-e.jpg
+6. 갈매기살 / Pork Skirt Meat / Thịt cơ hoành heo / hanam-cut-f.jpg
+7. 항정살 / Pork Jowl (Presa) / Thịt má heo (nọng) / hanam-cut-g.jpg
+8. 가브리살 / Pork Collar Cap (Pluma) / Thịt nạc dày (gáy heo) / hanam-cut-h.jpg
+9. 한돈숙성 오겹살 / Aged Korean Pork Belly (5-layer) / Ba chỉ 5 lớp ủ vị Hàn Quốc / hanam-cut-i.jpg
+10. 막창구이 / Grilled Pork Intestine / Lòng heo nướng / hanam-cut-j.jpg
+
+### 사이드 메뉴 (9종) — KO / EN / VI / 이미지파일
+1. 도시락 김치볶음밥 / Kimchi Fried Rice (shake lunchbox) / Cơm rang kimchi (hộp lắc) / side-kimchi-fried-rice.jpg
+2. 한돈 김치찌개 / Korean Pork Kimchi Stew / Canh kimchi thịt heo / side-kimchi-stew.jpg
+3. 한돈 고추장찌개 / Korean Pork Gochujang Stew / Canh tương ớt thịt heo / side-gochujang-stew.jpg
+4. 우삼겹 된장찌개 / Beef Brisket Doenjang Stew / Canh tương đậu ba chỉ bò / side-doenjang-stew.jpg
+5. 날치알 계란찜 / Steamed Egg w/ Flying-fish Roe / Trứng hấp trứng cá chuồn / side-steamed-egg.jpg
+6. 물냉면 / Cold Buckwheat Noodle Soup / Mì lạnh nước (Mul-naengmyeon) / side-mul-naengmyeon.jpg
+7. 코다리 회냉면 / Spicy Cold Noodles w/ Half-dried Pollack / Mì lạnh trộn cay cá minh thái / side-hoe-naengmyeon.jpg
+8. 김치말이국수 / Kimchi Somen Noodles / Mì cuốn kimchi / side-kimchi-noodles.jpg
+9. 잔치국수 / Banquet Noodle Soup / Mì nước truyền thống (Janchi-guksu) / side-janchi-guksu.jpg
 
 ## D. 매장 정보 (출처: Google Maps — 정확, 영업시간만 추정)
 

@@ -8,6 +8,7 @@
   var DEFAULT_LANG = "vi";
   var prefersReduced = window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var currentMenuCat = "main";
 
   /* ---------------- i18n ---------------- */
   function getLang() {
@@ -40,7 +41,8 @@
   function renderMenu(lang) {
     var grid = document.getElementById("menu-grid");
     if (!grid || !window.MENU) return;
-    grid.innerHTML = window.MENU.map(function (m) {
+    var items = window.MENU[currentMenuCat] || window.MENU.main || [];
+    grid.innerHTML = items.map(function (m) {
       var name = (m.name && (m.name[lang] || m.name.vi)) || "";
       var desc = (m.desc && (m.desc[lang] || m.desc.vi)) || "";
       return '' +
@@ -59,6 +61,25 @@
     }).join("");
     // Newly injected cards need the reveal observer.
     observeReveals(grid.querySelectorAll(".reveal"));
+  }
+
+  function setMenuCat(cat) {
+    if (!window.MENU || !window.MENU[cat] || cat === currentMenuCat) return;
+    currentMenuCat = cat;
+    document.querySelectorAll("[data-menu-cat]").forEach(function (b) {
+      var on = b.getAttribute("data-menu-cat") === cat;
+      b.classList.toggle("is-active", on);
+      b.setAttribute("aria-selected", on ? "true" : "false");
+    });
+    renderMenu(getLang());
+  }
+
+  function initMenuTabs() {
+    document.querySelectorAll("[data-menu-cat]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        setMenuCat(b.getAttribute("data-menu-cat"));
+      });
+    });
   }
 
   /* ---------------- Counters ---------------- */
@@ -171,6 +192,7 @@
     initLangButtons();
     initMobileNav();
     initHeader();
+    initMenuTabs();
     applyLang(getLang()); // renders menu + sets language
     animateCounters();
     initReveals();
@@ -186,5 +208,6 @@
   window.getLang = getLang;
   window.applyLang = applyLang;
   window.renderMenu = renderMenu;
+  window.setMenuCat = setMenuCat;
   window.animateCounters = animateCounters;
 })();
