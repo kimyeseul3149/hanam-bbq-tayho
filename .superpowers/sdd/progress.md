@@ -22,3 +22,10 @@
 - Menu section now has Main/Side sub-tabs (data-menu-cat), gold-pill styling. renderMenu(cat,lang). content.js menu_tab_main/side keys.
 - Verified (controller screenshots): main 10 cards correct imgs, side 9 cards correct imgs, VI default (Món chính/Món phụ), EN toggle, KO labels, console 0 errors, mobile ok.
 - Commits 45b0d67..4d9eee2 (feature 6588a20). STATUS: menu complete.
+
+## Deployment (2026-07-09) — GitHub Pages
+- GitHub CLI: already installed (winget, gh 2.96.0) + already authed as kimyeseul3149 (repo scope). gh auth login not needed.
+- Repo: https://github.com/kimyeseul3149/hanam-bbq-tayho (public, main branch, 34 files)
+- GitHub Pages enabled (main / root). LIVE URL: https://kimyeseul3149.github.io/hanam-bbq-tayho/
+- Verified live: HTTP 200, VI default, logo+hero+menu images load under subpath (relative paths OK), all 5 sections, 10 menu cards. Hero renders correctly.
+- STATUS: DEPLOYED & LIVE.
