@@ -447,10 +447,9 @@ body::before {
   transform: translateY(-4px);
   box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.85);
 }
-.persona > * { position: relative; }
-.persona-title, .persona-tag, .persona-list {
-  padding-left: 30px; padding-right: 30px;
-}
+.persona > * { position: relative; z-index: 1; }
+.persona-title { padding: 0 30px; }
+.persona-list { padding: 0 30px 34px; }
 .persona::after {
   /* inner core */
   content: "";
@@ -484,7 +483,7 @@ body::before {
   margin-bottom: 24px;
   color: var(--text);
 }
-.persona-list { padding-bottom: 34px; display: flex; flex-direction: column; gap: 14px; }
+.persona-list { display: flex; flex-direction: column; gap: 14px; }
 .persona-list li {
   display: flex;
   align-items: flex-start;

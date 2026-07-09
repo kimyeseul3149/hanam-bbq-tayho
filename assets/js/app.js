@@ -71,9 +71,11 @@
     }
 
     function run(el) {
-      var target = parseFloat(el.getAttribute("data-count"));
+      var raw = el.getAttribute("data-count");
+      var target = parseFloat(raw);
       var suffix = el.getAttribute("data-suffix") || "";
-      var dec = String(el.getAttribute("data-count")).indexOf(".") > -1 ? 2 : 0;
+      var dot = raw.indexOf(".");
+      var dec = dot > -1 ? (raw.length - dot - 1) : 0;
       if (prefersReduced) {
         el.textContent = formatVal(target, dec) + suffix;
         return;
