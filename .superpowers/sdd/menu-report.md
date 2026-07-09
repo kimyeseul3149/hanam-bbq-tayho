@@ -45,10 +45,10 @@ images.
 ## Commit
 
 ```
-9b170eb feat: menu main/side sub-tabs + correct image mapping (19 items)
+6588a20 feat: menu main/side sub-tabs + correct image mapping (19 items)
 ```
 
-(single commit; range 9b170eb..9b170eb — see `git log --oneline -1`)
+(single commit; range 6588a20..6588a20 — see `git log --oneline -1`)
 
 ## Verification (Playwright/preview tools against `python -m http.server 8000`)
 
