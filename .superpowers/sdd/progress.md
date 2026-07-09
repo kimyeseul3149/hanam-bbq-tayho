@@ -14,3 +14,11 @@
 - Note: full-page screenshot showed blank below-fold = lazy-load/reveal artifact only; real viewport renders correctly.
 - Open (content, not code): translations DRAFT (VN native review), testimonials = persona placeholders, hours estimated, map iframe blocked in preview sandbox (works on Vercel), deploy not yet run.
 - STATUS: build complete & verified. Next: Vercel deploy (needs user auth).
+
+## Menu expansion (2026-07-09)
+- Extracted official 하남 menu via DOM caption→img pairing (reliable). MAIN 10 + SIDE 9 = 19 items.
+- FIXED: prior 8-item main image mapping was wrong (6/8 mismatched). Correct: 모둠한판→a,특별한판→b,생삼겹살→c,특목살→d,생갈비→e,갈매기살→f,항정살→g,가브리살→h,오겹살→i,막창구이→j.
+- Added SIDE 9 with own images (side-*.jpg), verified each dish↔photo matches.
+- Menu section now has Main/Side sub-tabs (data-menu-cat), gold-pill styling. renderMenu(cat,lang). content.js menu_tab_main/side keys.
+- Verified (controller screenshots): main 10 cards correct imgs, side 9 cards correct imgs, VI default (Món chính/Món phụ), EN toggle, KO labels, console 0 errors, mobile ok.
+- Commits 45b0d67..4d9eee2 (feature 6588a20). STATUS: menu complete.
