@@ -293,7 +293,7 @@ body::before {
   display: flex;
   align-items: flex-end;
   padding-bottom: clamp(70px, 12vh, 130px);
-  padding-top: calc(var(--header-h) + 40px);
+  padding-top: calc(var(--header-h) + 96px);
   overflow: hidden;
   isolation: isolate;
 }
@@ -1026,13 +1026,9 @@ a.fact-value:hover { color: var(--gold); }
 }
 
 /* ============================================================
-   RESPONSIVE — 640 (mobile)
+   RESPONSIVE — 1024 (collapse header nav to hamburger)
    ============================================================ */
-@media (max-width: 640px) {
-  :root { --header-h: 66px; }
-  .wrap { padding: 0 20px; }
-
-  /* Header: collapse nav */
+@media (max-width: 1024px) {
   .nav {
     position: fixed;
     inset: 0;
@@ -1062,6 +1058,8 @@ a.fact-value:hover { color: var(--gold); }
     gap: 5px;
     width: 40px; height: 40px;
     padding: 8px;
+    position: relative;
+    z-index: 2;
   }
   .nav-toggle span {
     display: block;
@@ -1074,6 +1072,14 @@ a.fact-value:hover { color: var(--gold); }
   .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
   .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
   body.nav-open { overflow: hidden; }
+}
+
+/* ============================================================
+   RESPONSIVE — 640 (mobile)
+   ============================================================ */
+@media (max-width: 640px) {
+  :root { --header-h: 66px; }
+  .wrap { padding: 0 20px; }
 
   /* Header brand — mobile */
   .brand { padding: 12px 0 9px; gap: 4px; }
@@ -1085,7 +1091,6 @@ a.fact-value:hover { color: var(--gold); }
   .site-header.is-scrolled .brand { padding: 7px 0 5px; }
   .site-header.is-scrolled .brand-emblem { height: 30px; }
   .site-header.is-scrolled .brand-wordmark { font-size: 1rem; }
-  .nav-toggle { position: relative; z-index: 2; }
 
   /* Hero */
   .hero { align-items: flex-end; }
