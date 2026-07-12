@@ -38,3 +38,9 @@
 - (5) Beef(와규 살치살/콤보) + Combo(목살갈비/제육볶음) added with prices+desc+images from Google Maps menu photos (beef-*.jpg, combo-*.jpg).
 - Verified live (controller screenshots): all tabs, prices gold, group order, beef/combo images, alcohol list, real reviews, VI/EN toggle, map iframe renders. Console clean.
 - Commit ea79084, pushed → live https://kimyeseul3149.github.io/hanam-bbq-tayho/ updated & verified.
+
+## Menu detail modal (2026-07-12)
+- Added desc:{vi,en} to all pork(7)+side(9) items (menu-details.md); beef/combo kept.
+- Photo cards (main pork/beef/combo + side) now open a reusable lightbox modal on click/Enter/Space: large image + KO(gold) + name + price + detail desc (current lang, combo multi-line preserved). Close via ×/overlay/ESC, body scroll lock + focus return. role=dialog aria-modal. Alcohol list excluded.
+- Verified (controller screenshots): desktop 생삼겹살 modal, VI combo modal (multi-line), mobile near-fullscreen (overflow 0), ESC close + scroll restore. Console clean.
+- Commit 080293a.
