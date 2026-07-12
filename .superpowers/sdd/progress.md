@@ -29,3 +29,12 @@
 - GitHub Pages enabled (main / root). LIVE URL: https://kimyeseul3149.github.io/hanam-bbq-tayho/
 - Verified live: HTTP 200, VI default, logo+hero+menu images load under subpath (relative paths OK), all 5 sections, 10 menu cards. Hero renders correctly.
 - STATUS: DEPLOYED & LIVE.
+
+## Menu v2 + real reviews (2026-07-12)
+- (1) Testimonials → 3 real Google 5★ reviews (Thanh Tú Phạm, Anh Hanoi 하노이형, Khanh Linh Le), VN+EN, from Google Maps newest-sorted.
+- (2) Prices added under Korean name, same gold color as .menu-ko.
+- (3) Menu restructured: main = pork(7)→beef(2)→combo(2) with group headings; removed 생갈비/오겹살/막창; 코다리회냉면→비빔냉면.
+- (4) New ALCOHOL tab (3rd): soju(3)+beer(2) list, no photos, note line.
+- (5) Beef(와규 살치살/콤보) + Combo(목살갈비/제육볶음) added with prices+desc+images from Google Maps menu photos (beef-*.jpg, combo-*.jpg).
+- Verified live (controller screenshots): all tabs, prices gold, group order, beef/combo images, alcohol list, real reviews, VI/EN toggle, map iframe renders. Console clean.
+- Commit ea79084, pushed → live https://kimyeseul3149.github.io/hanam-bbq-tayho/ updated & verified.
