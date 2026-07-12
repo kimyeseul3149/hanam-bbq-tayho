@@ -90,6 +90,8 @@ window.CONTENT = {
     menu_tab_side: "Món phụ",
     menu_tab_alcohol: "Đồ uống",
     menu_alcohol_note: "Mang đến trải nghiệm ẩm thực tuyệt vời cùng đa dạng các loại đồ uống.",
+    menu_view_details: "Xem chi tiết",
+    menu_modal_close: "Đóng",
 
     /* ---- Visit ---- */
     visit_eyebrow: "Ghé thăm chúng tôi",
@@ -191,6 +193,8 @@ window.CONTENT = {
     menu_tab_side: "Side Menu",
     menu_tab_alcohol: "Alcohol",
     menu_alcohol_note: "A wonderful dining experience paired with a diverse selection of drinks.",
+    menu_view_details: "View details",
+    menu_modal_close: "Close",
 
     /* ---- Visit ---- */
     visit_eyebrow: "Come visit us",

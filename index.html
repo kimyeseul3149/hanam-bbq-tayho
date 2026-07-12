@@ -359,6 +359,25 @@
     </div>
   </footer>
 
+  <!-- ============ MENU DETAIL MODAL (single reusable, hidden by default) ============ -->
+  <div class="menu-modal" id="menu-modal" role="dialog" aria-modal="true" aria-labelledby="menu-modal-name" hidden>
+    <div class="menu-modal__overlay" data-modal-close></div>
+    <div class="menu-modal__dialog" role="document">
+      <button type="button" class="menu-modal__close" data-modal-close data-i18n-aria="menu_modal_close" aria-label="Close">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <div class="menu-modal__figure">
+        <img class="menu-modal__img" id="menu-modal-img" src="" alt="" />
+      </div>
+      <div class="menu-modal__body">
+        <span class="menu-modal__ko" id="menu-modal-ko" lang="ko"></span>
+        <h3 class="menu-modal__name" id="menu-modal-name"></h3>
+        <span class="menu-modal__price" id="menu-modal-price"></span>
+        <p class="menu-modal__desc" id="menu-modal-desc"></p>
+      </div>
+    </div>
+  </div>
+
   <script src="assets/js/content.js"></script>
   <script src="assets/js/menu.js"></script>
   <script src="assets/js/app.js"></script>

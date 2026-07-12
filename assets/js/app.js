@@ -50,10 +50,19 @@
     return (obj && (obj[lang] || obj.vi)) || "";
   }
 
+  function escAttr(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/"/g, "&quot;")
+      .replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
   function menuCardHTML(m, lang) {
     var name = pickLang(m.name, lang);
     var desc = pickLang(m.desc, lang);
     var price = m.price || "";
+    var dict = (window.CONTENT && window.CONTENT[lang]) || {};
+    var hint = dict.menu_view_details || "";
+    var ariaLabel = name + (hint ? " — " + hint : "");
     var descHTML = desc
       ? '<p class="menu-desc">' + desc.replace(/\n/g, "<br>") + "</p>"
       : "";
@@ -61,9 +70,10 @@
       ? '<span class="menu-price">' + price + "</span>"
       : "";
     return '' +
-      '<article class="menu-card reveal">' +
+      '<article class="menu-card reveal is-clickable" data-item-id="' + escAttr(m.id) + '"' +
+        ' role="button" tabindex="0" aria-label="' + escAttr(ariaLabel) + '">' +
         '<div class="menu-thumb">' +
-          '<img src="' + m.img + '" alt="' + name + '" loading="lazy" decoding="async" />' +
+          '<img src="' + m.img + '" alt="' + escAttr(name) + '" loading="lazy" decoding="async" />' +
         '</div>' +
         '<div class="menu-body">' +
           '<div class="menu-head">' +
@@ -169,6 +179,115 @@
       b.addEventListener("click", function () {
         setMenuCat(b.getAttribute("data-menu-cat"));
       });
+    });
+  }
+
+  /* ---------------- Menu detail modal (lightbox) ---------------- */
+  var modalEl = null;
+  var lastFocusedCard = null;
+
+  function findMenuItem(id) {
+    if (!window.MENU) return null;
+    var list = window.MENU[currentMenuCat] || [];
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].id === id) return list[i];
+    }
+    return null;
+  }
+
+  function openMenuModal(item, card) {
+    modalEl = modalEl || document.getElementById("menu-modal");
+    if (!modalEl || !item) return;
+    var lang = getLang();
+    var name = pickLang(item.name, lang);
+    var desc = pickLang(item.desc, lang);
+
+    var img = modalEl.querySelector("#menu-modal-img");
+    var ko = modalEl.querySelector("#menu-modal-ko");
+    var nameEl = modalEl.querySelector("#menu-modal-name");
+    var priceEl = modalEl.querySelector("#menu-modal-price");
+    var descEl = modalEl.querySelector("#menu-modal-desc");
+
+    if (img) { img.setAttribute("src", item.img || ""); img.setAttribute("alt", name); }
+    if (ko) ko.textContent = item.ko || "";
+    if (nameEl) nameEl.textContent = name;
+    if (priceEl) priceEl.textContent = item.price || "";
+    if (descEl) {
+      // Preserve line breaks (combo desc); desc is trusted data.
+      descEl.innerHTML = desc ? escapeHTML(desc).replace(/\n/g, "<br>") : "";
+    }
+
+    lastFocusedCard = card || null;
+    modalEl.hidden = false;
+    // Force reflow so the transition runs, then mark open.
+    void modalEl.offsetWidth;
+    modalEl.classList.add("is-open");
+    document.body.classList.add("modal-open");
+
+    var closeBtn = modalEl.querySelector(".menu-modal__close");
+    if (closeBtn) closeBtn.focus();
+  }
+
+  function closeMenuModal() {
+    if (!modalEl || modalEl.hidden) return;
+    modalEl.classList.remove("is-open");
+    document.body.classList.remove("modal-open");
+    var el = modalEl;
+    function hide() {
+      el.hidden = true;
+      el.removeEventListener("transitionend", onEnd);
+    }
+    function onEnd(e) {
+      if (e.target === el || e.propertyName === "opacity") hide();
+    }
+    if (prefersReduced) {
+      hide();
+    } else {
+      el.addEventListener("transitionend", onEnd);
+      // Fallback in case transitionend doesn't fire.
+      setTimeout(hide, 400);
+    }
+    if (lastFocusedCard && typeof lastFocusedCard.focus === "function") {
+      lastFocusedCard.focus();
+    }
+    lastFocusedCard = null;
+  }
+
+  function escapeHTML(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  function initMenuModal() {
+    modalEl = document.getElementById("menu-modal");
+    var grid = document.getElementById("menu-grid");
+    if (!modalEl || !grid) return;
+
+    // Event delegation on the grid: open modal from photo cards only.
+    grid.addEventListener("click", function (e) {
+      var card = e.target.closest ? e.target.closest(".menu-card[data-item-id]") : null;
+      if (!card) return;
+      var item = findMenuItem(card.getAttribute("data-item-id"));
+      if (item) openMenuModal(item, card);
+    });
+    grid.addEventListener("keydown", function (e) {
+      if (e.key !== "Enter" && e.key !== " " && e.key !== "Spacebar") return;
+      var card = e.target.closest ? e.target.closest(".menu-card[data-item-id]") : null;
+      if (!card) return;
+      e.preventDefault();
+      var item = findMenuItem(card.getAttribute("data-item-id"));
+      if (item) openMenuModal(item, card);
+    });
+
+    // Close via × button and overlay backdrop.
+    modalEl.querySelectorAll("[data-modal-close]").forEach(function (b) {
+      b.addEventListener("click", closeMenuModal);
+    });
+
+    // ESC to close.
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !modalEl.hidden) closeMenuModal();
     });
   }
 
@@ -283,6 +402,7 @@
     initMobileNav();
     initHeader();
     initMenuTabs();
+    initMenuModal();
     applyLang(getLang()); // renders menu + sets language
     animateCounters();
     initReveals();
