@@ -15,7 +15,7 @@ window.CONTENT = {
     cta_menu: "Xem thực đơn",
 
     /* ---- Hero ---- */
-    hero_kicker: "Korean No.1 BBQ · 4.8★ Google",
+    hero_kicker: "Korean No.1 BBQ",
     hero_title: "Tinh hoa thịt nướng Hàn Quốc ngay tại Hồ Tây",
     hero_sub: "Thương hiệu K-BBQ số 1 Hàn Quốc, nay bên bờ Hồ Tây — thịt heo tươi tuyển chọn, nướng than trên đá nóng, bên khung cảnh mặt hồ.",
     hero_scroll: "Cuộn xuống",
@@ -118,7 +118,7 @@ window.CONTENT = {
     cta_menu: "View menu",
 
     /* ---- Hero ---- */
-    hero_kicker: "Korean No.1 BBQ · 4.8★ Google",
+    hero_kicker: "Korean No.1 BBQ",
     hero_title: "The essence of Korean Premium BBQ at West Lake",
     hero_sub: "Korea's No.1 K-BBQ brand, now by West Lake — hand-selected fresh pork, charcoal-grilled on hot stone, with the lake in view.",
     hero_scroll: "Scroll",
