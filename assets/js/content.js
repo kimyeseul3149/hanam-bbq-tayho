@@ -61,12 +61,13 @@ window.CONTENT = {
     social_title: "Được tin yêu tại Hà Nội",
     social_rating: "trên Google",
     social_fb: "theo dõi trên Facebook",
-    rev_1_who: "Gia đình 3 thế hệ",
-    rev_1: "Cả nhà từ ông bà đến các cháu đều có chỗ ngồi thoải mái, view hồ đẹp. Thịt tươi, nướng thơm, phục vụ rất chu đáo.",
-    rev_2_who: "Khách doanh nghiệp",
-    rev_2: "Đặt phòng riêng tiếp đối tác, không gian kín đáo và sang trọng. Món ăn chuẩn vị Hàn, rất phù hợp cho buổi gặp quan trọng.",
-    rev_3_who: "Cặp đôi",
-    rev_3: "Không gian bên hồ lãng mạn, thịt ba chỉ ủ vị ăn là mê. Nhất định sẽ quay lại vào giờ Happy Hour.",
+    rev_src: "Google",
+    rev_1_who: "Thanh Tú Phạm",
+    rev_1: "Mình đã ăn ở đây hai lần và lần nào cũng rất hài lòng. Thịt heo và bò nướng đều tươi ngon — ba chỉ heo nhất định phải thử. Panchan ăn kèm rất hào phóng, vừa ăn vừa ngắm hồ Tây thật tuyệt.",
+    rev_2_who: "Anh Hanoi (하노이 형)",
+    rev_2: "Chất lượng ba chỉ heo ở đây thực sự xuất sắc — cắn miếng nào là nước thịt tứa ra! Món ăn kèm cân bằng vị béo hoàn hảo, nhân viên nướng thịt rất khéo. Quán ba chỉ yêu thích nhất của mình — chắc chắn sẽ quay lại!",
+    rev_3_who: "Khanh Linh Le",
+    rev_3: "Đồ ăn ngon và được phục vụ nhanh chóng. Dịch vụ tuyệt vời!",
 
     /* ---- Promotion ---- */
     promo_eyebrow: "Ưu đãi mỗi ngày",
@@ -87,6 +88,8 @@ window.CONTENT = {
     menu_note: "Thực đơn đầy đủ và bảng giá có sẵn tại nhà hàng.",
     menu_tab_main: "Món chính",
     menu_tab_side: "Món phụ",
+    menu_tab_alcohol: "Đồ uống",
+    menu_alcohol_note: "Mang đến trải nghiệm ẩm thực tuyệt vời cùng đa dạng các loại đồ uống.",
 
     /* ---- Visit ---- */
     visit_eyebrow: "Ghé thăm chúng tôi",
@@ -159,12 +162,13 @@ window.CONTENT = {
     social_title: "Trusted across Hanoi",
     social_rating: "on Google",
     social_fb: "followers on Facebook",
-    rev_1_who: "Three-generation family",
-    rev_1: "From grandparents to the kids, everyone had a comfortable seat and a beautiful lake view. Fresh meat, fragrant grill, wonderfully attentive service.",
-    rev_2_who: "Business guest",
-    rev_2: "Booked a private room to host partners — discreet and refined. Authentic Korean flavors, perfect for an important meeting.",
-    rev_3_who: "A couple",
-    rev_3: "Romantic setting by the lake, and the aged pork belly was unforgettable. We'll definitely be back for Happy Hour.",
+    rev_src: "Google",
+    rev_1_who: "Thanh Tú Phạm",
+    rev_1: "I've eaten here twice and I'm very satisfied both times. The grilled pork and beef are fresh and delicious — the pork belly is a must-try. The panchan side dishes are generous, and eating with a view of West Lake is fantastic.",
+    rev_2_who: "Anh Hanoi (하노이 형)",
+    rev_2: "The pork belly quality here is truly excellent — the juices burst in your mouth! The side dishes cut the richness perfectly and the staff grilled everything just right. My all-time favorite pork belly place — I'll definitely be back!",
+    rev_3_who: "Khanh Linh Le",
+    rev_3: "The food was delicious and served quickly. The service was excellent!",
 
     /* ---- Promotion ---- */
     promo_eyebrow: "Every day offers",
@@ -185,6 +189,8 @@ window.CONTENT = {
     menu_note: "Full menu and prices available in-store.",
     menu_tab_main: "Main Menu",
     menu_tab_side: "Side Menu",
+    menu_tab_alcohol: "Alcohol",
+    menu_alcohol_note: "A wonderful dining experience paired with a diverse selection of drinks.",
 
     /* ---- Visit ---- */
     visit_eyebrow: "Come visit us",

@@ -201,22 +201,30 @@
             </div>
           </div>
 
-          <!-- TODO(review): replace with real customer reviews -->
           <div class="reviews">
             <figure class="review reveal">
               <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
               <blockquote data-i18n="rev_1"></blockquote>
-              <figcaption data-i18n="rev_1_who"></figcaption>
+              <figcaption class="review-cap">
+                <span class="review-author" data-i18n="rev_1_who"></span>
+                <span class="review-src" data-i18n="rev_src">Google</span>
+              </figcaption>
             </figure>
             <figure class="review reveal">
               <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
               <blockquote data-i18n="rev_2"></blockquote>
-              <figcaption data-i18n="rev_2_who"></figcaption>
+              <figcaption class="review-cap">
+                <span class="review-author" data-i18n="rev_2_who"></span>
+                <span class="review-src" data-i18n="rev_src">Google</span>
+              </figcaption>
             </figure>
             <figure class="review reveal">
               <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
               <blockquote data-i18n="rev_3"></blockquote>
-              <figcaption data-i18n="rev_3_who"></figcaption>
+              <figcaption class="review-cap">
+                <span class="review-author" data-i18n="rev_3_who"></span>
+                <span class="review-src" data-i18n="rev_src">Google</span>
+              </figcaption>
             </figure>
           </div>
         </div>
@@ -262,6 +270,7 @@
         <div class="menu-tabs reveal" role="tablist" aria-label="Menu category">
           <button type="button" class="menu-tab is-active" data-menu-cat="main" role="tab" aria-selected="true" data-i18n="menu_tab_main">Món chính</button>
           <button type="button" class="menu-tab" data-menu-cat="side" role="tab" aria-selected="false" data-i18n="menu_tab_side">Món phụ</button>
+          <button type="button" class="menu-tab" data-menu-cat="alcohol" role="tab" aria-selected="false" data-i18n="menu_tab_alcohol">Đồ uống</button>
         </div>
         <div id="menu-grid" class="menu-grid"><!-- rendered by renderMenu() --></div>
         <p class="menu-note reveal" data-i18n="menu_note"></p>

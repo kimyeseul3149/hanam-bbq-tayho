@@ -38,27 +38,117 @@
   }
 
   /* ---------------- Menu ---------------- */
+  var GROUP_TITLES = {
+    pork: { vi: "Thịt heo", en: "Pork", ko: "돼지고기" },
+    beef: { vi: "Bò Wagyu", en: "Wagyu Beef", ko: "소고기" },
+    combo: { vi: "Set trưa", en: "Lunch Set", ko: "런치세트" },
+    soju: { vi: "Rượu Soju", en: "Soju", ko: "소주" },
+    beer: { vi: "Bia", en: "Beer", ko: "맥주" }
+  };
+
+  function pickLang(obj, lang) {
+    return (obj && (obj[lang] || obj.vi)) || "";
+  }
+
+  function menuCardHTML(m, lang) {
+    var name = pickLang(m.name, lang);
+    var desc = pickLang(m.desc, lang);
+    var price = m.price || "";
+    var descHTML = desc
+      ? '<p class="menu-desc">' + desc.replace(/\n/g, "<br>") + "</p>"
+      : "";
+    var priceHTML = price
+      ? '<span class="menu-price">' + price + "</span>"
+      : "";
+    return '' +
+      '<article class="menu-card reveal">' +
+        '<div class="menu-thumb">' +
+          '<img src="' + m.img + '" alt="' + name + '" loading="lazy" decoding="async" />' +
+        '</div>' +
+        '<div class="menu-body">' +
+          '<div class="menu-head">' +
+            '<h3 class="menu-name">' + name + '</h3>' +
+            '<div class="menu-meta">' +
+              '<span class="menu-ko" lang="ko">' + m.ko + '</span>' +
+              priceHTML +
+            '</div>' +
+          '</div>' +
+          descHTML +
+        '</div>' +
+      '</article>';
+  }
+
+  function groupTitleHTML(group, lang) {
+    var t = GROUP_TITLES[group] || {};
+    var label = pickLang(t, lang);
+    return '' +
+      '<div class="menu-group-title reveal">' +
+        '<span class="menu-group-name">' + label + '</span>' +
+        '<span class="menu-group-ko" lang="ko">' + (t.ko || "") + '</span>' +
+      '</div>';
+  }
+
+  function renderCardsGrouped(items, lang) {
+    var html = "";
+    var last = null;
+    items.forEach(function (m) {
+      if (m.group && m.group !== last) {
+        html += groupTitleHTML(m.group, lang);
+        last = m.group;
+      }
+      html += menuCardHTML(m, lang);
+    });
+    return html;
+  }
+
+  function renderAlcohol(items, lang) {
+    var dict = (window.CONTENT && window.CONTENT[lang]) || {};
+    var note = dict.menu_alcohol_note || "";
+    var groups = [];
+    var byGroup = {};
+    items.forEach(function (m) {
+      if (!byGroup[m.group]) { byGroup[m.group] = []; groups.push(m.group); }
+      byGroup[m.group].push(m);
+    });
+    var listHTML = groups.map(function (g) {
+      var t = GROUP_TITLES[g] || {};
+      var rows = byGroup[g].map(function (m) {
+        var name = pickLang(m.name, lang);
+        return '' +
+          '<li class="alcohol-row">' +
+            '<div class="alcohol-info">' +
+              '<span class="alcohol-name">' + name + '</span>' +
+              '<span class="alcohol-ko" lang="ko">' + m.ko + '</span>' +
+            '</div>' +
+            '<span class="alcohol-price">' + (m.price || "") + '</span>' +
+          '</li>';
+      }).join("");
+      return '' +
+        '<div class="alcohol-group reveal">' +
+          '<div class="alcohol-group-title">' +
+            '<span class="alcohol-group-name">' + pickLang(t, lang) + '</span>' +
+            '<span class="alcohol-group-ko" lang="ko">' + (t.ko || "") + '</span>' +
+          '</div>' +
+          '<ul class="alcohol-items">' + rows + '</ul>' +
+        '</div>';
+    }).join("");
+    return '' +
+      (note ? '<p class="alcohol-note reveal">' + note + '</p>' : '') +
+      '<div class="alcohol-list">' + listHTML + '</div>';
+  }
+
   function renderMenu(lang) {
     var grid = document.getElementById("menu-grid");
     if (!grid || !window.MENU) return;
-    var items = window.MENU[currentMenuCat] || window.MENU.main || [];
-    grid.innerHTML = items.map(function (m) {
-      var name = (m.name && (m.name[lang] || m.name.vi)) || "";
-      var desc = (m.desc && (m.desc[lang] || m.desc.vi)) || "";
-      return '' +
-        '<article class="menu-card reveal">' +
-          '<div class="menu-thumb">' +
-            '<img src="' + m.img + '" alt="' + name + '" loading="lazy" decoding="async" />' +
-          '</div>' +
-          '<div class="menu-body">' +
-            '<div class="menu-head">' +
-              '<h3 class="menu-name">' + name + '</h3>' +
-              '<span class="menu-ko" lang="ko">' + m.ko + '</span>' +
-            '</div>' +
-            (desc ? '<p class="menu-desc">' + desc + '</p>' : '') +
-          '</div>' +
-        '</article>';
-    }).join("");
+    var cat = currentMenuCat;
+    var items = window.MENU[cat] || window.MENU.main || [];
+    if (cat === "alcohol") {
+      grid.className = "menu-grid menu-grid--alcohol";
+      grid.innerHTML = renderAlcohol(items, lang);
+    } else {
+      grid.className = "menu-grid";
+      grid.innerHTML = renderCardsGrouped(items, lang);
+    }
     // Newly injected cards need the reveal observer.
     observeReveals(grid.querySelectorAll(".reveal"));
   }
