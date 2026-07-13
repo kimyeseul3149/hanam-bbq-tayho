@@ -10,6 +10,29 @@
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var currentMenuCat = "main";
 
+  /* ---------------- Analytics (Amplitude taxonomy) ----------------
+   * See docs/analytics/amplitude-taxonomy.md.
+   * track() attaches common props (language, device_type) to every event.
+   */
+  function deviceType() {
+    return (window.innerWidth <= 900) ? "mobile" : "desktop";
+  }
+  function track(name, props) {
+    if (typeof window.HanamTrack !== "function") return;
+    var base = { language: getLang(), device_type: deviceType() };
+    if (props) {
+      for (var k in props) {
+        if (Object.prototype.hasOwnProperty.call(props, k)) base[k] = props[k];
+      }
+    }
+    window.HanamTrack(name, base);
+  }
+  function priceToNumber(p) {
+    if (!p) return null;
+    var digits = String(p).replace(/[^\d]/g, "");
+    return digits ? parseInt(digits, 10) : null;
+  }
+
   /* ---------------- i18n ---------------- */
   function getLang() {
     var stored = localStorage.getItem(LANG_KEY);
@@ -177,7 +200,10 @@
   function initMenuTabs() {
     document.querySelectorAll("[data-menu-cat]").forEach(function (b) {
       b.addEventListener("click", function () {
-        setMenuCat(b.getAttribute("data-menu-cat"));
+        var cat = b.getAttribute("data-menu-cat");
+        var changed = cat !== currentMenuCat;
+        setMenuCat(cat);
+        if (changed) track("Menu Tab Switched", { menu_tab: cat });
       });
     });
   }
@@ -217,6 +243,14 @@
       descEl.innerHTML = desc ? escapeHTML(desc).replace(/\n/g, "<br>") : "";
     }
 
+    track("Menu Item Viewed", {
+      item_id: item.id,
+      item_name_ko: item.ko,
+      item_category: item.group || currentMenuCat,
+      item_price_vnd: priceToNumber(item.price),
+      menu_tab: currentMenuCat
+    });
+
     lastFocusedCard = card || null;
     modalEl.hidden = false;
     // Force reflow so the transition runs, then mark open.
@@ -228,8 +262,13 @@
     if (closeBtn) closeBtn.focus();
   }
 
-  function closeMenuModal() {
+  function closeMenuModal(method) {
     if (!modalEl || modalEl.hidden) return;
+    track("Menu Modal Closed", {
+      item_id: (lastFocusedCard && lastFocusedCard.getAttribute)
+        ? lastFocusedCard.getAttribute("data-item-id") : null,
+      close_method: method || "unknown"
+    });
     modalEl.classList.remove("is-open");
     document.body.classList.remove("modal-open");
     var el = modalEl;
@@ -282,12 +321,17 @@
 
     // Close via × button and overlay backdrop.
     modalEl.querySelectorAll("[data-modal-close]").forEach(function (b) {
-      b.addEventListener("click", closeMenuModal);
+      b.addEventListener("click", function (e) {
+        var t = e.currentTarget;
+        var method = (t.classList && t.classList.contains("menu-modal__overlay"))
+          ? "overlay" : "close_button";
+        closeMenuModal(method);
+      });
     });
 
     // ESC to close.
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && !modalEl.hidden) closeMenuModal();
+      if (e.key === "Escape" && !modalEl.hidden) closeMenuModal("escape");
     });
   }
 
@@ -391,7 +435,45 @@
   function initLangButtons() {
     document.querySelectorAll("[data-lang-btn]").forEach(function (b) {
       b.addEventListener("click", function () {
-        applyLang(b.getAttribute("data-lang-btn"));
+        var to = b.getAttribute("data-lang-btn");
+        var from = getLang();
+        applyLang(to);
+        if (to !== from) {
+          track("Language Switched", { from_language: from, to_language: to });
+          if (typeof window.HanamSetUser === "function") {
+            window.HanamSetUser("preferred_language", to);
+          }
+        }
+      });
+    });
+  }
+
+  /* ---------------- Navigation + CTA click tracking ---------------- */
+  function initNavTracking() {
+    var nav = document.getElementById("primary-nav");
+    if (!nav) return;
+    var MAP = { "#story": "story", "#why": "why_hanam", "#menu": "menu", "#visit": "visit" };
+    nav.querySelectorAll("a").forEach(function (a) {
+      a.addEventListener("click", function () {
+        var href = a.getAttribute("href") || "";
+        var toggle = document.querySelector(".nav-toggle");
+        var isMobile = toggle && getComputedStyle(toggle).display !== "none";
+        track("Navigation Clicked", {
+          nav_item: MAP[href] || href.replace("#", ""),
+          nav_location: isMobile ? "mobile_overlay" : "header"
+        });
+      });
+    });
+  }
+
+  function initCtaTracking() {
+    document.addEventListener("click", function (e) {
+      var el = e.target.closest ? e.target.closest("[data-evt-cta]") : null;
+      if (!el) return;
+      track("CTA Clicked", {
+        cta_type: el.getAttribute("data-evt-cta"),
+        cta_location: el.getAttribute("data-evt-loc") || null,
+        destination: el.getAttribute("data-evt-dest") || null
       });
     });
   }
@@ -399,6 +481,8 @@
   /* ---------------- Boot ---------------- */
   function boot() {
     initLangButtons();
+    initNavTracking();
+    initCtaTracking();
     initMobileNav();
     initHeader();
     initMenuTabs();

@@ -62,7 +62,7 @@
             <span class="lang-sep" aria-hidden="true">/</span>
             <button type="button" data-lang-btn="en" aria-pressed="false">EN</button>
           </div>
-          <a class="btn btn-gold header-cta" href="https://www.google.com/maps?cid=13948591582597685325" target="_blank" rel="noopener" data-i18n="cta_directions">Chỉ đường &amp; Đặt bàn</a>
+          <a class="btn btn-gold header-cta" href="https://www.google.com/maps?cid=13948591582597685325" target="_blank" rel="noopener" data-i18n="cta_directions" data-evt-cta="directions_reserve" data-evt-loc="header" data-evt-dest="google_maps">Chỉ đường &amp; Đặt bàn</a>
           <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Menu">
             <span></span><span></span><span></span>
           </button>
@@ -81,13 +81,13 @@
         <h1 class="hero-title reveal" id="hero-title" data-i18n="hero_title">Tinh hoa thịt nướng Hàn Quốc ngay tại Hồ Tây</h1>
         <p class="hero-sub reveal" data-i18n="hero_sub"></p>
         <div class="hero-cta reveal">
-          <a class="btn btn-gold btn-lg" href="https://www.google.com/maps?cid=13948591582597685325" target="_blank" rel="noopener">
+          <a class="btn btn-gold btn-lg" href="https://www.google.com/maps?cid=13948591582597685325" target="_blank" rel="noopener" data-evt-cta="directions_reserve" data-evt-loc="hero" data-evt-dest="google_maps">
             <span data-i18n="cta_directions">Chỉ đường &amp; Đặt bàn</span>
             <span class="btn-ic" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </span>
           </a>
-          <a class="btn btn-ghost btn-lg" href="#menu" data-i18n="cta_menu">Xem thực đơn</a>
+          <a class="btn btn-ghost btn-lg" href="#menu" data-i18n="cta_menu" data-evt-cta="view_menu" data-evt-loc="hero" data-evt-dest="menu_anchor">Xem thực đơn</a>
         </div>
         <a class="scroll-ind reveal" href="#story" aria-label="Scroll to story">
           <span class="scroll-ind-txt" data-i18n="hero_scroll">Cuộn xuống</span>
@@ -335,20 +335,24 @@
 
             <div class="visit-cta">
               <a class="btn btn-gold btn-lg" target="_blank" rel="noopener"
-                 href="https://www.google.com/maps?cid=13948591582597685325">
+                 href="https://www.google.com/maps?cid=13948591582597685325"
+                 data-evt-cta="directions_reserve" data-evt-loc="visit_section" data-evt-dest="google_maps">
                 <span data-i18n="cta_directions">Chỉ đường &amp; Đặt bàn</span>
                 <span class="btn-ic" aria-hidden="true">
                   <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
                 </span>
               </a>
               <a class="btn btn-ghost btn-lg" target="_blank" rel="noopener"
-                 href="https://m.me/61579247412593" data-i18n="cta_message">Nhắn tin đặt bàn</a>
-              <a class="btn btn-ghost btn-lg" href="tel:+84964321771" data-i18n="cta_call">Gọi điện</a>
+                 href="https://m.me/61579247412593" data-i18n="cta_message"
+                 data-evt-cta="message_book" data-evt-loc="visit_section" data-evt-dest="messenger">Nhắn tin đặt bàn</a>
+              <a class="btn btn-ghost btn-lg" href="tel:+84964321771" data-i18n="cta_call"
+                 data-evt-cta="call_phone" data-evt-loc="visit_section" data-evt-dest="phone_dialer">Gọi điện</a>
             </div>
 
             <a class="visit-maps-link" target="_blank" rel="noopener"
                href="https://www.google.com/maps?cid=13948591582597685325"
-               data-i18n="visit_maps_link">Xem trên Google Maps</a>
+               data-i18n="visit_maps_link"
+               data-evt-cta="directions_reserve" data-evt-loc="visit_maps_link" data-evt-dest="google_maps">Xem trên Google Maps</a>
           </div>
         </div>
       </div>
