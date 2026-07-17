@@ -326,7 +326,7 @@ body::before {
 
 /* First slide ships in CSS for LCP; the rest are lazy-assigned from data-bg. */
 .hero-slide--1 { background-image: url("../img/hero-01-cuts.jpg"); }
-.hero-slide--4 { background-position: center 28%; }  /* portrait exterior */
+.hero-slide--4 { background-position: center 42%; }  /* lake view — keep the sunset in frame */
 
 .hero-dots {
   position: absolute;
