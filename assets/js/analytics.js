@@ -12,7 +12,10 @@ const IS_LOCAL = HOST === 'localhost' || HOST === '127.0.0.1' || HOST === '' || 
 if (!IS_LOCAL) {
   amplitude.initAll('6e6ab28d3f8ea33b8ef5b304ab6d9c78', {
     analytics: { autocapture: true },
-    sessionReplay: { sampleRate: 1 },
+    // Record 10% of sessions — enough to spot UX issues while cutting the
+    // privacy/perf/quota footprint of full capture by 10x. Click & funnel
+    // analytics (autocapture above) still cover 100% of visitors.
+    sessionReplay: { sampleRate: 0.1 },
   });
 }
 
