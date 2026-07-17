@@ -86,7 +86,13 @@ window.CONTENT = {
     visit_maps_link: "Xem trên Google Maps",
 
     footer_tag: "Korean Premium BBQ",
-    footer_rights: "© Hanam BBQ Tây Hồ · West Lake Hanoi"
+    footer_rights: "© Hanam BBQ Tây Hồ · West Lake Hanoi",
+
+    /* ---- Consent line under reservation / call buttons ---- */
+    consent_pre: "Khi bấm nút, bạn đồng ý với ",
+    consent_link: "Chính sách bảo mật",
+    consent_post: " của chúng tôi.",
+    privacy_close: "Đóng"
   },
 
   en: {
@@ -172,6 +178,12 @@ window.CONTENT = {
     visit_maps_link: "View on Google Maps",
 
     footer_tag: "Korean Premium BBQ",
-    footer_rights: "© Hanam BBQ Tây Hồ · West Lake Hanoi"
+    footer_rights: "© Hanam BBQ Tây Hồ · West Lake Hanoi",
+
+    /* ---- Consent line under reservation / call buttons ---- */
+    consent_pre: "By clicking the button, you agree to our ",
+    consent_link: "Privacy Policy",
+    consent_post: ".",
+    privacy_close: "Close"
   }
 };

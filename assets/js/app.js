@@ -339,6 +339,62 @@
     });
   }
 
+  /* ---------------- Privacy policy modal (Decree 13 notice) ----------------
+   * Opened by any [data-privacy-open] trigger (footer link + consent lines).
+   * Mirrors the menu modal's open/close mechanics.
+   */
+  function initPrivacyModal() {
+    var el = document.getElementById("privacy-modal");
+    if (!el) return;
+    var lastFocused = null;
+
+    function open(trigger) {
+      lastFocused = trigger || null;
+      el.hidden = false;
+      void el.offsetWidth;
+      el.classList.add("is-open");
+      document.body.classList.add("modal-open");
+      var closeBtn = el.querySelector(".privacy-modal__close");
+      if (closeBtn) closeBtn.focus();
+      track("Privacy Policy Viewed", {
+        source: trigger ? (trigger.getAttribute("data-evt-loc") || "consent_or_footer") : "unknown"
+      });
+    }
+
+    function close() {
+      if (el.hidden) return;
+      el.classList.remove("is-open");
+      document.body.classList.remove("modal-open");
+      function hide() {
+        el.hidden = true;
+        el.removeEventListener("transitionend", onEnd);
+      }
+      function onEnd(e) {
+        if (e.target === el || e.propertyName === "opacity") hide();
+      }
+      if (prefersReduced) { hide(); }
+      else {
+        el.addEventListener("transitionend", onEnd);
+        setTimeout(hide, 400);
+      }
+      if (lastFocused && typeof lastFocused.focus === "function") lastFocused.focus();
+      lastFocused = null;
+    }
+
+    document.querySelectorAll("[data-privacy-open]").forEach(function (btn) {
+      btn.addEventListener("click", function (e) {
+        e.preventDefault();
+        open(e.currentTarget);
+      });
+    });
+    el.querySelectorAll("[data-modal-close]").forEach(function (b) {
+      b.addEventListener("click", close);
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !el.hidden) close();
+    });
+  }
+
   /* ---------------- Hero slideshow ----------------
    * Slide 1 ships its image via CSS (LCP); slides 2..n carry data-bg and are
    * fetched after load so they never compete with the first paint.
@@ -521,6 +577,7 @@
     initHeader();
     initMenuTabs();
     initMenuModal();
+    initPrivacyModal();
     applyLang(getLang()); // renders menu + sets language
     initHeroSlides();
     initReveals();

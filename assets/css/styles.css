@@ -944,6 +944,140 @@ a.fact-value:hover { color: var(--gold); }
   color: var(--gold);
 }
 .footer-rights { color: var(--muted-2); font-size: 0.9rem; }
+.footer-privacy {
+  margin-top: 2px;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: var(--muted-2);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: rgba(139, 131, 117, 0.5);
+  transition: color .3s var(--ease);
+}
+.footer-privacy:hover { color: var(--gold-soft); }
+
+/* ============================================================
+   CONSENT NOTE (Decree 13 — under reservation / call buttons)
+   ============================================================ */
+.consent-note {
+  margin-top: 12px;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--muted-2);
+  max-width: 52ch;
+}
+.hero .consent-note { margin-top: 14px; }
+.consent-link {
+  font-size: inherit;
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: rgba(200, 169, 106, 0.55);
+  transition: color .3s var(--ease);
+  vertical-align: baseline;
+}
+.consent-link:hover { color: var(--gold-soft); }
+
+/* ============================================================
+   PRIVACY POLICY MODAL
+   ============================================================ */
+.privacy-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 320;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(16px, 4vw, 48px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .35s var(--ease), visibility .35s var(--ease);
+}
+.privacy-modal.is-open { opacity: 1; visibility: visible; }
+.privacy-modal[hidden] { display: none; }
+.privacy-modal__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(9, 8, 7, 0.72);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.privacy-modal__dialog {
+  position: relative;
+  width: min(720px, 100%);
+  max-height: min(84vh, 760px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background: linear-gradient(180deg, var(--bg-3), var(--bg-2));
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: 0 60px 120px -40px rgba(0, 0, 0, 0.9);
+  transform: translateY(14px) scale(0.985);
+  transition: transform .4s var(--ease-soft);
+}
+.privacy-modal.is-open .privacy-modal__dialog { transform: none; }
+.privacy-modal__close {
+  position: sticky;
+  top: 0;
+  float: right;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; height: 40px;
+  margin: 12px 12px -12px 0;
+  border-radius: 999px;
+  color: var(--text);
+  background: rgba(18, 17, 16, 0.6);
+  border: 1px solid var(--line-soft);
+  transition: color .3s var(--ease), border-color .3s var(--ease);
+  z-index: 1;
+}
+.privacy-modal__close:hover { color: var(--gold); border-color: var(--line); }
+.privacy-modal__body { padding: clamp(28px, 5vw, 48px); }
+.privacy-modal__title {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  color: var(--gold-soft);
+  margin-bottom: 26px;
+  letter-spacing: -0.01em;
+}
+.privacy-modal__title span { color: var(--muted-2); font-weight: 400; padding: 0 4px; }
+.privacy-block + .privacy-block {
+  margin-top: 30px;
+  padding-top: 30px;
+  border-top: 1px solid var(--line-soft);
+}
+.privacy-block h3 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 1.1rem;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+.privacy-block p {
+  color: var(--muted);
+  font-size: 0.94rem;
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+.privacy-block ul { display: flex; flex-direction: column; gap: 14px; }
+.privacy-block li {
+  position: relative;
+  padding-left: 18px;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+.privacy-block li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 11px;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--gold-deep);
+}
+.privacy-block li strong { color: var(--text); font-weight: 600; }
 
 /* ============================================================
    SCROLL REVEAL
@@ -1094,6 +1228,7 @@ a.fact-value:hover { color: var(--gold); }
   .reveal { opacity: 1; transform: none; filter: none; }
   .hero-slide { transform: none; animation: none; }
   .menu-modal, .menu-modal__dialog { transition: none !important; }
+  .privacy-modal, .privacy-modal__dialog { transition: none !important; }
 }
 
 /* ============================================================
