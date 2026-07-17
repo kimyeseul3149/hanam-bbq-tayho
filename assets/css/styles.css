@@ -297,15 +297,46 @@ body::before {
   overflow: hidden;
   isolation: isolate;
 }
-.hero-bg {
+/* Slideshow: stacked slides cross-fade; only the active one Ken-Burns zooms. */
+.hero-slides { position: absolute; inset: 0; z-index: -2; }
+.hero-slide {
   position: absolute;
   inset: 0;
-  background: url("../img/hanam-cut-f.jpg") center 40% / cover no-repeat;
+  background-position: center 45%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0;
   transform: scale(1.06);
-  animation: heroZoom 18s var(--ease-soft) forwards;
-  z-index: -2;
+  transition: opacity 1.6s var(--ease-soft);
+  will-change: opacity, transform;
+}
+.hero-slide.is-active {
+  opacity: 1;
+  animation: heroZoom 9s var(--ease-soft) forwards;
 }
 @keyframes heroZoom { to { transform: scale(1); } }
+
+/* First slide ships in CSS for LCP; the rest are lazy-assigned from data-bg. */
+.hero-slide--1 { background-image: url("../img/hero-01-cuts.jpg"); }
+.hero-slide--4 { background-position: center 30%; }
+
+.hero-dots {
+  position: absolute;
+  right: 24px;
+  bottom: 4px;
+  display: flex;
+  gap: 10px;
+  z-index: 2;
+}
+.hero-dot { padding: 10px 0; display: block; }
+.hero-dot > span {
+  display: block;
+  width: 28px; height: 2px;
+  background: rgba(245, 241, 232, 0.28);
+  transition: background .5s var(--ease), transform .5s var(--ease);
+}
+.hero-dot:hover > span { background: rgba(245, 241, 232, 0.55); }
+.hero-dot.is-active > span { background: var(--gold); transform: scaleY(2); }
 .hero-overlay {
   position: absolute;
   inset: 0;
@@ -340,14 +371,6 @@ body::before {
   text-shadow: 0 2px 40px rgba(0, 0, 0, 0.5);
 }
 .hero-title::first-line { color: var(--gold-soft); }
-.hero-sub {
-  font-size: clamp(1.05rem, 2vw, 1.3rem);
-  color: var(--text);
-  opacity: 0.86;
-  max-width: 54ch;
-  margin-top: 26px;
-  line-height: 1.7;
-}
 .hero-cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 38px; }
 
 .scroll-ind {
@@ -398,154 +421,46 @@ body::before {
   pointer-events: none;
 }
 .story .wrap { position: relative; z-index: 1; }
-.story-head { max-width: 760px; }
-
-.stat-grid {
+.story-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1px;
-  margin-top: clamp(48px, 6vw, 76px);
-  background: var(--line-soft);
-  border: 1px solid var(--line-soft);
-  border-radius: var(--r-lg);
-  overflow: hidden;
-}
-.stat {
-  background: linear-gradient(180deg, var(--bg-2), var(--bg));
-  padding: 34px 26px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(32px, 5vw, 72px);
   align-items: center;
 }
-.stat-num {
-  font-family: var(--serif);
-  font-size: clamp(2.2rem, 4vw, 3rem);
-  font-weight: 600;
-  color: var(--gold);
-  line-height: 1;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: -0.01em;
-}
-.stat small {
-  font-size: 0.86rem;
-  color: var(--muted);
-  line-height: 1.45;
-  max-width: 22ch;
-}
+.story-head { max-width: 60ch; }
 
-.why-vn { margin-top: clamp(60px, 8vw, 96px); }
-.why-vn-head { margin-bottom: 32px; }
-.why-vn-title {
-  font-family: var(--serif);
-  font-weight: 500;
-  font-size: clamp(1.5rem, 3vw, 2.1rem);
-  color: var(--text);
-  letter-spacing: -0.01em;
-}
-.why-vn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
-.why-card {
-  background: linear-gradient(180deg, var(--bg-2), rgba(26, 24, 21, 0.4));
-  border: 1px solid var(--line-soft);
+.story-figure { position: relative; }
+.story-figure img {
+  width: 100%;
+  height: auto;
   border-radius: var(--r-lg);
-  padding: 34px 32px;
-  transition: transform .6s var(--ease), border-color .5s var(--ease), box-shadow .6s var(--ease);
+  border: 1px solid var(--line-soft);
+  /* Photo is shot against a bright doorway — settle it into the dark page. */
+  filter: saturate(0.92) brightness(0.94);
 }
-.why-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--line);
-  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.8);
+.story-figure::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--r-lg);
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 55%, rgba(18, 17, 16, 0.55) 100%);
 }
-.why-card-ic {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 54px; height: 54px; border-radius: 14px;
-  background: rgba(200, 169, 106, 0.1);
-  color: var(--gold);
-  margin-bottom: 20px;
+.story-figure figcaption {
+  position: absolute;
+  left: 22px; right: 22px; bottom: 18px;
+  z-index: 1;
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-soft);
 }
-.why-card h4 {
-  font-family: var(--serif);
-  font-weight: 500;
-  font-size: 1.35rem;
-  margin-bottom: 12px;
-  color: var(--text);
-}
-.why-card p { color: var(--muted); font-size: 0.98rem; }
 
 /* ============================================================
-   WHY HANAM — personas + social + reviews
+   WHY HANAM — lake view + social + reviews
    ============================================================ */
 .why { background: linear-gradient(180deg, var(--bg), var(--bg-2) 55%, var(--bg)); }
 .why-head { max-width: 680px; margin-bottom: clamp(40px, 5vw, 64px); }
-
-.persona-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-.persona {
-  position: relative;
-  padding: 6px;
-  border-radius: calc(var(--r-lg) + 6px);
-  background: rgba(245, 241, 232, 0.03);
-  border: 1px solid var(--line-soft);
-  transition: transform .6s var(--ease), box-shadow .6s var(--ease);
-}
-.persona:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.85);
-}
-.persona > * { position: relative; z-index: 1; }
-.persona-title { padding: 0 30px; }
-.persona-list { padding: 0 30px 34px; }
-.persona::after {
-  /* inner core */
-  content: "";
-  position: absolute;
-  inset: 6px;
-  border-radius: var(--r-lg);
-  background: linear-gradient(180deg, var(--bg-3), var(--bg-2));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
-  z-index: 0;
-}
-.persona-tag {
-  display: inline-block;
-  margin-top: 30px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--gold);
-  padding: 7px 14px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  margin-left: 30px;
-  background: rgba(200, 169, 106, 0.06);
-}
-.persona-tag--biz { color: var(--gold-soft); }
-.persona-title {
-  font-family: var(--serif);
-  font-weight: 500;
-  font-size: clamp(1.5rem, 2.6vw, 1.95rem);
-  margin-top: 20px;
-  margin-bottom: 24px;
-  color: var(--text);
-}
-.persona-list { display: flex; flex-direction: column; gap: 14px; }
-.persona-list li {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  color: var(--muted);
-  font-size: 1rem;
-}
-.persona-list li::before {
-  content: "";
-  flex-shrink: 0;
-  width: 8px; height: 8px;
-  margin-top: 8px;
-  border-radius: 2px;
-  background: var(--gold);
-  transform: rotate(45deg);
-  box-shadow: 0 0 12px rgba(200, 169, 106, 0.4);
-}
 
 .lakeview-banner {
   margin-top: 24px;
@@ -605,13 +520,48 @@ body::before {
   background: linear-gradient(180deg, var(--bg-3), var(--bg-2));
   border: 1px solid var(--line-soft);
   border-radius: var(--r-lg);
-  padding: 32px 30px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 18px;
   transition: transform .6s var(--ease), border-color .5s var(--ease);
 }
 .review:hover { transform: translateY(-4px); border-color: var(--line); }
+
+/* Guest photos vary wildly in crop and exposure — one ratio, one grade. */
+.review-photo {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line-soft);
+}
+.review-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: saturate(0.95) brightness(0.9);
+  transition: transform 1.2s var(--ease-soft);
+}
+.review:hover .review-photo img { transform: scale(1.04); }
+.review-photo::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 60%, rgba(33, 30, 26, 0.5) 100%);
+  pointer-events: none;
+}
+.review-body {
+  padding: 26px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+}
+
+.reviews-credit {
+  margin-top: 22px;
+  text-align: center;
+  font-size: 0.76rem;
+  color: var(--muted-2);
+}
 .stars { color: var(--gold); letter-spacing: 3px; font-size: 1.05rem; }
 .review blockquote {
   color: var(--text);
@@ -1004,8 +954,8 @@ a.fact-value:hover { color: var(--gold); }
   filter: blur(0);
 }
 /* Stagger children inside grids */
-.stat-grid .stat:nth-child(2), .why-vn-grid .why-card:nth-child(2),
-.persona-grid .persona:nth-child(2), .promo-grid .promo-card:nth-child(2) { transition-delay: .08s; }
+.promo-grid .promo-card:nth-child(2) { transition-delay: .08s; }
+.story-grid .story-figure { transition-delay: .1s; }
 .reviews .review:nth-child(2) { transition-delay: .08s; }
 .reviews .review:nth-child(3) { transition-delay: .16s; }
 .menu-grid .menu-card:nth-child(2) { transition-delay: .05s; }
@@ -1095,15 +1045,16 @@ a.fact-value:hover { color: var(--gold); }
   .hero-cta { flex-direction: column; align-items: stretch; }
   .hero-cta .btn { justify-content: center; }
   .scroll-ind { display: none; }
+  /* No scroll indicator to anchor against here — drop the dots into the flow
+     instead of over the CTA buttons. */
+  .hero-dots { position: static; margin-top: 26px; }
 
   /* Story */
-  .stat-grid { grid-template-columns: 1fr 1fr; }
-  .stat { padding: 26px 18px; }
-  .why-vn-grid { grid-template-columns: 1fr; }
+  .story-grid { grid-template-columns: 1fr; gap: 32px; }
+  .story-figure { max-width: 460px; }
   .story-accent { display: none; }
 
   /* Why */
-  .persona-grid { grid-template-columns: 1fr; }
   .promo-grid { grid-template-columns: 1fr; }
   .social-proof { flex-direction: column; gap: 24px; }
   .proof-div { width: 56px; height: 1px; }
@@ -1133,7 +1084,7 @@ a.fact-value:hover { color: var(--gold); }
     transition-duration: 0.001ms !important;
   }
   .reveal { opacity: 1; transform: none; filter: none; }
-  .hero-bg { transform: none; animation: none; }
+  .hero-slide { transform: none; animation: none; }
   .menu-modal, .menu-modal__dialog { transition: none !important; }
 }
 

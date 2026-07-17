@@ -1,5 +1,5 @@
 /* Hanam BBQ Tây Hồ — app logic
- * i18n toggle, menu render, counter animation, scroll reveal, header scroll state.
+ * i18n toggle, menu render, hero slideshow, scroll reveal, header scroll state.
  */
 (function () {
   "use strict";
@@ -49,6 +49,10 @@
     document.querySelectorAll("[data-i18n-aria]").forEach(function (el) {
       var k = el.getAttribute("data-i18n-aria");
       if (dict[k] != null) el.setAttribute("aria-label", dict[k]);
+    });
+    document.querySelectorAll("[data-i18n-alt]").forEach(function (el) {
+      var k = el.getAttribute("data-i18n-alt");
+      if (dict[k] != null) el.setAttribute("alt", dict[k]);
     });
     document.documentElement.lang = lang;
     try { localStorage.setItem(LANG_KEY, lang); } catch (e) {}
@@ -335,44 +339,74 @@
     });
   }
 
-  /* ---------------- Counters ---------------- */
-  function animateCounters() {
-    var els = document.querySelectorAll("[data-count]");
-    if (!els.length) return;
+  /* ---------------- Hero slideshow ----------------
+   * Slide 1 ships its image via CSS (LCP); slides 2..n carry data-bg and are
+   * fetched after load so they never compete with the first paint.
+   */
+  function initHeroSlides() {
+    var slides = document.querySelectorAll(".hero-slide");
+    var dots = document.querySelectorAll(".hero-dot");
+    if (slides.length < 2) return;
 
-    function formatVal(v, dec) {
-      return dec > 0 ? v.toFixed(dec) : Math.floor(v).toLocaleString("en-US");
+    var idx = 0;
+    var timer = null;
+    var INTERVAL = 5200;
+
+    function loadBg(el) {
+      var src = el.getAttribute("data-bg");
+      if (!src) return;
+      el.style.backgroundImage = 'url("' + src + '")';
+      el.removeAttribute("data-bg");
     }
 
-    function run(el) {
-      var raw = el.getAttribute("data-count");
-      var target = parseFloat(raw);
-      var suffix = el.getAttribute("data-suffix") || "";
-      var dot = raw.indexOf(".");
-      var dec = dot > -1 ? (raw.length - dot - 1) : 0;
-      if (prefersReduced) {
-        el.textContent = formatVal(target, dec) + suffix;
-        return;
+    function show(next) {
+      if (next === idx) return;
+      loadBg(slides[next]);
+      slides[idx].classList.remove("is-active");
+      slides[next].classList.add("is-active");
+      if (dots.length) {
+        dots[idx].classList.remove("is-active");
+        dots[idx].removeAttribute("aria-current");
+        dots[next].classList.add("is-active");
+        dots[next].setAttribute("aria-current", "true");
       }
-      var dur = 1400, t0 = performance.now();
-      function tick(now) {
-        var p = Math.min((now - t0) / dur, 1);
-        var eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
-        el.textContent = formatVal(target * eased, dec) + suffix;
-        if (p < 1) requestAnimationFrame(tick);
-        else el.textContent = formatVal(target, dec) + suffix;
-      }
-      requestAnimationFrame(tick);
+      idx = next;
+      // Warm the following slide so its fade-in is never a blank frame.
+      loadBg(slides[(next + 1) % slides.length]);
     }
 
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (!e.isIntersecting) return;
-        run(e.target);
-        io.unobserve(e.target);
+    function start() {
+      if (prefersReduced || timer) return;
+      timer = setInterval(function () { show((idx + 1) % slides.length); }, INTERVAL);
+    }
+    function stop() {
+      if (timer) { clearInterval(timer); timer = null; }
+    }
+
+    dots.forEach(function (dot, i) {
+      dot.addEventListener("click", function () {
+        stop();
+        show(i);
+        start();
       });
-    }, { threshold: 0.5 });
-    els.forEach(function (el) { io.observe(el); });
+    });
+
+    // Don't animate offscreen, and don't fight the user while they read.
+    var hero = document.querySelector(".hero");
+    if (hero && "IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) {
+        entries[0].isIntersecting ? start() : stop();
+      }, { threshold: 0.15 }).observe(hero);
+    } else {
+      start();
+    }
+    document.addEventListener("visibilitychange", function () {
+      document.hidden ? stop() : start();
+    });
+
+    if (prefersReduced) return;
+    if (document.readyState === "complete") loadBg(slides[1]);
+    else window.addEventListener("load", function () { loadBg(slides[1]); });
   }
 
   /* ---------------- Scroll reveal ---------------- */
@@ -488,7 +522,7 @@
     initMenuTabs();
     initMenuModal();
     applyLang(getLang()); // renders menu + sets language
-    animateCounters();
+    initHeroSlides();
     initReveals();
   }
 
@@ -503,5 +537,4 @@
   window.applyLang = applyLang;
   window.renderMenu = renderMenu;
   window.setMenuCat = setMenuCat;
-  window.animateCounters = animateCounters;
 })();

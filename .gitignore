@@ -1,0 +1,12 @@
+# Numbered source photos dropped in the project root as working files
+# (01.고기.png, 02.그릴링.jpg, ...). They are the high-res originals; the
+# web-sized derivatives that the site actually loads live in assets/img/.
+# Keeping the originals out of git keeps the repo small — Vercel and Pages
+# only ever need assets/img/.
+/[0-9][0-9].*.png
+/[0-9][0-9].*.jpg
+
+# Local verification artifacts
+/.playwright-mcp/
+/*.png
+!assets/**/*.png
