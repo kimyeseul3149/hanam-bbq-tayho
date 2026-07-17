@@ -326,7 +326,7 @@ body::before {
 
 /* First slide ships in CSS for LCP; the rest are lazy-assigned from data-bg. */
 .hero-slide--1 { background-image: url("../img/hero-01-cuts.jpg"); }
-.hero-slide--5 { background-position: center 28%; }  /* portrait exterior */
+.hero-slide--4 { background-position: center 28%; }  /* portrait exterior */
 
 .hero-dots {
   position: absolute;
@@ -518,29 +518,8 @@ body::before {
 }
 .review:hover { transform: translateY(-4px); border-color: var(--line); }
 
-/* Guest photos vary wildly in crop and exposure — one ratio, one grade. */
-.review-photo {
-  position: relative;
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
-  background: var(--bg);
-  border-bottom: 1px solid var(--line-soft);
-}
-.review-photo img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  filter: saturate(0.95) brightness(0.9);
-  transition: transform 1.2s var(--ease-soft);
-}
-.review:hover .review-photo img { transform: scale(1.04); }
-.review-photo::after {
-  content: "";
-  position: absolute; inset: 0;
-  background: linear-gradient(180deg, transparent 60%, rgba(33, 30, 26, 0.5) 100%);
-  pointer-events: none;
-}
 .review-body {
-  padding: 26px 28px 28px;
+  padding: 30px 30px 32px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -588,8 +567,9 @@ body::before {
 }
 
 /* ============================================================
-   PROMOTION
+   PROMOTION (Every Day Offers — sub-item of Why Choose Hanam)
    ============================================================ */
+.promo-sub { margin-top: clamp(64px, 8vw, 100px); }
 .promo-head { text-align: center; margin-bottom: clamp(40px, 5vw, 60px); }
 .promo-head .eyebrow { padding-left: 0; }
 .promo-head .eyebrow::before { display: none; }

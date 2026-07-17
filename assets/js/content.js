@@ -38,17 +38,14 @@ window.CONTENT = {
     social_rating: "trên Google",
     social_fb: "theo dõi trên Facebook",
     rev_src: "Google",
-    /* Verbatim Google reviews (newest first, 5★, photo attached) — see docs/analytics/google-reviews.md */
+    /* Verbatim Google reviews (newest first, 5★) — see docs/analytics/google-reviews.md */
     rev_1_who: "Anh Tuan Phuong",
     rev_1: "Quán này món gì cũng ngon, ăn vị rất giống bên Hàn nha…",
-    rev_1_alt: "Nhân viên Hanam BBQ nướng thịt tại bàn",
     rev_2_who: "Thanh Tú Phạm",
     rev_2: "Ăn 2 lần rồi đều rất ưng ý, thịt bò và thịt heo nướng đều tươi ngon, đặc biệt ba chỉ heo rất nên thử nha. Panchan đầy đặn, lá tỏi ngâm chỉ ở đây có ăn cực cuốn, canh kim chi ngon ghê. Vừa ăn vừa ngắm view Hồ Tây thích phết ❤️",
-    rev_2_alt: "Canh kim chi, trứng hấp và thịt nướng tại Hanam BBQ Tây Hồ",
     rev_3_who: "Anh Hanoi (하노이 형)",
     rev_3: "Thịt ba chỉ ở đây thực sự tuyệt vời, nước thịt tan chảy trong miệng! Các món ăn kèm hoàn hảo giúp cân bằng vị béo ngậy của thịt. Nhân viên nướng thịt rất khéo. Tôi tuyên bố đây là quán thịt ba chỉ ngon nhất mọi thời đại của tôi!",
-    rev_3_alt: "Thịt ba chỉ nướng trên vỉ đá nóng",
-    reviews_credit: "Đánh giá và hình ảnh từ khách hàng trên Google Maps.",
+    reviews_credit: "Đánh giá từ khách hàng trên Google Maps.",
 
     /* ---- Promotion ---- */
     promo_eyebrow: "Ưu đãi mỗi ngày",
@@ -133,14 +130,11 @@ window.CONTENT = {
     /* Verbatim Google reviews (newest first, 5★, photo attached) — see docs/analytics/google-reviews.md */
     rev_1_who: "Anh Tuan Phuong",
     rev_1: "Everything at this restaurant is delicious and tastes very much like Korea…",
-    rev_1_alt: "A Hanam BBQ server grilling meat at the table",
     rev_2_who: "Thanh Tú Phạm",
     rev_2: "I've eaten here twice and I'm very satisfied both times. The grilled beef and pork are fresh and delicious, especially the pork belly — a must-try. The panchan is generous, the pickled garlic leaves are incredibly addictive, and the kimchi soup is amazing. Eating with a view of West Lake is fantastic ❤️",
-    rev_2_alt: "Kimchi stew, steamed egg and grilled meat at Hanam BBQ West Lake",
     rev_3_who: "Anh Hanoi (하노이 형)",
     rev_3: "The pork belly here is truly excellent — the juices burst in your mouth! The side dishes cut the richness perfectly, and the staff grilled everything just right. I declare this my all-time favorite pork belly place!",
-    rev_3_alt: "Pork belly grilling on a hot stone plate",
-    reviews_credit: "Reviews and photos by guests on Google Maps.",
+    reviews_credit: "Reviews by guests on Google Maps.",
 
     /* ---- Promotion ---- */
     promo_eyebrow: "Every day offers",
