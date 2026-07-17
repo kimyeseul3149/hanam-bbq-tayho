@@ -593,16 +593,17 @@ body::before {
 .promo-head { text-align: center; margin-bottom: clamp(40px, 5vw, 60px); }
 .promo-head .eyebrow { padding-left: 0; }
 .promo-head .eyebrow::before { display: none; }
-.promo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.promo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .promo-card {
   position: relative;
-  padding: 40px 38px;
   border-radius: var(--r-lg);
   background:
     radial-gradient(120% 100% at 0% 0%, rgba(200, 169, 106, 0.14), transparent 60%),
     linear-gradient(180deg, var(--bg-3), var(--bg-2));
   border: 1px solid var(--line);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
   transition: transform .6s var(--ease), box-shadow .6s var(--ease);
 }
 .promo-card::before {
@@ -615,32 +616,48 @@ body::before {
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
+  z-index: 2;
 }
 .promo-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 40px 80px -36px rgba(200, 169, 106, 0.28);
 }
-.promo-card-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-  margin-bottom: 24px;
+
+/* Same treatment as the review cards: one ratio, one grade, text underneath. */
+.promo-photo {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line-soft);
 }
-.promo-badge {
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--gold);
+.promo-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: saturate(0.95) brightness(0.92);
+  transition: transform 1.2s var(--ease-soft);
+}
+.promo-card:hover .promo-photo img { transform: scale(1.04); }
+.promo-photo::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 62%, rgba(33, 30, 26, 0.5) 100%);
+  pointer-events: none;
+}
+.promo-body {
+  padding: 28px 30px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  flex: 1;
 }
 .promo-time {
   font-family: var(--serif);
-  font-size: 1.15rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--text);
-  padding: 6px 16px;
+  padding: 4px 14px;
   border-radius: 999px;
   border: 1px solid var(--line);
   background: rgba(18, 17, 16, 0.5);
@@ -650,11 +667,10 @@ body::before {
 .promo-card-t {
   font-family: var(--serif);
   font-weight: 500;
-  font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+  font-size: clamp(1.3rem, 2.2vw, 1.6rem);
   color: var(--text);
-  margin-bottom: 12px;
 }
-.promo-card-d { color: var(--muted); font-size: 1rem; max-width: 42ch; }
+.promo-card-d { color: var(--muted); font-size: 0.98rem; }
 
 /* ============================================================
    MENU
@@ -946,6 +962,7 @@ a.fact-value:hover { color: var(--gold); }
 }
 /* Stagger children inside grids */
 .promo-grid .promo-card:nth-child(2) { transition-delay: .08s; }
+.promo-grid .promo-card:nth-child(3) { transition-delay: .16s; }
 .story-grid .story-figure { transition-delay: .1s; }
 .reviews .review:nth-child(2) { transition-delay: .08s; }
 .reviews .review:nth-child(3) { transition-delay: .16s; }

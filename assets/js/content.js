@@ -52,15 +52,17 @@ window.CONTENT = {
 
     /* ---- Promotion ---- */
     promo_eyebrow: "Ưu đãi mỗi ngày",
-    promo_title: "Hai khung giờ vàng dành cho bạn",
-    promo1_badge: "Early Bird Happy Hour",
-    promo1_time: "17:00 – 18:30",
-    promo1_t: "Đồ uống mua 1 tặng 1",
-    promo1_d: "Toàn bộ đồ uống — có cồn và không cồn — mua 1 tặng 1 trong khung giờ vàng.",
-    promo2_badge: "Reviewer Golden Hour",
-    promo2_time: "19:00 – 20:30",
-    promo2_t: "Viết review, quay số trúng thưởng",
-    promo2_d: "Viết đánh giá tại nhà hàng và quay số nhận món ăn miễn phí hoặc voucher 300K VND.",
+    promo_title: "Ba ưu đãi dành cho bạn",
+    promo1_t: "Tiệc sinh nhật",
+    promo1_d: "Dành cho khách đặt tiệc sinh nhật — trang trí bóng bay & phục vụ bánh kem.",
+    promo1_alt: "Hai mẹ con với bánh sinh nhật bên khung cảnh Hồ Tây",
+    promo2_t: "Early Bird Happy Hour",
+    promo2_time: "17:00 – 18:30",
+    promo2_d: "Toàn bộ đồ uống — có cồn và không cồn — mua 1 tặng 1 trong khung giờ vàng.",
+    promo2_alt: "Bia, nước ngọt và rượu soju",
+    promo3_t: "Bốc thăm may mắn",
+    promo3_d: "100% trúng thưởng — quà tặng & ưu đãi cho mọi khách hàng.",
+    promo3_alt: "Nhân viên mời khách bốc thăm may mắn tại bàn",
 
     /* ---- Menu ---- */
     menu_eyebrow: "Thực đơn nướng",
@@ -136,15 +138,17 @@ window.CONTENT = {
 
     /* ---- Promotion ---- */
     promo_eyebrow: "Every day offers",
-    promo_title: "Two golden hours for you",
-    promo1_badge: "Early Bird Happy Hour",
-    promo1_time: "17:00 – 18:30",
-    promo1_t: "Buy 1 Get 1 on all drinks",
-    promo1_d: "Every drink — alcoholic and non-alcoholic — is Buy 1 Get 1 during the golden hour.",
-    promo2_badge: "Reviewer Golden Hour",
-    promo2_time: "19:00 – 20:30",
-    promo2_t: "Write a review, spin to win",
-    promo2_d: "Leave a review at the restaurant and spin for a free dish or a 300K VND voucher.",
+    promo_title: "Three offers for you",
+    promo1_t: "Birthday party",
+    promo1_d: "For guests who book a birthday party — balloon decoration and cake service on us.",
+    promo1_alt: "A mother and daughter with a birthday cake by the West Lake view",
+    promo2_t: "Early Bird Happy Hour",
+    promo2_time: "17:00 – 18:30",
+    promo2_d: "Every drink — alcoholic and non-alcoholic — is Buy 1 Get 1 during the golden hour.",
+    promo2_alt: "Beer, soft drinks and soju",
+    promo3_t: "Lucky Draw",
+    promo3_d: "100% Winning Lucky Draw with Gifts & Discounts.",
+    promo3_alt: "A server offering the lucky draw box at a guest's table",
 
     /* ---- Menu ---- */
     menu_eyebrow: "The grill menu",
