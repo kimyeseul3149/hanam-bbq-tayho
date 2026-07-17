@@ -75,18 +75,34 @@
   <main>
     <!-- ============ HERO ============ -->
     <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-slides" aria-hidden="true">
-        <div class="hero-slide hero-slide--1 is-active"></div>
-        <div class="hero-slide hero-slide--2" data-bg="assets/img/hero-02-grilling.jpg"></div>
-        <div class="hero-slide hero-slide--3" data-bg="assets/img/hero-03-table.jpg"></div>
-        <div class="hero-slide hero-slide--4" data-bg="assets/img/hero-04-exterior.jpg"></div>
-        <div class="hero-slide hero-slide--5" data-bg="assets/img/hero-05-lakeview.jpg"></div>
-      </div>
-      <div class="hero-overlay" aria-hidden="true"></div>
-      <div class="wrap hero-inner">
-        <p class="hero-kicker reveal" data-i18n="hero_kicker">Korean No.1 BBQ</p>
-        <h1 class="hero-title reveal" id="hero-title" data-i18n="hero_title">Tinh hoa thịt nướng Hàn Quốc ngay tại Hồ Tây</h1>
-        <div class="hero-cta reveal">
+      <div class="wrap">
+        <div class="hero-stage">
+          <div class="hero-slides" aria-hidden="true">
+            <div class="hero-slide hero-slide--1 is-active"></div>
+            <div class="hero-slide hero-slide--2" data-bg="assets/img/hero-01b-cuts-tray.jpg"></div>
+            <div class="hero-slide hero-slide--3" data-bg="assets/img/hero-02-grilling.jpg"></div>
+            <div class="hero-slide hero-slide--4" data-bg="assets/img/hero-03-table.jpg"></div>
+            <div class="hero-slide hero-slide--5" data-bg="assets/img/hero-04-exterior.jpg"></div>
+            <div class="hero-slide hero-slide--6" data-bg="assets/img/hero-05-lakeview.jpg"></div>
+          </div>
+          <div class="hero-overlay" aria-hidden="true"></div>
+
+          <div class="hero-inner">
+            <p class="hero-kicker" data-i18n="hero_kicker">Korean No.1 BBQ</p>
+            <h1 class="hero-title" id="hero-title" data-i18n="hero_title">Tinh hoa thịt nướng Hàn Quốc ngay tại Hồ Tây</h1>
+          </div>
+
+          <div class="hero-dots" id="hero-dots" role="group" data-i18n-aria="hero_slides_label" aria-label="Hình ảnh nhà hàng">
+            <button type="button" class="hero-dot is-active" data-slide-to="0" aria-current="true"><span></span></button>
+            <button type="button" class="hero-dot" data-slide-to="1"><span></span></button>
+            <button type="button" class="hero-dot" data-slide-to="2"><span></span></button>
+            <button type="button" class="hero-dot" data-slide-to="3"><span></span></button>
+            <button type="button" class="hero-dot" data-slide-to="4"><span></span></button>
+            <button type="button" class="hero-dot" data-slide-to="5"><span></span></button>
+          </div>
+        </div>
+
+        <div class="hero-cta">
           <a class="btn btn-gold btn-lg" href="https://www.google.com/maps?cid=13948591582597685325" target="_blank" rel="noopener" data-evt-cta="directions_reserve" data-evt-loc="hero" data-evt-dest="google_maps">
             <span data-i18n="cta_directions">Chỉ đường &amp; Đặt bàn</span>
             <span class="btn-ic" aria-hidden="true">
@@ -94,18 +110,6 @@
             </span>
           </a>
           <a class="btn btn-ghost btn-lg" href="#menu" data-i18n="cta_menu" data-evt-cta="view_menu" data-evt-loc="hero" data-evt-dest="menu_anchor">Xem thực đơn</a>
-        </div>
-        <a class="scroll-ind reveal" href="#story" aria-label="Scroll to story">
-          <span class="scroll-ind-txt" data-i18n="hero_scroll">Cuộn xuống</span>
-          <span class="scroll-ind-line" aria-hidden="true"></span>
-        </a>
-
-        <div class="hero-dots" id="hero-dots" role="group" data-i18n-aria="hero_slides_label" aria-label="Hình ảnh nhà hàng">
-          <button type="button" class="hero-dot is-active" data-slide-to="0" aria-current="true"><span></span></button>
-          <button type="button" class="hero-dot" data-slide-to="1"><span></span></button>
-          <button type="button" class="hero-dot" data-slide-to="2"><span></span></button>
-          <button type="button" class="hero-dot" data-slide-to="3"><span></span></button>
-          <button type="button" class="hero-dot" data-slide-to="4"><span></span></button>
         </div>
       </div>
     </section>

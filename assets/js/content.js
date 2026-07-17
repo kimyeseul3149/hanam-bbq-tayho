@@ -17,7 +17,6 @@ window.CONTENT = {
     /* ---- Hero ---- */
     hero_kicker: "Korean No.1 BBQ",
     hero_title: "Tinh hoa thịt nướng Hàn Quốc ngay tại Hồ Tây",
-    hero_scroll: "Cuộn xuống",
     hero_slides_label: "Hình ảnh nhà hàng",
 
     /* ---- Story ---- */
@@ -32,7 +31,7 @@ window.CONTENT = {
     why_eyebrow: "Vì sao chọn Hanam",
     why_title: "Không gian cho mọi cuộc gặp gỡ",
     why_lead: "Hoàn hảo cho bữa cơm gia đình, tiệc chiêu đãi đối tác và những buổi họp mặt đông người.",
-    lakeview_banner: "Tầm nhìn trọn vẹn ra Hồ Tây — điểm chung cho mọi bữa tiệc",
+    lakeview_banner: "Trọn vẹn view Hồ Tây · Phòng riêng kín đáo · Thực đơn đa dạng",
 
     social_eyebrow: "Khách hàng nói gì",
     social_title: "Được tin yêu tại Hà Nội",
@@ -102,7 +101,6 @@ window.CONTENT = {
     /* ---- Hero ---- */
     hero_kicker: "Korean No.1 BBQ",
     hero_title: "The essence of Korean Premium BBQ at West Lake",
-    hero_scroll: "Scroll",
     hero_slides_label: "Restaurant photos",
 
     /* ---- Story ---- */
@@ -117,7 +115,7 @@ window.CONTENT = {
     why_eyebrow: "Why choose Hanam",
     why_title: "A space for every gathering",
     why_lead: "Perfect for family dining, business dinners, and group gatherings.",
-    lakeview_banner: "Full West Lake views — the common ground for every occasion",
+    lakeview_banner: "Full West Lake views · Private rooms · A menu for every taste",
 
     social_eyebrow: "What guests say",
     social_title: "Trusted across Hanoi",

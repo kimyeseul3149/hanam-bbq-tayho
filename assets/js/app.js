@@ -350,7 +350,7 @@
 
     var idx = 0;
     var timer = null;
-    var INTERVAL = 5200;
+    var INTERVAL = 3000;  // pairs with the .7s cross-fade in styles.css
 
     function loadBg(el) {
       var src = el.getAttribute("data-bg");

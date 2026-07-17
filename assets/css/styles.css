@@ -27,6 +27,8 @@
   --ease-soft: cubic-bezier(0.16, 1, 0.3, 1);
 
   --header-h: 76px;
+  --header-tall: 196px;    /* measured: unscrolled brand block + nav bar */
+  --header-mobile: 150px;  /* measured: same at <=640px */
   --r-lg: 22px;
   --r-md: 16px;
 }
@@ -287,18 +289,24 @@ body::before {
 /* ============================================================
    HERO
    ============================================================ */
+/* The photo is the product here, so the stage is a framed band under the nav
+   rather than a full-bleed backdrop — no dark wash swallowing the food. */
 .hero {
   position: relative;
-  min-height: 100svh;
-  display: flex;
-  align-items: flex-end;
-  padding-bottom: clamp(70px, 12vh, 130px);
-  padding-top: calc(var(--header-h) + 96px);
+  padding-top: calc(var(--header-tall) + 18px);
+  padding-bottom: clamp(28px, 4vh, 48px);
+}
+.hero-stage {
+  position: relative;
+  height: clamp(320px, 54vh, 560px);
+  border-radius: var(--r-lg);
   overflow: hidden;
   isolation: isolate;
+  border: 1px solid var(--line-soft);
+  background: var(--bg-2);
 }
 /* Slideshow: stacked slides cross-fade; only the active one Ken-Burns zooms. */
-.hero-slides { position: absolute; inset: 0; z-index: -2; }
+.hero-slides { position: absolute; inset: 0; z-index: 0; }
 .hero-slide {
   position: absolute;
   inset: 0;
@@ -306,100 +314,83 @@ body::before {
   background-size: cover;
   background-repeat: no-repeat;
   opacity: 0;
-  transform: scale(1.06);
-  transition: opacity 1.6s var(--ease-soft);
+  transform: scale(1.04);
+  transition: opacity .7s var(--ease-soft);
   will-change: opacity, transform;
 }
 .hero-slide.is-active {
   opacity: 1;
-  animation: heroZoom 9s var(--ease-soft) forwards;
+  animation: heroZoom 6s var(--ease-soft) forwards;
 }
 @keyframes heroZoom { to { transform: scale(1); } }
 
 /* First slide ships in CSS for LCP; the rest are lazy-assigned from data-bg. */
 .hero-slide--1 { background-image: url("../img/hero-01-cuts.jpg"); }
-.hero-slide--4 { background-position: center 30%; }
+.hero-slide--5 { background-position: center 28%; }  /* portrait exterior */
 
 .hero-dots {
   position: absolute;
-  right: 24px;
-  bottom: 4px;
+  right: 20px;
+  bottom: 16px;
   display: flex;
   gap: 10px;
-  z-index: 2;
+  z-index: 3;
 }
 .hero-dot { padding: 10px 0; display: block; }
 .hero-dot > span {
   display: block;
-  width: 28px; height: 2px;
-  background: rgba(245, 241, 232, 0.28);
+  width: 26px; height: 2px;
+  background: rgba(245, 241, 232, 0.45);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);  /* holds up over a bright slide */
   transition: background .5s var(--ease), transform .5s var(--ease);
 }
-.hero-dot:hover > span { background: rgba(245, 241, 232, 0.55); }
+.hero-dot:hover > span { background: rgba(245, 241, 232, 0.8); }
 .hero-dot.is-active > span { background: var(--gold); transform: scaleY(2); }
+/* Just enough shading under the caption to hold the text — the top two thirds
+   of every photo stay untouched. */
 .hero-overlay {
   position: absolute;
   inset: 0;
-  z-index: -1;
-  background:
-    linear-gradient(180deg, rgba(18, 17, 16, 0.55) 0%, rgba(18, 17, 16, 0.15) 34%, rgba(18, 17, 16, 0.72) 74%, var(--bg) 100%),
-    linear-gradient(75deg, rgba(18, 17, 16, 0.8) 0%, rgba(18, 17, 16, 0.25) 55%, transparent 100%);
+  z-index: 1;
+  background: linear-gradient(0deg, rgba(14, 13, 12, 0.82) 0%, rgba(14, 13, 12, 0.4) 22%, transparent 48%);
 }
-.hero-inner { position: relative; max-width: 860px; }
+.hero-inner {
+  position: absolute;
+  left: clamp(22px, 3vw, 40px);
+  right: clamp(22px, 3vw, 40px);
+  bottom: clamp(22px, 3vw, 34px);
+  z-index: 2;
+  max-width: 30ch;
+}
 .hero-kicker {
   display: inline-block;
-  font-size: 0.82rem;
+  font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--gold);
-  padding: 9px 18px;
+  padding: 6px 14px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: rgba(18, 17, 16, 0.4);
+  background: rgba(18, 17, 16, 0.45);
   backdrop-filter: blur(6px);
-  margin-bottom: 26px;
+  margin-bottom: 14px;
 }
 .hero-title {
   font-family: var(--serif);
   font-weight: 600;
-  font-size: clamp(2.5rem, 6.4vw, 4.7rem);
-  line-height: 1.04;
-  letter-spacing: -0.015em;
+  font-size: clamp(1.5rem, 2.6vw, 2.3rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
   color: var(--text);
-  max-width: 15ch;
-  text-shadow: 0 2px 40px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.75);
 }
 .hero-title::first-line { color: var(--gold-soft); }
-.hero-cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 38px; }
-
-.scroll-ind {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
-  margin-top: clamp(22px, 4vh, 44px);
-  color: var(--muted);
-  font-size: 0.68rem;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  z-index: 2;
-}
-.scroll-ind-line {
-  width: 1px; height: 46px;
-  background: linear-gradient(180deg, var(--gold), transparent);
-  position: relative;
-  overflow: hidden;
-}
-.scroll-ind-line::after {
-  content: "";
-  position: absolute; top: -50%; left: 0;
-  width: 100%; height: 50%;
-  background: var(--text);
-  animation: scrollDot 2.2s var(--ease-soft) infinite;
-}
-@keyframes scrollDot {
-  0% { top: -50%; } 60%, 100% { top: 120%; }
+.hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: clamp(20px, 3vh, 30px);
 }
 
 /* ============================================================
@@ -1039,15 +1030,15 @@ a.fact-value:hover { color: var(--gold); }
   .site-header.is-scrolled .brand-emblem { height: 30px; }
   .site-header.is-scrolled .brand-wordmark { font-size: 1rem; }
 
-  /* Hero */
-  .hero { align-items: flex-end; }
-  .hero-title { font-size: clamp(2.2rem, 10vw, 3rem); max-width: 100%; }
+  /* Hero — taller frame so a phone still sees the dish, not a letterbox strip */
+  .hero { padding-top: calc(var(--header-mobile) + 14px); }
+  .hero-stage { height: min(64vh, 460px); }
+  .hero-inner { max-width: 100%; }
+  .hero-title { font-size: clamp(1.35rem, 5.6vw, 1.8rem); }
+  /* The caption goes full-width down here, so the dots move off its line. */
+  .hero-dots { top: 14px; bottom: auto; right: 14px; }
   .hero-cta { flex-direction: column; align-items: stretch; }
   .hero-cta .btn { justify-content: center; }
-  .scroll-ind { display: none; }
-  /* No scroll indicator to anchor against here — drop the dots into the flow
-     instead of over the CTA buttons. */
-  .hero-dots { position: static; margin-top: 26px; }
 
   /* Story */
   .story-grid { grid-template-columns: 1fr; gap: 32px; }
