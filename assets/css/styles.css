@@ -438,13 +438,16 @@ body::before {
   pointer-events: none;
   background: linear-gradient(180deg, transparent 55%, rgba(18, 17, 16, 0.55) 100%);
 }
+/* Matches the section headings' serif, a few steps lighter and smaller so it
+   reads as a caption rather than a second title. */
 .story-figure figcaption {
   position: absolute;
   left: 22px; right: 22px; bottom: 18px;
   z-index: 1;
-  font-size: 0.82rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
   color: var(--gold-soft);
 }
 
