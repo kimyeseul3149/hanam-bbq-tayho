@@ -430,10 +430,13 @@
   <!-- ============ FOOTER ============ -->
   <footer class="site-footer" role="contentinfo">
     <div class="wrap footer-inner">
-      <a class="footer-brand" href="#top" aria-label="Hanam BBQ West Lake">
-        <img src="assets/img/emblem.png" alt="" width="72" height="72" />
+      <!-- Same markup as the header brand so the wordmark is typographically
+           identical top and bottom; the tagline takes the sub line's place. -->
+      <a class="footer-brand brand" href="#top" aria-label="Hanam BBQ West Lake">
+        <img class="brand-emblem" src="assets/img/emblem.png" alt="" width="72" height="72" />
+        <span class="brand-wordmark">HANAM BBQ</span>
+        <span class="brand-sub footer-tag" data-i18n="footer_tag">Korean Premium BBQ</span>
       </a>
-      <p class="footer-tag" data-i18n="footer_tag">Korean Premium BBQ</p>
       <p class="footer-rights" data-i18n="footer_rights">© Hanam BBQ Tây Hồ · West Lake Hanoi</p>
       <button type="button" class="footer-privacy" data-privacy-open>Chính sách bảo mật / Privacy Policy</button>
     </div>
