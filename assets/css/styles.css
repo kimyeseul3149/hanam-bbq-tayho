@@ -326,6 +326,7 @@ body::before {
 
 /* First slide ships in CSS for LCP; the rest are lazy-assigned from data-bg. */
 .hero-slide--1 { background-image: url("../img/hero-01-cuts.jpg"); }
+.hero-slide--3 { background-position: center 72%; }  /* table — pull down so the stews are in frame */
 .hero-slide--4 { background-position: center 42%; }  /* lake view — keep the sunset in frame */
 
 .hero-dots {
@@ -453,24 +454,76 @@ body::before {
 .why { background: linear-gradient(180deg, var(--bg), var(--bg-2) 55%, var(--bg)); }
 .why-head { max-width: 680px; margin-bottom: clamp(40px, 5vw, 64px); }
 
-.lakeview-banner {
-  margin-top: 24px;
+/* ---- Alternating feature storytelling (image <-> text) ---- */
+.feature-list {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  text-align: center;
-  padding: 22px 28px;
-  border-radius: var(--r-md);
-  border: 1px solid var(--line);
-  background:
-    linear-gradient(90deg, rgba(200, 169, 106, 0.05), rgba(200, 169, 106, 0.1), rgba(200, 169, 106, 0.05));
-  color: var(--gold-soft);
-  font-family: var(--serif);
-  font-size: clamp(1.05rem, 2vw, 1.3rem);
-  font-style: italic;
+  flex-direction: column;
+  gap: clamp(72px, 10vw, 130px);
 }
-.lakeview-ic { color: var(--gold); display: inline-flex; flex-shrink: 0; }
+.feature {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(36px, 6vw, 80px);
+  align-items: center;
+}
+/* Mirror: text left, image right. Source order stays image-first so the
+   mobile stack is always image -> text without reordering markup. The column
+   ratio flips too, so the photo keeps the wider share on both sides. */
+.feature--mirror { grid-template-columns: 0.9fr 1.1fr; }
+.feature--mirror .feature-media { order: 2; }
+.feature--mirror .feature-copy  { order: 1; }
+
+/* The ratio lives on the frame, not the img — the img's height attribute is a
+   presentational hint that would otherwise beat aspect-ratio and let each
+   photo set its own height. */
+.feature-media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  border: 1px solid var(--line-soft);
+  background: var(--bg-2);
+}
+.feature-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.96) brightness(0.9);
+  transition: transform .9s var(--ease-soft), filter .9s var(--ease-soft);
+}
+.feature-media:hover img { transform: scale(1.03); filter: saturate(1) brightness(0.97); }
+/* Slight vignette so the photo reads premium against the dark page. */
+.feature-media::after {
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(18,17,16,0.16) 0%, transparent 34%, rgba(18,17,16,0.34) 100%);
+}
+
+.feature-copy { display: flex; flex-direction: column; align-items: flex-start; }
+.feature-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 18px;
+}
+.feature-title {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin-bottom: 18px;
+}
+.feature-desc {
+  color: var(--muted);
+  font-size: 1.02rem;
+  line-height: 1.75;
+  max-width: 46ch;
+}
 
 /* social proof */
 .social { margin-top: clamp(64px, 8vw, 100px); }
@@ -649,6 +702,17 @@ body::before {
   font-weight: 500;
   font-size: clamp(1.3rem, 2.2vw, 1.6rem);
   color: var(--text);
+}
+/* Second offer inside one card (Golden Hour under Happy Hour). */
+.promo-card-t2 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(1.1rem, 1.8vw, 1.3rem);
+  color: var(--gold-soft);
+  margin-top: 10px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line-soft);
+  width: 100%;
 }
 .promo-card-d { color: var(--muted); font-size: 0.98rem; }
 
@@ -1069,6 +1133,18 @@ a.fact-value:hover { color: var(--gold); }
   transition: opacity .9s var(--ease-soft), transform .9s var(--ease-soft), filter .9s var(--ease-soft);
   will-change: opacity, transform;
 }
+
+/* Feature storytelling: the photo lifts, the copy drifts in from its outer
+   edge — mirrored rows drift the opposite way so the pair reads as one move. */
+.reveal-up, .reveal-side {
+  opacity: 0;
+  transition: opacity 1s var(--ease-soft), transform 1s var(--ease-soft);
+  will-change: opacity, transform;
+}
+.reveal-up { transform: translateY(42px); }
+.reveal-side { transform: translateX(34px); transition-delay: .12s; }
+.feature--mirror .reveal-side { transform: translateX(-34px); }
+.reveal-up.in-view, .reveal-side.in-view { opacity: 1; transform: none; }
 .reveal.in-view {
   opacity: 1;
   transform: none;
@@ -1092,6 +1168,16 @@ a.fact-value:hover { color: var(--gold); }
   .visit-grid { grid-template-columns: 1fr; gap: 28px; }
   .reviews { grid-template-columns: 1fr; }
   .review { max-width: 640px; margin: 0 auto; width: 100%; }
+
+  /* Tablet & down: always image on top, copy beneath — mirroring is dropped
+     so every row reads in the same direction. */
+  .feature { grid-template-columns: 1fr; gap: 28px; }
+  .feature--mirror .feature-media { order: 0; }
+  .feature--mirror .feature-copy  { order: 0; }
+  .feature-list { gap: clamp(56px, 9vw, 84px); }
+  .feature-media { max-width: 720px; }
+  /* Sideways drift reads as jitter in a stacked column. */
+  .reveal-side, .feature--mirror .reveal-side { transform: translateY(24px); }
 }
 
 /* ============================================================
@@ -1205,8 +1291,9 @@ a.fact-value:hover { color: var(--gold); }
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
-  .reveal { opacity: 1; transform: none; filter: none; }
+  .reveal, .reveal-up, .reveal-side { opacity: 1; transform: none; filter: none; }
   .hero-slide { transform: none; animation: none; }
+  .feature-media:hover img { transform: none; }
   .menu-modal, .menu-modal__dialog { transition: none !important; }
   .privacy-modal, .privacy-modal__dialog { transition: none !important; }
 }

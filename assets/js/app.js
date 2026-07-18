@@ -485,7 +485,7 @@
   }
 
   function initReveals() {
-    observeReveals(document.querySelectorAll(".reveal"));
+    observeReveals(document.querySelectorAll(".reveal, .reveal-up, .reveal-side"));
   }
 
   /* ---------------- Header scroll state ---------------- */
