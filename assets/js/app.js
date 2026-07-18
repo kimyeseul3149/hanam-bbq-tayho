@@ -34,9 +34,26 @@
   }
 
   /* ---------------- i18n ---------------- */
+  /* Session-scoped, not localStorage: the audience is Vietnamese, and a
+     single EN toggle used to stick forever, so anyone who once peeked at the
+     English copy was greeted in English on every later visit. The choice now
+     holds while the tab is open and every fresh visit opens in Vietnamese.
+     The old localStorage key is cleared on load, or visitors who toggled EN
+     under the previous build would keep landing in English forever. */
+  function readStoredLang() {
+    try {
+      var s = sessionStorage.getItem(LANG_KEY);
+      if (s === "vi" || s === "en") return s;
+    } catch (e) {}
+    return null;
+  }
+
   function getLang() {
-    var stored = localStorage.getItem(LANG_KEY);
-    return (stored === "vi" || stored === "en") ? stored : DEFAULT_LANG;
+    return readStoredLang() || DEFAULT_LANG;
+  }
+
+  function dropLegacyLang() {
+    try { localStorage.removeItem(LANG_KEY); } catch (e) {}
   }
 
   function applyLang(lang) {
@@ -55,7 +72,7 @@
       if (dict[k] != null) el.setAttribute("alt", dict[k]);
     });
     document.documentElement.lang = lang;
-    try { localStorage.setItem(LANG_KEY, lang); } catch (e) {}
+    try { sessionStorage.setItem(LANG_KEY, lang); } catch (e) {}
     document.querySelectorAll("[data-lang-btn]").forEach(function (b) {
       var on = b.getAttribute("data-lang-btn") === lang;
       b.classList.toggle("is-active", on);
@@ -729,6 +746,7 @@
 
   /* ---------------- Boot ---------------- */
   function boot() {
+    dropLegacyLang();
     initLangButtons();
     initNavTracking();
     initCtaTracking();

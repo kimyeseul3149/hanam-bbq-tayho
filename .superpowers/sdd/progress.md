@@ -66,3 +66,9 @@
 - `GROUP_TITLES[g].short` is the chip label, falling back to the full title. Only combo needs one: "Set Combo" ellipsised to "Set Com…" once four chips split a phone width.
 - Phone layout splits the width evenly (like .menu-tabs) rather than scrolling sideways, which had left the last chip visibly sliced. Verified no ellipsis at 390px and 320px in Vietnamese.
 - Verified: 4/4 groups land clear of the bar (gaps 23–62px on phone, 55px desktop), active chip matches on both jump and manual scroll, bar never hides behind the header, 0 console errors, no horizontal overflow.
+
+## Language default fix (2026-07-19)
+- Report: "the page opens in English". The code default was already `vi` — the cause was persistence, not the default. One EN toggle wrote `localStorage.hanam_lang` and that greeted the visitor in English on every later visit, forever.
+- Language choice now lives in sessionStorage, so it holds while the tab is open and every fresh visit opens in Vietnamese. `dropLegacyLang()` deletes the old localStorage key on boot, or anyone who toggled EN under the previous build would stay stuck in English.
+- Verified: seeded localStorage=en → reload lands in VI and the legacy key is gone; EN toggle survives a same-tab reload; cleared session → back to VI. 0 console errors.
+- User chose this over "never remember" and over keeping permanent memory (2026-07-19).
