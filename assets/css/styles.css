@@ -529,7 +529,8 @@ body::before {
 }
 
 /* social proof */
-.social { margin-top: clamp(64px, 8vw, 100px); }
+/* Its own section now, so the section padding supplies the spacing. */
+.social-section { background: linear-gradient(180deg, var(--bg), var(--bg-2) 55%, var(--bg)); }
 .social-head { text-align: center; margin-bottom: 40px; }
 .social-title {
   font-family: var(--serif);
@@ -625,7 +626,6 @@ body::before {
 /* ============================================================
    PROMOTION (Every Day Offers — sub-item of Why Choose Hanam)
    ============================================================ */
-.promo-sub { margin-top: clamp(64px, 8vw, 100px); }
 .promo-head { text-align: center; margin-bottom: clamp(40px, 5vw, 60px); }
 .promo-head .eyebrow { padding-left: 0; }
 .promo-head .eyebrow::before { display: none; }
@@ -840,6 +840,53 @@ body::before {
   border-bottom: 1px solid var(--line-soft);
 }
 .menu-group-title:not(:first-child) { margin-top: clamp(20px, 3vw, 34px); }
+
+/* Groups shown as one wide photo over a priced list (beef), or as a list
+   alone (lunch sets) — both span the whole grid. */
+.menu-banner {
+  grid-column: 1 / -1;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  border: 1px solid var(--line-soft);
+  margin-top: 6px;
+}
+.menu-banner img {
+  width: 100%;
+  aspect-ratio: 12 / 5;
+  object-fit: cover;
+  display: block;
+}
+.menu-rows {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 clamp(24px, 4vw, 48px);
+}
+.menu-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 2px;
+  border-bottom: 1px solid var(--line-soft);
+}
+.menu-row.is-clickable { cursor: pointer; transition: color .3s var(--ease); }
+.menu-row.is-clickable:hover .menu-row-name { color: var(--gold-soft); }
+.menu-row-info { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.menu-row-name {
+  font-family: var(--serif);
+  font-size: 1.02rem;
+  color: var(--text);
+  transition: color .3s var(--ease);
+}
+.menu-row-ko { font-size: 0.78rem; color: var(--muted-2); }
+.menu-row-price {
+  color: var(--gold);
+  font-weight: 600;
+  font-size: 0.95rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
 .menu-group-name {
   color: var(--gold);
   font-size: 0.82rem;
@@ -1200,6 +1247,7 @@ a.fact-value:hover { color: var(--gold); }
    ============================================================ */
 @media (max-width: 1024px) {
   .menu-grid { grid-template-columns: repeat(2, 1fr); }
+  .menu-rows { grid-template-columns: 1fr; }
   .visit-grid { grid-template-columns: 1fr; gap: 28px; }
   .reviews { grid-template-columns: 1fr; }
   .review { max-width: 640px; margin: 0 auto; width: 100%; }

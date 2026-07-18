@@ -190,6 +190,18 @@ window.MENU = {
     },
     {
       group: "pork",
+      id: "kkodeulsal",
+      ko: "꼬들살",
+      img: "assets/img/menu/pork-kkodeulsal.jpg",
+      price: "250,000 VND",
+      name: { vi: "Gáy heo 180g", en: "Pork Neck End 180g" },
+      desc: {
+        vi: "Gáy heo với lớp gân giòn sần sật, xen kẽ mỡ và nạc. Khi nướng lên cho vị béo thơm, giòn dai độc đáo.",
+        en: "This special cut has a unique chewy texture with a balance of lean and fat, offering a savory and enjoyable bite."
+      }
+    },
+    {
+      group: "pork",
       id: "galmaegisal",
       ko: "갈매기살",
       img: "assets/img/hanam-cut-f.jpg",
@@ -212,19 +224,6 @@ window.MENU = {
         en: "The prized jowl cut with fine marbling — melt-in-the-mouth tender and richly savory."
       }
     },
-    {
-      group: "pork",
-      id: "gabrisal",
-      ko: "가브리살",
-      img: "assets/img/hanam-cut-h.jpg",
-      price: "270,000 VND",
-      name: { vi: "Thịt nạc dày", en: "Pork Collar Cap (Pluma)" },
-      desc: {
-        vi: "Phần đặc biệt dày phía trên nạc vai — càng nhai càng cảm nhận nước thịt đậm đà tứa ra.",
-        en: "A thick special cut above the collar — the more you chew, the more its rich juices come through."
-      }
-    },
-
     /* ---------- Beef (8) ---------- */
     {
       group: "beef", id: "prime-kkotsal", ko: "프라임 꽃살",
@@ -457,6 +456,26 @@ window.MENU = {
       ko: "칼스버그 · 블랑 (330ml)",
       price: "70,000 VND",
       name: { vi: "Carlsberg Draft, Blanc Draft (330ml)", en: "Carlsberg Draft, Blanc Draft (330ml)" }
+    },
+    {
+      group: "trad", id: "makgeolli", ko: "막걸리 (오리지널, 청포도, 복숭아)",
+      price: "160,000 VND",
+      name: { vi: "Makgeolli (Nguyên bản, Nho xanh, Đào)", en: "Makgeolli (Original, Green Grape, Peach)" }
+    },
+    {
+      group: "trad", id: "bokbunja", ko: "복분자",
+      price: "330,000 VND",
+      name: { vi: "Bokbunja (rượu phúc bồn tử)", en: "Bokbunja (Korean Raspberry Wine)" }
+    },
+    {
+      group: "trad", id: "hwayo25", ko: "화요 25% (375ml)",
+      price: "800,000 VND",
+      name: { vi: "Hwayo 25% (375ml)", en: "Hwayo 25% (375ml)" }
+    },
+    {
+      group: "trad", id: "ilpoom-jinro25", ko: "일품진로 25% (375ml)",
+      price: "900,000 VND",
+      name: { vi: "Ilpoom Jinro 25% (375ml)", en: "Ilpoom Jinro 25% (375ml)" }
     }
   ]
 };

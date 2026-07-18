@@ -72,8 +72,14 @@
     lunch: { vi: "Set trưa", en: "Lunch Set", ko: "런치세트" },
     soju: { vi: "Rượu Soju", en: "Soju", ko: "소주" },
     beer: { vi: "Bia", en: "Beer", ko: "맥주" },
-    wine: { vi: "Rượu vang", en: "Wine", ko: "와인" }
+    trad: { vi: "Rượu truyền thống", en: "Korean Liqueur", ko: "전통주" }
   };
+
+  /* Groups rendered as one hero photo + a priced list, not a card each.
+     The beef board's cuts are too low-res to survive a card crop. */
+  var BANNER_GROUPS = { beef: "assets/img/menu/beef-hero.jpg" };
+  /* Groups rendered as a priced list with no photos at all. */
+  var LIST_GROUPS = { lunch: true };
 
   function pickLang(obj, lang) {
     return (obj && (obj[lang] || obj.vi)) || "";
@@ -123,18 +129,57 @@
       '</div>';
   }
 
+  /* A priced row: name + Korean label on the left, price on the right. */
+  function menuRowHTML(m, lang) {
+    var name = pickLang(m.name, lang);
+    var dict = (window.CONTENT && window.CONTENT[lang]) || {};
+    var hint = dict.menu_view_details || "";
+    var clickable = !!(m.desc && pickLang(m.desc, lang));
+    return '' +
+      '<li class="menu-row' + (clickable ? ' is-clickable' : '') + '"' +
+        (clickable
+          ? ' data-item-id="' + escAttr(m.id) + '" role="button" tabindex="0"' +
+            ' aria-label="' + escAttr(name + (hint ? " — " + hint : "")) + '"'
+          : '') + '>' +
+        '<span class="menu-row-info">' +
+          '<span class="menu-row-name">' + name + '</span>' +
+          '<span class="menu-row-ko" lang="ko">' + m.ko + '</span>' +
+        '</span>' +
+        '<span class="menu-row-price">' + (m.price || "") + '</span>' +
+      '</li>';
+  }
+
   function renderCardsGrouped(items, lang) {
-    var html = "";
-    var last = null;
+    // Bucket by group so a whole group can pick its own layout.
+    var order = [], byGroup = {};
     items.forEach(function (m) {
-      // Popular is a flat list — only groups with a title get a heading.
-      if (m.group && m.group !== last && GROUP_TITLES[m.group]) {
-        html += groupTitleHTML(m.group, lang);
-        last = m.group;
-      }
-      html += menuCardHTML(m, lang);
+      var g = m.group || "_";
+      if (!byGroup[g]) { byGroup[g] = []; order.push(g); }
+      byGroup[g].push(m);
     });
-    return html;
+
+    return order.map(function (g) {
+      var list = byGroup[g];
+      // Popular is a flat list — only groups with a title get a heading.
+      var head = GROUP_TITLES[g] ? groupTitleHTML(g, lang) : "";
+
+      if (BANNER_GROUPS[g]) {
+        return head +
+          '<figure class="menu-banner reveal">' +
+            '<img src="' + BANNER_GROUPS[g] + '" alt="" loading="lazy" decoding="async" />' +
+          '</figure>' +
+          '<ul class="menu-rows reveal">' +
+            list.map(function (m) { return menuRowHTML(m, lang); }).join("") +
+          '</ul>';
+      }
+      if (LIST_GROUPS[g]) {
+        return head +
+          '<ul class="menu-rows reveal">' +
+            list.map(function (m) { return menuRowHTML(m, lang); }).join("") +
+          '</ul>';
+      }
+      return head + list.map(function (m) { return menuCardHTML(m, lang); }).join("");
+    }).join("");
   }
 
   function renderAlcohol(items, lang) {
@@ -322,14 +367,14 @@
 
     // Event delegation on the grid: open modal from photo cards only.
     grid.addEventListener("click", function (e) {
-      var card = e.target.closest ? e.target.closest(".menu-card[data-item-id]") : null;
+      var card = e.target.closest ? e.target.closest(".menu-card[data-item-id], .menu-row[data-item-id]") : null;
       if (!card) return;
       var item = findMenuItem(card.getAttribute("data-item-id"));
       if (item) openMenuModal(item, card);
     });
     grid.addEventListener("keydown", function (e) {
       if (e.key !== "Enter" && e.key !== " " && e.key !== "Spacebar") return;
-      var card = e.target.closest ? e.target.closest(".menu-card[data-item-id]") : null;
+      var card = e.target.closest ? e.target.closest(".menu-card[data-item-id], .menu-row[data-item-id]") : null;
       if (!card) return;
       e.preventDefault();
       var item = findMenuItem(card.getAttribute("data-item-id"));
