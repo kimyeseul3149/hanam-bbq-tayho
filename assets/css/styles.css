@@ -1341,6 +1341,11 @@ a.fact-value:hover { color: var(--gold); }
   .nav a { font-family: var(--serif); font-size: 1.6rem; padding: 12px 0; color: var(--text); }
   .nav a::after { display: none; }
 
+  /* Once the nav collapses the bar has no flow content left, so it shrinks to
+     its padding (~21px) while .header-actions is absolutely centred at 40px —
+     the controls then spill upward over the brand block. Reserve the height. */
+  .header-bar { min-height: 52px; }
+
   /* The booking CTA stays visible once the nav collapses — it's the whole
      point of the header for an ad visitor. */
   .header-cta { padding: 10px 15px; font-size: 0.84rem; gap: 8px; }
@@ -1404,9 +1409,18 @@ a.fact-value:hover { color: var(--gold); }
   .fab-call { height: 54px; width: 54px; padding: 0; justify-content: center; }
   .fab-call-label { display: none; }
 
-  /* Header stays compact: mark left, booking CTA + hamburger right. */
-  .header-cta { padding: 9px 14px; font-size: 0.82rem; gap: 7px; }
-  .header-cta .btn-ic--lead { width: 16px; height: 16px; }
+  /* Phone header: the CTA drops its label and becomes a round icon button, so
+     the row is lang · icon · hamburger and nothing crowds the brand mark. */
+  .header-cta {
+    width: 42px; height: 42px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 50%;
+    gap: 0;
+  }
+  .header-cta > span:not(.btn-ic) { display: none; }
+  .header-cta .btn-ic--lead { width: 18px; height: 18px; }
+  .header-actions { gap: 10px; }
 
   /* Story */
   .story-grid { grid-template-columns: 1fr; gap: 32px; }

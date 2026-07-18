@@ -194,7 +194,7 @@ window.MENU = {
       ko: "꼬들살",
       img: "assets/img/menu/pork-kkodeulsal.jpg",
       price: "250,000 VND",
-      name: { vi: "Gáy heo 180g", en: "Pork Neck End 180g" },
+      name: { vi: "Gáy heo", en: "Pork Neck End" },
       desc: {
         vi: "Gáy heo với lớp gân giòn sần sật, xen kẽ mỡ và nạc. Khi nướng lên cho vị béo thơm, giòn dai độc đáo.",
         en: "This special cut has a unique chewy texture with a balance of lean and fat, offering a savory and enjoyable bite."
