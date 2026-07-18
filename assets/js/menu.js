@@ -299,41 +299,25 @@ window.MENU = {
       }
     },
 
-    /* ---------- Lunch Set (4, last) ---------- */
+    /* ---------- Lunch Set (2, last) ----------
+       One card per dish; both combos live in the description, so each card can
+       use a single large photo instead of four heavily upscaled crops. */
     {
-      group: "lunch", id: "lunch-galbi-a", ko: "양념목살갈비 콤보 A",
-      img: "assets/img/menu/lunch-galbi-a.jpg", price: "200,000 VND",
-      name: { vi: "Nạc sườn vai sốt tương — Combo A", en: "Soy-Marinated Pork Neck — Combo A" },
+      group: "lunch", id: "lunch-galbi", ko: "양념목살갈비",
+      img: "assets/img/menu/lunch-galbi.jpg", price: "200,000 VND",
+      name: { vi: "Nạc sườn vai sốt tương", en: "Soy-Marinated Pork Neck" },
       desc: {
-        vi: "1 phần nạc sườn vai sốt tương + 1 mỳ lạnh nước hoặc mỳ lạnh trộn. Thêm trứng hấp chỉ với 50.000 VND.",
-        en: "1 Soy Sauce Marinated Pork Neck + 1 Cold Buckwheat Noodle (broth or spicy). Add Steamed Egg for 50,000 VND."
+        vi: "COMBO A: 1 phần nạc sườn vai sốt tương + 1 mỳ lạnh nước hoặc mỳ lạnh trộn.\nCOMBO B: 1 phần nạc sườn vai sốt tương + 1 canh đậu tương (nhỏ) + 1 cơm trắng.\nThêm trứng hấp chỉ với 50.000 VND.",
+        en: "COMBO A: 1 Soy Sauce Marinated Pork Neck + 1 Cold Buckwheat Noodle (broth or spicy).\nCOMBO B: 1 Soy Sauce Marinated Pork Neck + 1 Soybean Paste Stew (small) + 1 Steamed Rice.\nAdd Steamed Egg for 50,000 VND."
       }
     },
     {
-      group: "lunch", id: "lunch-galbi-b", ko: "양념목살갈비 콤보 B",
-      img: "assets/img/menu/lunch-galbi-b.jpg", price: "200,000 VND",
-      name: { vi: "Nạc sườn vai sốt tương — Combo B", en: "Soy-Marinated Pork Neck — Combo B" },
+      group: "lunch", id: "lunch-jeyuk", ko: "제육볶음",
+      img: "assets/img/menu/lunch-jeyuk.jpg", price: "200,000 VND",
+      name: { vi: "Thịt heo xào cay", en: "Spicy Stir-Fried Pork" },
       desc: {
-        vi: "1 phần nạc sườn vai sốt tương + 1 canh đậu tương (nhỏ) + 1 cơm trắng. Thêm trứng hấp chỉ với 50.000 VND.",
-        en: "1 Soy Sauce Marinated Pork Neck + 1 Soybean Paste Stew (small) + 1 Steamed Rice. Add Steamed Egg for 50,000 VND."
-      }
-    },
-    {
-      group: "lunch", id: "lunch-jeyuk-a", ko: "제육볶음 콤보 A",
-      img: "assets/img/menu/lunch-jeyuk-a.jpg", price: "200,000 VND",
-      name: { vi: "Thịt heo xào cay — Combo A", en: "Spicy Stir-Fried Pork — Combo A" },
-      desc: {
-        vi: "1 phần thịt heo xào cay + 1 mỳ lạnh nước hoặc mỳ lạnh trộn. Thêm trứng hấp chỉ với 50.000 VND.",
-        en: "1 Spicy Stir-Fried Pork + 1 Cold Buckwheat Noodle (broth or spicy). Add Steamed Egg for 50,000 VND."
-      }
-    },
-    {
-      group: "lunch", id: "lunch-jeyuk-b", ko: "제육볶음 콤보 B",
-      img: "assets/img/menu/lunch-jeyuk-b.jpg", price: "200,000 VND",
-      name: { vi: "Thịt heo xào cay — Combo B", en: "Spicy Stir-Fried Pork — Combo B" },
-      desc: {
-        vi: "1 phần thịt heo xào cay + 1 canh đậu tương (nhỏ) + 1 cơm trắng. Thêm trứng hấp chỉ với 50.000 VND.",
-        en: "1 Spicy Stir-Fried Pork + 1 Soybean Paste Stew (small) + 1 Steamed Rice. Add Steamed Egg for 50,000 VND."
+        vi: "COMBO A: 1 phần thịt heo xào cay + 1 mỳ lạnh nước hoặc mỳ lạnh trộn.\nCOMBO B: 1 phần thịt heo xào cay + 1 canh đậu tương (nhỏ) + 1 cơm trắng.\nThêm trứng hấp chỉ với 50.000 VND.",
+        en: "COMBO A: 1 Spicy Stir-Fried Pork + 1 Cold Buckwheat Noodle (broth or spicy).\nCOMBO B: 1 Spicy Stir-Fried Pork + 1 Soybean Paste Stew (small) + 1 Steamed Rice.\nAdd Steamed Egg for 50,000 VND."
       }
     }
   ],
