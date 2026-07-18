@@ -296,7 +296,16 @@
     var priceEl = modalEl.querySelector("#menu-modal-price");
     var descEl = modalEl.querySelector("#menu-modal-desc");
 
-    if (img) { img.setAttribute("src", item.img || ""); img.setAttribute("alt", name); }
+    // Beef cuts and lunch sets carry no photo — hide the figure rather than
+    // leaving an empty frame.
+    var figure = modalEl.querySelector(".menu-modal__figure");
+    if (item.img) {
+      if (img) { img.setAttribute("src", item.img); img.setAttribute("alt", name); }
+      if (figure) figure.hidden = false;
+    } else {
+      if (img) { img.removeAttribute("src"); img.setAttribute("alt", ""); }
+      if (figure) figure.hidden = true;
+    }
     if (ko) ko.textContent = item.ko || "";
     if (nameEl) nameEl.textContent = name;
     if (priceEl) priceEl.textContent = item.price || "";

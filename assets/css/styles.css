@@ -387,12 +387,66 @@ body::before {
   text-shadow: 0 2px 24px rgba(0, 0, 0, 0.75);
 }
 .hero-title::first-line { color: var(--gold-soft); }
+/* Booking first at full width, then browse + verify side by side.
+   Every target clears 48px so it's comfortable on a phone. */
 .hero-cta {
   display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
+  flex-direction: column;
+  gap: 12px;
   margin-top: clamp(20px, 3vh, 30px);
+  max-width: 620px;
 }
+.btn-primary-wide {
+  width: 100%;
+  justify-content: center;
+  min-height: 56px;
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+}
+.hero-cta-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.hero-cta-row .btn {
+  justify-content: center;
+  min-height: 50px;
+  padding: 12px 14px;
+  font-size: 0.92rem;
+  gap: 9px;
+}
+/* Leading icons sit before the label and shouldn't drift on hover. */
+.btn-ic--lead { width: 22px; height: 22px; }
+.btn-gold:hover .btn-ic--lead { transform: none; }
+
+/* ---- Floating call button ---- */
+.fab-call {
+  position: fixed;
+  right: clamp(16px, 4vw, 28px);
+  bottom: clamp(16px, 4vw, 28px);
+  z-index: 90;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 56px;
+  padding: 0 20px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--gold-soft), var(--gold));
+  color: #201a10;
+  font-weight: 700;
+  font-size: 0.95rem;
+  box-shadow: 0 14px 34px -10px rgba(200, 169, 106, 0.55),
+              inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+}
+.fab-call:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 44px -10px rgba(200, 169, 106, 0.65),
+              inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+.fab-call:active { transform: translateY(0) scale(0.97); }
+/* Keep the FAB clear of the privacy modal and menu lightbox. */
+body.modal-open .fab-call { display: none; }
 
 /* ============================================================
    STORY
@@ -843,16 +897,19 @@ body::before {
 
 /* Groups shown as one wide photo over a priced list (beef), or as a list
    alone (lunch sets) — both span the whole grid. */
+/* Capped at 76% of the grid so the 1600px source is never displayed beyond
+   its own resolution — the previous full-bleed banner was upscaling it. */
 .menu-banner {
   grid-column: 1 / -1;
+  width: min(76%, 800px);
+  margin: 6px auto 0;
   border-radius: var(--r-lg);
   overflow: hidden;
   border: 1px solid var(--line-soft);
-  margin-top: 6px;
 }
 .menu-banner img {
   width: 100%;
-  aspect-ratio: 12 / 5;
+  aspect-ratio: 2.43 / 1;   /* the source's native ratio — no cropping */
   object-fit: cover;
   display: block;
 }
@@ -1288,7 +1345,9 @@ a.fact-value:hover { color: var(--gold); }
   .nav a { font-family: var(--serif); font-size: 1.6rem; padding: 12px 0; color: var(--text); }
   .nav a::after { display: none; }
 
-  .header-cta { display: none; }
+  /* The booking CTA stays visible once the nav collapses — it's the whole
+     point of the header for an ad visitor. */
+  .header-cta { padding: 10px 15px; font-size: 0.84rem; gap: 8px; }
   .nav-toggle {
     display: inline-flex;
     flex-direction: column;
@@ -1337,8 +1396,18 @@ a.fact-value:hover { color: var(--gold); }
   .hero-title { font-size: clamp(1.35rem, 5.6vw, 1.8rem); }
   /* The caption goes full-width down here, so the dots move off its line. */
   .hero-dots { top: 14px; bottom: auto; right: 14px; }
-  .hero-cta { flex-direction: column; align-items: stretch; }
+  .hero-cta { align-items: stretch; }
   .hero-cta .btn { justify-content: center; }
+  .hero-cta-row .btn { padding: 12px 8px; font-size: 0.85rem; gap: 6px; }
+  .hero-cta-row .btn-ic--lead { width: 18px; height: 18px; }
+
+  /* Icon-only FAB on a phone — the label eats thumb space. */
+  .fab-call { height: 54px; width: 54px; padding: 0; justify-content: center; }
+  .fab-call-label { display: none; }
+
+  /* Header stays compact: mark left, booking CTA + hamburger right. */
+  .header-cta { padding: 9px 14px; font-size: 0.82rem; gap: 7px; }
+  .header-cta .btn-ic--lead { width: 16px; height: 16px; }
 
   /* Story */
   .story-grid { grid-template-columns: 1fr; gap: 32px; }

@@ -13,6 +13,7 @@ window.CONTENT = {
     cta_message: "Nhắn tin đặt bàn",
     cta_call: "Gọi điện",
     cta_menu: "Xem thực đơn",
+    cta_maps: "Xem trên Google Maps",
 
     /* ---- Hero ---- */
     hero_kicker: "Korean No.1 BBQ",
@@ -120,9 +121,10 @@ window.CONTENT = {
     nav_why: "Why Hanam",
     nav_visit: "Visit",
     cta_directions: "Directions & Reserve",
-    cta_message: "Message to book",
-    cta_call: "Call us",
-    cta_menu: "View menu",
+    cta_message: "Message to Book",
+    cta_call: "Call to Book",
+    cta_menu: "View Menu",
+    cta_maps: "View on Google Maps",
 
     /* ---- Hero ---- */
     hero_kicker: "Korean No.1 BBQ",
