@@ -21,7 +21,7 @@ window.CONTENT = {
 
     /* ---- Story ---- */
     story_eyebrow: "Câu chuyện Hanam",
-    story_title: "Gần bạn hơn, cùng nhau",
+    story_title: "Gần bạn hơn, cùng nhau sum vầy",
     story_lead: "Suốt 16 năm, Hanam đã thay đổi định kiến về thịt heo — bắt đầu từ sự tận tâm trong phục vụ, dẫn dắt thị trường bằng chất lượng và sự chân thành.",
     story_body: "Từ một quán nhỏ tại Hàn Quốc năm 2010 đến 176 nhà hàng trên khắp châu Á, Hanam vẫn giữ nguyên một giá trị: một nơi ấm áp để bạn trò chuyện cùng những người thân yêu. Hôm nay, giá trị ấy đến gần hơn với Hà Nội.",
     story_team_cap: "Dịch vụ nướng tận bàn",
