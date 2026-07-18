@@ -8,7 +8,7 @@
   var DEFAULT_LANG = "vi";
   var prefersReduced = window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var currentMenuCat = "main";
+  var currentMenuCat = "popular";
 
   /* ---------------- Analytics (Amplitude taxonomy) ----------------
    * See docs/analytics/amplitude-taxonomy.md.
@@ -66,11 +66,13 @@
 
   /* ---------------- Menu ---------------- */
   var GROUP_TITLES = {
+    combo: { vi: "Set Combo", en: "Combo", ko: "콤보" },
     pork: { vi: "Thịt heo", en: "Pork", ko: "돼지고기" },
-    beef: { vi: "Bò Wagyu", en: "Wagyu Beef", ko: "소고기" },
-    combo: { vi: "Set trưa", en: "Lunch Set", ko: "런치세트" },
+    beef: { vi: "Thịt bò", en: "Beef", ko: "소고기" },
+    lunch: { vi: "Set trưa", en: "Lunch Set", ko: "런치세트" },
     soju: { vi: "Rượu Soju", en: "Soju", ko: "소주" },
-    beer: { vi: "Bia", en: "Beer", ko: "맥주" }
+    beer: { vi: "Bia", en: "Beer", ko: "맥주" },
+    wine: { vi: "Rượu vang", en: "Wine", ko: "와인" }
   };
 
   function pickLang(obj, lang) {
@@ -85,14 +87,11 @@
 
   function menuCardHTML(m, lang) {
     var name = pickLang(m.name, lang);
-    var desc = pickLang(m.desc, lang);
     var price = m.price || "";
     var dict = (window.CONTENT && window.CONTENT[lang]) || {};
     var hint = dict.menu_view_details || "";
     var ariaLabel = name + (hint ? " — " + hint : "");
-    var descHTML = desc
-      ? '<p class="menu-desc">' + desc.replace(/\n/g, "<br>") + "</p>"
-      : "";
+    // The description belongs to the detail modal only — the grid stays scannable.
     var priceHTML = price
       ? '<span class="menu-price">' + price + "</span>"
       : "";
@@ -110,7 +109,6 @@
               priceHTML +
             '</div>' +
           '</div>' +
-          descHTML +
         '</div>' +
       '</article>';
   }
@@ -129,7 +127,8 @@
     var html = "";
     var last = null;
     items.forEach(function (m) {
-      if (m.group && m.group !== last) {
+      // Popular is a flat list — only groups with a title get a heading.
+      if (m.group && m.group !== last && GROUP_TITLES[m.group]) {
         html += groupTitleHTML(m.group, lang);
         last = m.group;
       }
@@ -169,9 +168,23 @@
           '<ul class="alcohol-items">' + rows + '</ul>' +
         '</div>';
     }).join("");
+    // Corkage is a house rule, not a product — it sits under the drink list.
+    var corkageHTML = dict.menu_corkage_title
+      ? '<div class="corkage reveal">' +
+          '<span class="corkage-title">' + dict.menu_corkage_title + '</span>' +
+          '<ul class="corkage-list">' +
+            '<li><span>' + dict.menu_corkage_wine + '</span>' +
+                '<span class="corkage-price">' + dict.menu_corkage_wine_price + '</span></li>' +
+            '<li><span>' + dict.menu_corkage_spirit + '</span>' +
+                '<span class="corkage-price">' + dict.menu_corkage_spirit_price + '</span></li>' +
+          '</ul>' +
+        '</div>'
+      : '';
+
     return '' +
       (note ? '<p class="alcohol-note reveal">' + note + '</p>' : '') +
-      '<div class="alcohol-list">' + listHTML + '</div>';
+      '<div class="alcohol-list">' + listHTML + '</div>' +
+      corkageHTML;
   }
 
   function renderMenu(lang) {

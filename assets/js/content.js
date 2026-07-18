@@ -78,13 +78,19 @@ window.CONTENT = {
 
     /* ---- Menu ---- */
     menu_eyebrow: "Thực đơn nướng",
-    menu_title: "Thực đơn đầy đủ — Món chính & Món phụ",
+    menu_title: "Thực đơn",
     menu_lead: "Thịt heo tươi tuyển chọn, thái dày 2cm theo từng phần thịt, cùng các món phụ đậm đà chuẩn vị Hàn Quốc.",
     menu_note: "Thực đơn đầy đủ và bảng giá có sẵn tại nhà hàng.",
+    menu_tab_popular: "Phổ biến",
     menu_tab_main: "Món chính",
     menu_tab_side: "Món phụ",
     menu_tab_alcohol: "Đồ uống",
     menu_alcohol_note: "Mang đến trải nghiệm ẩm thực tuyệt vời cùng đa dạng các loại đồ uống.",
+    menu_corkage_title: "Phí mang rượu từ ngoài vào",
+    menu_corkage_wine: "Rượu vang (750 ml)",
+    menu_corkage_wine_price: "300,000 VND/chai",
+    menu_corkage_spirit: "Rượu mạnh / Liqueur (700 ml)",
+    menu_corkage_spirit_price: "500,000 VND/chai",
     menu_view_details: "Xem chi tiết",
     menu_modal_close: "Đóng",
 
@@ -182,13 +188,19 @@ window.CONTENT = {
 
     /* ---- Menu ---- */
     menu_eyebrow: "The grill menu",
-    menu_title: "Full Menu — Main & Side Dishes",
+    menu_title: "Menu",
     menu_lead: "Hand-selected fresh pork, trimmed to 2cm by cut, paired with signature Korean side dishes.",
     menu_note: "Full menu and prices available in-store.",
+    menu_tab_popular: "Popular",
     menu_tab_main: "Main Menu",
     menu_tab_side: "Side Menu",
     menu_tab_alcohol: "Alcohol",
     menu_alcohol_note: "A wonderful dining experience paired with a diverse selection of drinks.",
+    menu_corkage_title: "Corkage — bringing your own bottle",
+    menu_corkage_wine: "Wine (750 ml)",
+    menu_corkage_wine_price: "300,000 VND/bottle",
+    menu_corkage_spirit: "Spirits / Liqueur (700 ml)",
+    menu_corkage_spirit_price: "500,000 VND/bottle",
     menu_view_details: "View details",
     menu_modal_close: "Close",
 

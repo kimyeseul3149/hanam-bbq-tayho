@@ -6,7 +6,139 @@
  * TODO(review): VN native check — vi/en name/desc are draft translations.
  */
 window.MENU = {
+  /* Popular = the six most-ordered picks, mirrored from the other tabs.
+     Ids are prefixed pop- because findMenuItem() searches the active tab only. */
+  popular: [
+    {
+      group: "popular", id: "pop-combo-pig-a", ko: "콤보 A",
+      img: "assets/img/menu/combo-pig-a.jpg", price: "540,000 VND",
+      name: { vi: "Combo A", en: "Combo A" },
+      desc: {
+        vi: "Ba chỉ heo 180g + Gáy heo 180g + 1 Canh trứng hấp.",
+        en: "Pork Belly 180g + Pork Neck End 180g + 1 Steamed Egg."
+      }
+    },
+    {
+      group: "popular", id: "pop-combo-beef-prime", ko: "프라임 콤보",
+      img: "assets/img/menu/combo-beef-prime.jpg", price: "1,650,000 VND",
+      name: { vi: "Prime Combo", en: "Prime Combo" },
+      desc: {
+        vi: "Thăn hoa bò Prime 130g + Thăn lưng bò Prime 130g + Bẹ vai bò Prime 130g + 1 canh bất kỳ.",
+        en: "Prime Beef Short Rib 130g + Prime Sirloin 130g + Prime Chuck Flap Tail 130g + One Stew."
+      }
+    },
+    {
+      group: "popular", id: "pop-saengsamgyeopsal", ko: "생삼겹살",
+      img: "assets/img/hanam-cut-c.jpg", price: "250,000 VND",
+      name: { vi: "Ba chỉ heo tươi", en: "Fresh Pork Belly" },
+      desc: {
+        vi: "Ba chỉ heo tươi (không ủ) cắt dày — ngoài giòn, trong mọng nước. Món kinh điển nhất định phải thử của BBQ Hàn Quốc.",
+        en: "Thick-cut fresh (un-aged) pork belly — crisp outside, juicy within. The must-try classic of Korean BBQ."
+      }
+    },
+    {
+      group: "popular", id: "pop-steamed-egg", ko: "계란찜",
+      img: "assets/img/side-steamed-egg.jpg", price: "90,000 VND",
+      name: { vi: "Trứng hấp trứng cá chuồn", en: "Steamed Egg with Flying Fish Roe" },
+      desc: {
+        vi: "Trứng hấp mềm mịn như bông, điểm thêm trứng cá chuồn cho vị mặn nhẹ và độ giòn tan thú vị.",
+        en: "Silky steamed egg, whipped light and fluffy, finished with flying fish roe for a gentle brine and a delicate pop."
+      }
+    },
+    {
+      group: "popular", id: "pop-kimchi-stew", ko: "돼지고기 김치찌개",
+      img: "assets/img/side-kimchi-stew.jpg", price: "200,000 VND",
+      name: { vi: "Canh kim chi thịt heo", en: "Pork Kimchi Stew" },
+      desc: {
+        vi: "Canh kim chi đậm đà nấu cùng thịt heo và kim chi lên men — món canh cân bằng hoàn hảo vị béo của thịt nướng.",
+        en: "A deep, tangy stew of well-fermented kimchi and pork — the classic counterpoint to a rich grill."
+      }
+    },
+    {
+      group: "popular", id: "pop-mul-naengmyeon", ko: "물냉면",
+      img: "assets/img/side-mul-naengmyeon.jpg", price: "150,000 VND",
+      name: { vi: "Mì lạnh nước", en: "Cold Buckwheat Noodles in Broth" },
+      desc: {
+        vi: "Mì kiều mạch dai mát trong nước dùng lạnh thanh vị — món kết bữa sảng khoái sau khi nướng.",
+        en: "Chewy buckwheat noodles in a clean, icy broth — the refreshing way to finish a grill."
+      }
+    }
+  ],
+
   main: [
+    /* ---------- Combo (8) ---------- */
+    {
+      group: "combo", id: "combo-pig-a", ko: "콤보 A",
+      img: "assets/img/menu/combo-pig-a.jpg", price: "540,000 VND",
+      name: { vi: "Combo A", en: "Combo A" },
+      desc: {
+        vi: "Ba chỉ heo 180g + Gáy heo 180g + 1 Canh trứng hấp.",
+        en: "Pork Belly 180g + Pork Neck End 180g + 1 Steamed Egg."
+      }
+    },
+    {
+      group: "combo", id: "combo-pig-b", ko: "콤보 B",
+      img: "assets/img/menu/combo-pig-b.jpg", price: "900,000 VND",
+      name: { vi: "Combo B", en: "Combo B" },
+      desc: {
+        vi: "Ba chỉ heo 180g + Gáy heo 180g + Má heo 150g + 1 Trứng hấp + Khay nấm.",
+        en: "Pork Belly 180g + Pork Neck End 180g + Jowl Meat 150g + 1 Steamed Egg + Assorted Mushrooms."
+      }
+    },
+    {
+      group: "combo", id: "combo-pig-c", ko: "콤보 C",
+      img: "assets/img/menu/combo-pig-c.jpg", price: "1,250,000 VND",
+      name: { vi: "Combo C", en: "Combo C" },
+      desc: {
+        vi: "Ba chỉ heo 360g + Má heo 150g + Nạc dây heo 150g + 1 Canh bất kỳ + Trứng hấp trứng cá chuồn.",
+        en: "Pork Belly 360g + Jowl Meat 150g + Skirt Meat 150g + One Stew + 1 Steamed Egg with Flying Fish Roe."
+      }
+    },
+    {
+      group: "combo", id: "combo-pig-d", ko: "콤보 D",
+      img: "assets/img/menu/combo-pig-d.jpg", price: "1,500,000 VND",
+      name: { vi: "Combo D", en: "Combo D" },
+      desc: {
+        vi: "Ba chỉ heo 360g + Má heo 300g + Nạc dây heo 150g + 1 Canh bất kỳ + Trứng hấp trứng cá chuồn.",
+        en: "Pork Belly 360g + Jowl Meat 300g + Skirt Meat 150g + One Stew + 1 Steamed Egg with Flying Fish Roe."
+      }
+    },
+    {
+      group: "combo", id: "combo-beef-a", ko: "소고기 콤보 A",
+      img: "assets/img/menu/combo-beef-a.jpg", price: "1,260,000 VND",
+      name: { vi: "Beef Combo A", en: "Beef Combo A" },
+      desc: {
+        vi: "Diềm bụng bò 150g + Dẻ sườn 300g + 1 Trứng hấp và Khay nấm.",
+        en: "Hanging Tender 150g + Beef Short Rib Finger 300g + Steamed Egg and Assorted Mushrooms."
+      }
+    },
+    {
+      group: "combo", id: "combo-beef-b", ko: "소고기 콤보 B",
+      img: "assets/img/menu/combo-beef-b.jpg", price: "1,800,000 VND",
+      name: { vi: "Beef Combo B", en: "Beef Combo B" },
+      desc: {
+        vi: "Sườn hoa rút xương Prime 130g + Thăn lưng Prime 130g + Diềm bụng 150g + Dẻ sườn 150g + 1 canh bất kỳ.",
+        en: "Prime Beef Short Rib 130g + Prime Sirloin 130g + Hanging Tender 150g + Beef Short Rib Finger 150g + One Stew."
+      }
+    },
+    {
+      group: "combo", id: "combo-beef-prime", ko: "프라임 콤보",
+      img: "assets/img/menu/combo-beef-prime.jpg", price: "1,650,000 VND",
+      name: { vi: "Prime Combo", en: "Prime Combo" },
+      desc: {
+        vi: "Thăn hoa bò Prime 130g + Thăn lưng bò Prime 130g + Bẹ vai bò Prime 130g + 1 canh bất kỳ.",
+        en: "Prime Beef Short Rib 130g + Prime Sirloin 130g + Prime Chuck Flap Tail 130g + One Stew."
+      }
+    },
+    {
+      group: "combo", id: "combo-wagyu", ko: "와규 콤보",
+      img: "assets/img/menu/combo-wagyu.jpg", price: "2,600,000 VND",
+      name: { vi: "Wagyu Combo", en: "Wagyu Combo" },
+      desc: {
+        vi: "Thăn hoa Wagyu A5 130g + Thăn tôm Wagyu A5 130g + Bẹ vai Wagyu A5 130g + 1 Canh bất kỳ + 1 Trứng hấp.",
+        en: "Wagyu Ribeye A5 130g + Wagyu Striploin A5 130g + Wagyu Chuck Flap Tail A5 130g + One Stew + Steamed Egg with Flying Fish Roe."
+      }
+    },
     /* ---------- Pork (7) ---------- */
     {
       group: "pork",
@@ -93,55 +225,115 @@ window.MENU = {
       }
     },
 
-    /* ---------- Beef / Wagyu (2) ---------- */
+    /* ---------- Beef (8) ---------- */
     {
-      group: "beef",
-      id: "wagyu-salchisal",
-      ko: "와규 살치살 A5",
-      img: "assets/img/beef-salchisal.jpg",
-      price: "800,000 VND",
-      name: { vi: "Bẹ vai Wagyu A5 (130g)", en: "Wagyu Chuck Flap Tail A5 (130g)" },
+      group: "beef", id: "prime-kkotsal", ko: "프라임 꽃살",
+      img: "assets/img/menu/beef-kkotsal.jpg", price: "600,000 VND",
+      name: { vi: "Sườn hoa rút xương Prime 130g", en: "Prime Beef Short Rib 130g" },
       desc: {
-        vi: "Bẹ vai Wagyu A5 — thớ săn mà mềm, vân mỡ tinh tế, thơm đậm khi nướng.",
-        en: "Wagyu A5 chuck flap tail — firm yet tender, delicate marbling, rich aroma when grilled."
+        vi: "Phần sườn hoa Prime, vân mỡ xen kẽ đều, thịt mềm mọng và thơm ngọt tự nhiên. Khi nướng cho hương vị đậm đà, béo ngậy và cực kỳ hấp dẫn.",
+        en: "Prime beef short rib with beautiful marbling, juicy tenderness, and rich flavor when grilled."
       }
     },
     {
-      group: "beef",
-      id: "wagyu-combo",
-      ko: "와규 콤보",
-      img: "assets/img/beef-wagyu-combo.jpg",
-      price: "2,600,000 VND",
-      name: { vi: "Combo Wagyu", en: "Wagyu Combo" },
+      group: "beef", id: "prime-salchisal", ko: "프라임 살치살",
+      img: "assets/img/menu/beef-salchisal.jpg", price: "550,000 VND",
+      name: { vi: "Bẹ vai Prime 130g", en: "Prime Chuck Flap Tail 130g" },
       desc: {
-        vi: "Thăn hoa + Thăn ngoại + Bẹ vai Wagyu A5 (130g mỗi loại) + 1 canh tùy chọn + trứng hấp trứng cá chuồn.",
-        en: "Wagyu Ribeye + Striploin + Chuck Flap Tail A5 (130g each) + 1 stew + steamed egg with flying-fish roe."
+        vi: "Phần bẹ vai Prime, nổi bật với hương vị đậm đà và thớ thịt chắc khỏe. Khi nướng, lớp mỡ mỏng tan chảy hòa quyện với nạc, tạo nên vị ngọt béo hài hòa và thơm lừng.",
+        en: "Prime chuck flap tail offering a bold beefy flavor, balanced marbling, and a rich taste enhanced when grilled."
+      }
+    },
+    {
+      group: "beef", id: "prime-deungsim", ko: "프라임 등심",
+      img: "assets/img/menu/beef-deungsim.jpg", price: "500,000 VND",
+      name: { vi: "Thăn lưng bò Prime 130g", en: "Prime Sirloin 130g" },
+      desc: {
+        vi: "Thăn lưng bò Prime, thớ thịt săn chắc, ít mỡ, vị ngọt đậm và dậy hương bò đặc trưng. Thích hợp cho khách muốn thưởng thức hương vị bò nguyên bản.",
+        en: "Prime sirloin with lean tenderness, a bold beefy taste, and balanced tenderness — for those who enjoy a pure beef flavor."
+      }
+    },
+    {
+      group: "beef", id: "hwangje-neukgansal", ko: "황제늑간살",
+      img: "assets/img/menu/beef-neukgan.jpg", price: "370,000 VND",
+      name: { vi: "Dẻ sườn 150g", en: "Beef Short Rib Finger 150g" },
+      desc: {
+        vi: "Phần dẻ sườn, xen kẽ nhiều gân nhỏ tạo độ giòn sần sật. Khi nướng tỏa hương thơm đặc trưng, thịt đậm đà, vừa giòn vừa ngọt, rất được yêu thích.",
+        en: "Beef short rib finger with rich flavor, a chewy-crisp texture, and a savory taste that stands out when grilled."
+      }
+    },
+    {
+      group: "beef", id: "tosisal", ko: "토시살",
+      img: "assets/img/menu/beef-tosisal.jpg", price: "370,000 VND",
+      name: { vi: "Diềm bụng 150g", en: "Hanging Tender 150g" },
+      desc: {
+        vi: "Phần diềm bụng cách gân mỡ, mỗi con bò chỉ có một miếng nhỏ, hương vị đậm đà đặc trưng. Thịt mềm nhưng chắc, xen chút gân tạo độ giòn, khi nướng dậy mùi thơm khó quên.",
+        en: "Hanging tender with a bold beefy flavor — a rare cut with juicy tenderness and a slightly chewy bite that stands out when grilled."
+      }
+    },
+    {
+      group: "beef", id: "wagyu-salchisal-a5", ko: "와규 살치살 A5",
+      img: "assets/img/menu/wagyu-salchisal.jpg", price: "800,000 VND",
+      name: { vi: "Bẹ vai Wagyu A5 130g", en: "Wagyu Chuck Flap Tail A5 130g" },
+      desc: {
+        vi: "Phần bẹ vai Wagyu A5, nổi bật với thớ thịt vân sắc nét, khi nướng tỏa hương thơm đậm đà. Thịt vừa mềm vừa có độ dai nhẹ, cho trải nghiệm trọn vẹn vị Wagyu cao cấp.",
+        en: "Wagyu A5 chuck flap tail with a firm yet tender texture, delicate marbling, and a rich savory aroma when grilled."
+      }
+    },
+    {
+      group: "beef", id: "wagyu-saewoosal-a5", ko: "와규 새우살 A5",
+      img: "assets/img/menu/wagyu-saewoo.jpg", price: "790,000 VND",
+      name: { vi: "Thăn tôm Wagyu A5 130g", en: "Wagyu Striploin A5 130g" },
+      desc: {
+        vi: "Phần thăn tôm Wagyu A5 — hạng cao cấp nhất, nổi bật với vân mỡ hoàn hảo, thịt mềm tan, hương vị béo ngậy và ngọt thơm đặc trưng.",
+        en: "Premium Wagyu A5 striploin with exceptional marbling, buttery tenderness, and a rich, melt-in-the-mouth flavor."
+      }
+    },
+    {
+      group: "beef", id: "wagyu-kkotdeungsim-a5", ko: "와규 꽃등심 A5",
+      img: "assets/img/menu/wagyu-kkotdeung.jpg", price: "790,000 VND",
+      name: { vi: "Thăn hoa Wagyu A5 130g", en: "Wagyu Ribeye A5 130g" },
+      desc: {
+        vi: "Phần thăn hoa Wagyu A5, nổi bật với vân mỡ hoa đẹp mắt, thịt mềm ngọt, béo ngậy và đậm đà. Là phần thịt cao cấp, mang lại trải nghiệm trọn vẹn trong từng miếng.",
+        en: "Premium Wagyu A5 ribeye with exquisite marbling, tender juiciness, and rich flavor in every bite."
       }
     },
 
-    /* ---------- Combo / Lunch Set (2, last) ---------- */
+    /* ---------- Lunch Set (4, last) ---------- */
     {
-      group: "combo",
-      id: "moksal-set",
-      ko: "양념목살갈비 세트",
-      img: "assets/img/combo-moksal.jpg",
-      price: "200,000 VND",
-      name: { vi: "Set trưa Nạc Sườn Vai Sốt Tương", en: "Marinated Pork Neck Lunch Set" },
+      group: "lunch", id: "lunch-galbi-a", ko: "양념목살갈비 콤보 A",
+      img: "assets/img/menu/lunch-galbi-a.jpg", price: "200,000 VND",
+      name: { vi: "Nạc sườn vai sốt tương — Combo A", en: "Soy-Marinated Pork Neck — Combo A" },
       desc: {
-        vi: "COMBO A: nạc sườn vai sốt tương + mì lạnh nước hoặc mì lạnh trộn.\nCOMBO B: nạc sườn vai + canh tương đậu (nhỏ) + cơm trắng.\nThêm trứng hấp +50,000 VND.",
-        en: "COMBO A: marinated pork neck + cold or spicy buckwheat noodle.\nCOMBO B: marinated pork neck + soybean-paste stew (small) + steamed rice.\nAdd steamed egg +50,000 VND."
+        vi: "1 phần nạc sườn vai sốt tương + 1 mỳ lạnh nước hoặc mỳ lạnh trộn. Thêm trứng hấp chỉ với 50.000 VND.",
+        en: "1 Soy Sauce Marinated Pork Neck + 1 Cold Buckwheat Noodle (broth or spicy). Add Steamed Egg for 50,000 VND."
       }
     },
     {
-      group: "combo",
-      id: "jeyuk-set",
-      ko: "제육볶음 세트",
-      img: "assets/img/combo-jeyuk.jpg",
-      price: "200,000 VND",
-      name: { vi: "Set trưa Thịt Heo Xào Cay", en: "Spicy Stir-fried Pork Lunch Set" },
+      group: "lunch", id: "lunch-galbi-b", ko: "양념목살갈비 콤보 B",
+      img: "assets/img/menu/lunch-galbi-b.jpg", price: "200,000 VND",
+      name: { vi: "Nạc sườn vai sốt tương — Combo B", en: "Soy-Marinated Pork Neck — Combo B" },
       desc: {
-        vi: "COMBO A: thịt heo xào cay + mì lạnh nước hoặc mì lạnh trộn.\nCOMBO B: thịt heo xào cay + canh tương đậu (nhỏ) + cơm trắng.\nThêm trứng hấp +50,000 VND.",
-        en: "COMBO A: spicy stir-fried pork + cold or spicy buckwheat noodle.\nCOMBO B: spicy stir-fried pork + soybean-paste stew (small) + steamed rice.\nAdd steamed egg +50,000 VND."
+        vi: "1 phần nạc sườn vai sốt tương + 1 canh đậu tương (nhỏ) + 1 cơm trắng. Thêm trứng hấp chỉ với 50.000 VND.",
+        en: "1 Soy Sauce Marinated Pork Neck + 1 Soybean Paste Stew (small) + 1 Steamed Rice. Add Steamed Egg for 50,000 VND."
+      }
+    },
+    {
+      group: "lunch", id: "lunch-jeyuk-a", ko: "제육볶음 콤보 A",
+      img: "assets/img/menu/lunch-jeyuk-a.jpg", price: "200,000 VND",
+      name: { vi: "Thịt heo xào cay — Combo A", en: "Spicy Stir-Fried Pork — Combo A" },
+      desc: {
+        vi: "1 phần thịt heo xào cay + 1 mỳ lạnh nước hoặc mỳ lạnh trộn. Thêm trứng hấp chỉ với 50.000 VND.",
+        en: "1 Spicy Stir-Fried Pork + 1 Cold Buckwheat Noodle (broth or spicy). Add Steamed Egg for 50,000 VND."
+      }
+    },
+    {
+      group: "lunch", id: "lunch-jeyuk-b", ko: "제육볶음 콤보 B",
+      img: "assets/img/menu/lunch-jeyuk-b.jpg", price: "200,000 VND",
+      name: { vi: "Thịt heo xào cay — Combo B", en: "Spicy Stir-Fried Pork — Combo B" },
+      desc: {
+        vi: "1 phần thịt heo xào cay + 1 canh đậu tương (nhỏ) + 1 cơm trắng. Thêm trứng hấp chỉ với 50.000 VND.",
+        en: "1 Spicy Stir-Fried Pork + 1 Soybean Paste Stew (small) + 1 Steamed Rice. Add Steamed Egg for 50,000 VND."
       }
     }
   ],

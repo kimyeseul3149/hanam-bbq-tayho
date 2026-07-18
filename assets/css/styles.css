@@ -326,7 +326,7 @@ body::before {
 
 /* First slide ships in CSS for LCP; the rest are lazy-assigned from data-bg. */
 .hero-slide--1 { background-image: url("../img/hero-01-cuts.jpg"); }
-.hero-slide--3 { background-position: center 72%; }  /* table — pull down so the stews are in frame */
+.hero-slide--3 { background-position: center center; }  /* table spread is already stage-wide */
 .hero-slide--4 { background-position: center 42%; }  /* lake view — keep the sunset in frame */
 
 .hero-dots {
@@ -869,6 +869,38 @@ body::before {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: clamp(24px, 4vw, 48px);
+}
+
+/* Corkage — a house rule, set apart from the drink list. */
+.corkage {
+  margin-top: clamp(32px, 4vw, 48px);
+  padding: 24px 28px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: rgba(200, 169, 106, 0.05);
+  max-width: 520px;
+}
+.corkage-title {
+  display: block;
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  color: var(--gold-soft);
+  margin-bottom: 14px;
+}
+.corkage-list { display: flex; flex-direction: column; gap: 10px; }
+.corkage-list li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+.corkage-price {
+  color: var(--text);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 .alcohol-group-title {
   display: flex;
