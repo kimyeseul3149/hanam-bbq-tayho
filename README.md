@@ -9,7 +9,8 @@ Vietnamese (default) / English one-page scroll site. No build step.
 - HTML5 + CSS3 (custom properties, grid/flex) + Vanilla JS (ES5-safe, no bundler)
 - Google Fonts: Be Vietnam Pro (body) + Noto Serif Display (headings) — full Vietnamese diacritic support
 - Google Maps embed (iframe)
-- Deploy: Vercel (static)
+- Deploy: Vercel (static) — auto-deploys from `main`. Live: https://hanam-bbq-tayho.vercel.app/
+  (GitHub Pages mirror, same commit: https://kimyeseul3149.github.io/hanam-bbq-tayho/)
 
 ## Structure
 

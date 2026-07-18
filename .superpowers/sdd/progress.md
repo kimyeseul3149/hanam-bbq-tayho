@@ -30,6 +30,20 @@
 - Verified live: HTTP 200, VI default, logo+hero+menu images load under subpath (relative paths OK), all 5 sections, 10 menu cards. Hero renders correctly.
 - STATUS: DEPLOYED & LIVE.
 
+## Hosting — READ THIS FIRST (confirmed 2026-07-19)
+- **PRIMARY URL: https://hanam-bbq-tayho.vercel.app/ — this is the one the user actually visits.**
+- Vercel is wired to the GitHub repo and redeploys on every push to main. Nothing extra to run after `git push`.
+- The GitHub Pages URL (https://kimyeseul3149.github.io/hanam-bbq-tayho/) is still live and serves the same commit. Secondary.
+- The Vercel hookup happened after the 07-09 notes below were written, so those notes ("Vercel deploy not yet run", "needs user auth") are STALE — do not conclude from them that Vercel is unused. Verified 2026-07-19 by loading the Vercel URL and finding commit 2ecbdc7 already live.
+
+## OPEN: Vietnamese copy is still an unreviewed draft (raised 2026-07-19)
+- All 89 `vi` strings in content.js + every menu item name are FIRST-PASS TRANSLATION. The spec called for a native review on day one; it has never happened. The site has been live in this state since 07-09.
+- Vietnamese is the default language and the target audience, so this is the highest-value open item.
+- Machine-checkable finding: these render in English even in VI mode — `promo2_t` "Early Bird Happy Hour", `promo2b_t` "Reviewer Golden Hour". Unlike `hero_kicker`/`footer_tag` (brand lines, fine in English) these two describe an actual offer, so VI visitors miss the benefit.
+- Genuinely native, do not touch: `rev_1`/`rev_2`/`rev_3` are verbatim Google reviews written by real Vietnamese customers.
+- Highest risk if wrong: cut names (`Gáy heo` = 꼬들살, `Bẹ vai Prime` = 프라임 살치살, …) — a mistranslation here becomes a wrong order at the table.
+- User decided 2026-07-19 to defer this to a separate session. Do not silently claim the copy reads naturally; nobody has verified it.
+
 ## Menu v2 + real reviews (2026-07-12)
 - (1) Testimonials → 3 real Google 5★ reviews (Thanh Tú Phạm, Anh Hanoi 하노이형, Khanh Linh Le), VN+EN, from Google Maps newest-sorted.
 - (2) Prices added under Korean name, same gold color as .menu-ko.
@@ -44,3 +58,11 @@
 - Photo cards (main pork/beef/combo + side) now open a reusable lightbox modal on click/Enter/Space: large image + KO(gold) + name + price + detail desc (current lang, combo multi-line preserved). Close via ×/overlay/ESC, body scroll lock + focus return. role=dialog aria-modal. Alcohol list excluded.
 - Verified (controller screenshots): desktop 생삼겹살 modal, VI combo modal (multi-line), mobile near-fullscreen (overflow 0), ESC close + scroll restore. Console clean.
 - Commit 080293a.
+
+## Menu group jump bar (2026-07-19)
+- Main carries 25 items over 4 groups, so it now renders a sticky chip bar (Combo/Pork/Beef/Lunch Set) under the tabs. Chips are built from whatever titled groups the category renders — add a group to menu.js and its chip appears by itself. Shown for main only; alcohol builds its own headings and popular/side have no titled groups.
+- Anchors + `scroll-margin-top`, plus a rAF-throttled scroll spy that lights the group you are reading.
+- FIXED en route: `--header-h` was a hand-guessed 76px while the real header is ~133px (and shrinks on scroll). initHeader() now measures and publishes the real height on scroll/resize/fonts.ready — without it 57 of the bar's 64px sat behind the header.
+- `GROUP_TITLES[g].short` is the chip label, falling back to the full title. Only combo needs one: "Set Combo" ellipsised to "Set Com…" once four chips split a phone width.
+- Phone layout splits the width evenly (like .menu-tabs) rather than scrolling sideways, which had left the last chip visibly sliced. Verified no ellipsis at 390px and 320px in Vietnamese.
+- Verified: 4/4 groups land clear of the bar (gaps 23–62px on phone, 55px desktop), active chip matches on both jump and manual scroll, bar never hides behind the header, 0 console errors, no horizontal overflow.

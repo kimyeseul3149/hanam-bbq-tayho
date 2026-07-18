@@ -224,6 +224,10 @@
           <button type="button" class="menu-tab" data-menu-cat="side" role="tab" aria-selected="false" data-i18n="menu_tab_side">Món phụ</button>
           <button type="button" class="menu-tab" data-menu-cat="alcohol" role="tab" aria-selected="false" data-i18n="menu_tab_alcohol">Đồ uống</button>
         </div>
+        <!-- Group jump bar — filled by renderMenu() for categories that have
+             more than one titled group (Main). Sticks under the fixed header
+             so the groups stay reachable while scrolling 25 items. -->
+        <nav id="menu-subnav" class="menu-subnav" aria-label="Menu groups" hidden></nav>
         <div id="menu-grid" class="menu-grid"><!-- rendered by renderMenu() --></div>
         <p class="menu-note reveal" data-i18n="menu_note"></p>
       </div>

@@ -66,7 +66,10 @@
 
   /* ---------------- Menu ---------------- */
   var GROUP_TITLES = {
-    combo: { vi: "Set Combo", en: "Combo", ko: "콤보" },
+    /* `short` is the jump-chip label. Four chips split the phone width evenly,
+       which leaves ~67px of text — "Set Combo" ellipsised to "Set Com…" there.
+       Only groups whose full title overruns need one. */
+    combo: { vi: "Set Combo", en: "Combo", ko: "콤보", short: { vi: "Combo", en: "Combo" } },
     pork: { vi: "Thịt heo", en: "Pork", ko: "돼지고기" },
     beef: { vi: "Thịt bò", en: "Beef", ko: "소고기" },
     lunch: { vi: "Set trưa", en: "Lunch Set", ko: "런치세트" },
@@ -119,14 +122,36 @@
       '</article>';
   }
 
+  function groupId(group) { return "menu-group-" + group; }
+
   function groupTitleHTML(group, lang) {
     var t = GROUP_TITLES[group] || {};
     var label = pickLang(t, lang);
     return '' +
-      '<div class="menu-group-title reveal">' +
+      '<div class="menu-group-title reveal" id="' + escAttr(groupId(group)) + '">' +
         '<span class="menu-group-name">' + label + '</span>' +
         '<span class="menu-group-ko" lang="ko">' + (t.ko || "") + '</span>' +
       '</div>';
+  }
+
+  /* Main carries 25 items across four groups, so it gets a jump bar. Built
+     from whatever titled groups the category actually renders — add a group
+     to menu.js and its chip appears on its own. Anchors, not buttons: the
+     html{scroll-padding-top} rule already clears the fixed header. */
+  function subnavHTML(items, lang) {
+    var order = [], seen = {};
+    items.forEach(function (m) {
+      var g = m.group;
+      if (g && GROUP_TITLES[g] && !seen[g]) { seen[g] = 1; order.push(g); }
+    });
+    if (order.length < 2) return "";
+    return order.map(function (g) {
+      var t = GROUP_TITLES[g];
+      return '<a class="menu-jump" href="#' + escAttr(groupId(g)) + '"' +
+        ' data-jump-group="' + escAttr(g) + '">' +
+        pickLang(t.short || t, lang) +
+      '</a>';
+    }).join("");
   }
 
   /* A priced row: name + Korean label on the left, price on the right. */
@@ -244,8 +269,55 @@
       grid.className = "menu-grid";
       grid.innerHTML = renderCardsGrouped(items, lang);
     }
+    // Alcohol builds its own headings, so it has no jump targets to point at.
+    var subnav = document.getElementById("menu-subnav");
+    if (subnav) {
+      subnav.innerHTML = cat === "alcohol" ? "" : subnavHTML(items, lang);
+      subnav.hidden = !subnav.innerHTML;
+      syncJumpActive();
+    }
     // Newly injected cards need the reveal observer.
     observeReveals(grid.querySelectorAll(".reveal"));
+  }
+
+  /* Mark the group you are currently reading. The heading that most recently
+     passed under the sticky bar wins; before the first one, the first chip
+     stays lit so the bar is never blank. */
+  function syncJumpActive() {
+    var subnav = document.getElementById("menu-subnav");
+    if (!subnav || subnav.hidden) return;
+    var chips = subnav.querySelectorAll(".menu-jump");
+    if (!chips.length) return;
+    // Measure the bar rather than hard-coding a line: a jump leaves the
+    // heading just below it, and a fixed threshold missed that by ~50px,
+    // leaving the previous chip lit at the destination.
+    var line = subnav.getBoundingClientRect().bottom + 90;
+    var active = chips[0].getAttribute("data-jump-group");
+    for (var i = 0; i < chips.length; i++) {
+      var g = chips[i].getAttribute("data-jump-group");
+      var el = document.getElementById(groupId(g));
+      if (el && el.getBoundingClientRect().top <= line) active = g;
+    }
+    for (var j = 0; j < chips.length; j++) {
+      var on = chips[j].getAttribute("data-jump-group") === active;
+      chips[j].classList.toggle("is-active", on);
+      chips[j].setAttribute("aria-current", on ? "true" : "false");
+    }
+  }
+
+  function initMenuSubnav() {
+    var subnav = document.getElementById("menu-subnav");
+    if (!subnav) return;
+    subnav.addEventListener("click", function (e) {
+      var chip = e.target.closest ? e.target.closest(".menu-jump") : null;
+      if (chip) track("Menu Group Jumped", { menu_group: chip.getAttribute("data-jump-group") });
+    });
+    var queued = false;
+    window.addEventListener("scroll", function () {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(function () { queued = false; syncJumpActive(); });
+    }, { passive: true });
   }
 
   function setMenuCat(cat) {
@@ -559,11 +631,31 @@
   function initHeader() {
     var header = document.querySelector(".site-header");
     if (!header) return;
+    /* --header-h was a hand-guessed 76px while the real header is ~133px and
+       shrinks on scroll. The menu jump bar sticks to it, so a stale value
+       parked the bar underneath the header — publish the measured height
+       instead, after the class flip so we measure the state we just set. */
+    function syncHeight() {
+      var h = Math.round(header.getBoundingClientRect().height);
+      if (h) document.documentElement.style.setProperty("--header-h", h + "px");
+    }
+    var wasScrolled = null;
     function onScroll() {
-      header.classList.toggle("is-scrolled", window.scrollY > 24);
+      var scrolled = window.scrollY > 24;
+      header.classList.toggle("is-scrolled", scrolled);
+      syncHeight();
+      // The brand shrinks over .45s, so the height right after the flip is
+      // mid-transition. Re-measure once it has settled.
+      if (scrolled !== wasScrolled) {
+        wasScrolled = scrolled;
+        setTimeout(syncHeight, 500);
+      }
     }
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", syncHeight);
+    // The wordmark's webfont lands after first paint and changes the height.
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(syncHeight);
   }
 
   /* ---------------- Mobile nav ---------------- */
@@ -643,6 +735,7 @@
     initMobileNav();
     initHeader();
     initMenuTabs();
+    initMenuSubnav();
     initMenuModal();
     initPrivacyModal();
     applyLang(getLang()); // renders menu + sets language
