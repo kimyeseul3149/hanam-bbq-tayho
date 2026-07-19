@@ -274,7 +274,7 @@ window.MENU = {
       group: "lunch", id: "lunch-galbi", ko: "양념목살갈비", price: "200,000 VND",
       name: { vi: "Nạc sườn vai sốt tương", en: "Soy-Marinated Pork Neck" },
       desc: {
-        vi: "COMBO A: 1 phần nạc sườn vai sốt tương + 1 mỳ lạnh nước hoặc mỳ lạnh trộn.\nCOMBO B: 1 phần nạc sườn vai sốt tương + 1 canh đậu tương (nhỏ) + 1 cơm trắng.\nThêm trứng hấp chỉ với 50.000 VND.",
+        vi: "COMBO A: 1 phần nạc sườn vai sốt tương + 1 mỳ lạnh nước hoặc mỳ lạnh trộn.\nCOMBO B: 1 phần nạc sườn vai sốt tương + 1 canh đậu tương (nhỏ) + 1 cơm trắng.\nThêm trứng hấp chỉ 50.000 VND.",
         en: "COMBO A: 1 Soy Sauce Marinated Pork Neck + 1 Cold Buckwheat Noodle (broth or spicy).\nCOMBO B: 1 Soy Sauce Marinated Pork Neck + 1 Soybean Paste Stew (small) + 1 Steamed Rice.\nAdd Steamed Egg for 50,000 VND."
       }
     },
@@ -282,7 +282,7 @@ window.MENU = {
       group: "lunch", id: "lunch-jeyuk", ko: "제육볶음", price: "200,000 VND",
       name: { vi: "Thịt heo xào cay", en: "Spicy Stir-Fried Pork" },
       desc: {
-        vi: "COMBO A: 1 phần thịt heo xào cay + 1 mỳ lạnh nước hoặc mỳ lạnh trộn.\nCOMBO B: 1 phần thịt heo xào cay + 1 canh đậu tương (nhỏ) + 1 cơm trắng.\nThêm trứng hấp chỉ với 50.000 VND.",
+        vi: "COMBO A: 1 phần thịt heo xào cay + 1 mỳ lạnh nước hoặc mỳ lạnh trộn.\nCOMBO B: 1 phần thịt heo xào cay + 1 canh đậu tương (nhỏ) + 1 cơm trắng.\nThêm trứng hấp chỉ 50.000 VND.",
         en: "COMBO A: 1 Spicy Stir-Fried Pork + 1 Cold Buckwheat Noodle (broth or spicy).\nCOMBO B: 1 Spicy Stir-Fried Pork + 1 Soybean Paste Stew (small) + 1 Steamed Rice.\nAdd Steamed Egg for 50,000 VND."
       }
     }
