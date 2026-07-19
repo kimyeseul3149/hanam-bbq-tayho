@@ -1174,6 +1174,21 @@ a.fact-value:hover { color: var(--gold); }
 /* ============================================================
    CONSENT NOTE (Decree 13 — under reservation / call buttons)
    ============================================================ */
+/* Only ever painted inside an in-app browser, where the Messenger button is a
+   dead end — it has to out-rank the consent line without shouting. */
+.inapp-note {
+  margin-top: 16px;
+  padding: 10px 14px;
+  border: 1px solid rgba(200, 169, 106, 0.32);
+  border-radius: var(--r-sm, 10px);
+  background: rgba(200, 169, 106, 0.07);
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 52ch;
+}
+.inapp-note[hidden] { display: none; }
+
 .consent-note {
   margin-top: 12px;
   font-size: 11px;

@@ -751,6 +751,20 @@
     });
   }
 
+  /* ---------------- In-app browser notice ----------------
+   * Third-party in-app browsers (KakaoTalk, Zalo, Line, Naver…) cannot fire
+   * Universal Links, so the m.me button dead-ends on Facebook's "unsupported
+   * browser" page with no way out. Meta's own webviews handle m.me natively,
+   * so Facebook/Instagram are deliberately NOT matched here — flagging them
+   * would nag the ad traffic this site is built for. */
+  var INAPP_UA = /KAKAOTALK|Line\/|NAVER\(inapp|DaumApps|ZaloTheme|Zalo\b|BAND\/|MicroMessenger/i;
+  function initInAppNotice() {
+    if (!INAPP_UA.test(navigator.userAgent)) return;
+    document.querySelectorAll("[data-inapp-note]").forEach(function (el) {
+      el.hidden = false;
+    });
+  }
+
   /* ---------------- Boot ---------------- */
   function boot() {
     dropLegacyLang();
@@ -763,6 +777,7 @@
     initMenuSubnav();
     initMenuModal();
     initPrivacyModal();
+    initInAppNotice();
     applyLang(getLang()); // renders menu + sets language
     initHeroSlides();
     initReveals();

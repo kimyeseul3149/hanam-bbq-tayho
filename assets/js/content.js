@@ -111,6 +111,7 @@ window.CONTENT = {
     consent_pre: "Khi bấm nút, bạn đồng ý với ",
     consent_link: "Chính sách bảo mật",
     consent_post: " của chúng tôi.",
+    inapp_note: "Nút nhắn tin không mở được? Bạn đang xem trang trong ứng dụng khác — hãy mở trang này bằng Safari hoặc Chrome, hoặc gọi trực tiếp +84 964 321 771.",
     privacy_close: "Đóng"
   },
 
@@ -222,6 +223,7 @@ window.CONTENT = {
     consent_pre: "By clicking the button, you agree to our ",
     consent_link: "Privacy Policy",
     consent_post: ".",
+    inapp_note: "Message button not opening? You're viewing this inside another app — please open this page in Safari or Chrome, or call us directly at +84 964 321 771.",
     privacy_close: "Close"
   }
 };
