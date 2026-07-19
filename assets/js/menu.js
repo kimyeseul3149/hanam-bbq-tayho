@@ -30,7 +30,7 @@ window.MENU = {
     {
       group: "popular", id: "pop-saengsamgyeopsal", ko: "생삼겹살",
       img: "assets/img/hanam-cut-c.jpg", price: "250,000 VND",
-      name: { vi: "Ba chỉ heo tươi", en: "Fresh Pork Belly" },
+      name: { vi: "Ba chỉ heo", en: "Fresh Pork Belly" },
       desc: {
         vi: "Ba chỉ heo tươi (không ủ) cắt dày — ngoài giòn, trong mọng nước. Món kinh điển nhất định phải thử của BBQ Hàn Quốc.",
         en: "Thick-cut fresh (un-aged) pork belly — crisp outside, juicy within. The must-try classic of Korean BBQ."
@@ -147,7 +147,7 @@ window.MENU = {
       ko: "생삼겹살",
       img: "assets/img/hanam-cut-c.jpg",
       price: "250,000 VND",
-      name: { vi: "Ba chỉ heo tươi", en: "Fresh Pork Belly" },
+      name: { vi: "Ba chỉ heo", en: "Fresh Pork Belly" },
       desc: {
         vi: "Ba chỉ heo tươi (không ủ) cắt dày — ngoài giòn, trong mọng nước. Món kinh điển nhất định phải thử của BBQ Hàn Quốc.",
         en: "Thick-cut fresh (un-aged) pork belly — crisp outside, juicy within. The must-try classic of Korean BBQ."
