@@ -204,7 +204,7 @@ window.MENU = {
     /* ---------- Beef (8) ---------- */
     {
       group: "beef", id: "prime-kkotsal", ko: "프라임 꽃살", price: "600,000 VND",
-      name: { vi: "Sườn hoa rút xương Prime 130g", en: "Prime Beef Short Rib 130g" },
+      name: { vi: "Sườn hoa rút xương Prime", en: "Prime Beef Short Rib" },
       desc: {
         vi: "Phần sườn hoa Prime, vân mỡ xen kẽ đều, thịt mềm mọng và thơm ngọt tự nhiên. Khi nướng cho hương vị đậm đà, béo ngậy và cực kỳ hấp dẫn.",
         en: "Prime beef short rib with beautiful marbling, juicy tenderness, and rich flavor when grilled."
@@ -212,7 +212,7 @@ window.MENU = {
     },
     {
       group: "beef", id: "prime-salchisal", ko: "프라임 살치살", price: "550,000 VND",
-      name: { vi: "Bẹ vai Prime 130g", en: "Prime Chuck Flap Tail 130g" },
+      name: { vi: "Bẹ vai Prime", en: "Prime Chuck Flap Tail" },
       desc: {
         vi: "Phần bẹ vai Prime, nổi bật với hương vị đậm đà và thớ thịt chắc khỏe. Khi nướng, lớp mỡ mỏng tan chảy hòa quyện với nạc, tạo nên vị ngọt béo hài hòa và thơm lừng.",
         en: "Prime chuck flap tail offering a bold beefy flavor, balanced marbling, and a rich taste enhanced when grilled."
@@ -220,7 +220,7 @@ window.MENU = {
     },
     {
       group: "beef", id: "prime-deungsim", ko: "프라임 등심", price: "500,000 VND",
-      name: { vi: "Thăn lưng bò Prime 130g", en: "Prime Sirloin 130g" },
+      name: { vi: "Thăn lưng bò Prime", en: "Prime Sirloin" },
       desc: {
         vi: "Thăn lưng bò Prime, thớ thịt săn chắc, ít mỡ, vị ngọt đậm và dậy hương bò đặc trưng. Thích hợp cho khách muốn thưởng thức hương vị bò nguyên bản.",
         en: "Prime sirloin with lean tenderness, a bold beefy taste, and balanced tenderness — for those who enjoy a pure beef flavor."
@@ -228,7 +228,7 @@ window.MENU = {
     },
     {
       group: "beef", id: "hwangje-neukgansal", ko: "황제늑간살", price: "370,000 VND",
-      name: { vi: "Dẻ sườn 150g", en: "Beef Short Rib Finger 150g" },
+      name: { vi: "Dẻ sườn", en: "Beef Short Rib Finger" },
       desc: {
         vi: "Phần dẻ sườn, xen kẽ nhiều gân nhỏ tạo độ giòn sần sật. Khi nướng tỏa hương thơm đặc trưng, thịt đậm đà, vừa giòn vừa ngọt, rất được yêu thích.",
         en: "Beef short rib finger with rich flavor, a chewy-crisp texture, and a savory taste that stands out when grilled."
@@ -236,7 +236,7 @@ window.MENU = {
     },
     {
       group: "beef", id: "tosisal", ko: "토시살", price: "370,000 VND",
-      name: { vi: "Diềm bụng 150g", en: "Hanging Tender 150g" },
+      name: { vi: "Diềm bụng", en: "Hanging Tender" },
       desc: {
         vi: "Phần diềm bụng cách gân mỡ, mỗi con bò chỉ có một miếng nhỏ, hương vị đậm đà đặc trưng. Thịt mềm nhưng chắc, xen chút gân tạo độ giòn, khi nướng dậy mùi thơm khó quên.",
         en: "Hanging tender with a bold beefy flavor — a rare cut with juicy tenderness and a slightly chewy bite that stands out when grilled."
@@ -244,7 +244,7 @@ window.MENU = {
     },
     {
       group: "beef", id: "wagyu-salchisal-a5", ko: "와규 살치살 A5", price: "800,000 VND",
-      name: { vi: "Bẹ vai Wagyu A5 130g", en: "Wagyu Chuck Flap Tail A5 130g" },
+      name: { vi: "Bẹ vai Wagyu A5", en: "Wagyu Chuck Flap Tail A5" },
       desc: {
         vi: "Phần bẹ vai Wagyu A5, nổi bật với thớ thịt vân sắc nét, khi nướng tỏa hương thơm đậm đà. Thịt vừa mềm vừa có độ dai nhẹ, cho trải nghiệm trọn vẹn vị Wagyu cao cấp.",
         en: "Wagyu A5 chuck flap tail with a firm yet tender texture, delicate marbling, and a rich savory aroma when grilled."
@@ -252,7 +252,7 @@ window.MENU = {
     },
     {
       group: "beef", id: "wagyu-saewoosal-a5", ko: "와규 새우살 A5", price: "790,000 VND",
-      name: { vi: "Thăn tôm Wagyu A5 130g", en: "Wagyu Striploin A5 130g" },
+      name: { vi: "Thăn tôm Wagyu A5", en: "Wagyu Striploin A5" },
       desc: {
         vi: "Phần thăn tôm Wagyu A5 — hạng cao cấp nhất, nổi bật với vân mỡ hoàn hảo, thịt mềm tan, hương vị béo ngậy và ngọt thơm đặc trưng.",
         en: "Premium Wagyu A5 striploin with exceptional marbling, buttery tenderness, and a rich, melt-in-the-mouth flavor."
@@ -260,7 +260,7 @@ window.MENU = {
     },
     {
       group: "beef", id: "wagyu-kkotdeungsim-a5", ko: "와규 꽃등심 A5", price: "790,000 VND",
-      name: { vi: "Thăn hoa Wagyu A5 130g", en: "Wagyu Ribeye A5 130g" },
+      name: { vi: "Thăn hoa Wagyu A5", en: "Wagyu Ribeye A5" },
       desc: {
         vi: "Phần thăn hoa Wagyu A5, nổi bật với vân mỡ hoa đẹp mắt, thịt mềm ngọt, béo ngậy và đậm đà. Là phần thịt cao cấp, mang lại trải nghiệm trọn vẹn trong từng miếng.",
         en: "Premium Wagyu A5 ribeye with exquisite marbling, tender juiciness, and rich flavor in every bite."
