@@ -44,7 +44,7 @@ window.CONTENT = {
     feat2_alt: "Phòng ăn riêng với bàn nướng riêng biệt",
     feat3_label: "THỰC ĐƠN ĐA DẠNG",
     feat3_title: "Món ngon cho mọi người",
-    feat3_desc: "Từ thịt heo, thịt bò thượng hạng đến hải sản, các món canh, đồ uống và tráng miệng — ai cũng tìm được món mình thích.",
+    feat3_desc: "Từ thịt heo, thịt bò thượng hạng đến các món canh, mì lạnh và cơm — ai cũng tìm được món mình thích.",
     feat3_alt: "Đĩa thịt nướng cùng các món canh Hàn Quốc và mì lạnh",
 
     social_eyebrow: "Khách hàng nói gì",
@@ -56,21 +56,21 @@ window.CONTENT = {
     rev_1_who: "Anh Tuan Phuong",
     rev_1: "Quán này món gì cũng ngon, ăn vị rất giống bên Hàn nha…",
     rev_2_who: "Thanh Tú Phạm",
-    rev_2: "Ăn 2 lần rồi đều rất ưng ý, thịt bò và thịt heo nướng đều tươi ngon, đặc biệt ba chỉ heo rất nên thử nha. Panchan đầy đặn, lá tỏi ngâm chỉ ở đây có ăn cực cuốn, canh kim chi ngon ghê. Vừa ăn vừa ngắm view Hồ Tây thích phết ❤️",
+    rev_2: "Ăn 2 lần rồi đều rất ưng ý, thịt bò và thịt heo nướng đều tươi ngon, đặc biệt ba chỉ heo rất nên thử nha. Panchan đầy đặn, lá tỏi ngâm chỉ ở đây có ăn cực cuốn, canh kimchi ngon ghê. Vừa ăn vừa ngắm view Hồ Tây thích phết ❤️",
     rev_3_who: "Anh Hanoi (하노이 형)",
     rev_3: "Thịt ba chỉ ở đây thực sự tuyệt vời, nước thịt tan chảy trong miệng! Các món ăn kèm hoàn hảo giúp cân bằng vị béo ngậy của thịt. Nhân viên nướng thịt rất khéo. Tôi tuyên bố đây là quán thịt ba chỉ ngon nhất mọi thời đại của tôi!",
     reviews_credit: "Đánh giá từ khách hàng trên Google Maps.",
 
     /* ---- Promotion ---- */
     promo_eyebrow: "Ưu đãi hằng ngày",
-    promo_title: "Ba ưu đãi dành cho bạn",
+    promo_title: "Ưu đãi mỗi ngày tại Hanam",
     promo1_t: "Tiệc sinh nhật",
     promo1_d: "Dành cho khách đặt tiệc sinh nhật — trang trí bóng bay & phục vụ bánh sinh nhật. Không gian riêng tư dành cho tiệc sinh nhật, liên hoan và mọi dịp đặc biệt.",
     promo1_alt: "Hai mẹ con với bánh sinh nhật bên khung cảnh Hồ Tây",
-    promo2_t: "Giờ vàng đến sớm",
+    promo2_t: "Happy Hour – Đến sớm",
     promo2_time: "17:00 – 18:30",
     promo2_d: "Đến sớm để nhân đôi niềm vui: Mua 1 tặng 1 toàn bộ đồ uống, bao gồm cả nước ngọt và đồ uống có cồn.",
-    promo2b_t: "Giờ vàng đánh giá",
+    promo2b_t: "Giờ vàng Review",
     promo2b_time: "19:00 – 20:30",
     promo2b_d: "Dùng bữa và để lại đánh giá cho Hanam BBQ Tây Hồ để nhận lượt bốc thăm may mắn: một món ăn miễn phí hoặc voucher 300K.",
     promo2_alt: "Bia, nước ngọt và rượu soju",
@@ -156,7 +156,7 @@ window.CONTENT = {
     feat2_alt: "A private dining room with its own grill table",
     feat3_label: "MENU SELECTION",
     feat3_title: "Something for Everyone",
-    feat3_desc: "From premium Korean pork to beef, seafood, stews, drinks, and desserts, there is something everyone can enjoy.",
+    feat3_desc: "From premium Korean pork to beef, stews, cold noodles and rice dishes, there is something everyone can enjoy.",
     feat3_alt: "Grilled pork platter served with Korean stews and cold noodles",
 
     social_eyebrow: "What guests say",
@@ -175,7 +175,7 @@ window.CONTENT = {
 
     /* ---- Promotion ---- */
     promo_eyebrow: "Every day offers",
-    promo_title: "Three offers for you",
+    promo_title: "Every day offers at Hanam",
     promo1_t: "Birthday party",
     promo1_d: "For guests who book a birthday party — balloon decoration and cake service on us. A private space for birthdays, company parties and every special occasion.",
     promo1_alt: "A mother and daughter with a birthday cake by the West Lake view",

@@ -93,7 +93,7 @@
     /* `short` is the jump-chip label. Four chips split the phone width evenly,
        which leaves ~67px of text — "Set Combo" ellipsised to "Set Com…" there.
        Only groups whose full title overruns need one. */
-    combo: { vi: "Set Combo", en: "Combo", ko: "콤보", short: { vi: "Combo", en: "Combo" } },
+    combo: { vi: "Combo", en: "Combo", ko: "콤보" },
     pork: { vi: "Thịt heo", en: "Pork", ko: "돼지고기" },
     beef: { vi: "Thịt bò", en: "Beef", ko: "소고기" },
     lunch: { vi: "Set trưa", en: "Lunch Set", ko: "런치세트" },

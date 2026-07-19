@@ -325,7 +325,7 @@ body::before {
 @keyframes heroZoom { to { transform: scale(1); } }
 
 /* First slide ships in CSS for LCP; the rest are lazy-assigned from data-bg. */
-.hero-slide--1 { background-image: url("../img/hero-01-cuts.jpg"); }
+.hero-slide--1 { background-image: url("../img/hero-01-samgyeopsal.jpg"); }
 .hero-slide--3 { background-position: center center; }  /* table spread is already stage-wide */
 .hero-slide--4 { background-position: center 42%; }  /* lake view — keep the sunset in frame */
 
