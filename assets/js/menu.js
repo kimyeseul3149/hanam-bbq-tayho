@@ -159,7 +159,7 @@ window.MENU = {
       ko: "특목살",
       img: "assets/img/hanam-cut-d.jpg",
       price: "250,000 VND",
-      name: { vi: "Thịt nạc vai đặc biệt", en: "Premium Pork Collar" },
+      name: { vi: "Nạc vai heo", en: "Premium Pork Collar" },
       desc: {
         vi: "Phần mềm nhất của thịt nạc vai — nạc, thanh vị, không bị khô, mềm tinh tế.",
         en: "The tenderest part of the pork collar — lean, clean-tasting and never dry, with a delicate bite."
