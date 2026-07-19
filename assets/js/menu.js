@@ -48,16 +48,16 @@ window.MENU = {
     {
       group: "popular", id: "pop-kimchi-stew", ko: "돼지고기 김치찌개",
       img: "assets/img/side-kimchi-stew.jpg", price: "200,000 VND",
-      name: { vi: "Canh kimchi thịt heo", en: "Pork Kimchi Stew" },
+      name: { vi: "Canh kim chi thịt heo", en: "Pork Kimchi Stew" },
       desc: {
-        vi: "Canh kimchi đậm đà nấu cùng thịt heo và kimchi lên men — món canh cân bằng hoàn hảo vị béo của thịt nướng.",
+        vi: "Canh kim chi đậm đà nấu cùng thịt heo và kim chi lên men — món canh cân bằng hoàn hảo vị béo của thịt nướng.",
         en: "A deep, tangy stew of well-fermented kimchi and pork — the classic counterpoint to a rich grill."
       }
     },
     {
       group: "popular", id: "pop-mul-naengmyeon", ko: "물냉면",
       img: "assets/img/side-mul-naengmyeon.jpg", price: "150,000 VND",
-      name: { vi: "Mì lạnh nước", en: "Cold Buckwheat Noodles in Broth" },
+      name: { vi: "Mỳ lạnh nước", en: "Cold Buckwheat Noodles in Broth" },
       desc: {
         vi: "Mì kiều mạch dai mát trong nước dùng lạnh thanh vị — món kết bữa sảng khoái sau khi nướng.",
         en: "Chewy buckwheat noodles in a clean, icy broth — the refreshing way to finish a grill."
@@ -274,7 +274,7 @@ window.MENU = {
       group: "lunch", id: "lunch-galbi", ko: "양념목살갈비", price: "200,000 VND",
       name: { vi: "Nạc sườn vai sốt tương", en: "Soy-Marinated Pork Neck" },
       desc: {
-        vi: "COMBO A: 1 phần nạc sườn vai sốt tương + 1 mì lạnh nước hoặc mì lạnh trộn.\nCOMBO B: 1 phần nạc sườn vai sốt tương + 1 canh đậu tương (nhỏ) + 1 cơm trắng.\nThêm trứng hấp chỉ với 50.000 VND.",
+        vi: "COMBO A: 1 phần nạc sườn vai sốt tương + 1 mỳ lạnh nước hoặc mỳ lạnh trộn.\nCOMBO B: 1 phần nạc sườn vai sốt tương + 1 canh đậu tương (nhỏ) + 1 cơm trắng.\nThêm trứng hấp chỉ với 50.000 VND.",
         en: "COMBO A: 1 Soy Sauce Marinated Pork Neck + 1 Cold Buckwheat Noodle (broth or spicy).\nCOMBO B: 1 Soy Sauce Marinated Pork Neck + 1 Soybean Paste Stew (small) + 1 Steamed Rice.\nAdd Steamed Egg for 50,000 VND."
       }
     },
@@ -282,7 +282,7 @@ window.MENU = {
       group: "lunch", id: "lunch-jeyuk", ko: "제육볶음", price: "200,000 VND",
       name: { vi: "Thịt heo xào cay", en: "Spicy Stir-Fried Pork" },
       desc: {
-        vi: "COMBO A: 1 phần thịt heo xào cay + 1 mì lạnh nước hoặc mì lạnh trộn.\nCOMBO B: 1 phần thịt heo xào cay + 1 canh đậu tương (nhỏ) + 1 cơm trắng.\nThêm trứng hấp chỉ với 50.000 VND.",
+        vi: "COMBO A: 1 phần thịt heo xào cay + 1 mỳ lạnh nước hoặc mỳ lạnh trộn.\nCOMBO B: 1 phần thịt heo xào cay + 1 canh đậu tương (nhỏ) + 1 cơm trắng.\nThêm trứng hấp chỉ với 50.000 VND.",
         en: "COMBO A: 1 Spicy Stir-Fried Pork + 1 Cold Buckwheat Noodle (broth or spicy).\nCOMBO B: 1 Spicy Stir-Fried Pork + 1 Soybean Paste Stew (small) + 1 Steamed Rice.\nAdd Steamed Egg for 50,000 VND."
       }
     }
@@ -294,7 +294,7 @@ window.MENU = {
       ko: "돼지고기 김치찌개",
       img: "assets/img/side-kimchi-stew.jpg",
       price: "200,000 VND",
-      name: { vi: "Canh kimchi thịt heo", en: "Pork Kimchi Stew" },
+      name: { vi: "Canh kim chi thịt heo", en: "Pork Kimchi Stew" },
       desc: {
         vi: "Kimchi lên men kỹ ninh cùng thịt heo mềm — chua nhẹ, ấm bụng và rất đưa cơm.",
         en: "Well-fermented kimchi simmered with tender pork — tangy, warming and deeply comforting."
@@ -316,7 +316,7 @@ window.MENU = {
       ko: "고추장찌개",
       img: "assets/img/side-gochujang-stew.jpg",
       price: "200,000 VND",
-      name: { vi: "Canh tương ớt", en: "Gochujang Stew" },
+      name: { vi: "Canh thịt heo ớt cay", en: "Gochujang Stew" },
       desc: {
         vi: "Canh tương ớt đỏ cay nhẹ — đậm đà, hấp dẫn và cực hợp với cơm.",
         en: "A gently spicy red chili-paste stew — bold, savory and perfect with rice."
@@ -327,7 +327,7 @@ window.MENU = {
       ko: "물냉면",
       img: "assets/img/side-mul-naengmyeon.jpg",
       price: "150,000 VND",
-      name: { vi: "Mì lạnh nước", en: "Cold Buckwheat Noodle Soup" },
+      name: { vi: "Mỳ lạnh nước", en: "Cold Buckwheat Noodle Soup" },
       desc: {
         vi: "Mì kiều mạch lạnh trong nước dùng thanh mát — món kết thúc hoàn hảo sau bữa nướng.",
         en: "Chilled buckwheat noodles in a clean, refreshing broth — the perfect cool finish to a grill."
@@ -338,7 +338,7 @@ window.MENU = {
       ko: "비빔냉면",
       img: "assets/img/side-hoe-naengmyeon.jpg",
       price: "150,000 VND",
-      name: { vi: "Mì lạnh trộn cay", en: "Spicy Cold Noodles" },
+      name: { vi: "Mỳ lạnh trộn", en: "Spicy Cold Noodles" },
       desc: {
         vi: "Mì lạnh dai trộn sốt chua cay ngọt — đậm đà, gây nghiện và sảng khoái.",
         en: "Chewy cold noodles tossed in a sweet-spicy sauce — bold, addictive and refreshing."
@@ -349,7 +349,7 @@ window.MENU = {
       ko: "잔치국수",
       img: "assets/img/side-janchi-guksu.jpg",
       price: "140,000 VND",
-      name: { vi: "Mì nước truyền thống", en: "Banquet Noodle Soup" },
+      name: { vi: "Mỳ nóng", en: "Banquet Noodle Soup" },
       desc: {
         vi: "Mì somen mảnh trong nước dùng thanh nhẹ — món truyền thống Hàn ấm lòng.",
         en: "Warm thin somen in a light, savory broth — a comforting Korean classic."
@@ -360,7 +360,7 @@ window.MENU = {
       ko: "김치말이국수",
       img: "assets/img/side-kimchi-noodles.jpg",
       price: "140,000 VND",
-      name: { vi: "Mì cuốn kimchi", en: "Kimchi Somen Noodles" },
+      name: { vi: "Mỳ kimchi lạnh", en: "Kimchi Somen Noodles" },
       desc: {
         vi: "Mì somen mát trong nước kimchi lạnh chua nhẹ — thanh, kích vị và sảng khoái.",
         en: "Cool somen in a tangy chilled kimchi broth — light, zesty and refreshing."
@@ -382,7 +382,7 @@ window.MENU = {
       ko: "도시락 김치볶음밥",
       img: "assets/img/side-kimchi-fried-rice.jpg",
       price: "130,000 VND",
-      name: { vi: "Cơm rang kimchi", en: "Kimchi Fried Rice" },
+      name: { vi: "Cơm hộp chiên kimchi", en: "Kimchi Fried Rice" },
       desc: {
         vi: "Cơm rang kimchi thơm mùi khói trong hộp cơm thiếc kiểu retro — lắc đều rồi thưởng thức.",
         en: "Smoky kimchi fried rice in a retro tin lunchbox — shake it up and enjoy."
@@ -402,7 +402,7 @@ window.MENU = {
       group: "soju",
       ko: "새로 · 새로 리치맛(무설탕)",
       price: "160,000 VND",
-      name: { vi: "Saero, Saero Lychee (Zero Sugar)", en: "Saero, Saero Lychee (Zero Sugar)" }
+      name: { vi: "Saero, Saero lychee (Zero Sugar)", en: "Saero, Saero Lychee (Zero Sugar)" }
     },
     {
       group: "soju",
@@ -422,17 +422,17 @@ window.MENU = {
       group: "beer",
       ko: "칼스버그 · 블랑 (330ml)",
       price: "70,000 VND",
-      name: { vi: "Carlsberg Draft, Blanc Draft (330ml)", en: "Carlsberg Draft, Blanc Draft (330ml)" }
+      name: { vi: "Carlsberg Draft Beer, Blanc Draft Beer (330ml)", en: "Carlsberg Draft, Blanc Draft (330ml)" }
     },
     {
       group: "trad", id: "makgeolli", ko: "막걸리 (오리지널, 청포도, 복숭아)",
       price: "160,000 VND",
-      name: { vi: "Makgeolli (Nguyên bản, Nho xanh, Đào)", en: "Makgeolli (Original, Green Grape, Peach)" }
+      name: { vi: "Makgeolli (Original, Green Grape, Peach)", en: "Makgeolli (Original, Green Grape, Peach)" }
     },
     {
       group: "trad", id: "bokbunja", ko: "복분자",
       price: "330,000 VND",
-      name: { vi: "Bokbunja (rượu phúc bồn tử)", en: "Bokbunja (Korean Raspberry Wine)" }
+      name: { vi: "Bokbunja", en: "Bokbunja (Korean Raspberry Wine)" }
     },
     {
       group: "trad", id: "hwayo25", ko: "화요 25% (375ml)",

@@ -44,7 +44,7 @@ window.CONTENT = {
     feat2_alt: "Phòng ăn riêng với bàn nướng riêng biệt",
     feat3_label: "THỰC ĐƠN ĐA DẠNG",
     feat3_title: "Món ngon cho mọi người",
-    feat3_desc: "Từ thịt heo, thịt bò thượng hạng đến các món canh, mì lạnh và cơm — ai cũng tìm được món mình thích.",
+    feat3_desc: "Từ thịt heo, thịt bò thượng hạng đến các món canh, mỳ lạnh và cơm — ai cũng tìm được món mình thích.",
     feat3_alt: "Đĩa thịt nướng cùng các món canh Hàn Quốc và mì lạnh",
 
     social_eyebrow: "Khách hàng nói gì",
@@ -56,7 +56,7 @@ window.CONTENT = {
     rev_1_who: "Anh Tuan Phuong",
     rev_1: "Quán này món gì cũng ngon, ăn vị rất giống bên Hàn nha…",
     rev_2_who: "Thanh Tú Phạm",
-    rev_2: "Ăn 2 lần rồi đều rất ưng ý, thịt bò và thịt heo nướng đều tươi ngon, đặc biệt ba chỉ heo rất nên thử nha. Panchan đầy đặn, lá tỏi ngâm chỉ ở đây có ăn cực cuốn, canh kimchi ngon ghê. Vừa ăn vừa ngắm view Hồ Tây thích phết ❤️",
+    rev_2: "Ăn 2 lần rồi đều rất ưng ý, thịt bò và thịt heo nướng đều tươi ngon, đặc biệt ba chỉ heo rất nên thử nha. Panchan đầy đặn, lá tỏi ngâm chỉ ở đây có ăn cực cuốn, canh kim chi ngon ghê. Vừa ăn vừa ngắm view Hồ Tây thích phết ❤️",
     rev_3_who: "Anh Hanoi (하노이 형)",
     rev_3: "Thịt ba chỉ ở đây thực sự tuyệt vời, nước thịt tan chảy trong miệng! Các món ăn kèm hoàn hảo giúp cân bằng vị béo ngậy của thịt. Nhân viên nướng thịt rất khéo. Tôi tuyên bố đây là quán thịt ba chỉ ngon nhất mọi thời đại của tôi!",
     reviews_credit: "Đánh giá từ khách hàng trên Google Maps.",
