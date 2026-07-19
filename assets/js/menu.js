@@ -14,7 +14,7 @@ window.MENU = {
       img: "assets/img/menu/combo-pig-a.jpg", price: "540,000 VND",
       name: { vi: "Combo A", en: "Combo A" },
       desc: {
-        vi: "Ba chỉ heo 180g + Gáy heo 180g + 1 Canh trứng hấp.",
+        vi: "Ba chỉ heo 180g + Gáy heo 180g + 1 Trứng hấp.",
         en: "Pork Belly 180g + Pork Neck End 180g + 1 Steamed Egg."
       }
     },
@@ -72,7 +72,7 @@ window.MENU = {
       img: "assets/img/menu/combo-pig-a.jpg", price: "540,000 VND",
       name: { vi: "Combo A", en: "Combo A" },
       desc: {
-        vi: "Ba chỉ heo 180g + Gáy heo 180g + 1 Canh trứng hấp.",
+        vi: "Ba chỉ heo 180g + Gáy heo 180g + 1 Trứng hấp.",
         en: "Pork Belly 180g + Pork Neck End 180g + 1 Steamed Egg."
       }
     },
@@ -90,7 +90,7 @@ window.MENU = {
       img: "assets/img/menu/combo-pig-c.jpg", price: "1,250,000 VND",
       name: { vi: "Combo C", en: "Combo C" },
       desc: {
-        vi: "Ba chỉ heo 360g + Má heo 150g + Nạc dây heo 150g + 1 Canh bất kỳ + Trứng hấp trứng cá chuồn.",
+        vi: "Ba chỉ heo 360g + Má heo 150g + Nạc dây heo 150g + 1 Canh bất kỳ + 1 Trứng hấp.",
         en: "Pork Belly 360g + Jowl Meat 150g + Skirt Meat 150g + One Stew + 1 Steamed Egg with Flying Fish Roe."
       }
     },
@@ -99,7 +99,7 @@ window.MENU = {
       img: "assets/img/menu/combo-pig-d.jpg", price: "1,500,000 VND",
       name: { vi: "Combo D", en: "Combo D" },
       desc: {
-        vi: "Ba chỉ heo 360g + Má heo 300g + Nạc dây heo 150g + 1 Canh bất kỳ + Trứng hấp trứng cá chuồn.",
+        vi: "Ba chỉ heo 360g + Má heo 300g + Nạc dây heo 150g + 1 Canh bất kỳ + 1 Trứng hấp.",
         en: "Pork Belly 360g + Jowl Meat 300g + Skirt Meat 150g + One Stew + 1 Steamed Egg with Flying Fish Roe."
       }
     },
