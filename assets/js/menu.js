@@ -39,10 +39,10 @@ window.MENU = {
     {
       group: "popular", id: "pop-steamed-egg", ko: "계란찜",
       img: "assets/img/side-steamed-egg.jpg", price: "90,000 VND",
-      name: { vi: "Trứng hấp trứng cá chuồn", en: "Steamed Egg with Flying Fish Roe" },
+      name: { vi: "Trứng hấp", en: "Steamed Egg" },
       desc: {
-        vi: "Trứng hấp mềm mịn như bông, điểm thêm trứng cá chuồn cho vị mặn nhẹ và độ giòn tan thú vị.",
-        en: "Silky steamed egg, whipped light and fluffy, finished with flying fish roe for a gentle brine and a delicate pop."
+        vi: "Trứng hấp mềm mịn, bông xốp — béo nhẹ, món phụ được mọi lứa tuổi yêu thích.",
+        en: "Silky, fluffy steamed egg — soft, savory and a favorite side for all ages."
       }
     },
     {
@@ -91,7 +91,7 @@ window.MENU = {
       name: { vi: "Combo C", en: "Combo C" },
       desc: {
         vi: "Ba chỉ heo 360g + Má heo 150g + Nạc dây heo 150g + 1 Canh bất kỳ + 1 Trứng hấp.",
-        en: "Pork Belly 360g + Jowl Meat 150g + Skirt Meat 150g + One Stew + 1 Steamed Egg with Flying Fish Roe."
+        en: "Pork Belly 360g + Jowl Meat 150g + Skirt Meat 150g + One Stew + 1 Steamed Egg."
       }
     },
     {
@@ -100,7 +100,7 @@ window.MENU = {
       name: { vi: "Combo D", en: "Combo D" },
       desc: {
         vi: "Ba chỉ heo 360g + Má heo 300g + Nạc dây heo 150g + 1 Canh bất kỳ + 1 Trứng hấp.",
-        en: "Pork Belly 360g + Jowl Meat 300g + Skirt Meat 150g + One Stew + 1 Steamed Egg with Flying Fish Roe."
+        en: "Pork Belly 360g + Jowl Meat 300g + Skirt Meat 150g + One Stew + 1 Steamed Egg."
       }
     },
     {
@@ -136,7 +136,7 @@ window.MENU = {
       name: { vi: "Wagyu Combo", en: "Wagyu Combo" },
       desc: {
         vi: "Thăn hoa Wagyu A5 130g + Thăn tôm Wagyu A5 130g + Bẹ vai Wagyu A5 130g + 1 Canh bất kỳ + 1 Trứng hấp.",
-        en: "Wagyu Ribeye A5 130g + Wagyu Striploin A5 130g + Wagyu Chuck Flap Tail A5 130g + One Stew + Steamed Egg with Flying Fish Roe."
+        en: "Wagyu Ribeye A5 130g + Wagyu Striploin A5 130g + Wagyu Chuck Flap Tail A5 130g + One Stew + 1 Steamed Egg."
       }
     },
     /* ---------- Pork (5) ----------
