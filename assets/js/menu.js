@@ -14,16 +14,16 @@ window.MENU = {
       img: "assets/img/menu/combo-pig-a.jpg", price: "540,000 VND",
       name: { vi: "Combo A", en: "Combo A" },
       desc: {
-        vi: "Ba chỉ heo 180g + Gáy heo 180g + 1 trứng hấp.",
+        vi: "Ba chỉ heo 180g + Gáy heo 180g + 1 Canh trứng hấp.",
         en: "Pork Belly 180g + Pork Neck End 180g + 1 Steamed Egg."
       }
     },
     {
       group: "popular", id: "pop-combo-beef-prime", ko: "프라임 콤보",
       img: "assets/img/menu/combo-beef-prime.jpg", price: "1,650,000 VND",
-      name: { vi: "Combo Prime", en: "Prime Combo" },
+      name: { vi: "Prime Combo", en: "Prime Combo" },
       desc: {
-        vi: "Sườn hoa rút xương Prime 130g + Thăn lưng bò Prime 130g + Bẹ vai Prime 130g + 1 canh bất kỳ.",
+        vi: "Thăn hoa bò Prime 130g + Thăn lưng bò Prime 130g + Bẹ vai bò Prime 130g + 1 canh bất kỳ.",
         en: "Prime Beef Short Rib 130g + Prime Sirloin 130g + Prime Chuck Flap Tail 130g + One Stew."
       }
     },
@@ -72,7 +72,7 @@ window.MENU = {
       img: "assets/img/menu/combo-pig-a.jpg", price: "540,000 VND",
       name: { vi: "Combo A", en: "Combo A" },
       desc: {
-        vi: "Ba chỉ heo 180g + Gáy heo 180g + 1 trứng hấp.",
+        vi: "Ba chỉ heo 180g + Gáy heo 180g + 1 Canh trứng hấp.",
         en: "Pork Belly 180g + Pork Neck End 180g + 1 Steamed Egg."
       }
     },
@@ -81,7 +81,7 @@ window.MENU = {
       img: "assets/img/menu/combo-pig-b.jpg", price: "900,000 VND",
       name: { vi: "Combo B", en: "Combo B" },
       desc: {
-        vi: "Ba chỉ heo 180g + Gáy heo 180g + Thịt má heo 150g + 1 Trứng hấp + Khay nấm.",
+        vi: "Ba chỉ heo 180g + Gáy heo 180g + Má heo 150g + 1 Trứng hấp + Khay nấm.",
         en: "Pork Belly 180g + Pork Neck End 180g + Jowl Meat 150g + 1 Steamed Egg + Assorted Mushrooms."
       }
     },
@@ -90,7 +90,7 @@ window.MENU = {
       img: "assets/img/menu/combo-pig-c.jpg", price: "1,250,000 VND",
       name: { vi: "Combo C", en: "Combo C" },
       desc: {
-        vi: "Ba chỉ heo 360g + Thịt má heo 150g + Thịt nạc dày heo 150g + 1 Canh bất kỳ + Trứng hấp trứng cá chuồn.",
+        vi: "Ba chỉ heo 360g + Má heo 150g + Nạc dây heo 150g + 1 Canh bất kỳ + Trứng hấp trứng cá chuồn.",
         en: "Pork Belly 360g + Jowl Meat 150g + Skirt Meat 150g + One Stew + 1 Steamed Egg with Flying Fish Roe."
       }
     },
@@ -99,41 +99,41 @@ window.MENU = {
       img: "assets/img/menu/combo-pig-d.jpg", price: "1,500,000 VND",
       name: { vi: "Combo D", en: "Combo D" },
       desc: {
-        vi: "Ba chỉ heo 360g + Thịt má heo 300g + Thịt nạc dày heo 150g + 1 Canh bất kỳ + Trứng hấp trứng cá chuồn.",
+        vi: "Ba chỉ heo 360g + Má heo 300g + Nạc dây heo 150g + 1 Canh bất kỳ + Trứng hấp trứng cá chuồn.",
         en: "Pork Belly 360g + Jowl Meat 300g + Skirt Meat 150g + One Stew + 1 Steamed Egg with Flying Fish Roe."
       }
     },
     {
       group: "combo", id: "combo-beef-a", ko: "소고기 콤보 A",
       img: "assets/img/menu/combo-beef-a.jpg", price: "1,260,000 VND",
-      name: { vi: "Combo Bò A", en: "Beef Combo A" },
+      name: { vi: "Beef Combo A", en: "Beef Combo A" },
       desc: {
-        vi: "Diềm bụng 150g + Dẻ sườn 300g + 1 Trứng hấp và Khay nấm.",
+        vi: "Diềm bụng bò 150g + Dẻ sườn 300g + 1 Trứng hấp và Khay nấm.",
         en: "Hanging Tender 150g + Beef Short Rib Finger 300g + Steamed Egg and Assorted Mushrooms."
       }
     },
     {
       group: "combo", id: "combo-beef-b", ko: "소고기 콤보 B",
       img: "assets/img/menu/combo-beef-b.jpg", price: "1,800,000 VND",
-      name: { vi: "Combo Bò B", en: "Beef Combo B" },
+      name: { vi: "Beef Combo B", en: "Beef Combo B" },
       desc: {
-        vi: "Sườn hoa rút xương Prime 130g + Thăn lưng bò Prime 130g + Diềm bụng 150g + Dẻ sườn 150g + 1 canh bất kỳ.",
+        vi: "Sườn hoa rút xương Prime 130g + Thăn lưng Prime 130g + Diềm bụng 150g + Dẻ sườn 150g + 1 canh bất kỳ.",
         en: "Prime Beef Short Rib 130g + Prime Sirloin 130g + Hanging Tender 150g + Beef Short Rib Finger 150g + One Stew."
       }
     },
     {
       group: "combo", id: "combo-beef-prime", ko: "프라임 콤보",
       img: "assets/img/menu/combo-beef-prime.jpg", price: "1,650,000 VND",
-      name: { vi: "Combo Prime", en: "Prime Combo" },
+      name: { vi: "Prime Combo", en: "Prime Combo" },
       desc: {
-        vi: "Sườn hoa rút xương Prime 130g + Thăn lưng bò Prime 130g + Bẹ vai Prime 130g + 1 canh bất kỳ.",
+        vi: "Thăn hoa bò Prime 130g + Thăn lưng bò Prime 130g + Bẹ vai bò Prime 130g + 1 canh bất kỳ.",
         en: "Prime Beef Short Rib 130g + Prime Sirloin 130g + Prime Chuck Flap Tail 130g + One Stew."
       }
     },
     {
       group: "combo", id: "combo-wagyu", ko: "와규 콤보",
       img: "assets/img/menu/combo-wagyu.jpg", price: "2,600,000 VND",
-      name: { vi: "Combo Wagyu", en: "Wagyu Combo" },
+      name: { vi: "Wagyu Combo", en: "Wagyu Combo" },
       desc: {
         vi: "Thăn hoa Wagyu A5 130g + Thăn tôm Wagyu A5 130g + Bẹ vai Wagyu A5 130g + 1 Canh bất kỳ + 1 Trứng hấp.",
         en: "Wagyu Ribeye A5 130g + Wagyu Striploin A5 130g + Wagyu Chuck Flap Tail A5 130g + One Stew + Steamed Egg with Flying Fish Roe."
@@ -360,7 +360,7 @@ window.MENU = {
       ko: "김치말이국수",
       img: "assets/img/side-kimchi-noodles.jpg",
       price: "140,000 VND",
-      name: { vi: "Mì lạnh nước kimchi", en: "Kimchi Somen Noodles" },
+      name: { vi: "Mì cuốn kimchi", en: "Kimchi Somen Noodles" },
       desc: {
         vi: "Mì somen mát trong nước kimchi lạnh chua nhẹ — thanh, kích vị và sảng khoái.",
         en: "Cool somen in a tangy chilled kimchi broth — light, zesty and refreshing."
