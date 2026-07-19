@@ -1088,12 +1088,15 @@ body.modal-open .fab-call { display: none; }
 .visit-head { margin-bottom: clamp(36px, 4.5vw, 54px); max-width: 640px; }
 .visit-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: stretch; }
 .map-embed {
+  position: relative;
   border-radius: var(--r-lg);
   overflow: hidden;
   border: 1px solid var(--line-soft);
   min-height: 380px;
   background: var(--bg-2);
 }
+/* Covers the embed so a tap opens the official listing rather than panning. */
+.map-embed__link { position: absolute; inset: 0; z-index: 1; }
 .map-embed iframe {
   width: 100%;
   height: 100%;
@@ -1353,6 +1356,18 @@ a.fact-value:hover { color: var(--gold); }
    RESPONSIVE — 1024 (collapse header nav to hamburger)
    ============================================================ */
 @media (max-width: 1024px) {
+  /* .site-header.is-scrolled carries a backdrop-filter, and that makes the
+     header the containing block for its fixed children — the overlay would
+     then be clipped to the header's own height, leaving the links floating
+     over the page with no backdrop. Drop the filter while the nav is open. */
+  body.nav-open .site-header {
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
+    border-bottom-color: transparent;
+  }
+
   .nav {
     position: fixed;
     inset: 0;
@@ -1362,9 +1377,8 @@ a.fact-value:hover { color: var(--gold); }
     align-items: center;
     gap: 6px;
     padding: 40px 24px;
-    background: rgba(12, 11, 10, 0.96);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    /* Fully opaque — a translucent panel is unreadable over the food photos. */
+    background: #0c0b0a;
     opacity: 0;
     visibility: hidden;
     transform: translateY(-8px);

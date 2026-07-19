@@ -72,6 +72,13 @@
       if (dict[k] != null) el.setAttribute("alt", dict[k]);
     });
     document.documentElement.lang = lang;
+    // The Google Maps embed localises its own labels from `hl`, so it has to be
+    // re-pointed on every switch or the map stays Vietnamese under English.
+    var mapFrame = document.getElementById("map-embed-frame");
+    if (mapFrame) {
+      var wanted = mapFrame.src.replace(/([?&]hl=)[^&]*/, "$1" + lang);
+      if (wanted !== mapFrame.src) mapFrame.src = wanted;
+    }
     try { sessionStorage.setItem(LANG_KEY, lang); } catch (e) {}
     document.querySelectorAll("[data-lang-btn]").forEach(function (b) {
       var on = b.getAttribute("data-lang-btn") === lang;

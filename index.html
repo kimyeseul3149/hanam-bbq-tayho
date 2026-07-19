@@ -15,13 +15,13 @@
   <meta property="og:site_name" content="Hanam BBQ Tây Hồ" />
   <meta property="og:title" content="Hanam BBQ Tây Hồ — Korean Premium BBQ at West Lake" />
   <meta property="og:description" content="Tinh hoa thịt nướng Hàn Quốc ngay tại Hồ Tây. Korean No.1 BBQ · 4.8★ Google." />
-  <meta property="og:image" content="assets/img/hero-12-table.jpg" />
+  <meta property="og:image" content="assets/img/hero-01-cuts.jpg" />
   <meta property="og:locale" content="vi_VN" />
   <meta property="og:locale:alternate" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Hanam BBQ Tây Hồ — Korean Premium BBQ" />
   <meta name="twitter:description" content="Tinh hoa thịt nướng Hàn Quốc ngay tại Hồ Tây. 4.8★ Google." />
-  <meta name="twitter:image" content="assets/img/hero-12-table.jpg" />
+  <meta name="twitter:image" content="assets/img/hero-01-cuts.jpg" />
 
   <link rel="preload" as="image" href="assets/img/hero-01-cuts.jpg" fetchpriority="high" />
   <link rel="icon" href="assets/img/logo.png" />
@@ -229,7 +229,6 @@
              so the groups stay reachable while scrolling 25 items. -->
         <nav id="menu-subnav" class="menu-subnav" aria-label="Menu groups" hidden></nav>
         <div id="menu-grid" class="menu-grid"><!-- rendered by renderMenu() --></div>
-        <p class="menu-note reveal" data-i18n="menu_note"></p>
       </div>
     </section>
 
@@ -299,8 +298,8 @@
           </div>
           <div class="proof-div" aria-hidden="true"></div>
           <div class="proof">
-            <span class="proof-num">1.6k+</span>
-            <span class="proof-lbl" data-i18n="social_fb">theo dõi trên Facebook</span>
+            <span class="proof-num">4.7<span class="proof-star" aria-hidden="true">★</span></span>
+            <span class="proof-lbl" data-i18n="social_tripadvisor">trên Tripadvisor</span>
           </div>
         </div>
 
@@ -349,13 +348,21 @@
           <h2 class="section-title" data-i18n="visit_title"></h2>
         </div>
         <div class="visit-grid">
+          <!-- The embed's own UI is localised by `hl`, which applyLang() rewrites.
+               A transparent overlay link sits on top so a tap anywhere on the map
+               opens the official Hanam listing instead of panning the embed. -->
           <div class="map-embed reveal">
             <iframe
+              id="map-embed-frame"
               title="Hanam BBQ Tây Hồ on Google Maps"
               loading="lazy"
               allowfullscreen
               referrerpolicy="no-referrer-when-downgrade"
-              src="https://www.google.com/maps?q=21.061464,105.8316161&hl=vi&z=17&output=embed"></iframe>
+              src="https://www.google.com/maps?cid=13948591582597685325&hl=vi&z=17&output=embed"></iframe>
+            <a class="map-embed__link" target="_blank" rel="noopener"
+               href="https://www.google.com/maps?cid=13948591582597685325"
+               data-i18n-aria="visit_maps_link" aria-label="Xem trên Google Maps"
+               data-evt-cta="directions_reserve" data-evt-loc="visit_map_embed" data-evt-dest="google_maps"></a>
           </div>
 
           <div class="visit-info reveal">
@@ -401,12 +408,12 @@
                 <span data-i18n="cta_message">Nhắn tin đặt bàn</span>
               </a>
               <a class="btn btn-ghost btn-lg" target="_blank" rel="noopener"
-                 href="https://www.google.com/maps?cid=13948591582597685325"
-                 data-evt-cta="directions_reserve" data-evt-loc="visit_section" data-evt-dest="google_maps">
+                 href="https://www.facebook.com/profile.php?id=61579247412593"
+                 data-evt-cta="visit_facebook" data-evt-loc="visit_section" data-evt-dest="facebook_page">
                 <span class="btn-ic btn-ic--lead" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/></svg>
                 </span>
-                <span data-i18n="cta_maps">Xem trên Google Maps</span>
+                <span data-i18n="cta_facebook">Facebook chính thức</span>
               </a>
               <a class="btn btn-ghost btn-lg" href="tel:+84964321771"
                  data-evt-cta="call_phone" data-evt-loc="visit_section" data-evt-dest="phone_dialer">
