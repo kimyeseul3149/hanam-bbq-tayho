@@ -64,8 +64,8 @@ window.CONTENT = {
     /* ---- Promotion ---- */
     promo_eyebrow: "Ưu đãi hằng ngày",
     promo_title: "Ưu đãi mỗi ngày tại Hanam",
-    promo1_t: "Tiệc sinh nhật",
-    promo1_d: "Dành cho khách đặt tiệc sinh nhật — trang trí bóng bay & phục vụ bánh sinh nhật. Không gian riêng tư dành cho tiệc sinh nhật, liên hoan và mọi dịp đặc biệt.",
+    promo1_t: "Không Gian Hoàn Hảo Cho Mọi Buổi Tiệc Tùng",
+    promo1_d: "Dù bạn đang lên kế hoạch cho một bữa tiệc sinh nhật ấm cúng, một kỷ niệm ngày cưới đáng nhớ, hay một buổi liên hoan công ty sôi động, chúng tôi luôn sẵn sàng tổ chức mọi sự kiện hội nhóm theo phong cách thời thượng nhất.\n\nĐể nâng tầm trải nghiệm của bạn, chúng tôi tặng kèm gói trang trí bong bóng miễn phí cho các bữa tiệc đặt trước. Đồng thời, đội ngũ nhân viên luôn sẵn sàng đồng hành để khoảnh khắc thắp nến của bạn thêm phần thăng hoa với dịch vụ chúc",
     promo1_alt: "Hai mẹ con với bánh sinh nhật bên khung cảnh Hồ Tây",
     promo2_t: "Happy Hour – Đến sớm",
     promo2_time: "17:00 – 18:30",
@@ -176,8 +176,8 @@ window.CONTENT = {
     /* ---- Promotion ---- */
     promo_eyebrow: "Every day offers",
     promo_title: "Every day offers at Hanam",
-    promo1_t: "Birthday party",
-    promo1_d: "For guests who book a birthday party — balloon decoration and cake service on us. A private space for birthdays, company parties and every special occasion.",
+    promo1_t: "The Perfect Setting for Every Gathering",
+    promo1_d: "Whether you are planning an intimate birthday bash, a milestone anniversary, or a lively company dinner, we host all group events in style.\n\nTo elevate your celebration, we provide complimentary balloon styling for booked parties, and our team is always ready to amplify your candle-lighting moment with our signature celebration service. Host your next big event in our premium private rooms with the best views in Hanoi.",
     promo1_alt: "A mother and daughter with a birthday cake by the West Lake view",
     promo2_t: "Early Bird Happy Hour",
     promo2_time: "17:00 – 18:30",

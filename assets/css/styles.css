@@ -767,7 +767,9 @@ body.modal-open .fab-call { display: none; }
   border-top: 1px solid var(--line-soft);
   width: 100%;
 }
-.promo-card-d { color: var(--muted); font-size: 0.98rem; }
+/* The birthday card's copy is two paragraphs separated by \n\n in the
+   dictionary, so the blank line has to survive textContent assignment. */
+.promo-card-d { color: var(--muted); font-size: 0.98rem; white-space: pre-line; }
 
 /* ============================================================
    MENU
