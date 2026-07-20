@@ -65,7 +65,7 @@ window.CONTENT = {
     promo_eyebrow: "Ưu đãi hằng ngày",
     promo_title: "Ưu đãi mỗi ngày tại Hanam",
     promo1_t: "Không Gian Hoàn Hảo Cho Mọi Buổi Tiệc Tùng",
-    promo1_d: "Dù bạn đang lên kế hoạch cho một bữa tiệc sinh nhật ấm cúng, một kỷ niệm ngày cưới đáng nhớ, hay một buổi liên hoan công ty sôi động, chúng tôi luôn sẵn sàng tổ chức mọi sự kiện hội nhóm theo phong cách thời thượng nhất.\n\nĐể nâng tầm trải nghiệm của bạn, chúng tôi tặng kèm gói trang trí bong bóng miễn phí cho các bữa tiệc đặt trước. Đồng thời, đội ngũ nhân viên luôn sẵn sàng đồng hành để khoảnh khắc thắp nến của bạn thêm phần thăng hoa với dịch vụ chúc",
+    promo1_d: "Dù bạn đang lên kế hoạch cho một bữa tiệc sinh nhật ấm cúng, một kỷ niệm ngày cưới đáng nhớ, hay một buổi liên hoan công ty sôi động, chúng tôi luôn sẵn sàng tổ chức mọi sự kiện hội nhóm theo phong cách thời thượng nhất.\n\nĐể nâng tầm trải nghiệm của bạn, chúng tôi tặng kèm gói trang trí bong bóng miễn phí cho các bữa tiệc đặt trước. Đồng thời, đội ngũ nhân viên luôn sẵn sàng đồng hành để khoảnh khắc thắp nến của bạn thêm phần thăng hoa với dịch vụ chúc mừng đặc biệt mang đậm dấu ấn riêng. Hãy tổ chức sự kiện trọng đại tiếp theo của bạn tại hệ thống phòng riêng cao cấp sở hữu tầm nhìn đẹp nhất Hà Nội.",
     promo1_alt: "Hai mẹ con với bánh sinh nhật bên khung cảnh Hồ Tây",
     promo2_t: "Happy Hour – Đến sớm",
     promo2_time: "17:00 – 18:30",
