@@ -1,0 +1,75 @@
+하남BBQ 세션 리플레이 분석
+기준일	2026-07-24 (광고 4일차)	워크스페이스 dawn-cake-773363	https://hanam-bbq-tayho.vercel.app
+
+■ 왜 이 분석이 필요한가 (목적)
+퍼널은 "1%만 전환한다"는 사실까지만 알려주고 멈췄다. 나머지 99%가 왜 안 눌렀는지는 심어둔 클릭 이벤트로 볼 수 없다.
+세션 리플레이는 그 "왜"를 코드 수정 없이 눈으로 확인하는 유일한 수단이다.
+
+숫자(퍼널) = 얼마나 전환하나		리플레이(관찰) = 왜 안 누르나 / 어디서 막히나
+
+■ 지금까지 확정된 사실 (분석 배경)
+유입 2,119명 → 전환 21명 → 전환율 약 1%	(Jul 20 이후, 베트남 세그먼트)
+소재는 문제 아님	business 0.9% ≈ family 1.14% → 차이 무의미, 페이지가 공통 원인
+즉시 전환 구조	전환창 1일=4일 동일 → 첫 방문에서 결정, 뒤늦은 예약 없음
+
+■ 세팅 단계
+공통 조건	Country = Vietnam / 기간: 광고 시작 이후
+
+a. CTA 전환 세션 보기
+필터	CTA Clicked (cta_type = message_book, call_phone)
+현황	광고 4일차 기준 전환 case 5개 확인
+목적	성공 경로 파악 — 무엇을 보고 눌렀나 (이탈 세션과 대조할 기준선)
+읽는 법	"클릭까지 시간"은 CTA Clicked 타임스탬프로 볼 것 (리플레이 길이 아님 — 클릭 후 방치시간 포함되어 부풀려짐)
+주의	통계가 아니라 관찰. %로 세지 말고 반복되는 패턴만 읽기
+
+b. 이탈 세션 보기 (추후 진행)
+필터	CTA Clicked 안 함 + 체류시간 10초 이상 (봇·오클릭 제거)
+샘플	전부 불가 → 5~10개 추출. 3~4개째부터 패턴 반복 보임
+목적	어디서 막히는지 관찰 (몇 %가 이탈하는지가 아님)
+그룹 나누기	10~30초 = 첫인상 이탈(히어로·소재) / 30초 이상 = 설득 실패(메뉴·가격·버튼)
+
+════════════════════════════════════════
+a. CTA 전환 세션 기록표 (case 5개)
+case_no	session_datetime	entry_source	time_to_click	cta_location	viewed_before_click	click_result	replay_length	notes
+1
+2
+3
+4
+5
+
+[컬럼 설명]
+entry_source	유입 경로: Facebook / Instagram / 기타 (인앱 브라우저 가설 검증용)
+time_to_click	들어와서 누르기까지 (CTA Clicked 타임스탬프 기준)
+cta_location	누른 버튼 위치: hero / header / floating / visit_section
+viewed_before_click	클릭 전 본 것 (메뉴 열어봄? 어디까지 스크롤?)
+click_result	클릭 후 결과: 메신저 열림 / 정지=데드클릭 / 불명 ← 인앱·인스타 가설 핵심
+replay_length	세션 전체 길이 (참고용 — 시간 판단엔 쓰지 말 것)
+notes	망설임·데드클릭·격노클릭 등 특이사항
+
+════════════════════════════════════════
+b. 이탈 세션 기록표 (추후, 5~10개)
+case_no	session_datetime	entry_source	device	dwell_time	max_scroll	exit_point	dead_click	rage_click	notes
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+
+[컬럼 설명]
+dwell_time	체류시간 (이탈 세션은 리플레이 길이 = 체류시간이 맞음)
+max_scroll	최대로 내려간 지점: 히어로 / 스토리 / 왜하남 / 메뉴 / 프로모션 / 리뷰 / 방문
+exit_point	실제 이탈한 지점
+dead_click	데드클릭 여부 + 위치 (Y/N)
+rage_click	격노 클릭(같은 곳 연타) 여부 (Y/N)
+notes	이탈 직전 행동, 추정 원인
+
+════════════════════════════════════════
+패턴 요약 (분석 후 작성)
+구분	발견한 패턴	빈도(참고)	추정 원인	제안 조치
+a. 전환자 공통점
+b. 이탈 공통점
