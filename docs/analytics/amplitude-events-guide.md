@@ -8,6 +8,9 @@ Meta 광고 랜딩페이지에 심어둔 커스텀 이벤트 8종이 **실제로
 속성 값의 전체 목록·구현 메모는 [amplitude-taxonomy.md](amplitude-taxonomy.md) 참조.
 이 문서는 그 스펙을 분석 담당자·광고주가 읽을 수 있게 요약한 것이다.
 
+이 이벤트들로 **어떤 분석을 돌려 페이지의 무엇을 고칠지**는
+[amplitude-diagnosis-plan.md](amplitude-diagnosis-plan.md) 참조.
+
 ---
 
 ## 1. 전환 이벤트 — 광고비를 판단하는 기준
