@@ -1,0 +1,101 @@
+# HANDOVER — 인수인계 문서
+
+유지보수 담당자가 알아야 할 것: 주의점, 자주 하는 작업, 개선 아이디어.
+(소개·실행은 [README.md](README.md), 구조는 [PROJECT_SUMMARY.md](PROJECT_SUMMARY.md))
+
+기준일: 2026-07-30
+
+---
+
+## 0. 먼저 이것만은 (필독)
+
+1. **`main` = 운영입니다.** `main`에 푸시/머지하면 Vercel이 **즉시 라이브 배포**합니다. 실험은 반드시 브랜치에서 하고, 검증 후 머지하세요.
+2. **빌드 스텝이 없습니다.** 소스가 곧 배포물입니다. 컴파일·번들 과정이 없으니 파일을 고치면 그대로 반영됩니다.
+3. **로컬은 지표를 오염시키지 않습니다.** `analytics.js`의 `IS_LOCAL` 가드가 localhost/127.0.0.1 전송을 막습니다. 단, **배포 도메인 접속은 QA라도 이벤트가 기록**되므로, 지표는 `Country = Vietnam` 등으로 필터링해서 봅니다.
+4. **운영 기간 중 코드 수정은 보류 상태입니다.** 2주 프로젝트성 페이지라, 표본·기준 오염을 막기 위해 mid-flight 수정을 안 하기로 결정했습니다. 근거: [docs/analytics/decision-log.md](docs/analytics/decision-log.md).
+
+---
+
+## 1. 자주 하는 유지보수 작업 (How-to)
+
+### 화면 문자열 수정 (번역 포함)
+1. 해당 요소는 `data-i18n="키"`를 갖습니다.
+2. `assets/js/content.js`의 `CONTENT.vi[키]` **와** `CONTENT.en[키]` **양쪽**을 고칩니다.
+3. 한쪽만 고치면 언어 전환 시 불일치가 납니다.
+
+### 메뉴 항목 추가/수정
+- `assets/js/menu.js`의 `window.MENU` 배열을 편집합니다. 항목은 `item_id`·`item_name_ko`·`item_category`·`item_price_vnd`·이미지 경로 등을 가집니다.
+- 카테고리 값(`combo`/`pork`/`beef`/`lunch`/`side`/`soju`/`beer`/`trad`/`popular`)이 탭·그룹 렌더와 분석 속성에 그대로 쓰이므로 **오타 금지**.
+- 이미지는 `assets/img/`에 웹용으로 넣고 경로를 참조합니다.
+
+### 이미지 교체
+- 웹이 로드하는 파일은 **`assets/img/` 안에만** 있습니다.
+- 루트의 `01.고기.png` 같은 번호 원본은 `.gitignore`로 제외됩니다(고해상도 원본 보관용). 새 이미지는 **웹용으로 리사이즈해 `assets/img/`에 커밋**하세요.
+- 히어로 첫 장은 `index.html`에서 `preload`됩니다(`hero-01-samgyeopsal.jpg`). 파일명을 바꾸면 preload 링크도 함께 수정.
+
+### 전화·주소·메신저 등 매장 정보 변경
+- [README.md](README.md)의 "매장 정보"가 정본입니다. 마크업에서 해당 값(전화 `tel:`, 메신저 `m.me/...`, 지도 CID)을 찾아 함께 바꾸세요.
+
+### 분석 이벤트 추가
+- 클릭 이벤트는 마크업의 `data-evt-cta` / `data-evt-loc` / `data-evt-dest` 속성으로 선언 → `app.js`가 읽어 `HanamTrack(...)` 호출.
+- 새 이벤트/속성은 [docs/analytics/amplitude-taxonomy.md](docs/analytics/amplitude-taxonomy.md) 컨벤션(이벤트명 Title Case, 속성 snake_case)을 따르고, 스펙 문서도 함께 갱신하세요.
+
+---
+
+## 2. 주의점 / 함정 (Gotchas)
+
+| 함정 | 설명 |
+|---|---|
+| **폰트를 다시 Google Fonts로 되돌리지 말 것** | 렌더 블로킹 제거를 위해 셀프호스팅(`fonts.css` + `assets/fonts/`)으로 바꿨습니다. Google Fonts `<link>`를 다시 넣으면 성능 개선이 무효화됩니다. |
+| **베트남어 성조 기호(diacritic)** | 폰트 서브셋의 unicode-range에 베트남어 전 범위가 포함돼야 합니다. 폰트를 교체·재서브셋하면 `ệ ọ ỗ` 같은 글자가 깨질 수 있으니 반드시 육안 확인. |
+| **모바일 CTA는 아이콘만** | 모바일에서 전화(`styles.css:1474`)·상단 메신저(`styles.css:1485`) 버튼 라벨이 숨겨집니다. **의도된 디자인이며, 데이터상 잘 눌립니다**(floating 클릭 다수). 라벨 추가는 불필요 — 근거는 진단 문서 참조. |
+| **`device_type` 기준 900px** | `mobile`/`desktop` 구분은 뷰포트 900px 경계입니다(택소노미 §3). Amplitude 기본 "Device type"(Android/iPhone)과 **다른 속성**이니 혼동 주의. |
+| **인앱 브라우저** | 카카오톡·라인·잘로 등에서는 메신저 링크가 안 열릴 수 있어 경고 문구를 띄웁니다(`app.js`의 `INAPP_UA`). 단 **Instagram·Facebook 인앱은 목록에 없습니다** — 필요 시 정규식에 추가. |
+| **기본 언어 = 베트남어** | 모든 신규 방문은 `vi`로 시작합니다(`localStorage.hanam_lang`). |
+| **세션 리플레이 10% + 보관 기간** | 리플레이는 10% 샘플이라 특정 방문을 못 찾을 수 있습니다. 또한 **리플레이 영상은 보관 기간이 짧습니다(보통 30일 안팎, 플랜별 상이)** — "왜 안 눌렀나" 관찰은 광고 종료 직후에 끝내세요. 이벤트 데이터는 장기 보존됩니다. |
+| **이미지 원본 vs 파생본** | git에는 `assets/img/` 웹용만 있습니다. 루트 번호 원본은 로컬에만 존재할 수 있으니, 클론 환경에서 원본이 필요하면 별도 확보. |
+
+---
+
+## 3. 분석에서 알아야 할 것
+
+- **핵심 KPI = 예약 유도** = `CTA Clicked`(cta_type `message_book` + `call_phone`)의 **건수 + 유도율**. "예약 완료"가 아니라 "예약 행동 시작"을 재는 지표입니다(매장 예약 데이터를 못 받아 '전환'이 아닌 '유도'로 설계).
+- **측정 가능**: 클릭·퍼널·전환율·UTM별(광고세트=`utm_term`, 소재=`utm_content`)·언어·device.
+- **측정 불가** (설계상 클릭 기반): 스크롤 깊이·섹션 노출·정확한 체류시간·메신저 실제 전송·실제 예약 완료. → 있는 척 해석하지 말 것.
+- **일별 모니터링 시트**: 도착률/유도율 추적용 구글시트 운영 중 (링크는 팀 내부 공유).
+- **대시보드 구성안**: 상단 KPI 6타일 + 하단 가설검정. "Bounce Rate"·"Avg Session Duration"은 이 페이지에서 신뢰 불가라 각각 상호작용 도달률·유도율로 대체 권장.
+- 참고 문서: [amplitude-taxonomy.md](docs/analytics/amplitude-taxonomy.md) · [amplitude-events-guide.md](docs/analytics/amplitude-events-guide.md) · [amplitude-diagnosis-plan.md](docs/analytics/amplitude-diagnosis-plan.md) · [decision-log.md](docs/analytics/decision-log.md)
+
+---
+
+## 4. 출시/품질 미해결 항목
+
+- **번역(vi·en) 초안** — 메뉴·스토리 카피 베트남 원어민 검수 필요 (`// TODO(review): VN native check`).
+- **후기 플레이스홀더** — 방문 유형 페르소나로 귀속됨. 실제 Google/Facebook 후기로 교체 (`// TODO(review): replace with real customer reviews`).
+- **메뉴 이미지 검증** — 각 부위 사진이 해당 메뉴와 일치하는지 확인.
+- **영업시간** — 11:00–22:00 추정. 요일별 실제 시간 확인.
+
+---
+
+## 5. 개선 아이디어 (백로그 — 차기 페이지/장기 운영 시)
+
+우선순위 순서가 아니라 후보 목록입니다. **현재 페이지는 곧 은퇴하므로, 대부분 "다음 프로젝트 페이지"에 적용할 항목**입니다.
+
+| 아이디어 | 효과 | 비고 |
+|---|---|---|
+| **`Section Viewed` / `Scroll Depth` 계측 추가** | "어디서 이탈하나"를 숫자로 파악 (현재 깜깜한 구간) | IntersectionObserver로 구현 가능. 택소노미 §5에 미구현으로 명시. **차기 페이지엔 처음부터 넣기 권장** |
+| **실제 예약 대조 브리지** | 유도→실제 예약 비율 추정 | 매장에서 주 1회 실제 메신저·전화 문의 수를 세어 시트에 기록 |
+| **이미지 WebP 전환** | 추가 로딩 단축 | 이번엔 실익 낮아 보류. 이미지 많은 차기 페이지에선 검토 |
+| **Critical CSS 인라인** | LCP 추가 단축 | 폰트 최적화 이후의 다음 성능 레버 |
+| **체류시간 정밀 측정(heartbeat)** | 정확한 time-on-page | 계측 추가 필요. 콘텐츠 중심 장기 페이지에서만 가치 |
+| **인앱 UA에 Instagram/Facebook 추가** | 인앱 메신저 실패 커버 확대 | `app.js`의 `INAPP_UA` 정규식 확장 |
+
+---
+
+## 6. 캠페인 컨텍스트 (왜 지금 안 고치나)
+
+- 이 페이지는 **하노이 서호점 오픈 홍보용 2주 Meta 광고('트래픽' 목표)** 랜딩입니다. 캠페인 목표는 가이드라인상 전부 '트래픽'으로 고정.
+- 광고 7일차(2026-07-27) 진단 결과: 예약 유도율 약 1.4%, 버튼·소재·특정 광고세트 결함 없음. 명백한 버그가 아니라 트래픽 의향·첫 화면 설득력의 문제로 좁혀짐.
+- **결정: 운영 중 전환 최적화성 수정은 하지 않음.** 표본이 적어(전환 수십 건) 수정 효과를 증명할 수 없고, 유일한 깨끗한 데이터셋을 오염시키기 때문. 성능·명백한 버그만 예외.
+- **분석은 광고 종료 후** 2주 full 데이터로 1회 수행 → "이 페이지 고치기"가 아니라 **차기 페이지 학습용**. (세션 리플레이 관찰은 보관 기간 때문에 종료 직후.)
+- 상세 근거: [docs/analytics/decision-log.md](docs/analytics/decision-log.md).
