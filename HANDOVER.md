@@ -12,7 +12,7 @@
 1. **`main` = 운영입니다.** `main`에 푸시/머지하면 Vercel이 **즉시 라이브 배포**합니다. 실험은 반드시 브랜치에서 하고, 검증 후 머지하세요.
 2. **빌드 스텝이 없습니다.** 소스가 곧 배포물입니다. 컴파일·번들 과정이 없으니 파일을 고치면 그대로 반영됩니다.
 3. **로컬은 지표를 오염시키지 않습니다.** `analytics.js`의 `IS_LOCAL` 가드가 localhost/127.0.0.1 전송을 막습니다. 단, **배포 도메인 접속은 QA라도 이벤트가 기록**되므로, 지표는 `Country = Vietnam` 등으로 필터링해서 봅니다.
-4. **운영 기간 중 코드 수정은 보류 상태입니다.** 2주 프로젝트성 페이지라, 표본·기준 오염을 막기 위해 mid-flight 수정을 안 하기로 결정했습니다. 근거: [docs/analytics/decision-log.md](docs/analytics/decision-log.md).
+4. **운영 기간 중 코드 수정은 보류 상태입니다.** 2주 프로젝트성 페이지라, 표본·기준 오염을 막기 위해 mid-flight 수정을 안 하기로 결정했습니다. 근거: [AMPLITUDE_GUIDE.md](AMPLITUDE_GUIDE.md) §12.
 
 ---
 
@@ -38,7 +38,7 @@
 
 ### 분석 이벤트 추가
 - 클릭 이벤트는 마크업의 `data-evt-cta` / `data-evt-loc` / `data-evt-dest` 속성으로 선언 → `app.js`가 읽어 `HanamTrack(...)` 호출.
-- 새 이벤트/속성은 [docs/analytics/amplitude-taxonomy.md](docs/analytics/amplitude-taxonomy.md) 컨벤션(이벤트명 Title Case, 속성 snake_case)을 따르고, 스펙 문서도 함께 갱신하세요.
+- 새 이벤트/속성은 [AMPLITUDE_GUIDE.md](AMPLITUDE_GUIDE.md) §4 컨벤션(이벤트명 Title Case, 속성 snake_case)을 따르고, 그 문서도 함께 갱신하세요.
 
 ---
 
@@ -64,7 +64,7 @@
 - **측정 불가** (설계상 클릭 기반): 스크롤 깊이·섹션 노출·정확한 체류시간·메신저 실제 전송·실제 예약 완료. → 있는 척 해석하지 말 것.
 - **일별 모니터링 시트**: 도착률/유도율 추적용 구글시트 운영 중 (링크는 팀 내부 공유).
 - **대시보드 구성안**: 상단 KPI 6타일 + 하단 가설검정. "Bounce Rate"·"Avg Session Duration"은 이 페이지에서 신뢰 불가라 각각 상호작용 도달률·유도율로 대체 권장.
-- 참고 문서: [amplitude-taxonomy.md](docs/analytics/amplitude-taxonomy.md) · [amplitude-events-guide.md](docs/analytics/amplitude-events-guide.md) · [amplitude-diagnosis-plan.md](docs/analytics/amplitude-diagnosis-plan.md) · [decision-log.md](docs/analytics/decision-log.md)
+- 참고 문서: **[AMPLITUDE_GUIDE.md](AMPLITUDE_GUIDE.md)** — 앰플리튜드 분석 최종 마스터 (이벤트·레시피·대시보드·KPI·한계·결정 전부)
 
 ---
 
@@ -98,4 +98,4 @@
 - 광고 7일차(2026-07-27) 진단 결과: 예약 유도율 약 1.4%, 버튼·소재·특정 광고세트 결함 없음. 명백한 버그가 아니라 트래픽 의향·첫 화면 설득력의 문제로 좁혀짐.
 - **결정: 운영 중 전환 최적화성 수정은 하지 않음.** 표본이 적어(전환 수십 건) 수정 효과를 증명할 수 없고, 유일한 깨끗한 데이터셋을 오염시키기 때문. 성능·명백한 버그만 예외.
 - **분석은 광고 종료 후** 2주 full 데이터로 1회 수행 → "이 페이지 고치기"가 아니라 **차기 페이지 학습용**. (세션 리플레이 관찰은 보관 기간 때문에 종료 직후.)
-- 상세 근거: [docs/analytics/decision-log.md](docs/analytics/decision-log.md).
+- 상세 근거: [AMPLITUDE_GUIDE.md](AMPLITUDE_GUIDE.md) §12.

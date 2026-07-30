@@ -42,7 +42,8 @@ assets/
   img/                     # 히어로/메뉴/프로모/매장 이미지 (웹용 파생본만 git 포함)
 vercel.json                # { "cleanUrls": true }
 .claude/launch.json        # 로컬 개발 서버 설정 (static, python http.server)
-docs/analytics/            # 분석 문서 (택소노미·이벤트 가이드·진단 계획·결정 기록)
+AMPLITUDE_GUIDE.md         # 웹페이지 Amplitude 분석 가이드라인 (최종 마스터)
+docs/analytics/            # 구글 리뷰·세션 리플레이 분석 자료
 ```
 
 > 프로젝트 루트의 `01.고기.png` 같은 **번호 붙은 원본 사진은 작업용 고해상도 원본**이며 `.gitignore`로 제외됩니다.
@@ -85,7 +86,7 @@ Vercel 대시보드에서 git 연결 시 — 프레임워크 프리셋 **Other**
 - `applyLang(lang)` — 텍스트 교체 + `<html lang>` 설정 + VI/EN 버튼 토글 + 메뉴 재렌더.
 - 새 문자열을 추가하려면: 마크업에 `data-i18n="새키"` 부여 → `content.js`의 `vi`/`en` 양쪽에 `새키` 추가.
 
-자세한 기능·구조는 [PROJECT_SUMMARY.md](PROJECT_SUMMARY.md), 유지보수 주의점은 [HANDOVER.md](HANDOVER.md), 변경 이력은 [CHANGELOG.md](CHANGELOG.md) 참조.
+자세한 기능·구조는 [PROJECT_SUMMARY.md](PROJECT_SUMMARY.md), 유지보수 주의점은 [HANDOVER.md](HANDOVER.md), 변경 이력은 [CHANGELOG.md](CHANGELOG.md), **Amplitude 분석 전반은 [AMPLITUDE_GUIDE.md](AMPLITUDE_GUIDE.md)** 참조.
 
 ---
 

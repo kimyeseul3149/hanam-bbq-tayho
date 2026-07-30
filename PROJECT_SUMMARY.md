@@ -78,7 +78,7 @@
 
 ## 6. 분석 계측 (Amplitude)
 
-**커스텀 이벤트 8종** (전체 스펙은 [docs/analytics/amplitude-taxonomy.md](docs/analytics/amplitude-taxonomy.md)):
+**커스텀 이벤트 8종** (전체 스펙은 [AMPLITUDE_GUIDE.md](AMPLITUDE_GUIDE.md) §4):
 
 | 이벤트 | 뜻 |
 |---|---|
@@ -95,7 +95,7 @@
 - UTM 5종(source/medium/campaign/term/content)은 유저 속성으로 자동 수집. **Meta 광고세트는 `utm_term`, 소재는 `utm_content`.**
 - **핵심 KPI = 예약 유도** = `CTA Clicked` (cta_type `message_book` + `call_phone`) 건수 및 유도율.
 
-**측정 못 하는 것** (설계상 클릭 기반): 스크롤 깊이·섹션 노출·체류시간(정확)·메신저 실제 전송 성공·실제 예약 완료. → [docs/analytics/amplitude-diagnosis-plan.md](docs/analytics/amplitude-diagnosis-plan.md) 참조.
+**측정 못 하는 것** (설계상 클릭 기반): 스크롤 깊이·섹션 노출·체류시간(정확)·메신저 실제 전송 성공·실제 예약 완료. → [AMPLITUDE_GUIDE.md](AMPLITUDE_GUIDE.md) §10 참조.
 
 ---
 
@@ -112,4 +112,4 @@
 - [README.md](README.md) — 소개·실행·배포
 - [CHANGELOG.md](CHANGELOG.md) — 변경 이력
 - [HANDOVER.md](HANDOVER.md) — 유지보수 주의점·개선 아이디어
-- [docs/analytics/](docs/analytics/) — 택소노미·이벤트 가이드·진단 계획·대시보드·결정 기록
+- [AMPLITUDE_GUIDE.md](AMPLITUDE_GUIDE.md) — Amplitude 분석 가이드라인 (최종 마스터: 이벤트·레시피·대시보드·KPI·결정)

@@ -6,6 +6,14 @@
 
 ---
 
+## 2026-07-30 — 문서 정비 & Amplitude 가이드 통합
+
+### Docs
+- **프로젝트 문서 세트 추가** — README 갱신 + PROJECT_SUMMARY·CHANGELOG·HANDOVER 신규 (`6197ebd`)
+- **Amplitude 문서 통합** — 흩어져 있던 `amplitude-taxonomy.md`·`amplitude-events-guide.md`·`amplitude-diagnosis-plan.md`·`decision-log.md` 4종을 **단일 마스터 [AMPLITUDE_GUIDE.md](AMPLITUDE_GUIDE.md)** 로 통합하고 4종은 삭제. 모든 참조 링크를 마스터로 갱신. (내용은 git 이력에 보존)
+
+---
+
 ## 2026-07-27 — 성능 개선 & 분석 문서화
 
 ### Performance
@@ -99,4 +107,4 @@
 ---
 
 > 이 이후(2026-07-28~) 운영 기간에는 **의도적으로 코드를 수정하지 않기로 결정**했습니다.
-> 근거는 [docs/analytics/decision-log.md](docs/analytics/decision-log.md) 참조.
+> 근거는 [AMPLITUDE_GUIDE.md](AMPLITUDE_GUIDE.md) §12 참조.
