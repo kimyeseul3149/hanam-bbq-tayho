@@ -1,0 +1,810 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>하남돼지집 서호수점 — 웹페이지 운영 대시보드</title>
+<style>
+:root{--red:#E60012;--red45:#F48C94;--red12:#FCE3E5;--c100:#1A1A1A;--c70:#616161;
+      --c45:#939393;--c25:#C4C4C4;--lg:#E9E9E9;--ivory:#FFF9F2;--surf:#FFFFFF}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ivory);color:var(--c100);
+     font-family:system-ui,"Segoe UI","Malgun Gothic",sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1320px;margin:0 auto;padding:16px 16px 60px}
+
+/* 헤더 */
+.hd{display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+    background:var(--surf);border:1px solid var(--lg);border-top:4px solid var(--red);
+    border-radius:10px;padding:12px 16px;margin-bottom:12px}
+.hd h1{font-size:17px;margin:0}
+.hd .sub{font-size:10.5px;color:var(--c70);margin-top:2px}
+.param{display:flex;align-items:center;gap:6px;padding:5px 10px;border:1px solid var(--lg);border-radius:8px}
+.param .lab{font-size:10px;color:var(--c45)}
+.btn{font:inherit;font-size:11px;padding:4px 9px;border:1px solid var(--lg);background:var(--surf);
+     color:var(--c70);border-radius:14px;cursor:pointer}
+.btn:hover{border-color:var(--c45);color:var(--c100)}
+.btn.on{background:var(--c100);border-color:var(--c100);color:#fff}
+select{font:inherit;font-size:11px;padding:4px 6px;border:1px solid var(--lg);border-radius:6px;
+       background:var(--surf);color:var(--c70)}
+.chips{display:flex;gap:5px;flex-wrap:wrap}
+.chip{font-size:10px;border:1px solid var(--red45);color:var(--red);background:var(--red12);
+      border-radius:12px;padding:2px 8px;cursor:pointer;white-space:nowrap}
+.chip:hover{background:var(--red);color:#fff;border-color:var(--red)}
+.chip .x{margin-left:4px;font-weight:700}
+.help{margin-left:auto;position:relative}
+.help .q{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--c45);color:var(--c45);
+   display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;cursor:help}
+.help:hover .q{border-color:var(--red);color:var(--red)}
+.help .panel{display:none;position:absolute;right:0;top:32px;width:520px;background:var(--surf);
+   border:1px solid var(--c25);border-radius:10px;padding:14px 16px;z-index:80;
+   box-shadow:0 12px 32px rgba(0,0,0,.15);font-size:11.5px;line-height:1.75;color:var(--c70)}
+.help:hover .panel{display:block}
+.help .panel b{color:var(--c100)}
+.help .panel h4{margin:0 0 6px;font-size:12.5px;color:var(--c100)}
+.help .panel ol{margin:5px 0 8px 16px;padding:0}
+
+/* KPI */
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:12px}
+.kpi{background:var(--surf);border:1px solid var(--lg);border-radius:10px;padding:11px 13px 9px;
+     cursor:pointer;position:relative;transition:border-color .12s}
+.kpi:hover{border-color:var(--c45)}
+.kpi.on{border:2px solid var(--red);padding:10px 12px 8px}
+.kpi.dis{opacity:.45;cursor:not-allowed}
+.kpi .hd2{display:flex;align-items:baseline;gap:6px}
+.kpi .t{font-size:12px;font-weight:700}
+.kpi .v{font-size:26px;font-weight:700;line-height:1.15;margin-top:3px;font-variant-numeric:tabular-nums}
+.kpi .u{font-size:11px;font-weight:500;color:var(--c70);margin-left:3px}
+.kpi .d{font-size:11px;font-weight:700}
+.kpi .d.up{color:var(--c100)}.kpi .d.dn{color:var(--red)}
+.kpi .s{font-size:9.5px;color:var(--c45);min-height:14px;margin-top:2px}
+.pick{position:absolute;top:9px;right:11px;font-size:9px;color:var(--c25)}
+.kpi.on .pick{color:var(--red)}
+
+/* 카드 */
+.main{display:grid;grid-template-columns:1fr 1.35fr;gap:12px;align-items:start}
+.row3{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:12px;margin-top:12px;align-items:start}
+.card{background:var(--surf);border:1px solid var(--lg);border-radius:10px;padding:12px 14px}
+.ct{font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px;
+    flex-wrap:nowrap;white-space:nowrap;min-width:0}
+.seg div{white-space:nowrap}
+.cs{font-size:10.5px;color:var(--c45);margin:3px 0 8px;line-height:1.55}
+.badge{font-size:9px;border:1px solid var(--c25);color:var(--c45);border-radius:10px;padding:1px 6px;white-space:nowrap}
+.badge.click{border-color:var(--red45);color:var(--red)}
+.info{margin-left:auto;position:relative;width:16px;height:16px;border-radius:50%;border:1px solid var(--c25);
+      color:var(--c45);font-size:10px;display:flex;align-items:center;justify-content:center;cursor:help;flex:none}
+.info .tip{display:none;position:absolute;right:0;top:20px;width:340px;background:var(--c100);color:#fff;
+      border-radius:8px;padding:10px 12px;font-size:10.5px;line-height:1.7;z-index:90;font-weight:400}
+.info:hover .tip{display:block}
+.info .tip b{color:var(--red45)}
+.seg{margin-left:auto;display:flex;border:1px solid var(--lg);border-radius:7px;overflow:hidden}
+.seg div{font-size:10px;padding:3px 9px;color:var(--c45);cursor:pointer}
+.seg div.on{background:var(--c100);color:#fff}
+
+/* 퍼널 */
+.fn{margin-top:4px}
+.fstep{padding:7px 9px;border:1px solid var(--lg);border-radius:8px;margin-bottom:5px;cursor:pointer;
+       position:relative;overflow:hidden;background:var(--surf)}
+.fstep:hover{border-color:var(--c45)}
+.fstep.on{border:1.5px solid var(--red);background:var(--red12)}
+.fstep .bar{position:absolute;left:0;top:0;bottom:0;background:#EFEFEC;z-index:0}
+.fstep.on .bar{background:#FBD3D7}
+.fstep .in{position:relative;z-index:1;display:flex;align-items:baseline;gap:7px}
+.fstep .nm{font-size:11.5px;font-weight:700}
+.fstep .n{margin-left:auto;font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
+.fstep .pc{font-size:10px;color:var(--c70);width:52px;text-align:right;font-variant-numeric:tabular-nums}
+.drop{font-size:9.5px;color:var(--red);text-align:right;margin:-2px 2px 4px 0}
+
+/* 드릴다운 */
+.path{font-size:10.5px;color:var(--c45);margin:2px 0 8px;display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.path a{color:var(--c70);cursor:pointer;text-decoration:underline}
+.path b{color:var(--c100)}
+.cols,.row{display:grid;grid-template-columns:1fr 108px 56px 56px 58px 62px;gap:6px}
+.cols{font-size:9.5px;color:var(--c45);padding:0 8px 4px;border-bottom:1.5px solid var(--c25)}
+.cols span{text-align:right}.cols span:first-child{text-align:left}
+.row{align-items:center;padding:0 8px;border-bottom:1px solid var(--lg);cursor:pointer;
+     font-variant-numeric:tabular-nums}
+.row:hover{background:#FAFAF8}
+.row span{text-align:right;color:var(--c70)}
+.row span.b{color:var(--c100);font-weight:700}
+.row .nm{display:flex;align-items:center;gap:0;overflow:hidden;white-space:nowrap;text-align:left}
+.row .nm .txt{overflow:hidden;text-overflow:ellipsis}
+.rail{width:16px;flex:none;align-self:stretch;border-left:2px solid var(--c25);margin-left:8px}
+.cr{width:14px;flex:none;font-size:9px;text-align:center}
+.mb{position:relative;height:9px;background:var(--lg);border-radius:2px;overflow:hidden}
+.mb i{position:absolute;left:0;top:0;bottom:0;background:var(--c100);border-radius:2px}
+.mb.g i{background:var(--c25)}
+.row.d0{height:36px;font-size:12.5px;background:#F7F7F5}
+.row.d0 .txt{font-weight:700}
+.row.d0 .cr{color:var(--c70);font-size:10px}
+.row.d0.open{background:var(--c100)}
+.row.d0.open span,.row.d0.open .txt,.row.d0.open .cr{color:#fff}
+.row.d0.open .mb{background:rgba(255,255,255,.25)}.row.d0.open .mb i{background:#fff}
+.row.d1{height:31px;font-size:11.5px;background:#fff}
+.row.d1 .txt{font-weight:600}
+.row.d1 .cr{color:var(--c45)}
+.row.d1.open{background:#EFEFEC;box-shadow:inset 3px 0 0 var(--c100)}
+.row.d2{height:28px;font-size:11px;background:#FCFCFB}
+.row.d2.sel{background:var(--red12);box-shadow:inset 3px 0 0 var(--red)}
+.row.gray .txt,.row.gray span{color:var(--c25)}
+.tag{font-size:8.5px;border:1px solid var(--c25);color:var(--c45);border-radius:8px;padding:0 5px;margin-left:5px;flex:none}
+.tag.ph{border-color:var(--red45);color:var(--red)}
+.row.d1.open .tag.ph{border-color:rgba(255,255,255,.5);color:#fff}
+
+/* 히트맵 */
+.hm{display:grid;grid-template-columns:22px repeat(24,1fr);gap:2px;font-size:8.5px}
+.hm .lb{color:var(--c45);display:flex;align-items:center;justify-content:center}
+.hm .cell{height:17px;border-radius:2px;cursor:pointer;position:relative}
+.hm .cell:hover{outline:1.5px solid var(--c100)}
+.hm .cell.sel{outline:2px solid var(--red)}
+.lgd{display:flex;align-items:center;gap:4px;font-size:9px;color:var(--c45);margin-top:6px;justify-content:flex-end}
+.lgd i{width:15px;height:9px;border-radius:2px}
+
+/* 매트릭스·리스트 */
+.mx{display:grid;gap:3px;font-size:10px}
+.mx .h{font-size:9px;color:var(--c45);text-align:center}
+.mx .rl{font-size:10px;color:var(--c70);display:flex;align-items:center}
+.mx .c{height:26px;border-radius:3px;display:flex;align-items:center;justify-content:center;
+       cursor:pointer;font-variant-numeric:tabular-nums;font-weight:700}
+.mx .c:hover{outline:1.5px solid var(--c100)}
+.mx .c.sel{outline:2px solid var(--red)}
+.lst .li{display:grid;grid-template-columns:1fr 84px 34px;gap:6px;align-items:center;
+         font-size:10.5px;padding:3px 0;cursor:pointer;font-variant-numeric:tabular-nums}
+.lst .li:hover{background:#FAFAF8}
+.lst .li.sel{background:var(--red12)}
+.lst .li .n{text-align:right;font-weight:700}
+.lst .li .bar{height:9px;background:var(--lg);border-radius:2px;position:relative;overflow:hidden}
+.lst .li .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--c100);border-radius:2px}
+
+/* 원자료 표 */
+.tw{overflow-x:auto;margin-top:4px}
+table{border-collapse:collapse;width:100%;font-size:10.5px;font-variant-numeric:tabular-nums}
+th{font-size:9.5px;color:var(--c45);font-weight:500;text-align:right;padding:4px 7px;
+   border-bottom:1.5px solid var(--c25);white-space:nowrap}
+th:first-child{text-align:left}
+td{padding:4px 7px;text-align:right;border-bottom:1px solid var(--lg);color:var(--c70);white-space:nowrap}
+td:first-child{text-align:left;color:var(--c100);font-weight:600}
+tr.gray td{color:var(--c25)}tr.gray td:first-child{color:var(--c45);font-weight:400}
+tr.tot td{border-top:1.5px solid var(--c25);border-bottom:none;color:var(--c100);font-weight:700}
+.note{font-size:9.5px;color:var(--c45);line-height:1.8;margin-top:9px}
+.note b{color:var(--c70)}
+#tt{position:fixed;display:none;background:var(--c100);color:#fff;font-size:10px;line-height:1.6;
+    padding:6px 9px;border-radius:6px;z-index:200;pointer-events:none;white-space:nowrap}
+
+/* 모바일에는 hover가 없다 — 탭으로 여는 경로를 따로 준다 */
+.info.open .tip,.help.open .panel{display:block}
+.scrollx{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.hint{display:none}
+
+@media (max-width:900px){
+  .wrap{padding:10px 10px 40px}
+  .hd{padding:10px 12px;gap:8px}
+  .hd h1{font-size:15px}
+  .hd .sub{font-size:10px}
+  .help{margin-left:0}
+  .help .panel{width:calc(100vw - 32px);right:auto;left:-4px}
+  .info .tip{width:calc(100vw - 48px);right:-6px}
+  .kpis{grid-template-columns:repeat(2,1fr);gap:8px}
+  .kpi .v{font-size:22px}
+  .main,.row3{grid-template-columns:1fr}
+  .row3{margin-top:10px}
+  /* 히트맵 24열은 폰 폭에 넣으면 뭉개진다 — 가로 스크롤로 원래 밀도를 지킨다 */
+  .hm{min-width:560px}
+  .mx{min-width:400px}
+  /* 폰에서는 막대 열을 접어 소재 이름에 폭을 준다 (숫자는 그대로 남는다) */
+  .cols,.row{grid-template-columns:1fr 48px 40px 46px 52px}
+  .cols span:nth-child(2),.row>span:nth-child(2){display:none}
+  .hint{display:block;font-size:9px;color:var(--c45);text-align:right;padding-top:3px}
+  /* 데스크톱에선 제목이 한 줄이어야 토글과 안 겹치지만,
+     폰에선 nowrap이 카드를 화면 밖으로 밀어낸다 — 줄바꿈을 허용한다 */
+  .ct{font-size:12.5px;flex-wrap:wrap;white-space:normal;row-gap:5px}
+  .badge{white-space:normal}
+  .fstep .n{font-size:14px}
+  .lst .li{grid-template-columns:1fr 60px 30px}
+}
+</style></head><body>
+<div class="wrap">
+
+<div class="hd">
+  <div>
+    <h1>하남돼지집 서호수점 — 웹페이지 운영 대시보드</h1>
+    <div class="sub">하노이 Tây Hồ · Amplitude 웹 계측 + Meta 광고 결합 · 하노이 시각 기준
+      &nbsp;|&nbsp; <b id="scope"></b></div>
+  </div>
+  <div class="param"><span class="lab">기간</span><span id="perbtns"></span></div>
+  <div class="param"><span class="lab">비교</span>
+    <select id="cmp">
+      <option value="prev">직전 동일 기간</option>
+      <option value="ph1">1차(7/20~28) 대비</option>
+      <option value="day">최종일 vs 전일</option>
+    </select></div>
+  <div class="param"><span class="lab">세트</span><select id="fset"></select></div>
+  <div class="chips" id="chips"></div>
+  <div class="help"><div class="q">?</div>
+    <div class="panel">
+      <h4>이 대시보드 사용법</h4>
+      <b>운영 모니터링용이다. 화면은 위에서 아래로 네 덩어리다.</b>
+      <ol>
+        <li><b>① KPI 5장</b> — 현황 확인. <b>카드를 클릭하면 그 지표가 아래 드릴다운의 기준</b>이 된다(빨간 테두리).</li>
+        <li><b>② 왼쪽 행동 퍼널</b> — 도착 → 클릭 → 행동 → CTA → 예약 유도. <b>단계를 클릭하면 그 집단으로 화면 전체가 좁혀진다.</b></li>
+        <li><b>③ 오른쪽 드릴다운</b> — 광고세트 › 소재 › 세그먼트. <b>행을 클릭하면 한 단계 펼쳐진다.</b></li>
+        <li><b>④ 히트맵·CTA·메뉴</b> — 셀·행을 클릭하면 그 조건이 전체에 걸린다.</li>
+      </ol>
+      <b>조작법</b>
+      <ol>
+        <li>같은 곳을 다시 클릭하면 해제된다. 상단 <b>필터 칩</b>으로 개별 해제도 가능하다.</li>
+        <li>차트 오른쪽 위 <b>ⓘ</b>는 읽는 법과 <b>해석 시 유의점</b>이다.</li>
+      </ol>
+      <b>주의</b> — 도착률·유도당 비용은 Meta 실적과 결합한 지표라 <b>전체 기간에서만</b> 산출된다.
+      기간·시간 필터를 걸면 비활성(—)으로 바뀐다. 일자별 Meta 실적을 넣지 않은 상태에서
+      나누면 틀린 값이 나오기 때문이다.<br>
+      <b>색</b> — <span style="color:var(--red)">■ 빨강 = 선택·이탈</span>, ■ 차콜 = 정상·기준,
+      <span style="color:var(--c25)">■ 회색 = 표본 부족(방문 300 미만)</span>.
+    </div>
+  </div>
+</div>
+
+<div class="kpis" id="kpis"></div>
+
+<div class="main">
+  <div class="card">
+    <div class="ct">어디서 새는가? — 행동 퍼널 <span class="badge click">🖱 단계 클릭 = 전체 좁힘</span>
+      <div class="info">i<div class="tip">방문자 중 몇 명이 다음 행동으로 넘어갔는지. 모두 <b>고유 사용자</b> 기준이다.<br><br>
+        <b>무엇이라도 클릭</b> = 커스텀 8종 ∪ Element/Dead/Rage Click.
+        <b>의미 있는 행동</b> = 커스텀 이벤트 7종(Privacy Policy 제외).
+        <b>예약 유도</b> = message_book 또는 call_phone.<br><br>
+        <b>유의</b> — POS 미연동이라 실제 예약 완결은 측정 불가다. '예약 유도'가 측정 상한선이다.
+        스크롤은 미계측이라 이탈 지점은 알 수 없다.</div></div></div>
+    <div class="cs" id="fndesc"></div>
+    <div class="fn" id="funnel"></div>
+  </div>
+  <div class="card">
+    <div class="ct">누가 데려왔나 — 광고세트 › 소재 › 세그먼트
+      <div class="info">i<div class="tip">행을 클릭하면 아래로 한 단계 펼쳐진다. 막대는 <b>선택한 KPI 지표</b>이며
+        KPI 카드를 바꾸면 막대와 정렬 기준이 함께 바뀐다.<br><br>
+        <b>유의</b> — 고유 사용자 지표는 중복 제거되어 <b>행의 합 ≠ 전체</b>다.
+        소재를 2개 이상 클릭한 사람이 554명(3.8%) 있다. 세로 합계로 검산하지 말 것.<br><br>
+        광고세트 단계의 도착률은 소재별 고유클릭을 더한 근사값이라 <b>~</b>를 붙였다.</div></div>
+      <div class="seg" id="lv3seg"><div data-m="dv" class="on">기기</div><div data-m="city">도시</div><div data-m="lang">언어</div></div>
+    </div>
+    <div class="cs">막대 = <b id="metricname">방문자</b> · <b>행을 클릭하면 한 단계 펼쳐지면서 나머지 화면이 그 조건으로 함께 좁혀집니다</b> (다시 클릭 = 해제)</div>
+    <div class="path" id="path"></div>
+    <div class="cols"><span>구분</span><span id="colmetric">방문자</span><span>방문</span><span>예약</span><span>유도율</span><span>도착률</span></div>
+    <div id="drill"></div>
+  </div>
+</div>
+
+<div class="row3">
+  <div class="card">
+    <div class="ct">언제 오는가 — 요일 × 시간대 <span class="badge click">🖱 셀 클릭</span>
+      <div class="info">i<div class="tip">세션(방문 횟수) 기준 분포. <b>하노이 현지 시각</b>이며 KST는 +2시간이다.
+        예: 하노이 20시 = 한국 22시.<br><br>
+        <b>유의</b> — 7/20은 광고가 하노이 13시경 시작된 부분일이라 오전 시간대가 비어 있다.</div></div>
+      <div class="seg" id="hmseg"><div data-m="sess" class="on">세션</div><div data-m="res">예약유도</div></div>
+    </div>
+    <div class="cs" id="hmdesc"></div>
+    <div class="scrollx"><div class="hm" id="heat"></div></div>
+    <div class="hint">← 좌우로 밀어서 보기</div>
+    <div class="lgd" id="hmlgd"></div>
+  </div>
+  <div class="card">
+    <div class="ct">어디를 눌렀나 — CTA <span class="badge click">🖱 칸 클릭</span>
+      <div class="info">i<div class="tip">가로 = 버튼 종류(cta_type), 세로 = 페이지 내 위치(cta_location).
+        숫자는 <b>클릭 이벤트 수</b>다(사용자 수 아님 — 한 사람이 여러 번·여러 곳을 누른다).<br><br>
+        <b>예약 유도</b>로 집계되는 것은 message_book·call_phone 두 종류뿐이다.
+        directions_reserve·view_menu는 방문의향·탐색으로 분류해 제외했다.</div></div></div>
+    <div class="cs" id="mxdesc"></div>
+    <div class="scrollx"><div class="mx" id="mtx"></div></div>
+    <div class="hint">← 좌우로 밀어서 보기</div>
+  </div>
+  <div class="card">
+    <div class="ct" id="rtitle">관심 · 좌절 신호
+      <div class="info">i<div class="tip"><b>메뉴</b> = 상세를 연 메뉴 항목(Menu Item Viewed). 판매량이 아니라 <b>클릭 기반 관심도</b>다.<br><br>
+        <b>좌절 신호</b> = Dead Click(반응 없는 요소 클릭)·Rage Click(연타). Amplitude 휴리스틱 판정이라
+        로고 오탐이 섞여 있어 <b>경향 참고용</b>이다. 근거로 단독 사용 금지.<br><br>
+        <b>유의</b> — 메뉴 조회는 표본 37명으로 매우 작다.</div></div>
+      <div class="seg" id="rseg"><div data-m="menu" class="on">메뉴</div><div data-m="fr">좌절 신호</div></div>
+    </div>
+    <div class="cs" id="rdesc"></div>
+    <div class="lst" id="rlist"></div>
+  </div>
+</div>
+
+<div class="card" style="margin-top:12px">
+  <div class="ct">이 숫자, 어디서 나온 건가?
+    <span class="badge click">🖱 위에서 클릭한 조건이 그대로 적용됩니다</span>
+    <span class="badge" id="tblscope"></span>
+    <div class="seg" id="tblseg" style="margin-left:12px"><div data-m="cre" class="on">소재별</div><div data-m="day">일별</div><div data-m="seg">세그먼트별</div></div>
+    <button class="btn" id="tgltbl" style="margin-left:8px">원자료 표 접기</button></div>
+  <div id="tblbox">
+    <div class="tw" id="tblwrap"></div>
+    <div class="hint">← 좌우로 밀어서 보기</div>
+    <div class="note">
+      · 관측 기간 <b>하노이 2026-07-20 ~ 08-02 (14일)</b>. 7/20은 광고가 하노이 13시경 시작된 <b>부분일</b>(약 11시간)이라
+        "최종일 vs 전일" 비교의 기준선에서는 제외한다. 8/3은 04:13 중단된 부분일이라 분석에서 제외했다.<br>
+      · <b>7/29에 소재를 교체했다</b> — 1차 7/20~28(9일) · 2차 7/29~8/2(5일). 드릴다운의
+        <span style="color:var(--red)">1차만·2차만</span> 태그가 해당 차수에서만 집행된 소재다
+        (1차만: 가족×생일 이미지·비즈니스×공간 캐러셀 / 2차만: 가족×생일 영상·비즈니스×공간 영상).
+        <b>기간 필터를 걸지 않으면 두 차수가 합산</b>되므로, 소재를 서로 비교할 때는 집행 기간이 다르다는 점을 감안할 것.<br>
+      · <b>Meta 실적(노출·클릭·지출)은 기간 전체 합계만 있다.</b> 그래서 기간 필터를 걸면
+        도착률·유도당 비용은 <b>—</b>로 비활성화된다. 차수별로 보려면 Meta에서 해당 기간 실적을 따로 받아야 한다.<br>
+      · <b>방문자 = 고유 device_id</b> (Page Viewed 또는 session_start 발생). 로그인이 없어 사람이 아니라 <b>기기</b> 단위이며,
+        Amplitude UI에서 <code>Page Viewed · 고유 사용자</code>로 조회하면 8,083으로 1명 차이가 난다.<br>
+      · <b>고유 사용자 지표는 행의 합 ≠ 전체</b>다. 소재별 방문자 합 8,217 vs 전체 8,084(중복 133명),
+        소재별 Meta 고유클릭 합 15,124 vs 전체 14,570(중복 554명). 세로 합계로 검산하지 말 것.<br>
+      · <b>소재·광고세트 귀속은 세션 단위</b>(세션의 첫 도착 이벤트 기준)다. 한 세션 안에서 다른 소재의 광고를 다시 클릭한
+        경우가 7건 있어, 이벤트 단위로 집계한 원본 시트보다 <b>소재별 방문자가 최대 2명 적다</b>
+        (예: business_taste 4,413 vs 시트 4,415 · 전체 8,211 vs 8,217). 필터가 걸리는 대시보드에서는
+        세션 단위 귀속이 맞아 이쪽을 채택했고, 유도율 등 비율은 표시 자릿수에서 동일하다.<br>
+      · <b>도착률 = 방문자 ÷ Meta 고유 링크클릭</b>(사람 : 사람). CTR 3.87%·CPC ₫495는 <b>전체 링크클릭 17,828</b> 기준으로
+        분모가 다르다 — 목적이 다르기 때문이다(Meta 과금 단위 vs 사람 이행률).<br>
+      · <b>유도당 비용 = 지출 ÷ 예약 유도 사용자</b>. 클릭수는 계산에 들어가지 않는다.<br>
+      · 측정 한계 — POS 미연동으로 <b>실제 예약 완결은 측정 불가</b>('예약 유도'가 상한선) ·
+        스크롤 뎁스 미계측으로 이탈 지점 확인 불가 · session_end가 14.9%에만 있어 체류시간 측정 포기 ·
+        메뉴 관심도 표본 37명 · Dead Click 89건 중 34건이 로고 오탐.
+    </div>
+  </div>
+</div>
+</div>
+<div id="tt"></div>
+
+<script>
+const DATA=/*__DATA__*/;
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const C=DATA.cats, S=DATA.sess, COL={};
+DATA.sessCols.forEach((c,i)=>COL[c]=i);
+const NS=S.length;
+
+/* 세션별 CTA/메뉴 인덱스 */
+const ctaBySess=new Map(), menuBySess=new Map();
+DATA.ctaEv.forEach(([s,t,l])=>{ if(!ctaBySess.has(s))ctaBySess.set(s,[]); ctaBySess.get(s).push([t,l]); });
+DATA.menuEv.forEach(([s,i])=>{ if(!menuBySess.has(s))menuBySess.set(s,[]); menuBySess.get(s).push(i); });
+
+/* 라벨 */
+const CRE_LB={business_taste:'비즈니스 × 맛 (영상)',family_taste:'가족 × 맛 (영상)',
+  family_bday_vid:'가족 × 생일 (영상)',family_bday_img:'가족 × 생일 (이미지)',
+  business_space_vid:'비즈니스 × 공간 (영상)',business_space_carousel:'비즈니스 × 공간 (캐러셀)',
+  '(none)':'광고 외 직접 유입'};
+const SET_LB={hanoi_2549_mf_business:'business',hanoi_2549_mf_family:'family','(none)':'광고 외'};
+const CTA_LB={message_book:'메신저 예약',call_phone:'전화 걸기',directions_reserve:'길찾기',view_menu:'메뉴 보기',visit_facebook:'페이스북'};
+const LOC_LB={hero:'hero 첫 화면',floating:'floating 우하단',header:'header 상단',visit_section:'visit 하단',visit_map_embed:'visit 지도'};
+const WD=['월','화','수','목','금','토','일'];
+const creLb=k=>CRE_LB[k]||k, setLb=k=>SET_LB[k]||k;
+
+/* Meta 결합 */
+const MB=DATA.meta.byCreative, MT=DATA.meta.total;
+const creIdx={}; C.cre.forEach((k,i)=>creIdx[k]=i);
+const setOf={}; C.cre.forEach(k=>{ setOf[k]=k==='(none)'?'(none)':(k.startsWith('business')?'hanoi_2549_mf_business':'hanoi_2549_mf_family'); });
+
+/* 상태 */
+const F={per:'all',cmp:'prev',set:null,cre:null,seg:null,segDim:'dv',stage:null,
+         cell:null,cta:null,menu:null,metric:0,open0:null,open1:null};
+let RSEG='menu', HMSEG='sess', TBLSEG='cre', TBLOPEN=true;
+/* 7/29에 소재를 교체했다 → 1차 9일(7/20~28) · 2차 5일(7/29~8/2) */
+const PER={all:[0,13],p1:[0,8],p2:[9,13]};
+const PERLB={all:'전체 14일',p1:'1차 7/20~28 (9일)',p2:'2차 7/29~8/2 (5일)'};
+
+/* Meta 결합 지표 사용 가능 여부.
+   Meta 실적은 '기간 전체 × 소재'로만 존재한다. 웹 쪽에서만 나오는 조건(시간대·행동단계·
+   세그먼트·CTA·메뉴·기간 구간)으로 방문자를 좁히면 분자만 줄고 분모는 그대로라 틀린 값이 된다.
+   그런 필터가 하나라도 걸리면 도착률·유도당 비용은 산출하지 않는다. */
+const metaOK=()=>F.per==='all'&&!F.cell&&!F.stage&&F.seg===null&&!F.cta&&F.menu===null;
+/* KPI용 분모 — 소재/세트가 선택돼 있으면 그 범위의 Meta 실적을 쓴다 */
+function metaScope(){
+  if(!metaOK()) return null;
+  if(F.open1!==null) return {m:metaFor('cre',F.open1),approx:false};
+  const s=F.open0!==null?F.open0:F.set;
+  if(s!==null&&s!==undefined) return {m:metaFor('set',s),approx:true};
+  return {m:MT,approx:false};
+}
+
+/* 필터 */
+/* forTree=true 면 드릴다운이 스스로 건 조건(펼친 세트·소재)은 빼고 고른다.
+   그래야 트리가 자기 자신을 한 줄로 접어버리지 않으면서, 나머지 화면은 좁혀진다. */
+function pass(i,forTree){
+  const r=S[i], p=PER[F.per];
+  if(r[COL.date]<p[0]||r[COL.date]>p[1]) return false;
+  if(F.set!==null&&r[COL.set]!==F.set) return false;
+  if(!forTree){
+    if(F.open0!==null&&r[COL.set]!==F.open0) return false;
+    if(F.open1!==null&&r[COL.cre]!==F.open1) return false;
+  }
+  if(F.seg!==null&&r[COL[F.segDim]]!==F.seg) return false;
+  if(F.stage&&r[COL[F.stage]]!==1) return false;
+  if(F.cell&&(r[COL.wd]!==F.cell[0]||r[COL.hour]!==F.cell[1])) return false;
+  if(F.cta){ const e=ctaBySess.get(i); if(!e||!e.some(([t,l])=>(F.cta[0]<0||t===F.cta[0])&&(F.cta[1]<0||l===F.cta[1]))) return false; }
+  if(F.menu!==null){ const e=menuBySess.get(i); if(!e||!e.includes(F.menu)) return false; }
+  return true;
+}
+function sel(forTree){ const a=[]; for(let i=0;i<NS;i++) if(pass(i,forTree)) a.push(i); return a; }
+
+/* 집계 — 고유 사용자 */
+const FLAGS=['arrive','anyclick','act','cta','res','msg','call','menu','dead','rage'];
+function agg(idxs){
+  const o={sessions:idxs.length}, sets={};
+  FLAGS.forEach(f=>sets[f]=new Set());
+  for(const i of idxs){ const r=S[i], u=r[COL.u];
+    for(const f of FLAGS) if(r[COL[f]]===1) sets[f].add(u); }
+  // 방문자 = 도착 이벤트(Page Viewed·session_start)가 있는 고유 device_id
+  o.users=sets.arrive.size;
+  FLAGS.forEach(f=>o[f]=sets[f].size);
+  return o;
+}
+function groupBy(idxs,col){
+  const m=new Map();
+  for(const i of idxs){ const k=S[i][COL[col]];
+    if(!m.has(k)) m.set(k,[]); m.get(k).push(i); }
+  return m;
+}
+
+/* Meta 값 */
+function metaFor(kind,key){
+  if(kind==='total') return MT;
+  if(kind==='cre'){ const m=MB[C.cre[key]]; return m||null; }
+  if(kind==='set'){ const nm=C.set[key]; let o={imp:0,clk:0,uclk:0,spend:0},h=false;
+    C.cre.forEach(c=>{ if(setOf[c]===nm&&MB[c]){ h=true; o.imp+=MB[c].imp;o.clk+=MB[c].clk;o.uclk+=MB[c].uclk;o.spend+=MB[c].spend; } });
+    return h?o:null; }
+  return null;
+}
+
+/* 지표 정의 */
+const METRICS=[
+  {k:'visitors',lb:'방문자',fmt:a=>fN(a.users),val:(a)=>a.users,pc:false},
+  {k:'arrival', lb:'도착률', fmt:a=>a.meta?pct(a.users/a.meta.uclk*100):'—',val:a=>a.meta?a.users/a.meta.uclk*100:null,pc:true,meta:true},
+  {k:'actrate', lb:'행동률', fmt:a=>pct(a.act/a.users*100),val:a=>a.users?a.act/a.users*100:0,pc:true},
+  {k:'reserve', lb:'예약 유도',fmt:a=>fN(a.res),val:a=>a.res,pc:false},
+  {k:'cpr',     lb:'유도당 비용',fmt:a=>a.meta&&a.res?vnd(a.meta.spend/a.res):'—',val:a=>a.meta&&a.res?a.meta.spend/a.res:null,pc:false,meta:true,inv:true},
+];
+const fN=n=>n==null?'—':n.toLocaleString('ko-KR');
+const pct=n=>n==null?'—':n.toFixed(n>=10?1:2)+'%';
+const vnd=n=>n==null?'—':'₫'+Math.round(n).toLocaleString('ko-KR');
+
+/* ── KPI ─────────────────────────────────────────────── */
+function cmpIdxs(){
+  const p=PER[F.per];
+  if(F.cmp==='ph1') return baseSel(PER.p1);
+  if(F.cmp==='day'){ const last=p[1]; return baseSel([last-1,last-1]); }
+  const len=p[1]-p[0]+1, s=p[0]-len; if(s<0) return null;
+  return baseSel([s,p[0]-1]);
+}
+function baseSel(rg){
+  const a=[];
+  for(let i=0;i<NS;i++){ const r=S[i];
+    if(r[COL.date]<rg[0]||r[COL.date]>rg[1]) continue;
+    if(F.set!==null&&r[COL.set]!==F.set) continue;
+    if(F.cre!==null&&r[COL.cre]!==F.cre) continue;
+    if(F.seg!==null&&r[COL[F.segDim]]!==F.seg) continue;
+    a.push(i); }
+  return a;
+}
+function curDayIdxs(){ const p=PER[F.per]; return baseSel([p[1],p[1]]); }
+
+function renderKPI(A){
+  const cb=cmpIdxs(), B=cb&&cb.length?agg(cb):null;
+  let cur=A;
+  if(F.cmp==='day'){ const c=curDayIdxs(); cur=c.length?agg(c):null; }
+  const ms=metaScope(), mt=ms&&ms.m?ms.m:null, mOK=!!mt, ap=ms&&ms.approx?'~':'';
+  const arr=mt?A.users/mt.uclk*100:null;
+  const cpr=mt&&A.res?mt.spend/A.res:null;
+  const d=(a,b)=>{ if(a==null||b==null||!b) return ''; const v=(a-b)/b*100;
+    return `<span class="d ${v>=0?'up':'dn'}">${v>=0?'▲':'▼'}${Math.abs(v).toFixed(1)}%</span>`; };
+  const cards=[
+    {i:0,t:'방문자',v:fN(A.users),u:'명',s:`세션 ${fN(A.sessions)} · 인당 ${(A.sessions/(A.users||1)).toFixed(2)}`,
+     dl:cur&&B?d(cur.users,B.users):''},
+    {i:1,t:'도착률',v:mOK?ap+pct(arr):'—',u:'',dis:!mOK,
+     s:mOK?`Meta 고유클릭 ${fN(mt.uclk)} → 방문${ap?' (세트 합산 근사)':''}`:'웹 전용 필터 중 산출 불가'},
+    {i:2,t:'행동률',v:pct(A.users?A.act/A.users*100:0),u:'',s:`의미 있는 행동 ${fN(A.act)}명`,
+     dl:cur&&B?d(cur.act/(cur.users||1),B.act/(B.users||1)):''},
+    {i:3,t:'예약 유도',v:fN(A.res),u:'명',s:`유도율 ${pct(A.users?A.res/A.users*100:0)} · 메신저 ${A.msg}·전화 ${A.call}`,
+     dl:cur&&B?d(cur.res,B.res):''},
+    {i:4,t:'유도당 비용',v:mOK?vnd(cpr):'—',u:'',dis:!mOK,
+     s:mOK?`지출 ${vnd(mt.spend)} ÷ ${A.res}명`:'웹 전용 필터 중 산출 불가'},
+  ];
+  $('#kpis').innerHTML=cards.map(c=>`<div class="kpi ${F.metric===c.i?'on':''} ${c.dis?'dis':''}" data-m="${c.i}">
+    <div class="pick">${F.metric===c.i?'● 기준':'○ 선택'}</div>
+    <div class="hd2"><span class="t">${c.t}</span></div>
+    <div class="v">${c.v}<span class="u">${c.u||''}</span> ${c.dl||''}</div>
+    <div class="s">${c.s}</div></div>`).join('');
+  $$('#kpis .kpi').forEach(e=>e.onclick=()=>{
+    const m=+e.dataset.m; if(METRICS[m].meta&&!metaOK()) return;
+    F.metric=m; render(); });
+}
+
+/* ── 퍼널 ────────────────────────────────────────────── */
+function renderFunnel(A){
+  const base=A.users||1;
+  const steps=[
+    {k:null,      nm:'① 도착 (방문자)',   n:A.users},
+    {k:'anyclick',nm:'② 무엇이라도 클릭', n:A.anyclick},
+    {k:'act',     nm:'③ 의미 있는 행동',  n:A.act},
+    {k:'cta',     nm:'④ CTA 클릭',       n:A.cta},
+    {k:'res',     nm:'⑤ 예약 유도',      n:A.res},
+  ];
+  let h='';
+  steps.forEach((s,i)=>{
+    const w=Math.max(1.5,s.n/base*100);
+    h+=`<div class="fstep ${F.stage===s.k&&s.k?'on':''}" data-k="${s.k||''}">
+      <div class="bar" style="width:${w}%"></div>
+      <div class="in"><span class="nm">${s.nm}</span>
+        <span class="n">${fN(s.n)}</span><span class="pc">${pct(s.n/base*100)}</span></div></div>`;
+    if(i<steps.length-1){ const nx=steps[i+1].n, lost=s.n-nx;
+      h+=`<div class="drop">↓ ${fN(lost)}명 이탈 (${pct(s.n?lost/s.n*100:0)})</div>`; }
+  });
+  $('#funnel').innerHTML=h;
+  $$('#funnel .fstep').forEach(e=>e.onclick=()=>{
+    const k=e.dataset.k||null; if(!k) return;
+    F.stage=F.stage===k?null:k; render(); });
+  $('#fndesc').innerHTML=`방문자 <b>${fN(A.users)}명</b> 중 예약 유도 <b>${fN(A.res)}명</b> ·
+    무행동 이탈 <b>${pct(A.users?(A.users-A.act)/A.users*100:0)}</b>`;
+}
+
+/* ── 드릴다운 ────────────────────────────────────────── */
+function rowAgg(idxs,kind,key){
+  const a=agg(idxs); a.meta=metaOK()?metaFor(kind,key):null; return a;
+}
+function renderDrill(idxs){
+  const M=METRICS[F.metric];
+  $('#metricname').textContent=M.lb; $('#colmetric').textContent=M.lb;
+  const g0=groupBy(idxs,'set');
+  const rows=[];
+  const vals=[];
+  const mk=(depth,key,label,a,kind,approx)=>{
+    const v=M.val(a); vals.push(v==null?0:v);
+    return {depth,key,label,a,v,kind,approx};
+  };
+  [...g0.entries()].forEach(([sk,si])=>{
+    const a=rowAgg(si,'set',sk);
+    rows.push(mk(0,sk,setLb(C.set[sk]),a,'set',true));
+    if(F.open0!==sk) return;
+    const g1=groupBy(si,'cre');
+    [...g1.entries()].sort((x,y)=>y[1].length-x[1].length).forEach(([ck,ci])=>{
+      const a1=rowAgg(ci,'cre',ck);
+      rows.push(mk(1,ck,creLb(C.cre[ck]),a1,'cre',false));
+      if(F.open1!==ck) return;
+      const g2=groupBy(ci,F.segDim);
+      [...g2.entries()].sort((x,y)=>y[1].length-x[1].length).slice(0,8).forEach(([gk,gi])=>{
+        const a2=rowAgg(gi,'none',gk); a2.meta=null;
+        rows.push(mk(2,gk,C[F.segDim][gk],a2,'seg',false));
+      });
+    });
+  });
+  rows.sort((a,b)=>0);
+  const mx=Math.max(...rows.map(r=>Math.abs(r.v||0)),1);
+  $('#drill').innerHTML=rows.map(r=>{
+    const gray=r.a.users<300;
+    const open=(r.depth===0&&F.open0===r.key)||(r.depth===1&&F.open1===r.key);
+    const selD=r.depth===2&&F.seg===r.key;
+    const w=M.inv? (r.v?Math.max(3,(1-Math.min(1,r.v/mx))*100):0) : (r.v?Math.abs(r.v)/mx*100:0);
+    const mval=M.fmt(r.a);
+    const arv=r.a.meta?pct(r.a.users/r.a.meta.uclk*100):'—';
+    return `<div class="row d${r.depth} ${open?'open':''} ${selD?'sel':''} ${gray?'gray':''}"
+      data-d="${r.depth}" data-k="${r.key}">
+      <span class="nm">${r.depth>0?'<i class="rail"></i>':''}
+        <i class="cr">${r.depth<2?(open?'▾':'▸'):'·'}</i>
+        <span class="txt">${r.label}</span>${r.depth===1&&DATA.crePhase[C.cre[r.key]]&&DATA.crePhase[C.cre[r.key]]!=='전기간'?`<i class="tag ph">${DATA.crePhase[C.cre[r.key]]}만</i>`:''}${gray?'<i class="tag">N작음</i>':''}</span>
+      <span><span class="mb ${gray?'g':''}"><i style="width:${w}%"></i></span></span>
+      <span class="b">${fN(r.a.users)}</span>
+      <span>${fN(r.a.res)}</span>
+      <span>${pct(r.a.users?r.a.res/r.a.users*100:0)}</span>
+      <span>${r.depth===0&&arv!=='—'?'~':''}${arv}</span></div>`;
+  }).join('')||'<div class="cs">해당 조건의 데이터가 없습니다.</div>';
+  $$('#drill .row').forEach(e=>e.onclick=()=>{
+    const d=+e.dataset.d, k=isNaN(+e.dataset.k)?e.dataset.k:+e.dataset.k;
+    if(d===0){ F.open0=F.open0===k?null:k; F.open1=null; }
+    else if(d===1){ F.open1=F.open1===k?null:k; }
+    else { F.seg=F.seg===k?null:k; }
+    render(); });
+  const pth=['<b>전체</b>'];
+  if(F.open0!==null) pth.push(`<b>${setLb(C.set[F.open0])}</b>`);
+  if(F.open1!==null) pth.push(`<b>${creLb(C.cre[F.open1])}</b>`);
+  $('#path').innerHTML=pth.join(' <span style="color:var(--c25)">›</span> ')+
+    (F.open0===null?' <span style="color:var(--c45)">— 행을 클릭해 펼치세요</span>':'');
+}
+
+/* ── 히트맵 ──────────────────────────────────────────── */
+function renderHeat(idxs){
+  const grid=Array.from({length:7},()=>Array(24).fill(0));
+  if(HMSEG==='sess'){ for(const i of idxs) grid[S[i][COL.wd]][S[i][COL.hour]]++; }
+  else { for(const i of idxs) if(S[i][COL.res]===1) grid[S[i][COL.wd]][S[i][COL.hour]]++; }
+  const mx=Math.max(1,...grid.flat());
+  let h='<div class="lb"></div>';
+  for(let x=0;x<24;x++) h+=`<div class="lb">${x%3===0?x:''}</div>`;
+  for(let y=0;y<7;y++){ h+=`<div class="lb">${WD[y]}</div>`;
+    for(let x=0;x<24;x++){ const v=grid[y][x], t=v/mx;
+      const bg=v===0?'#F4F4F1':`rgba(26,26,26,${(0.10+t*0.85).toFixed(3)})`;
+      const s=F.cell&&F.cell[0]===y&&F.cell[1]===x;
+      h+=`<div class="cell ${s?'sel':''}" style="background:${bg}" data-y="${y}" data-x="${x}"
+           data-t="${WD[y]} ${x}시(하노이) / KST ${(x+2)%24}시 · ${v.toLocaleString()}"></div>`; }}
+  $('#heat').innerHTML=h;
+  $$('#heat .cell').forEach(e=>{
+    e.onclick=()=>{ const y=+e.dataset.y,x=+e.dataset.x;
+      F.cell=(F.cell&&F.cell[0]===y&&F.cell[1]===x)?null:[y,x];
+      if(F.cell&&METRICS[F.metric].meta) F.metric=0;
+      render(); };
+    e.onmousemove=ev=>tip(ev,e.dataset.t); e.onmouseleave=()=>tip(null); });
+  $('#hmdesc').innerHTML=HMSEG==='sess'
+    ? `세션 <b>${fN(idxs.length)}</b> 분포 · 최대 <b>${mx}</b>`
+    : `예약 유도 세션 분포 · 최대 <b>${mx}</b>`;
+  $('#hmlgd').innerHTML='적음'+[0,.25,.5,.75,1].map(t=>
+    `<i style="background:rgba(26,26,26,${(0.10+t*0.85).toFixed(3)})"></i>`).join('')+'많음';
+}
+
+/* ── CTA 매트릭스 ───────────────────────────────────── */
+function renderMtx(idxs){
+  const st=new Set(idxs);
+  const types=C.ctaType.map((t,i)=>i), locs=C.ctaLoc.map((l,i)=>i);
+  const g={}; let tot=0;
+  DATA.ctaEv.forEach(([s,t,l])=>{ if(!st.has(s)) return; g[t+'_'+l]=(g[t+'_'+l]||0)+1; tot++; });
+  const colT={}, rowT={};
+  Object.entries(g).forEach(([k,v])=>{ const [t,l]=k.split('_').map(Number);
+    colT[t]=(colT[t]||0)+v; rowT[l]=(rowT[l]||0)+v; });
+  const useT=types.filter(t=>colT[t]), useL=locs.filter(l=>rowT[l]);
+  const mx=Math.max(1,...Object.values(g));
+  let h=`<div class="mx" style="grid-template-columns:78px repeat(${useT.length},1fr)"></div>`;
+  h=`<div class="h"></div>`+useT.map(t=>`<div class="h">${(CTA_LB[C.ctaType[t]]||C.ctaType[t]).replace(' ','<br>')}</div>`).join('');
+  useL.forEach(l=>{ h+=`<div class="rl">${LOC_LB[C.ctaLoc[l]]||C.ctaLoc[l]}</div>`;
+    useT.forEach(t=>{ const v=g[t+'_'+l]||0, sl=F.cta&&F.cta[0]===t&&F.cta[1]===l;
+      const bg=v===0?'#F4F4F1':`rgba(26,26,26,${(0.10+v/mx*0.85).toFixed(3)})`;
+      h+=`<div class="c ${sl?'sel':''}" style="background:${bg};color:${v/mx>0.5?'#fff':'var(--c100)'}"
+          data-t="${t}" data-l="${l}">${v||''}</div>`; }); });
+  $('#mtx').style.gridTemplateColumns=`78px repeat(${useT.length},1fr)`;
+  $('#mtx').innerHTML=h;
+  $$('#mtx .c').forEach(e=>e.onclick=()=>{
+    const t=+e.dataset.t,l=+e.dataset.l;
+    F.cta=(F.cta&&F.cta[0]===t&&F.cta[1]===l)?null:[t,l];
+    if(F.cta&&METRICS[F.metric].meta) F.metric=0;
+    render(); });
+  const A=agg(idxs);
+  $('#mxdesc').innerHTML=`클릭 <b>${fN(tot)}건</b> · CTA 클릭 사용자 <b>${fN(A.cta)}명</b> ·
+    hero+floating 집중도 <b>${pct(tot?((rowT[C.ctaLoc.indexOf('hero')]||0)+(rowT[C.ctaLoc.indexOf('floating')]||0))/tot*100:0)}</b>`;
+}
+
+/* ── 메뉴 / 좌절 신호 ───────────────────────────────── */
+function renderRight(idxs){
+  const st=new Set(idxs); let items=[];
+  if(RSEG==='menu'){
+    const g={}; DATA.menuEv.forEach(([s,i])=>{ if(st.has(s)) g[i]=(g[i]||0)+1; });
+    items=Object.entries(g).map(([k,v])=>({k:+k,lb:C.menu[k],v})).sort((a,b)=>b.v-a.v);
+    const A=agg(idxs);
+    $('#rdesc').innerHTML=`메뉴 상세를 연 사용자 <b>${fN(A.menu)}명</b> · 조회 <b>${fN(items.reduce((s,x)=>s+x.v,0))}건</b>
+      <span style="color:var(--red)">⚠ 표본 작음</span>`;
+  } else {
+    const A=agg(idxs);
+    items=[{k:-1,lb:'Dead Click (반응 없는 요소)',v:A.dead},{k:-2,lb:'Rage Click (연타)',v:A.rage}]
+      .filter(x=>x.v>0);
+    $('#rdesc').innerHTML=`좌절 신호 사용자 — Dead <b>${fN(A.dead)}명</b> · Rage <b>${fN(A.rage)}명</b>
+      <span style="color:var(--red)">⚠ 휴리스틱 · 경향 참고</span>`;
+  }
+  const mx=Math.max(1,...items.map(x=>x.v));
+  $('#rlist').innerHTML=items.map(x=>`<div class="li ${F.menu===x.k?'sel':''}" data-k="${x.k}">
+    <span>${x.lb}</span><span class="bar"><i style="width:${x.v/mx*100}%"></i></span>
+    <span class="n">${fN(x.v)}</span></div>`).join('')||'<div class="cs">해당 조건의 데이터가 없습니다.</div>';
+  if(RSEG==='menu') $$('#rlist .li').forEach(e=>e.onclick=()=>{
+    const k=+e.dataset.k; F.menu=F.menu===k?null:k;
+    if(F.menu!==null&&METRICS[F.metric].meta) F.metric=0;
+    render(); });
+}
+
+/* ── 원자료 표 ──────────────────────────────────────── */
+function renderTbl(idxs){
+  let head,body='';
+  if(TBLSEG==='cre'){
+    head=['소재','고유클릭(Meta)','방문','세션','행동','CTA','예약','유도율','도착률','유도당 비용'];
+    const g=groupBy(idxs,'cre');
+    const rows=[...g.entries()].map(([k,ii])=>({k,a:rowAgg(ii,'cre',k)}))
+      .sort((x,y)=>y.a.users-x.a.users);
+    body=rows.map(r=>{ const m=r.a.meta, gr=r.a.users<300;
+      return `<tr class="${gr?'gray':''}"><td>${creLb(C.cre[r.k])}${gr?' <span style="font-size:9px">(N작음)</span>':''}</td>
+      <td>${m?fN(m.uclk):'—'}</td><td>${fN(r.a.users)}</td><td>${fN(r.a.sessions)}</td>
+      <td>${fN(r.a.act)}</td><td>${fN(r.a.cta)}</td><td>${fN(r.a.res)}</td>
+      <td>${pct(r.a.users?r.a.res/r.a.users*100:0)}</td>
+      <td>${m?pct(r.a.users/m.uclk*100):'—'}</td>
+      <td>${m&&r.a.res?vnd(m.spend/r.a.res):'—'}</td></tr>`; }).join('');
+    const T=agg(idxs), _ms=metaScope(), mt=_ms?_ms.m:null;
+    body+=`<tr class="tot"><td>전체</td><td>${mt?fN(mt.uclk):'—'}</td><td>${fN(T.users)}</td>
+      <td>${fN(T.sessions)}</td><td>${fN(T.act)}</td><td>${fN(T.cta)}</td><td>${fN(T.res)}</td>
+      <td>${pct(T.users?T.res/T.users*100:0)}</td>
+      <td>${mt?pct(T.users/mt.uclk*100):'—'}</td>
+      <td>${mt&&T.res?vnd(mt.spend/T.res):'—'}</td></tr>`;
+  } else if(TBLSEG==='day'){
+    head=['날짜','요일','방문','세션','행동','CTA','예약','유도율'];
+    const g=groupBy(idxs,'date');
+    const rows=[...g.entries()].sort((a,b)=>a[0]-b[0]);
+    body=rows.map(([k,ii])=>{ const a=agg(ii), dt=DATA.dates[k];
+      const wd=WD[new Date(dt+'T00:00:00').getDay()===0?6:new Date(dt+'T00:00:00').getDay()-1];
+      return `<tr><td>${dt.slice(5)}${k===0?' <span style="font-size:9px;color:var(--red)">부분일</span>':''}</td>
+      <td>${wd}</td><td>${fN(a.users)}</td><td>${fN(a.sessions)}</td><td>${fN(a.act)}</td>
+      <td>${fN(a.cta)}</td><td>${fN(a.res)}</td>
+      <td>${pct(a.users?a.res/a.users*100:0)}</td></tr>`; }).join('');
+    const T=agg(idxs);
+    body+=`<tr class="tot"><td>전체</td><td></td><td>${fN(T.users)}</td><td>${fN(T.sessions)}</td>
+      <td>${fN(T.act)}</td><td>${fN(T.cta)}</td><td>${fN(T.res)}</td>
+      <td>${pct(T.users?T.res/T.users*100:0)}</td></tr>`;
+  } else {
+    head=['세그먼트','값','방문','세션','행동','CTA','예약','유도율'];
+    const dims=[['dv','기기'],['os','OS'],['city','도시'],['lang','언어']];
+    dims.forEach(([d,lb])=>{
+      const g=groupBy(idxs,d);
+      [...g.entries()].map(([k,ii])=>({k,a:agg(ii)})).sort((x,y)=>y.a.users-x.a.users)
+        .slice(0,5).forEach(r=>{
+        const gr=r.a.users<300;
+        body+=`<tr class="${gr?'gray':''}"><td>${lb}</td><td style="text-align:left">${C[d][r.k]}</td>
+        <td>${fN(r.a.users)}</td><td>${fN(r.a.sessions)}</td><td>${fN(r.a.act)}</td>
+        <td>${fN(r.a.cta)}</td><td>${fN(r.a.res)}</td>
+        <td>${pct(r.a.users?r.a.res/r.a.users*100:0)}</td></tr>`; });
+    });
+  }
+  $('#tblwrap').innerHTML=`<table><thead><tr>${head.map((h,i)=>`<th${i===0?'':''}>${h}</th>`).join('')}</tr></thead><tbody>${body}</tbody></table>`;
+}
+
+/* ── 칩 ─────────────────────────────────────────────── */
+function renderChips(){
+  const cs=[];
+  if(F.per!=='all') cs.push(['per',PERLB[F.per]]);
+  if(F.set!==null) cs.push(['set','세트 '+setLb(C.set[F.set])]);
+  if(F.open0!==null) cs.push(['open0','세트 '+setLb(C.set[F.open0])]);
+  if(F.open1!==null) cs.push(['open1','소재 '+creLb(C.cre[F.open1])]);
+  if(F.seg!==null) cs.push(['seg',C[F.segDim][F.seg]]);
+  if(F.stage) cs.push(['stage','단계 '+({anyclick:'클릭',act:'행동',cta:'CTA',res:'예약 유도'})[F.stage]]);
+  if(F.cell) cs.push(['cell',`${WD[F.cell[0]]} ${F.cell[1]}시`]);
+  if(F.cta) cs.push(['cta',(CTA_LB[C.ctaType[F.cta[0]]]||'')+' / '+(LOC_LB[C.ctaLoc[F.cta[1]]]||'')]);
+  if(F.menu!==null&&F.menu>=0) cs.push(['menu','메뉴 '+C.menu[F.menu]]);
+  $('#chips').innerHTML=cs.map(([k,l])=>`<span class="chip" data-k="${k}">${l}<span class="x">×</span></span>`).join('');
+  $$('#chips .chip').forEach(e=>e.onclick=()=>{
+    const k=e.dataset.k;
+    if(k==='per') F.per='all'; else if(k==='cell') F.cell=null; else if(k==='cta') F.cta=null;
+    else if(k==='menu') F.menu=null; else if(k==='stage') F.stage=null;
+    else if(k==='set'){ F.set=null; $('#fset').value=''; }
+    else if(k==='open0'){ F.open0=null; F.open1=null; }
+    else F[k]=null;
+    render(); });
+}
+function tip(ev,t){ const e=$('#tt');
+  if(!ev){ e.style.display='none'; return; }
+  e.style.display='block'; e.textContent=t;
+  e.style.left=Math.min(ev.clientX+12,innerWidth-e.offsetWidth-10)+'px';
+  e.style.top=(ev.clientY+14)+'px'; }
+
+/* ── 렌더 ───────────────────────────────────────────── */
+function render(){
+  if(METRICS[F.metric].meta&&!metaOK()) F.metric=0;
+  const idxs=sel(false), A=agg(idxs);
+  const p=PER[F.per];
+  $('#scope').textContent=`${DATA.dates[p[0]]} ~ ${DATA.dates[p[1]]} · 방문 ${fN(A.users)}명 · 세션 ${fN(A.sessions)}`;
+  renderKPI(A); renderFunnel(A); renderDrill(sel(true));
+  renderHeat(idxs); renderMtx(idxs); renderRight(idxs);
+  if(TBLOPEN) renderTbl(idxs);
+  $('#tblscope').textContent=`${idxs.length.toLocaleString()}개 세션`;
+  renderChips();
+}
+
+/* ── 초기화 ─────────────────────────────────────────── */
+$('#perbtns').innerHTML=Object.keys(PER).map(k=>
+  `<button class="btn ${k==='all'?'on':''}" data-p="${k}">${PERLB[k]}</button>`).join(' ');
+$$('#perbtns .btn').forEach(e=>e.onclick=()=>{
+  F.per=e.dataset.p; $$('#perbtns .btn').forEach(b=>b.classList.toggle('on',b===e)); render(); });
+$('#fset').innerHTML='<option value="">전체</option>'+
+  C.set.map((s,i)=>`<option value="${i}">${setLb(s)}</option>`).join('');
+$('#fset').onchange=e=>{ F.set=e.target.value===''?null:+e.target.value; F.open0=null; F.open1=null; render(); };
+$('#cmp').onchange=e=>{ F.cmp=e.target.value; render(); };
+$$('#lv3seg div').forEach(e=>e.onclick=()=>{
+  $$('#lv3seg div').forEach(d=>d.classList.toggle('on',d===e));
+  F.segDim=e.dataset.m; F.seg=null; render(); });
+$$('#hmseg div').forEach(e=>e.onclick=()=>{
+  $$('#hmseg div').forEach(d=>d.classList.toggle('on',d===e)); HMSEG=e.dataset.m; render(); });
+$$('#rseg div').forEach(e=>e.onclick=()=>{
+  $$('#rseg div').forEach(d=>d.classList.toggle('on',d===e)); RSEG=e.dataset.m; F.menu=null; render(); });
+$$('#tblseg div').forEach(e=>e.onclick=()=>{
+  $$('#tblseg div').forEach(d=>d.classList.toggle('on',d===e)); TBLSEG=e.dataset.m; render(); });
+/* ⓘ·? 는 모바일에서 hover가 없으므로 탭으로도 열리게 한다 */
+$$('.info,.help').forEach(e=>e.addEventListener('click',ev=>{
+  ev.stopPropagation();
+  const was=e.classList.contains('open');
+  $$('.info.open,.help.open').forEach(o=>o.classList.remove('open'));
+  if(!was) e.classList.add('open'); }));
+document.addEventListener('click',()=>$$('.info.open,.help.open').forEach(o=>o.classList.remove('open')));
+
+$('#tgltbl').onclick=()=>{ TBLOPEN=!TBLOPEN;
+  $('#tblbox').style.display=TBLOPEN?'':'none';
+  $('#tgltbl').textContent=TBLOPEN?'원자료 표 접기':'원자료 표 펼치기';
+  if(TBLOPEN) render(); };
+render();
+</script></body></html>
