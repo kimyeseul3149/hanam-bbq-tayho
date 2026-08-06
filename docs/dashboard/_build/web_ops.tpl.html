@@ -233,9 +233,10 @@ tr.tot td{border-top:1.5px solid var(--c25);border-bottom:none;color:var(--c100)
         <li>같은 곳을 다시 클릭하면 해제된다. 상단 <b>필터 칩</b>으로 개별 해제도 가능하다.</li>
         <li>차트 오른쪽 위 <b>ⓘ</b>는 읽는 법과 <b>해석 시 유의점</b>이다.</li>
       </ol>
-      <b>주의</b> — 도착률·유도당 비용은 Meta 실적과 결합한 지표라 <b>전체 기간에서만</b> 산출된다.
-      기간·시간 필터를 걸면 비활성(—)으로 바뀐다. 일자별 Meta 실적을 넣지 않은 상태에서
-      나누면 틀린 값이 나오기 때문이다.<br>
+      <b>주의</b> — <b>유도당 비용</b>은 지출을 일별로 갖고 있어 어떤 기간에서도 나온다.
+      <b>도착률</b>만은 분모인 고유 링크클릭을 기간별로 쪼갤 수 없어 <b>전체 기간에서만</b> 나온다.
+      그리고 시간대·행동단계·세그먼트·CTA·메뉴로 좁히면 <b>둘 다 비활성(—)</b>이 된다 —
+      Meta 지출을 "토요일 20시"나 "mobile 사용자"로 나눌 방법이 없기 때문이다.<br>
       <b>색</b> — <span style="color:var(--red)">■ 빨강 = 선택·이탈</span>, ■ 차콜 = 정상·기준,
       <span style="color:var(--c25)">■ 회색 = 표본 부족(방문 300 미만)</span>.
     </div>
@@ -324,8 +325,11 @@ tr.tot td{border-top:1.5px solid var(--c25);border-bottom:none;color:var(--c100)
         <span style="color:var(--red)">1차만·2차만</span> 태그가 해당 차수에서만 집행된 소재다
         (1차만: 가족×생일 이미지·비즈니스×공간 캐러셀 / 2차만: 가족×생일 영상·비즈니스×공간 영상).
         <b>기간 필터를 걸지 않으면 두 차수가 합산</b>되므로, 소재를 서로 비교할 때는 집행 기간이 다르다는 점을 감안할 것.<br>
-      · <b>Meta 실적(노출·클릭·지출)은 기간 전체 합계만 있다.</b> 그래서 기간 필터를 걸면
-        도착률·유도당 비용은 <b>—</b>로 비활성화된다. 차수별로 보려면 Meta에서 해당 기간 실적을 따로 받아야 한다.<br>
+      · <b>노출·링크클릭·지출은 소재별 × 일별로 확보</b>돼 있어 기간을 어떻게 잘라도 합산된다
+        (유도당 비용·CTR·CPC가 모든 기간에서 나온다). 다만 <b>고유 링크클릭은 Meta가 조회 기간마다
+        따로 중복 제거</b>하므로 쪼갤 수 없다 — <b>도착률은 전체 기간에서만</b> 산출되고 기간 필터 중에는 <b>—</b>가 된다.<br>
+      · 일별 실적은 지면 분류 리포트에서 집계했다. 노출위치가 귀속되지 않은 소수 노출이 빠져
+        <b>노출 460,136 · 링크클릭 17,825</b>로 계정 합계(460,195 · 17,828)보다 각각 59·3 적다(0.02%). 지출은 완전 일치한다.<br>
       · <b>방문자 = 고유 device_id</b> (Page Viewed 또는 session_start 발생). 로그인이 없어 사람이 아니라 <b>기기</b> 단위이며,
         Amplitude UI에서 <code>Page Viewed · 고유 사용자</code>로 조회하면 8,083으로 1명 차이가 난다.<br>
       · <b>고유 사용자 지표는 행의 합 ≠ 전체</b>다. 소재별 방문자 합 8,217 vs 전체 8,084(중복 133명),
@@ -386,14 +390,14 @@ const PERLB={all:'전체 14일',p1:'1차 7/20~28 (9일)',p2:'2차 7/29~8/2 (5일
    Meta 실적은 '기간 전체 × 소재'로만 존재한다. 웹 쪽에서만 나오는 조건(시간대·행동단계·
    세그먼트·CTA·메뉴·기간 구간)으로 방문자를 좁히면 분자만 줄고 분모는 그대로라 틀린 값이 된다.
    그런 필터가 하나라도 걸리면 도착률·유도당 비용은 산출하지 않는다. */
-const metaOK=()=>F.per==='all'&&!F.cell&&!F.stage&&F.seg===null&&!F.cta&&F.menu===null;
-/* KPI용 분모 — 소재/세트가 선택돼 있으면 그 범위의 Meta 실적을 쓴다 */
+const metaOK=()=>!F.cell&&!F.stage&&F.seg===null&&!F.cta&&F.menu===null;
+/* KPI용 범위 — 소재/세트가 선택돼 있으면 그 범위의 Meta 실적을 쓴다 */
 function metaScope(){
   if(!metaOK()) return null;
   if(F.open1!==null) return {m:metaFor('cre',F.open1),approx:false};
   const s=F.open0!==null?F.open0:F.set;
   if(s!==null&&s!==undefined) return {m:metaFor('set',s),approx:true};
-  return {m:MT,approx:false};
+  return {m:metaFor('all',null),approx:false};
 }
 
 /* 필터 */
@@ -435,24 +439,50 @@ function groupBy(idxs,col){
   return m;
 }
 
-/* Meta 값 */
+/* Meta 값.
+   노출·링크클릭·지출은 가산적이라 일별(metaDaily)로 갖고 있어 어떤 기간에도 합산된다.
+   고유 링크클릭만은 Meta가 조회 기간마다 따로 중복 제거하므로 쪼갤 수 없다
+   → 전체 기간(F.per==='all')에서만 쓰고, 그 외에는 uclk=null → 도착률 '—'. */
+const MD=DATA.metaDaily;
+function creList(kind,key){
+  if(kind==='cre') return [key];
+  if(kind==='set'){ const nm=C.set[key];
+    return C.cre.map((c,i)=>i).filter(i=>setOf[C.cre[i]]===nm); }
+  return C.cre.map((c,i)=>i);
+}
 function metaFor(kind,key){
-  if(kind==='total') return MT;
-  if(kind==='cre'){ const m=MB[C.cre[key]]; return m||null; }
-  if(kind==='set'){ const nm=C.set[key]; let o={imp:0,clk:0,uclk:0,spend:0},h=false;
-    C.cre.forEach(c=>{ if(setOf[c]===nm&&MB[c]){ h=true; o.imp+=MB[c].imp;o.clk+=MB[c].clk;o.uclk+=MB[c].uclk;o.spend+=MB[c].spend; } });
-    return h?o:null; }
-  return null;
+  const p=PER[F.per], cs=new Set(creList(kind,key));
+  let o={imp:0,clk:0,spend:0},n=0;
+  for(const r of MD){ if(!cs.has(r[0])||r[1]<p[0]||r[1]>p[1]) continue;
+    o.imp+=r[2]; o.clk+=r[3]; o.spend+=r[4]; n++; }
+  if(!n) return null;
+  /* 고유클릭은 더하면 안 된다 — 전체는 반드시 계정 합계값(14,570)을 쓴다.
+     소재별 합은 15,124로 554명(소재를 2개 이상 클릭한 사람)만큼 부풀어 있다.
+     세트 단계는 계정 합계가 없어 합산 근사이며, 화면에 ~로 표시한다. */
+  let u=0;
+  if(F.per==='all'){
+    if(kind==='all') u=MT.uclk;
+    else cs.forEach(i=>{ const m=MB[C.cre[i]]; if(m) u+=m.uclk; });
+  }
+  o.uclk=u||null;
+  return o;
 }
 
 /* 지표 정의 */
 const METRICS=[
   {k:'visitors',lb:'방문자',fmt:a=>fN(a.users),val:(a)=>a.users,pc:false},
-  {k:'arrival', lb:'도착률', fmt:a=>a.meta?pct(a.users/a.meta.uclk*100):'—',val:a=>a.meta?a.users/a.meta.uclk*100:null,pc:true,meta:true},
+  {k:'arrival', lb:'도착률', fmt:a=>a.meta&&a.meta.uclk?pct(a.users/a.meta.uclk*100):'—',
+   val:a=>a.meta&&a.meta.uclk?a.users/a.meta.uclk*100:null,pc:true,meta:true,uclk:true},
   {k:'actrate', lb:'행동률', fmt:a=>pct(a.act/a.users*100),val:a=>a.users?a.act/a.users*100:0,pc:true},
   {k:'reserve', lb:'예약 유도',fmt:a=>fN(a.res),val:a=>a.res,pc:false},
   {k:'cpr',     lb:'유도당 비용',fmt:a=>a.meta&&a.res?vnd(a.meta.spend/a.res):'—',val:a=>a.meta&&a.res?a.meta.spend/a.res:null,pc:false,meta:true,inv:true},
 ];
+/* 그 지표를 지금 조건에서 계산할 수 있는가 */
+function metricOK(i){
+  const M=METRICS[i]; if(!M.meta) return true;
+  const ms=metaScope(); if(!ms||!ms.m) return false;
+  return M.uclk?!!ms.m.uclk:true;
+}
 const fN=n=>n==null?'—':n.toLocaleString('ko-KR');
 const pct=n=>n==null?'—':n.toFixed(n>=10?1:2)+'%';
 const vnd=n=>n==null?'—':'₫'+Math.round(n).toLocaleString('ko-KR');
@@ -482,15 +512,17 @@ function renderKPI(A){
   let cur=A;
   if(F.cmp==='day'){ const c=curDayIdxs(); cur=c.length?agg(c):null; }
   const ms=metaScope(), mt=ms&&ms.m?ms.m:null, mOK=!!mt, ap=ms&&ms.approx?'~':'';
-  const arr=mt?A.users/mt.uclk*100:null;
+  const uOK=!!(mt&&mt.uclk);
+  const arr=uOK?A.users/mt.uclk*100:null;
   const cpr=mt&&A.res?mt.spend/A.res:null;
   const d=(a,b)=>{ if(a==null||b==null||!b) return ''; const v=(a-b)/b*100;
     return `<span class="d ${v>=0?'up':'dn'}">${v>=0?'▲':'▼'}${Math.abs(v).toFixed(1)}%</span>`; };
   const cards=[
     {i:0,t:'방문자',v:fN(A.users),u:'명',s:`세션 ${fN(A.sessions)} · 인당 ${(A.sessions/(A.users||1)).toFixed(2)}`,
      dl:cur&&B?d(cur.users,B.users):''},
-    {i:1,t:'도착률',v:mOK?ap+pct(arr):'—',u:'',dis:!mOK,
-     s:mOK?`Meta 고유클릭 ${fN(mt.uclk)} → 방문${ap?' (세트 합산 근사)':''}`:'웹 전용 필터 중 산출 불가'},
+    {i:1,t:'도착률',v:uOK?ap+pct(arr):'—',u:'',dis:!uOK,
+     s:uOK?`Meta 고유클릭 ${fN(mt.uclk)} → 방문${ap?' (세트 합산 근사)':''}`
+          :(mOK?'고유클릭은 기간 분할 불가 — 전체 기간에서만':'웹 전용 필터 중 산출 불가')},
     {i:2,t:'행동률',v:pct(A.users?A.act/A.users*100:0),u:'',s:`의미 있는 행동 ${fN(A.act)}명`,
      dl:cur&&B?d(cur.act/(cur.users||1),B.act/(B.users||1)):''},
     {i:3,t:'예약 유도',v:fN(A.res),u:'명',s:`유도율 ${pct(A.users?A.res/A.users*100:0)} · 메신저 ${A.msg}·전화 ${A.call}`,
@@ -504,7 +536,7 @@ function renderKPI(A){
     <div class="v">${c.v}<span class="u">${c.u||''}</span> ${c.dl||''}</div>
     <div class="s">${c.s}</div></div>`).join('');
   $$('#kpis .kpi').forEach(e=>e.onclick=()=>{
-    const m=+e.dataset.m; if(METRICS[m].meta&&!metaOK()) return;
+    const m=+e.dataset.m; if(!metricOK(m)) return;
     F.metric=m; render(); });
 }
 
@@ -574,7 +606,7 @@ function renderDrill(idxs){
     const selD=r.depth===2&&F.seg===r.key;
     const w=M.inv? (r.v?Math.max(3,(1-Math.min(1,r.v/mx))*100):0) : (r.v?Math.abs(r.v)/mx*100:0);
     const mval=M.fmt(r.a);
-    const arv=r.a.meta?pct(r.a.users/r.a.meta.uclk*100):'—';
+    const arv=(r.a.meta&&r.a.meta.uclk)?pct(r.a.users/r.a.meta.uclk*100):'—';
     return `<div class="row d${r.depth} ${open?'open':''} ${selD?'sel':''} ${gray?'gray':''}"
       data-d="${r.depth}" data-k="${r.key}">
       <span class="nm">${r.depth>0?'<i class="rail"></i>':''}
@@ -687,37 +719,50 @@ function renderRight(idxs){
 function renderTbl(idxs){
   let head,body='';
   if(TBLSEG==='cre'){
-    head=['소재','고유클릭(Meta)','방문','세션','행동','CTA','예약','유도율','도착률','유도당 비용'];
+    head=['소재','노출','링크클릭','CTR','CPC','지출','고유클릭','방문','도착률',
+          '행동','CTA','예약','유도율','유도당 비용'];
+    const cells=(m,a)=>`
+      <td>${m?fN(m.imp):'—'}</td><td>${m?fN(m.clk):'—'}</td>
+      <td>${m&&m.imp?pct(m.clk/m.imp*100):'—'}</td><td>${m&&m.clk?vnd(m.spend/m.clk):'—'}</td>
+      <td>${m?vnd(m.spend):'—'}</td>
+      <td>${m&&m.uclk?fN(m.uclk):'—'}</td><td>${fN(a.users)}</td>
+      <td>${m&&m.uclk?pct(a.users/m.uclk*100):'—'}</td>
+      <td>${fN(a.act)}</td><td>${fN(a.cta)}</td><td>${fN(a.res)}</td>
+      <td>${pct(a.users?a.res/a.users*100:0)}</td>
+      <td>${m&&a.res?vnd(m.spend/a.res):'—'}</td>`;
     const g=groupBy(idxs,'cre');
     const rows=[...g.entries()].map(([k,ii])=>({k,a:rowAgg(ii,'cre',k)}))
       .sort((x,y)=>y.a.users-x.a.users);
-    body=rows.map(r=>{ const m=r.a.meta, gr=r.a.users<300;
-      return `<tr class="${gr?'gray':''}"><td>${creLb(C.cre[r.k])}${gr?' <span style="font-size:9px">(N작음)</span>':''}</td>
-      <td>${m?fN(m.uclk):'—'}</td><td>${fN(r.a.users)}</td><td>${fN(r.a.sessions)}</td>
-      <td>${fN(r.a.act)}</td><td>${fN(r.a.cta)}</td><td>${fN(r.a.res)}</td>
-      <td>${pct(r.a.users?r.a.res/r.a.users*100:0)}</td>
-      <td>${m?pct(r.a.users/m.uclk*100):'—'}</td>
-      <td>${m&&r.a.res?vnd(m.spend/r.a.res):'—'}</td></tr>`; }).join('');
+    body=rows.map(r=>{ const gr=r.a.users<300;
+      return `<tr class="${gr?'gray':''}"><td>${creLb(C.cre[r.k])}${gr?' <span style="font-size:9px">(N작음)</span>':''}</td>${cells(r.a.meta,r.a)}</tr>`;
+    }).join('');
     const T=agg(idxs), _ms=metaScope(), mt=_ms?_ms.m:null;
-    body+=`<tr class="tot"><td>전체</td><td>${mt?fN(mt.uclk):'—'}</td><td>${fN(T.users)}</td>
-      <td>${fN(T.sessions)}</td><td>${fN(T.act)}</td><td>${fN(T.cta)}</td><td>${fN(T.res)}</td>
-      <td>${pct(T.users?T.res/T.users*100:0)}</td>
-      <td>${mt?pct(T.users/mt.uclk*100):'—'}</td>
-      <td>${mt&&T.res?vnd(mt.spend/T.res):'—'}</td></tr>`;
+    body+=`<tr class="tot"><td>전체</td>${cells(mt,T)}</tr>`;
   } else if(TBLSEG==='day'){
-    head=['날짜','요일','방문','세션','행동','CTA','예약','유도율'];
+    head=['날짜','요일','차수','지출','방문','세션','행동','CTA','예약','유도율','유도당 비용'];
+    /* 일자별 지출 — 이 조건에서 유효한 소재 범위만 합산 */
+    const cs=new Set(creList(F.open1!==null?'cre':((F.open0!==null||F.set!==null)?'set':'all'),
+                             F.open1!==null?F.open1:(F.open0!==null?F.open0:F.set)));
+    const spendOf=d=>{ if(!metaOK()) return null; let s=0,n=0;
+      for(const r of MD) if(cs.has(r[0])&&r[1]===d){ s+=r[4]; n++; } return n?s:null; };
     const g=groupBy(idxs,'date');
     const rows=[...g.entries()].sort((a,b)=>a[0]-b[0]);
-    body=rows.map(([k,ii])=>{ const a=agg(ii), dt=DATA.dates[k];
+    let spTot=0, spAny=false;
+    body=rows.map(([k,ii])=>{ const a=agg(ii), dt=DATA.dates[k], sp=spendOf(k);
+      if(sp!=null){ spTot+=sp; spAny=true; }
       const wd=WD[new Date(dt+'T00:00:00').getDay()===0?6:new Date(dt+'T00:00:00').getDay()-1];
       return `<tr><td>${dt.slice(5)}${k===0?' <span style="font-size:9px;color:var(--red)">부분일</span>':''}</td>
-      <td>${wd}</td><td>${fN(a.users)}</td><td>${fN(a.sessions)}</td><td>${fN(a.act)}</td>
+      <td>${wd}</td><td>${k<9?'1차':'2차'}</td><td>${sp!=null?vnd(sp):'—'}</td>
+      <td>${fN(a.users)}</td><td>${fN(a.sessions)}</td><td>${fN(a.act)}</td>
       <td>${fN(a.cta)}</td><td>${fN(a.res)}</td>
-      <td>${pct(a.users?a.res/a.users*100:0)}</td></tr>`; }).join('');
+      <td>${pct(a.users?a.res/a.users*100:0)}</td>
+      <td>${sp!=null&&a.res?vnd(sp/a.res):'—'}</td></tr>`; }).join('');
     const T=agg(idxs);
-    body+=`<tr class="tot"><td>전체</td><td></td><td>${fN(T.users)}</td><td>${fN(T.sessions)}</td>
+    body+=`<tr class="tot"><td>전체</td><td></td><td></td><td>${spAny?vnd(spTot):'—'}</td>
+      <td>${fN(T.users)}</td><td>${fN(T.sessions)}</td>
       <td>${fN(T.act)}</td><td>${fN(T.cta)}</td><td>${fN(T.res)}</td>
-      <td>${pct(T.users?T.res/T.users*100:0)}</td></tr>`;
+      <td>${pct(T.users?T.res/T.users*100:0)}</td>
+      <td>${spAny&&T.res?vnd(spTot/T.res):'—'}</td></tr>`;
   } else {
     head=['세그먼트','값','방문','세션','행동','CTA','예약','유도율'];
     const dims=[['dv','기기'],['os','OS'],['city','도시'],['lang','언어']];
@@ -765,7 +810,7 @@ function tip(ev,t){ const e=$('#tt');
 
 /* ── 렌더 ───────────────────────────────────────────── */
 function render(){
-  if(METRICS[F.metric].meta&&!metaOK()) F.metric=0;
+  if(!metricOK(F.metric)) F.metric=0;
   const idxs=sel(false), A=agg(idxs);
   const p=PER[F.per];
   $('#scope').textContent=`${DATA.dates[p[0]]} ~ ${DATA.dates[p[1]]} · 방문 ${fN(A.users)}명 · 세션 ${fN(A.sessions)}`;

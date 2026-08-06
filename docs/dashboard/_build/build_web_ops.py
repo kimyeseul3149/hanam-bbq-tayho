@@ -15,6 +15,8 @@ import pandas as pd
 
 ROOT = r'C:\Users\user\Desktop\GMM\0709_claude_하남_웹페이지제작'
 SRC = os.path.join(ROOT, 'docs', 'analytics', '하남BBQ_웹페이지분석데이터(7.20~8.2).xlsx')
+# Meta 일별 실적 (지면 단위 원본 → 소재 × 일자로 집계)
+META_SRC = r'C:\Users\user\Documents\카카오톡 받은 파일\메타 데이터 원본 자료.xlsx'
 OUT = os.path.join(ROOT, 'docs', 'dashboard', '_build', 'web_ops_data.json')
 
 ARRIVE = ['[Amplitude] Page Viewed', 'session_start']
@@ -34,6 +36,16 @@ META = {
     'business_space_carousel': dict(imp=11540,  clk=235,   uclk=227,  spend=213440),
 }
 META_TOTAL = dict(imp=460195, clk=17828, uclk=14570, spend=8816522)
+
+# Meta 광고이름 → 소재 키 (웹 쪽 utm_content 매핑과 같은 이름을 쓴다)
+AD2CRE = {
+    'business_taste_message_vid_customlp': 'business_taste',
+    'family_taste_message_vid_customlp': 'family_taste',
+    'family_service_bday_vid_customlp': 'family_bday_vid',
+    'family_service_bday_img_customlp': 'family_bday_img',
+    'business_service_space_vid_customlp': 'business_space_vid',
+    'business_service_space_carousel_customlp': 'business_space_carousel',
+}
 
 
 def main():
@@ -181,6 +193,33 @@ def main():
     for k, v in phase.items():
         print(f'  {k:26s} {v}')
 
+    # ── Meta 일별 실적 ─────────────────────────────────────────────
+    # 노출·링크클릭·지출은 가산적이라 일별로 받아두면 어떤 기간 필터에도 대응된다.
+    # 고유 링크클릭만은 조회 기간마다 Meta가 따로 중복 제거하므로 일별로 못 쪼갠다
+    # → 전체 기간 값(META)만 유지하고, 도착률은 전체 기간에서만 산출한다.
+    md = pd.read_excel(META_SRC, sheet_name='원본_지면')
+    md['일자'] = pd.to_datetime(md['일자'], errors='coerce')
+    note_rows = md['일자'].isna().sum()
+    md = md.dropna(subset=['일자'])
+    md['date'] = md['일자'].dt.date.map(didx)
+    md = md.dropna(subset=['date'])          # 기간 밖(8/3) 제외
+
+    md['cre'] = md['광고이름'].map(AD2CRE)
+    unknown = md[md.cre.isna()]['광고이름'].unique()
+    if len(unknown):
+        raise SystemExit(f'매핑되지 않은 광고이름: {list(unknown)}')
+    g = (md.groupby(['cre', 'date'])[['노출', '링크클릭', '지출(VND)']]
+           .sum().round(0).astype(int).reset_index()
+           .rename(columns={'노출': 'imp', '링크클릭': 'clk', '지출(VND)': 'spend'}))
+    creidx = {v: i for i, v in enumerate(cre_cats)}
+    meta_daily = [[int(creidx[r.cre]), int(r.date), int(r.imp), int(r.clk), int(r.spend)]
+                  for r in g.itertuples()]
+    print(f'\n── Meta 일별 ── {len(meta_daily)}행 (주석 {note_rows}행 제외, 8/3 제외)')
+    print(f'  합계  노출 {g.imp.sum():,} · 링크클릭 {g.clk.sum():,} · '
+          f'지출 {g.spend.sum():,} VND')
+    print(f'  참조  노출 {META_TOTAL["imp"]:,} · 링크클릭 {META_TOTAL["clk"]:,} · '
+          f'지출 {META_TOTAL["spend"]:,} VND  (지면 분류 누락분만큼 소폭 작을 수 있음)')
+
     # ── 출력 ───────────────────────────────────────────────────────
     cols = ['u', 'date', 'hour', 'wd', 'cre', 'set', 'dv', 'os', 'city', 'lang',
             'arrive', 'anyclick', 'act', 'cta', 'res', 'msg', 'call', 'menu',
@@ -193,6 +232,7 @@ def main():
                  'city': ci_cats, 'lang': lg_cats, 'ctaType': ct_cats,
                  'ctaLoc': cl_cats, 'menu': mi_cats},
         'crePhase': phase,
+        'metaDaily': meta_daily,   # [creIdx, dateIdx, imp, clk, spend]
         'sessCols': cols,
         'sess': [[int(x) for x in row] for row in sess[cols].to_numpy()],
         'ctaEv': ctaev,
