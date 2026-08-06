@@ -297,12 +297,11 @@ tr.tot td{border-top:1.5px solid var(--c25);border-bottom:none;color:var(--c100)
     <div class="hint">← 좌우로 밀어서 보기</div>
   </div>
   <div class="card">
-    <div class="ct" id="rtitle">관심 · 좌절 신호
-      <div class="info">i<div class="tip"><b>메뉴</b> = 상세를 연 메뉴 항목(Menu Item Viewed). 판매량이 아니라 <b>클릭 기반 관심도</b>다.<br><br>
-        <b>좌절 신호</b> = Dead Click(반응 없는 요소 클릭)·Rage Click(연타). Amplitude 휴리스틱 판정이라
-        로고 오탐이 섞여 있어 <b>경향 참고용</b>이다. 근거로 단독 사용 금지.<br><br>
-        <b>유의</b> — 메뉴 조회는 표본 37명으로 매우 작다.</div></div>
-      <div class="seg" id="rseg"><div data-m="menu" class="on">메뉴</div><div data-m="fr">좌절 신호</div></div>
+    <div class="ct" id="rtitle">막히지 않았나 — 좌절 신호
+      <div class="info">i<div class="tip"><b>Dead Click</b> = 반응하지 않는 요소를 클릭. <b>Rage Click</b> = 같은 자리를 연타.
+        둘 다 "눌렀는데 아무 일도 안 일어났다"는 신호다.<br><br>
+        <b>유의</b> — Amplitude 휴리스틱 판정이라 오탐이 섞여 있다. Dead Click 89건 중 34건이
+        로고(<code>href="#top"</code>) 클릭이다. <b>경향 참고용이며 단독 근거로 쓰지 말 것.</b></div></div>
     </div>
     <div class="cs" id="rdesc"></div>
     <div class="lst" id="rlist"></div>
@@ -343,7 +342,7 @@ tr.tot td{border-top:1.5px solid var(--c25);border-bottom:none;color:var(--c100)
       · <b>유도당 비용 = 지출 ÷ 예약 유도 사용자</b>. 클릭수는 계산에 들어가지 않는다.<br>
       · 측정 한계 — POS 미연동으로 <b>실제 예약 완결은 측정 불가</b>('예약 유도'가 상한선) ·
         스크롤 뎁스 미계측으로 이탈 지점 확인 불가 · session_end가 14.9%에만 있어 체류시간 측정 포기 ·
-        메뉴 관심도 표본 37명 · Dead Click 89건 중 34건이 로고 오탐.
+        Dead Click 89건 중 34건이 로고 오탐.
     </div>
   </div>
 </div>
@@ -358,9 +357,8 @@ DATA.sessCols.forEach((c,i)=>COL[c]=i);
 const NS=S.length;
 
 /* 세션별 CTA/메뉴 인덱스 */
-const ctaBySess=new Map(), menuBySess=new Map();
+const ctaBySess=new Map();
 DATA.ctaEv.forEach(([s,t,l])=>{ if(!ctaBySess.has(s))ctaBySess.set(s,[]); ctaBySess.get(s).push([t,l]); });
-DATA.menuEv.forEach(([s,i])=>{ if(!menuBySess.has(s))menuBySess.set(s,[]); menuBySess.get(s).push(i); });
 
 /* 라벨 */
 const CRE_LB={business_taste:'비즈니스 × 맛 (영상)',family_taste:'가족 × 맛 (영상)',
@@ -379,9 +377,9 @@ const creIdx={}; C.cre.forEach((k,i)=>creIdx[k]=i);
 const setOf={}; C.cre.forEach(k=>{ setOf[k]=k==='(none)'?'(none)':(k.startsWith('business')?'hanoi_2549_mf_business':'hanoi_2549_mf_family'); });
 
 /* 상태 */
-const F={per:'all',cmp:'prev',set:null,cre:null,seg:null,segDim:'dv',stage:null,
-         cell:null,cta:null,menu:null,metric:0,open0:null,open1:null};
-let RSEG='menu', HMSEG='sess', TBLSEG='cre', TBLOPEN=true;
+const F={per:'all',cmp:'prev',set:null,seg:null,segDim:'dv',stage:null,
+         cell:null,cta:null,metric:0,open0:null,open1:null};
+let HMSEG='sess', TBLSEG='cre', TBLOPEN=true;
 /* 7/29에 소재를 교체했다 → 1차 9일(7/20~28) · 2차 5일(7/29~8/2) */
 const PER={all:[0,13],p1:[0,8],p2:[9,13]};
 const PERLB={all:'전체 14일',p1:'1차 7/20~28 (9일)',p2:'2차 7/29~8/2 (5일)'};
@@ -390,7 +388,7 @@ const PERLB={all:'전체 14일',p1:'1차 7/20~28 (9일)',p2:'2차 7/29~8/2 (5일
    Meta 실적은 '기간 전체 × 소재'로만 존재한다. 웹 쪽에서만 나오는 조건(시간대·행동단계·
    세그먼트·CTA·메뉴·기간 구간)으로 방문자를 좁히면 분자만 줄고 분모는 그대로라 틀린 값이 된다.
    그런 필터가 하나라도 걸리면 도착률·유도당 비용은 산출하지 않는다. */
-const metaOK=()=>!F.cell&&!F.stage&&F.seg===null&&!F.cta&&F.menu===null;
+const metaOK=()=>!F.cell&&!F.stage&&F.seg===null&&!F.cta;
 /* KPI용 범위 — 소재/세트가 선택돼 있으면 그 범위의 Meta 실적을 쓴다 */
 function metaScope(){
   if(!metaOK()) return null;
@@ -415,7 +413,6 @@ function pass(i,forTree){
   if(F.stage&&r[COL[F.stage]]!==1) return false;
   if(F.cell&&(r[COL.wd]!==F.cell[0]||r[COL.hour]!==F.cell[1])) return false;
   if(F.cta){ const e=ctaBySess.get(i); if(!e||!e.some(([t,l])=>(F.cta[0]<0||t===F.cta[0])&&(F.cta[1]<0||l===F.cta[1]))) return false; }
-  if(F.menu!==null){ const e=menuBySess.get(i); if(!e||!e.includes(F.menu)) return false; }
   return true;
 }
 function sel(forTree){ const a=[]; for(let i=0;i<NS;i++) if(pass(i,forTree)) a.push(i); return a; }
@@ -689,30 +686,18 @@ function renderMtx(idxs){
     hero+floating 집중도 <b>${pct(tot?((rowT[C.ctaLoc.indexOf('hero')]||0)+(rowT[C.ctaLoc.indexOf('floating')]||0))/tot*100:0)}</b>`;
 }
 
-/* ── 메뉴 / 좌절 신호 ───────────────────────────────── */
+/* ── 좌절 신호 ──────────────────────────────────────── */
 function renderRight(idxs){
-  const st=new Set(idxs); let items=[];
-  if(RSEG==='menu'){
-    const g={}; DATA.menuEv.forEach(([s,i])=>{ if(st.has(s)) g[i]=(g[i]||0)+1; });
-    items=Object.entries(g).map(([k,v])=>({k:+k,lb:C.menu[k],v})).sort((a,b)=>b.v-a.v);
-    const A=agg(idxs);
-    $('#rdesc').innerHTML=`메뉴 상세를 연 사용자 <b>${fN(A.menu)}명</b> · 조회 <b>${fN(items.reduce((s,x)=>s+x.v,0))}건</b>
-      <span style="color:var(--red)">⚠ 표본 작음</span>`;
-  } else {
-    const A=agg(idxs);
-    items=[{k:-1,lb:'Dead Click (반응 없는 요소)',v:A.dead},{k:-2,lb:'Rage Click (연타)',v:A.rage}]
-      .filter(x=>x.v>0);
-    $('#rdesc').innerHTML=`좌절 신호 사용자 — Dead <b>${fN(A.dead)}명</b> · Rage <b>${fN(A.rage)}명</b>
-      <span style="color:var(--red)">⚠ 휴리스틱 · 경향 참고</span>`;
-  }
+  const A=agg(idxs);
+  const items=[{lb:'Dead Click — 반응 없는 요소 클릭',v:A.dead},
+               {lb:'Rage Click — 같은 자리 연타',v:A.rage}];
   const mx=Math.max(1,...items.map(x=>x.v));
-  $('#rlist').innerHTML=items.map(x=>`<div class="li ${F.menu===x.k?'sel':''}" data-k="${x.k}">
+  $('#rdesc').innerHTML=`방문자 <b>${fN(A.users)}명</b> 중 좌절 신호 발생 —
+    Dead <b>${pct(A.users?A.dead/A.users*100:0)}</b> · Rage <b>${pct(A.users?A.rage/A.users*100:0)}</b>
+    <span style="color:var(--red)">⚠ 휴리스틱 · 경향 참고</span>`;
+  $('#rlist').innerHTML=items.map(x=>`<div class="li" style="cursor:default">
     <span>${x.lb}</span><span class="bar"><i style="width:${x.v/mx*100}%"></i></span>
-    <span class="n">${fN(x.v)}</span></div>`).join('')||'<div class="cs">해당 조건의 데이터가 없습니다.</div>';
-  if(RSEG==='menu') $$('#rlist .li').forEach(e=>e.onclick=()=>{
-    const k=+e.dataset.k; F.menu=F.menu===k?null:k;
-    if(F.menu!==null&&METRICS[F.metric].meta) F.metric=0;
-    render(); });
+    <span class="n">${fN(x.v)}</span></div>`).join('');
 }
 
 /* ── 원자료 표 ──────────────────────────────────────── */
@@ -791,12 +776,11 @@ function renderChips(){
   if(F.stage) cs.push(['stage','단계 '+({anyclick:'클릭',act:'행동',cta:'CTA',res:'예약 유도'})[F.stage]]);
   if(F.cell) cs.push(['cell',`${WD[F.cell[0]]} ${F.cell[1]}시`]);
   if(F.cta) cs.push(['cta',(CTA_LB[C.ctaType[F.cta[0]]]||'')+' / '+(LOC_LB[C.ctaLoc[F.cta[1]]]||'')]);
-  if(F.menu!==null&&F.menu>=0) cs.push(['menu','메뉴 '+C.menu[F.menu]]);
   $('#chips').innerHTML=cs.map(([k,l])=>`<span class="chip" data-k="${k}">${l}<span class="x">×</span></span>`).join('');
   $$('#chips .chip').forEach(e=>e.onclick=()=>{
     const k=e.dataset.k;
     if(k==='per') F.per='all'; else if(k==='cell') F.cell=null; else if(k==='cta') F.cta=null;
-    else if(k==='menu') F.menu=null; else if(k==='stage') F.stage=null;
+    else if(k==='stage') F.stage=null;
     else if(k==='set'){ F.set=null; $('#fset').value=''; }
     else if(k==='open0'){ F.open0=null; F.open1=null; }
     else F[k]=null;
@@ -835,8 +819,6 @@ $$('#lv3seg div').forEach(e=>e.onclick=()=>{
   F.segDim=e.dataset.m; F.seg=null; render(); });
 $$('#hmseg div').forEach(e=>e.onclick=()=>{
   $$('#hmseg div').forEach(d=>d.classList.toggle('on',d===e)); HMSEG=e.dataset.m; render(); });
-$$('#rseg div').forEach(e=>e.onclick=()=>{
-  $$('#rseg div').forEach(d=>d.classList.toggle('on',d===e)); RSEG=e.dataset.m; F.menu=null; render(); });
 $$('#tblseg div').forEach(e=>e.onclick=()=>{
   $$('#tblseg div').forEach(d=>d.classList.toggle('on',d===e)); TBLSEG=e.dataset.m; render(); });
 /* ⓘ·? 는 모바일에서 hover가 없으므로 탭으로도 열리게 한다 */
