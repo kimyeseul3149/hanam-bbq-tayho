@@ -1,0 +1,162 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>하남돼지집 서호수점 — Executive Summary</title><style>:root{--red:#E60012;--red45:#F48C94;--red12:#FCE3E5;--c100:#1A1A1A;--c70:#616161;
+  --c45:#939393;--c25:#C4C4C4;--lg:#E9E9E9;--ivory:#FFF9F2;--surf:#FFFFFF;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+html{background:#F1ECE4;}
+body{font-family:system-ui,'Segoe UI','Malgun Gothic',sans-serif;color:var(--c100);
+  -webkit-font-smoothing:antialiased;display:flex;justify-content:center;align-items:flex-start;}
+/* 슬라이드 한 장 = 1360x812 고정. 좁은 화면에서는 통째로 축소한다. */
+.slide{width:1360px;height:812px;flex:none;display:flex;background:var(--ivory);
+  transform-origin:top center;}
+@media print{html,body{background:#fff;}body{display:block;}.slide{transform:none!important;}}
+
+/* 사이드바 — v2의 차콜 */
+.side{width:212px;background:var(--c100);color:#B9B4AA;padding:22px 20px;flex-shrink:0;
+  display:flex;flex-direction:column;border-top:4px solid var(--red);}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800;color:#fff;font-size:15px;line-height:1.25;}
+.logo .mk{width:30px;height:30px;border-radius:8px;background:var(--red);
+  display:flex;align-items:center;justify-content:center;font-size:15px;}
+.side hr{border:none;border-top:1px solid #3A3A36;margin:16px 0;}
+.fl{font-size:10px;color:#7E7E76;margin-bottom:3px;letter-spacing:.16em;text-transform:uppercase;}
+.fv{font-size:13px;color:#fff;margin-bottom:13px;font-weight:600;}
+.leg{font-size:11px;color:#9A968E;line-height:1.9;margin-top:2px;}
+.leg .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;}
+.pagechip{margin-top:auto;font-size:11px;color:#7E7E76;}
+
+.main{flex:1;padding:20px 26px;overflow:hidden;}
+.top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;
+  background:var(--surf);border:1px solid var(--lg);border-top:4px solid var(--red);
+  border-radius:10px;padding:12px 16px;}
+.h1{font-size:22px;font-weight:800;}
+.h1 span{color:var(--c45);font-weight:500;font-size:16px;}
+.sub{font-size:11px;color:var(--c70);margin-top:3px;}
+.badge{background:var(--surf);color:var(--c45);border:1px solid var(--c25);
+  font-size:10px;font-weight:600;padding:4px 10px;border-radius:14px;white-space:nowrap;}
+.card{background:var(--surf);border:1px solid var(--lg);border-radius:10px;padding:12px 15px;}
+.mb14{margin-bottom:13px;}
+.grid2{display:grid;grid-template-columns:1fr 1.25fr;gap:13px;}
+
+/* 섹션 라벨 — v2 스타일 */
+.seclab{display:flex;align-items:center;gap:8px;margin:0 2px 7px;}
+.seclab .n{width:18px;height:18px;border-radius:50%;background:var(--c100);color:#fff;font-size:10px;
+  font-weight:700;display:flex;align-items:center;justify-content:center;flex:none;}
+.seclab .t{font-size:12px;font-weight:700;}
+.seclab .d{font-size:10.5px;color:var(--c45);}
+.seclab .ln{flex:1;height:1px;background:var(--lg);}
+
+/* KPI 흐름 */
+.kflow{display:flex;align-items:stretch;gap:0;margin-bottom:13px;}
+.knode{flex:1;background:var(--surf);border:1px solid var(--lg);border-radius:10px;padding:11px 13px;}
+.knode .kst{font-size:9px;font-weight:700;color:var(--c45);letter-spacing:.1em;
+  text-transform:uppercase;margin-bottom:5px;}
+.knode .klab{font-size:11px;color:var(--c70);font-weight:600;}
+.knode .knum{font-size:23px;font-weight:700;letter-spacing:-.01em;margin-top:2px;
+  font-variant-numeric:tabular-nums;}
+.knode .ksub{font-size:9.5px;color:var(--c45);margin-top:3px;}
+.knode.hero{border-color:var(--red45);background:linear-gradient(180deg,#FFF6F7,#fff 52%);}
+.knode.hero .knum{color:var(--red);}
+.knode.budget{background:#F7F7F5;border-style:dashed;border-color:var(--c25);}
+.knode.budget .knum{font-size:19px;color:var(--c70);}
+.karrow{display:flex;align-items:center;color:var(--c25);font-size:16px;font-weight:700;padding:0 7px;}
+
+/* 전환율 스트립 */
+.convstrip{display:flex;gap:10px;margin-bottom:11px;}
+.convpill{flex:1;background:#F7F7F5;border:1px solid var(--lg);border-radius:8px;padding:8px 12px;
+  display:flex;align-items:baseline;justify-content:space-between;}
+.convpill .cvn{font-size:19px;font-weight:700;color:var(--c100);font-variant-numeric:tabular-nums;}
+.convpill .cvl{font-size:10.5px;color:var(--c70);font-weight:600;}
+.ctitle{font-size:13px;font-weight:700;margin-bottom:2px;}
+.csub{font-size:10.5px;color:var(--c45);margin-bottom:11px;}
+
+/* 퍼널 */
+.fnl{display:flex;flex-direction:column;gap:6px;}
+.frow{display:flex;align-items:center;gap:12px;}
+.frow .fnm{width:132px;text-align:right;font-size:11.5px;font-weight:700;flex-shrink:0;}
+.frow .fnm small{display:block;font-size:9px;color:var(--c45);font-weight:500;}
+.frow .ftk{flex:1;display:flex;align-items:center;gap:8px;}
+.frow .fbar{height:27px;border-radius:5px;display:flex;align-items:center;padding:0 11px;
+  color:#fff;font-weight:700;font-size:11.5px;min-width:40px;font-variant-numeric:tabular-nums;}
+.frow .fout{font-size:11.5px;font-weight:700;color:var(--c100);}
+.frow .fcv{width:118px;font-size:11px;color:var(--c45);flex-shrink:0;}
+.frow .fcv b{color:var(--c100);font-weight:700;}
+.fdiv{margin:2px 0 2px 144px;font-size:10px;color:var(--red);background:#FFF6F7;
+  border:1px dashed var(--red45);border-radius:8px;padding:4px 10px;}
+
+/* 유도당 비용 막대 */
+.hrow{display:flex;align-items:center;gap:10px;margin:7px 0;}
+.hrow .lb{width:70px;font-size:11px;text-align:right;flex-shrink:0;color:var(--c70);}
+.hrow .tk{flex:1;background:var(--lg);border-radius:4px;height:20px;}
+.hrow .fi{height:100%;border-radius:4px;display:flex;align-items:center;justify-content:flex-end;
+  padding-right:7px;color:#fff;font-size:10.5px;font-weight:700;font-variant-numeric:tabular-nums;}
+.arrow{font-size:10.5px;color:var(--c45);margin-top:9px;border-top:1px solid var(--lg);padding-top:8px;}
+.arrow b{color:var(--c100);}
+
+/* 액션 플랜 — 초록 대신 중립 + 레드 화살표 */
+.ap{background:var(--surf);border:1px solid var(--lg);border-radius:10px;padding:12px 15px;}
+.ap h4{font-size:13px;font-weight:700;margin-bottom:8px;color:var(--c100);
+  display:flex;align-items:center;gap:6px;}
+.ap h4::before{content:'';width:3px;height:13px;background:var(--red);border-radius:2px;}
+.ap table{width:100%;border-collapse:collapse;}
+.ap td{padding:6px 4px;border-bottom:1px solid var(--lg);vertical-align:top;
+  font-size:11px;line-height:1.45;}
+.ap tr:last-child td{border-bottom:none;}
+.ap .pf{color:var(--c70);width:52%;}
+.ap .pa{color:var(--c100);font-weight:700;}
+.ap .pa::first-letter{color:var(--red);}</style></head><body><div class="slide"><aside class="side">
+  <div class="logo"><span class="mk">🔗</span><div>하남 BBQ<br>서호수점</div></div><hr>
+  <div class="fl">Scope</div><div class="fv">Meta × Amplitude 통합</div>
+  <div class="fl">Period</div><div class="fv">Jul 20 – Aug 1 · 13일</div>
+  <div class="fl">목표</div><div class="fv">인지→브랜딩→예약유도</div>
+  <div class="fl">KPI</div><div class="fv">예약 유도 · 유도당 비용</div><hr>
+  <div class="leg"><span class="dot" style="background:#1A1A1A;outline:1px solid #616159"></span>Meta (광고 노출~클릭)<br>
+    <span class="dot" style="background:#E60012"></span>Amplitude (방문~유도)</div>
+  <div class="pagechip">Executive · 경영 요약</div>
+</aside>
+<main class="main">
+  <div class="top">
+    <div><div class="h1">Executive Summary <span>/ 광고비 → 웹 행동 → 예약 유도</span></div>
+    <div class="sub">광고비가 실제 예약 유도로 이어졌는가 · 두 도구를 하나의 흐름으로 연결
+      <span style="color:var(--c25);">(교육 프로젝트)</span></div></div>
+    <div class="badge">통합 · Meta + Amplitude</div>
+  </div>
+
+  <div class="seclab"><span class="n">1</span><span class="t">KPI 흐름</span>
+    <span class="d">광고비 → 광고 성과 → 웹 행동 → 예약 유도 → 유도당 비용</span><span class="ln"></span></div>
+  <div class="kflow"><div class="knode budget"><div class="kst">예산</div><div class="klab">광고비</div><div class="knum">₫8.04M</div><div class="ksub">CPM ₫19,323</div></div><div class="karrow">▸</div><div class="knode "><div class="kst">광고 성과</div><div class="klab">고유 클릭</div><div class="knum">13,150</div><div class="ksub">CTR 3.84%</div></div><div class="karrow">▸</div><div class="knode "><div class="kst">웹 행동</div><div class="klab">페이지 방문</div><div class="knum">8,274</div><div class="ksub">도착률 62.9%</div></div><div class="karrow">▸</div><div class="knode hero"><div class="kst">예약 유도</div><div class="klab">예약 유도</div><div class="knum">85건</div><div class="ksub">유도율 1.03%</div></div><div class="karrow">▸</div><div class="knode hero"><div class="kst">효율</div><div class="klab">유도당 비용</div><div class="knum">₫94,559</div><div class="ksub">₫8.04M ÷ 85</div></div></div>
+
+  <div class="seclab"><span class="n">2</span><span class="t">통합 풀 퍼널</span>
+    <span class="d">단계별 전환율</span><span class="ln"></span></div>
+  <div class="card mb14">
+    <div class="convstrip">
+      <div class="convpill"><span class="cvl">노출 → 클릭</span><span class="cvn">3.84%</span></div>
+      <div class="convpill"><span class="cvl">클릭 → 방문</span><span class="cvn">62.9%</span></div>
+      <div class="convpill"><span class="cvl">방문 → 예약유도</span><span class="cvn">1.03%</span></div>
+    </div>
+    <div class="fnl"><div class="frow"><div class="fnm">노출 (Impressions)<small>Meta</small></div><div class="ftk"><div class="fbar" style="width:100.0%;background:#1A1A1A">415,942</div></div><div class="fcv">&nbsp;</div></div><div class="frow"><div class="fnm">도달 (Reach)<small>Meta</small></div><div class="ftk"><div class="fbar" style="width:71.7%;background:#3D3D38">213,946</div></div><div class="fcv"><b>도달률 51.4%</b></div></div><div class="frow"><div class="fnm">전체 링크클릭<small>Meta</small></div><div class="ftk"><div class="fbar" style="width:19.6%;background:#616159">15,968</div></div><div class="fcv"><b>CTR 3.84%</b></div></div><div class="frow"><div class="fnm">고유 링크클릭<small>Meta</small></div><div class="ftk"><div class="fbar" style="width:17.8%;background:#8A8A80">13,150</div></div><div class="fcv"><b>고유율 82.4%</b></div></div><div class="fdiv"><span>▼ Meta → Amplitude 인계 지점 · 광고 클릭이 실제 페이지 방문으로</span></div><div class="frow"><div class="fnm">페이지 방문<small>Amplitude</small></div><div class="ftk"><div class="fbar" style="width:14.1%;background:#F48C94"></div><span class="fout">8,274</span></div><div class="fcv"><b>클릭→방문 62.9%</b></div></div><div class="frow"><div class="fnm">예약 유도<small>Amplitude</small></div><div class="ftk"><div class="fbar" style="width:5.5%;background:#E60012"></div><span class="fout">85</span></div><div class="fcv"><b>유도율 1.03%</b></div></div></div>
+  </div>
+
+  <div class="seclab"><span class="n">3</span><span class="t">효율 진단 · 액션</span>
+    <span class="d">어디에 예산을 더 쓸 것인가</span><span class="ln"></span></div>
+  <div class="grid2">
+    <div class="card">
+      <div class="ctitle">광고세트 통합 효율 — 유도당 비용</div>
+      <div class="csub">Meta 지출 ÷ Amplitude 유도 · 짧을수록 쌈 · 지출 잠정</div>
+      <div class="hrow"><div class="lb">business</div><div class="tk">
+        <div class="fi" style="width:41%;background:#1A1A1A">₫67,590</div></div></div>
+      <div class="hrow"><div class="lb">전체</div><div class="tk">
+        <div class="fi" style="width:57%;background:#8A8A80">₫94,559</div></div></div>
+      <div class="hrow"><div class="lb">family</div><div class="tk">
+        <div class="fi" style="width:100%;background:#E60012">₫165,923</div></div></div>
+      <div class="arrow">유도 business 60 · family 24 · <b>business 유도당 ~2.5배 저렴</b></div>
+    </div>
+    <div class="ap">
+      <h4>Business Recommendation — Finding → Action</h4>
+      <table><tr><td class="pf">business·taste_message 4관왕 (CTR↑·CPC↓·유도당 최저)</td><td class="pa">→ 대표 소재로 다음 캠페인 예산 집중</td></tr><tr><td class="pf">방문·예약 저녁 19–22시·주말 집중</td><td class="pa">→ 저녁·금토 시간대 광고 예산 확대</td></tr><tr><td class="pf">business=남성 / family=여성 반응층 분리</td><td class="pa">→ 세트별 메시지·타겟 분리 유지</td></tr><tr><td class="pf">family_taste 클릭 多·유도 少 (유도당 ₫237K)</td><td class="pa">→ 저효율 소재 중단·예산 재배분</td></tr></table>
+    </div>
+  </div>
+</main></div><script>
+// 뷰포트가 1360px보다 좁으면 슬라이드를 통째로 축소한다(레이아웃은 그대로).
+(function(){var s=document.querySelector('.slide');function f(){
+  var k=Math.min(1,innerWidth/1360);s.style.transform='scale('+k+')';
+  document.body.style.height=(812*k)+'px';}
+addEventListener('resize',f);f();})();
+</script></body></html>
