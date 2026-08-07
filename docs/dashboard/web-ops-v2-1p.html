@@ -164,37 +164,37 @@ table.dt td.dim{color:var(--c25)}
 </div>
 
 <div class="sec" style="left:8px;top:380px;width:1584px;height:16px">
-  <span class="n">3</span><span class="st">언제 들어왔나</span>
-  <span class="sd" id="sec3"></span><span class="ln"></span></div>
-
-<div class="c" style="left:8px;top:396px;width:1584px;height:144px">
-  <div class="t">요일 × 시간 <span class="badge k">칸 클릭</span>
-    <div class="seg" id="hmMode"><div class="on" data-hm="sess">방문</div><div data-hm="cta">CTA</div><div data-hm="res">예약 유도</div></div>
-  </div>
-  <div class="s" id="hmSub"></div>
-  <div class="hm" id="hm"></div>
-</div>
-
-<div class="sec" style="left:8px;top:546px;width:1584px;height:16px">
-  <span class="n">4</span><span class="st">무엇을 눌렀나</span>
+  <span class="n">3</span><span class="st">무엇을 눌렀나</span>
   <span class="sd">예약으로 이어진 클릭은 어디서 나왔나</span><span class="ln"></span></div>
 
-<div class="c" style="left:8px;top:562px;width:520px;height:130px">
+<div class="c" style="left:8px;top:396px;width:520px;height:130px">
   <div class="t">CTA 종류 <span class="badge k">클릭</span></div>
   <div class="s" id="ctSub"></div>
   <div class="bl" id="ctList" style="--nw:72px"></div>
 </div>
 
-<div class="c" style="left:536px;top:562px;width:520px;height:130px">
+<div class="c" style="left:536px;top:396px;width:520px;height:130px">
   <div class="t">CTA 위치 <span class="badge k">클릭</span></div>
   <div class="s" id="clSub"></div>
   <div class="bl" id="clList" style="--nw:88px"></div>
 </div>
 
-<div class="c" style="left:1064px;top:562px;width:528px;height:130px">
+<div class="c" style="left:1064px;top:396px;width:528px;height:130px">
   <div class="t">콘텐츠 관심 신호</div>
   <div class="s">스크롤 미계측 대체 지표 · 사용자 수</div>
   <div class="bl" id="intList" style="--nw:88px"></div>
+</div>
+
+<div class="sec" style="left:8px;top:532px;width:1584px;height:16px">
+  <span class="n">4</span><span class="st">언제 들어왔나</span>
+  <span class="sd" id="secWhen"></span><span class="ln"></span></div>
+
+<div class="c" style="left:8px;top:548px;width:1584px;height:144px">
+  <div class="t">요일 × 시간 <span class="badge k">칸 클릭</span>
+    <div class="seg" id="hmMode"><div class="on" data-hm="sess">방문</div><div data-hm="cta">CTA</div><div data-hm="res">예약 유도</div></div>
+  </div>
+  <div class="s" id="hmSub"></div>
+  <div class="hm" id="hm"></div>
 </div>
 
 <div class="sec hero" style="left:8px;top:698px;width:1584px;height:16px">
@@ -445,7 +445,7 @@ function drawSec(rows,o){
   let bw=0,bh=0,bv=0,hh=Array(24).fill(0);
   for(let w=0;w<7;w++)for(let h=0;h<24;h++){if(g[w][h]>bv){bv=g[w][h];bw=w;bh=h;}hh[h]+=g[w][h];}
   const ev=hh.slice(18,23).reduce((a,b)=>a+b,0),tot=hh.reduce((a,b)=>a+b,0);
-  document.getElementById('sec3').innerHTML=tot
+  document.getElementById('secWhen').innerHTML=tot
     ?`예약 유도의 <b>${pc1(ev,tot)}</b>가 저녁 18~22시에 나왔다 — 최다 <b>${WD[bw]} ${bh}시</b>`
     :'해당 조건에 예약 유도 없음';
 }
