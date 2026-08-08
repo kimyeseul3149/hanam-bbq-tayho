@@ -22,6 +22,8 @@ ROOT = r'C:\Users\user\Desktop\GMM\0709_claude_하남_웹페이지제작'
 DASH = os.path.join(ROOT, 'docs', 'dashboard')
 SHELL = os.path.join(DASH, 'report.html')
 OUT = os.path.join(DASH, 'report-all.html')
+# 카카오톡 첨부용 이름으로도 같이 떨군다. 손으로 복사해 두면 둘이 어긋난다.
+SHARE = os.path.join(DASH, '하남BBQ_대시보드_3페이지.html')
 
 PAGES = [('p1', 'exec-v2.html'),
          ('p2', 'meta-ops-v4.html'),
@@ -52,9 +54,10 @@ def main():
         '좁은 화면에서는 가로로 축소되어 표시됩니다. 확대해서 보세요.',
         '좁은 화면에서는 가로로 축소되어 표시됩니다. 확대해서 보세요. · 이 파일 하나로 동작합니다(인터넷 불필요)')
 
-    with open(OUT, 'w', encoding='utf-8') as f:
-        f.write(shell)
-    print(f'\nwrote {OUT}  ({os.path.getsize(OUT)/1024/1024:.2f} MB)')
+    for path in (OUT, SHARE):
+        with open(path, 'w', encoding='utf-8') as f:
+            f.write(shell)
+        print(f'\nwrote {path}  ({os.path.getsize(path)/1024/1024:.2f} MB)')
     assert 'data-src=' not in shell, 'data-src 가 남아 있음'
     print('  data-src 잔여 없음 · srcdoc 3개 확인', shell.count('srcdoc="'))
 
