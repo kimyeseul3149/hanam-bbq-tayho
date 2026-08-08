@@ -42,20 +42,20 @@ select{font:inherit;font-size:10px;padding:2px 5px;border:1px solid var(--lg);bo
 /* KPI — 4장. 인당 세션은 세션 카드의 보조 문구로 내렸다. */
 .k{padding:9px 13px}
 .k .kt{font-size:11.5px;font-weight:700;line-height:1.2}
-.k .kv{font-size:25px;font-weight:700;line-height:1.15;margin-top:3px;font-variant-numeric:tabular-nums}
+.k .kv{font-size:23px;font-weight:700;line-height:1.15;margin-top:3px;font-variant-numeric:tabular-nums}
 .k .ku{font-size:11px;font-weight:500;color:var(--c70);margin-left:3px}
 .k .ks{font-size:9px;color:var(--c45);margin-top:3px}
 .k.hero{border-color:var(--red45);background:linear-gradient(180deg,#FFF6F7,#fff 55%)}
 .k.hero .kv{color:var(--red)}
-.k.hero .ks{color:var(--c70)}
+.k.hero .ks{color:var(--c70);font-size:10px}
 .k.hero .ks b{color:var(--red)}
 
 /* 퍼널 — 3페이지의 핵심 영역이라 단계 막대를 키웠다 */
-.fs{cursor:pointer;position:relative;height:25px;background:#F6F6F3;border-radius:4px;
+.fs{cursor:pointer;position:relative;height:23px;background:#F6F6F3;border-radius:4px;
     overflow:hidden;display:flex;align-items:center}
 .fs i{position:absolute;left:0;top:0;bottom:0;transition:width .2s}
 .fs .in{position:relative;z-index:1;display:flex;align-items:center;width:100%;padding:0 11px;gap:8px}
-.fs .nm{font-size:12px;font-weight:700;width:72px;flex:none}
+.fs .nm{font-size:12px;font-weight:700;width:100px;flex:none;white-space:nowrap}
 .fs .n{margin-left:auto;font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
 .fs .pc{font-size:10px;color:var(--c70);width:52px;text-align:right;font-variant-numeric:tabular-nums}
 .fs.on{outline:1.5px solid var(--red);outline-offset:-1.5px}
@@ -65,8 +65,20 @@ select{font:inherit;font-size:10px;padding:2px 5px;border:1px solid var(--lg);bo
 .dr .nx{color:var(--c70)}
 .dr .nx b{color:var(--c100)}
 
-/* 세로 막대 비교 + 하단 미니 표 */
-.cmp{display:flex;align-items:flex-end;justify-content:center;gap:56px;height:150px;margin-top:6px}
+/* 운영 체크포인트 — 퍼널 바로 아래. 원인 단정이 아니라 '우선 점검' 표현을 쓴다 */
+.ckp{margin-top:7px;border-top:1px solid var(--lg);padding-top:5px}
+.ckp .hh{font-size:9.5px;font-weight:700;color:var(--c100);margin-bottom:3px}
+.ckr{display:flex;gap:9px;align-items:center;white-space:nowrap;overflow:hidden;
+     height:14px;font-size:9px;color:var(--c70)}
+.ckr .k{flex:0 0 76px}
+.ckr .f{flex:0 0 216px}
+.ckr .k{font-weight:700;color:var(--c100)}
+.ckr .f{color:var(--c45)}
+.ckr .a{color:var(--c100)}
+.ckr .a::first-letter{color:var(--red)}
+
+/* 세로 막대 비교 */
+.cmp{display:flex;align-items:flex-end;justify-content:center;gap:56px;height:166px;margin-top:6px}
 .cb{display:flex;flex-direction:column;align-items:center;cursor:pointer;flex:0 0 118px}
 .cb .p{font-size:21px;font-weight:700;margin-bottom:5px;font-variant-numeric:tabular-nums}
 .cb .col{width:96px;border-radius:3px 3px 0 0;transition:height .22s;min-height:3px}
@@ -85,12 +97,12 @@ table.mini td.b{color:var(--c100);font-weight:700}
 .cf{font-size:8.5px;color:var(--c45);margin-top:5px}
 
 /* 가로 막대 리스트 */
-.bl{display:flex;flex-direction:column;gap:3px}
+.bl{display:flex;flex-direction:column;gap:2px}
 .br{display:grid;grid-template-columns:var(--nw,72px) 1fr 34px;gap:7px;align-items:center;
     font-size:10px;cursor:pointer;font-variant-numeric:tabular-nums}
 .br .nm{color:var(--c70);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .br.on .nm{color:var(--red);font-weight:700}
-.br .bg{position:relative;height:14px;background:#F2F2EF;border-radius:2px;overflow:hidden}
+.br .bg{position:relative;height:12px;background:#F2F2EF;border-radius:2px;overflow:hidden}
 .br .bg i{position:absolute;left:0;top:0;bottom:0;border-radius:2px;transition:width .2s}
 .br .v{text-align:right;font-weight:700}
 .br.sub .nm,.br.sub .v{color:var(--c45)}
@@ -102,7 +114,7 @@ table.mini td.b{color:var(--c100);font-weight:700}
 .hm{display:grid;grid-template-columns:18px repeat(24,1fr);gap:1.5px}
 .hm .hh{font-size:7.5px;line-height:1;color:var(--c45);text-align:center}
 .hm .rh{font-size:8px;line-height:1;color:var(--c70);display:flex;align-items:center}
-.hm .cell{height:8px;border-radius:1.5px;cursor:pointer}
+.hm .cell{height:6px;border-radius:1.5px;cursor:pointer}
 .hm .cell:hover{outline:1.5px solid var(--red)}
 .hm .cell.on{outline:2px solid var(--red)}
 
@@ -121,7 +133,7 @@ table.dt{width:100%;border-collapse:collapse;font-size:9px;font-variant-numeric:
 table.dt th{font-size:8.5px;color:var(--c45);font-weight:500;text-align:right;padding:0 6px 4px;
             border-bottom:1.2px solid var(--c25);white-space:nowrap}
 table.dt th:first-child{text-align:left}
-table.dt td{padding:1px 6px;text-align:right;border-bottom:1px solid var(--lg);color:var(--c70)}
+table.dt td{padding:0 6px;text-align:right;border-bottom:1px solid var(--lg);color:var(--c70)}
 table.dt td:first-child{text-align:left;color:var(--c100);font-weight:600}
 table.dt tr.clk{cursor:pointer}
 table.dt tr.clk:hover td{background:#FAFAF8}
@@ -157,52 +169,55 @@ table.dt td.dim{color:var(--c25)}
   <span class="n">1</span><span class="st">랜딩페이지 운영 성과</span>
   <span class="sd" id="sec1"></span><span class="ln"></span></div>
 
-<div class="c k" id="k0" style="left:8px;top:68px;width:384px;height:74px"></div>
-<div class="c k" id="k1" style="left:408px;top:68px;width:384px;height:74px"></div>
-<div class="c k" id="k2" style="left:808px;top:68px;width:384px;height:74px"></div>
-<div class="c k hero" id="k3" style="left:1208px;top:68px;width:384px;height:74px"></div>
+<div class="c k" id="k0" style="left:8px;top:68px;width:384px;height:76px"></div>
+<div class="c k" id="k1" style="left:408px;top:68px;width:384px;height:76px"></div>
+<div class="c k" id="k2" style="left:808px;top:68px;width:384px;height:76px"></div>
+<div class="c k hero" id="k3" style="left:1208px;top:68px;width:384px;height:76px"></div>
 
-<div class="sec" style="left:8px;top:146px;width:1584px;height:16px">
+<div class="sec" style="left:8px;top:150px;width:1584px;height:16px">
   <span class="n">2</span><span class="st">유입 → 랜딩페이지 행동</span>
   <span class="sd" id="sec2"></span><span class="ln"></span></div>
 
-<div class="c" style="left:8px;top:162px;width:620px;height:230px">
+<div class="c" style="left:8px;top:166px;width:620px;height:268px">
   <div class="t">어떤 광고 유입이 예약으로 이어졌나? <span class="badge k">막대 클릭</span></div>
   <div class="s" id="cmpSub"></div>
   <div class="cmp" id="cmp"></div>
   <div class="cf" id="cmpFoot"></div>
 </div>
 
-<div class="c" style="left:644px;top:162px;width:948px;height:230px">
-  <div class="t">랜딩페이지 행동 퍼널 <span class="badge k">단계 클릭</span>
-    <span class="badge" style="margin-left:auto">단계별 사용자 수 · 전환율 · 이탈</span></div>
+<div class="c" style="left:644px;top:166px;width:948px;height:268px">
+  <div class="t">랜딩페이지 행동 퍼널 — 방문 후 행동 흐름 <span class="badge k">단계 클릭</span></div>
   <div class="s" id="fnSub"></div>
   <div id="fn"></div>
+  <div class="ckp">
+    <div class="hh">운영 체크포인트 <span style="font-weight:500;color:var(--c45)">— 원인 확정이 아니라 우선 점검 영역입니다</span></div>
+    <div id="ckp"></div>
+  </div>
 </div>
 
-<div class="sec" style="left:8px;top:398px;width:1584px;height:16px">
+<div class="sec" style="left:8px;top:440px;width:1584px;height:16px">
   <span class="n">3</span><span class="st">무엇을, 어디에서 눌렀나</span>
   <span class="sd" id="sec3"></span><span class="ln"></span></div>
 
-<div class="c" style="left:8px;top:414px;width:788px;height:146px">
+<div class="c" style="left:8px;top:456px;width:788px;height:142px">
   <div class="t">CTA 종류별 클릭 <span class="badge k">클릭</span>
     <span class="badge" style="margin-left:auto">예약·방문 의도 표현 방식</span></div>
   <div class="s" id="ctSub"></div>
   <div class="bl" id="ctList" style="--nw:82px"></div>
 </div>
 
-<div class="c" style="left:804px;top:414px;width:788px;height:146px">
+<div class="c" style="left:804px;top:456px;width:788px;height:142px">
   <div class="t">CTA 위치별 클릭 <span class="badge k">클릭</span>
     <span class="badge" style="margin-left:auto">페이지 어디를 고칠 것인가</span></div>
   <div class="s" id="clSub"></div>
   <div class="bl" id="clList" style="--nw:96px"></div>
 </div>
 
-<div class="sec" style="left:8px;top:566px;width:1584px;height:16px">
+<div class="sec" style="left:8px;top:604px;width:1584px;height:16px">
   <span class="n">4</span><span class="st">언제 예약 의도가 발생했나</span>
   <span class="sd" id="secWhen"></span><span class="ln"></span></div>
 
-<div class="c" style="left:8px;top:582px;width:1290px;height:130px">
+<div class="c" style="left:8px;top:620px;width:1290px;height:112px">
   <div class="t">요일 × 시간 <span class="badge k">칸 클릭</span>
     <div class="seg" id="hmMode"><div data-hm="sess">방문</div><div data-hm="cta">CTA</div>
       <div class="on" data-hm="res">예약 유도</div></div>
@@ -211,21 +226,21 @@ table.dt td.dim{color:var(--c25)}
   <div class="hm" id="hm"></div>
 </div>
 
-<div class="c" style="left:1306px;top:582px;width:286px;height:130px">
+<div class="c" style="left:1306px;top:620px;width:286px;height:112px">
   <div class="t">보조 지표 <span class="badge" style="margin-left:auto">참고</span></div>
   <div class="aux" id="aux"></div>
-  <div class="axn"><b>측정 한계</b> — 스크롤 Depth 미계측으로 정확한 이탈 구간은 확인할 수 없습니다.
-    Navigation Click은 특정 섹션으로 <b>이동하려는 행동</b>을 의미하며 <b>이탈 위치를 의미하지 않습니다</b>.</div>
+  <div class="axn">핵심 흐름을 방해하지 않도록 참고 수치만 둡니다.
+    Navigation은 <b>섹션으로 이동하려는 행동</b>입니다.</div>
 </div>
 
-<div class="sec hero" style="left:8px;top:716px;width:1584px;height:16px">
+<div class="sec hero" style="left:8px;top:738px;width:1584px;height:16px">
   <span class="n">5</span><span class="st">어떤 광고 유입이 좋은 결과를 만들었나</span>
   <span class="sd" id="sec5"></span><span class="ln"></span></div>
 
-<div class="c" style="left:8px;top:732px;width:1584px;height:166px">
+<div class="c" style="left:8px;top:754px;width:1584px;height:139px">
   <div class="t">소재별 랜딩 이후 성과 <span class="badge">위 필터가 그대로 적용</span>
+    <span class="badge" id="dtSub"></span>
     <span class="badge" style="margin-left:auto">Meta 광고 지표(노출·CTR·CPC·비용)는 2페이지 · 광고 외 직접 유입 제외</span></div>
-  <div class="s" id="dtSub"></div>
   <table class="dt" id="dt"></table>
 </div>
 
@@ -244,15 +259,16 @@ const SETLB={hanoi_2549_mf_business:'business',hanoi_2549_mf_family:'family','(n
 const CTLB={message_book:'메신저 예약',call_phone:'전화 걸기',directions_reserve:'길찾기·지도',view_menu:'메뉴 보기'};
 const CLLB={hero:'hero 첫화면',floating:'floating 우하단',header:'header 상단',
   visit_section:'visit 하단',visit_map_embed:'visit 지도'};
-/* 예약·방문 의도를 나타내는 CTA. 메뉴 보기는 성격이 달라 아래로 분리한다. */
-const INTENT=['message_book','call_phone','directions_reserve'];
+/* 예약과 직접 연결되는 CTA는 메신저·전화 둘뿐이다.
+   길찾기는 방문 의도, 메뉴 보기는 콘텐츠 열람이라 아래 묶음으로 내린다. */
+const INTENT=['message_book','call_phone'];
 const lb=(m,k)=>m[k]||k, n=v=>v.toLocaleString();
 const pc=(a,b)=>b?(a/b*100).toFixed(2)+'%':'—', pc1=(a,b)=>b?(a/b*100).toFixed(1)+'%':'—';
 /* 값이 클수록 진한 빨강 — 태블로 '하남 레드 순차'와 같은 양 끝 */
 const RL=[248,201,205], RD=[176,0,14];
 const ramp=r=>`rgb(${RL.map((v,i)=>Math.round(v+(RD[i]-v)*r)).join(',')})`;
 /* 퍼널 단계색 — 마지막만 빨강 */
-const FNC=['#C4C4C4','#939393','#616161','#3D3D38','#E60012'];
+const FNC=['#C4C4C4','#8A8A80','#3D3D38','#E60012'];
 
 let F={per:'all',set:null,cre:null,cell:null,stage:null,ct:null,cl:null};
 let M={hm:'res'};
@@ -297,7 +313,9 @@ function drawKPI(o){
      <div class="ks">${c[3]}</div>`;});
 }
 
-const FN=[['arrive','방문자'],['anyclick','클릭'],['act','행동'],['cta','CTA'],['res','예약 유도']];
+/* 방문 후 행동 흐름 4단계. '무엇이라도 클릭'(396)은 반응 없는 요소 클릭이 대부분이라
+   단계에서 빼고 방문→행동 주석으로만 남긴다. */
+const FN=[['arrive','방문자'],['act','의미 있는 행동'],['cta','CTA 클릭'],['res','예약 유도']];
 function drawFn(o){
   const v0=o.arrive;
   /* 단계를 누르면 그 단계까지 온 사람만 남긴다. 화면 전체가 같이 좁혀지므로
@@ -315,13 +333,36 @@ function drawFn(o){
       <i style="width:${w.toFixed(2)}%;background:${FNC[i]}"></i>
       <div class="in"><span class="nm">${nm}</span>
         <span class="n">${n(v)}</span><span class="pc">${pc1(v,v0)}</span></div></div>`;
-    if(i<4){const nx=o[FN[i+1][0]],dr=v-nx;
-      h+=`<div class="dr"><span>이탈 <b>${n(dr)}명</b> (${pc1(dr,v)})</span>
+    if(i<FN.length-1){const nx=o[FN[i+1][0]],dr=v-nx;
+      h+=`<div class="dr"><span>${i===0
+          ?`이 중 ${n(o.anyclick)}명은 눌러봤지만 반응 없는 요소였습니다 · `:''}이탈 <b>${n(dr)}명</b> (${pc1(dr,v)})</span>
         <span class="nx">다음 단계 전환 <b>${pc1(nx,v)}</b></span></div>`;}
   });
   const el=document.getElementById('fn');el.innerHTML=h;
   el.querySelectorAll('.fs').forEach(e=>e.onclick=()=>{
     const k=e.dataset.stage;F.stage=(F.stage===k||k==='arrive')?null:k;render();});
+  drawCkp(o);
+}
+
+/* 가장 얇아지는 구간을 데이터에서 찾아 문장을 고른다 */
+function drawCkp(o){
+  const step=[];
+  for(let i=0;i<FN.length-1;i++){
+    const a=o[FN[i][0]],b=o[FN[i+1][0]];
+    step.push({nm:FN[i][1]+' → '+FN[i+1][1],rate:a?b/a:0,lost:a-b});
+  }
+  const worst=step.slice().sort((x,y)=>x.rate-y.rate)[0];
+  const best=step.slice().sort((x,y)=>y.rate-x.rate)[0];
+  const rows=[
+    ['가장 큰 손실',worst?`${worst.nm} · ${n(worst.lost)}명 (${pc1(1-worst.rate,1)})`:'—',
+     '방문 직후 첫 화면 메시지·CTA가 관심을 끄는지 우선 점검'],
+    ['가장 잘 이어짐',best?`${best.nm} · ${pc1(best.rate,1)} 전환`:'—',
+     'CTA 구조는 유지하고 방문 직후 행동 유도를 먼저 개선'],
+    ['다음 운영','개선 가설',
+     '첫 화면 메시지·CTA 테스트 · 광고 메시지와 랜딩 일치 점검 · 다음 캠페인 재측정'],
+  ];
+  document.getElementById('ckp').innerHTML=rows.map(([k,f,a])=>
+    `<div class="ckr"><span class="k">${k}</span><span class="f">${f}</span><span class="a">→ ${a}</span></div>`).join('');
 }
 
 function bars(id,items,onclick){
@@ -348,11 +389,11 @@ function drawCTA(rows,o){
               .sort((a,b)=>b.v-a.v);
   const cold=idx.filter(i=>!INTENT.includes(C.ctaType[i])).map(mk).filter(x=>x.v>0)
                .sort((a,b)=>b.v-a.v).map(x=>Object.assign(x,{dim:1,c:'#D8D8D2'}));
-  const items=cold.length?hot.concat([{split:'예약 의도가 아닌 콘텐츠 행동'}],cold):hot;
+  const items=cold.length?hot.concat([{split:'방문·탐색 의도 (예약 유도에는 포함하지 않음)'}],cold):hot;
   bars('ctList',items,it=>{if(it.split)return;F.ct=F.ct===it.i?null:it.i;render();});
-  const hv=hot.reduce((a,b)=>a+b.v,0);
+  const hv=o.res;   // 메신저·전화를 모두 누른 사람이 있어 단순 합(94)은 틀리다
   document.getElementById('ctSub').innerHTML=
-    `예약·방문 의도 <b style="color:var(--c100)">${n(hv)}명</b> · 전체 CTA 사용자 ${n(o.cta)}명 · 클릭 ${
+    `예약 유도 CTA <b style="color:var(--red)">${n(hv)}명</b> · 전체 CTA 사용자 ${n(o.cta)}명 · 클릭 ${
       n(Object.values(tC).reduce((a,b)=>a+b,0))}건`;
   const li=C.ctaLoc.map((nm,i)=>({i,nm:lb(CLLB,nm),v:(lU[i]||{size:0}).size,on:F.cl===i}))
     .filter(x=>x.v>0).sort((a,b)=>b.v-a.v);
@@ -410,7 +451,7 @@ function drawCmp(rows){
   document.getElementById('cmp').innerHTML=main.map(x=>
     `<div class="cb${F.set===x.key?' on':''}" data-k="${x.key}">
       <div class="p" style="color:${CLR[x.raw]==='#F8C9CD'?'#C4909A':CLR[x.raw]}">${(x.resR*100).toFixed(2)}%</div>
-      <div class="col" style="height:${Math.max(x.resR/mx*88,3).toFixed(0)}px;background:${CLR[x.raw]}"></div>
+      <div class="col" style="height:${Math.max(x.resR/mx*100,3).toFixed(0)}px;background:${CLR[x.raw]}"></div>
       <div class="nm">${x.label}</div>
       <div class="sb">방문 <b>${n(x.users)}명</b> · 유도 <b>${n(x.res)}명</b><br>
         행동률 ${pc(x.act,x.users)} · CTA ${n(x.cta)}</div></div>`).join('')
@@ -446,7 +487,7 @@ function drawDT(rows){
   const el=document.getElementById('dt');el.innerHTML=h;
   el.querySelectorAll('tr.clk').forEach(e=>e.onclick=()=>{
     const k=+e.dataset.k;F.cre=F.cre===k?null:k;render();});
-  document.getElementById('dtSub').innerHTML=`${items.length}개 소재 · 방문자 내림차순 · 행 클릭 시 화면 전체가 그 소재로 좁혀집니다`;
+  document.getElementById('dtSub').innerHTML=`${items.length}개 소재 · 방문자 내림차순 · 행 클릭 시 화면 전체가 좁혀집니다`;
   const bst=items.slice().sort((a,b)=>b.resR-a.resR)[0];
   document.getElementById('sec5').innerHTML=bst&&bst.resR
     ?`유도율 1위 <b>${bst.label} ${(bst.resR*100).toFixed(2)}%</b> · 예약 <b>${n(bst.res)}명</b>`

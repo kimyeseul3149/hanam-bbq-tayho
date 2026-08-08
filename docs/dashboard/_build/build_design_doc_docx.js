@@ -1,6 +1,6 @@
-// 대시보드 설계서 — Google Docs 업로드용 .docx
+// 전체 대시보드 설계서 (1~3페이지) — Google Docs 업로드용 .docx
 // A4 세로, 본문 맑은 고딕. 표는 columnWidths + 셀 width 를 DXA 로 같이 지정한다
-// (PERCENTAGE 는 Google Docs 에서 깨진다).
+// (PERCENTAGE 는 Google Docs 에서 깨진다). 목표 분량 2페이지.
 const fs = require('fs');
 const {
   Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell,
@@ -13,192 +13,164 @@ const C100 = '1A1A1A';
 const C70 = '616161';
 const C45 = '939393';
 const LG = 'E9E9E9';
-const W = 9020;                      // A4(11906) - 좌우 여백(1440*2) 에 맞춘 표 폭
+const W = 9020;                      // A4(11906) - 좌우 여백(1440*2)
 
-const NO_BORDER = { style: BorderStyle.NONE, size: 0, color: 'FFFFFF' };
 const THIN = { style: BorderStyle.SINGLE, size: 4, color: LG };
 
 const t = (text, o = {}) => new TextRun({
-  text, font: FONT, size: o.size || 19, bold: !!o.bold,
-  color: o.color || C100, italics: !!o.italics,
+  text, font: FONT, size: o.size || 18, bold: !!o.bold, color: o.color || C100,
 });
 
 const p = (runs, o = {}) => new Paragraph({
   children: Array.isArray(runs) ? runs : [runs],
-  spacing: { before: o.before || 0, after: o.after == null ? 80 : o.after, line: o.line || 280 },
+  spacing: { before: o.before || 0, after: o.after == null ? 70 : o.after, line: o.line || 276 },
   alignment: o.align,
-  border: o.rule ? { bottom: { style: BorderStyle.SINGLE, size: 6, color: o.rule } } : undefined,
   indent: o.indent,
+  border: o.rule ? { bottom: { style: BorderStyle.SINGLE, size: 6, color: o.rule } } : undefined,
 });
 
-const h1 = (text) => new Paragraph({
-  children: [t(text, { size: 30, bold: true })],
-  spacing: { after: 60 }, heading: HeadingLevel.HEADING_1,
-  border: { bottom: { style: BorderStyle.SINGLE, size: 12, color: RED } },
+const h1 = (text, sub) => [
+  new Paragraph({
+    children: [t(text, { size: 28, bold: true })],
+    spacing: { after: 40 }, heading: HeadingLevel.HEADING_1,
+    border: { bottom: { style: BorderStyle.SINGLE, size: 12, color: RED } },
+  }),
+  ...(sub ? [p(t(sub, { size: 17, color: C70 }), { after: 60 })] : []),
+];
+
+const h2 = (num, text) => new Paragraph({
+  children: [t(num + '. ', { size: 21, bold: true, color: RED }), t(text, { size: 21, bold: true })],
+  spacing: { before: 240, after: 100 }, heading: HeadingLevel.HEADING_2,
 });
 
-const h2 = (num, text, note) => new Paragraph({
-  children: [
-    t(num + '. ', { size: 22, bold: true, color: RED }),
-    t(text, { size: 22, bold: true }),
-    ...(note ? [t('   ' + note, { size: 17, color: C45 })] : []),
-  ],
-  spacing: { before: 260, after: 110 }, heading: HeadingLevel.HEADING_2,
-});
+const bullet = (lead, rest) => p([
+  t('· ', { color: RED, bold: true }),
+  ...(lead ? [t(lead, { bold: true })] : []),
+  ...(rest ? [t(rest, { color: C70 })] : []),
+], { after: 50, indent: { left: 160, hanging: 160 } });
 
-// 표 한 줄. cells = [{text, bold, color, align}]
 function row(cells, widths, o = {}) {
   return new TableRow({
     tableHeader: !!o.header,
     children: cells.map((c, i) => new TableCell({
       width: { size: widths[i], type: WidthType.DXA },
-      shading: o.header
-        ? { type: ShadingType.CLEAR, fill: 'F5F5F2', color: 'auto' }
+      shading: o.header ? { type: ShadingType.CLEAR, fill: 'F5F5F2', color: 'auto' }
         : (o.fill ? { type: ShadingType.CLEAR, fill: o.fill, color: 'auto' } : undefined),
-      margins: { top: 70, bottom: 70, left: 110, right: 110 },
+      margins: { top: 60, bottom: 60, left: 110, right: 110 },
       borders: { top: THIN, bottom: THIN, left: THIN, right: THIN },
       children: [new Paragraph({
         children: [t(c.text, {
-          size: o.header ? 16 : (c.size || 17),
+          size: o.header ? 16 : (c.size || 16),
           bold: o.header || c.bold,
           color: o.header ? C45 : (c.color || C70),
         })],
-        spacing: { after: 0, line: 260 },
+        spacing: { after: 0, line: 250 },
         alignment: c.align,
       })],
     })),
   });
 }
-
 const table = (widths, rows) => new Table({
-  columnWidths: widths,
-  width: { size: W, type: WidthType.DXA },
-  rows,
+  columnWidths: widths, width: { size: W, type: WidthType.DXA }, rows,
 });
 
-// ── 1. 페이지 역할 ────────────────────────────────────────────────
-const w1 = [1500, 1500, 2600, 3420];
+// ── 3페이지 역할 표 ────────────────────────────────────────────────
+const w1 = [1180, 1900, 1560, 4380];
 const tbl1 = table(w1, [
-  row([{ text: '페이지' }, { text: '보는 사람' }, { text: '답하는 질문' }, { text: '무엇을 담나' }], w1, { header: true }),
+  row([{ text: '페이지' }, { text: '핵심 질문' }, { text: '주 사용자' }, { text: '이 페이지로 내리는 결정' }], w1, { header: true }),
   row([
     { text: '1  종합 요약', bold: true, color: C100 },
-    { text: '의사결정자' },
     { text: '"이번 캠페인, 돈값을 했나?"', bold: true, color: C100 },
-    { text: '광고비 → 클릭 → 방문 → 예약 유도 → 유도당 비용' },
+    { text: '마케팅 담당자' },
+    { text: '캠페인을 계속할지, 예산 규모를 늘릴지 줄일지 판단' },
   ], w1),
   row([
-    { text: '2  Meta 광고 운영', bold: true, color: C100 },
-    { text: '광고 운영자' },
-    { text: '"어떤 광고에 돈을 더 쓸까?"', bold: true, color: C100 },
-    { text: '노출 · CTR · CPC · 지면 · 소재별 성과' },
+    { text: '2  광고 성과', bold: true, color: C100 },
+    { text: '"어떤 광고에 돈을 쓸까?"', bold: true, color: C100 },
+    { text: '광고 운영 담당자' },
+    { text: '소재·광고세트별로 예산을 옮기고, 저효율 광고를 중단' },
   ], w1),
   row([
     { text: '3  웹페이지 운영', bold: true, color: RED },
-    { text: '웹페이지 운영자' },
-    { text: '"들어온 사람이 예약까지 갔나?"', bold: true, color: C100 },
-    { text: '방문 → 페이지 내 행동 → CTA 클릭 → 예약 유도' },
+    { text: '"들어온 사람, 예약까지 갔나?"', bold: true, color: C100 },
+    { text: '웹페이지 운영 담당자' },
+    { text: '첫 화면 메시지·CTA 배치 등 페이지에서 고칠 곳을 결정' },
   ], w1, { fill: 'FFF6F7' }),
 ]);
 
-// ── 2. 퍼널 ───────────────────────────────────────────────────────
-const w2 = [1180, 4340, 1100, 1200, 1200];
-const fn = [
-  ['1  방문자', '랜딩페이지가 열린 사람 (고유 기기 기준 · 로그인 없음)', '8,084명', '100.0%', '—'],
-  ['2  클릭', '화면 어디든 눌러본 사람 — 반응 없는 곳을 눌러도 포함', '396명', '4.9%', '4.9%'],
-  ['3  행동', '메뉴 열기 · 탭 전환처럼 페이지가 실제로 반응한 조작', '150명', '1.9%', '37.9%'],
-  ['4  CTA', '예약 관련 버튼 5종 중 하나를 누른 사람', '110명', '1.4%', '73.3%'],
-  ['5  예약 유도', '메신저 문의 또는 전화 걸기를 누른 사람', '90명', '1.1%', '81.8%'],
+// ── 활용 예시 표 ──────────────────────────────────────────────────
+const w2 = [4380, 4640];
+const cases = [
+  ['전체 성과는 괜찮은데 특정 광고만 부진하다', '2페이지에서 소재별 성과를 비교하고 예산을 재배분'],
+  ['광고 클릭은 많은데 랜딩페이지 행동이 적다', '3페이지에서 그 소재로 들어온 사람의 행동을 확인하고, 광고 메시지와 페이지 메시지가 어긋나지 않는지 점검'],
+  ['방문자는 많은데 이후 행동이 거의 없다', '첫 화면 메시지·콘텐츠 구성·CTA 등 방문 직후 유도 요소를 우선 점검'],
+  ['CTA 클릭은 많은데 예약 유도가 낮다', '예약 연결 방식과 CTA 목적지(메신저·전화 링크)를 점검'],
+  ['특정 시간대에 예약 의도가 몰린다', '그 시간대에 광고 노출과 고객 응대 인력을 맞춤'],
 ];
 const tbl2 = table(w2, [
-  row([{ text: '단계' }, { text: '어떻게 세나' }, { text: '인원' }, { text: '방문자 대비' }, { text: '직전 단계 대비' }], w2, { header: true }),
-  ...fn.map(([a, b, c, d, e], i) => row([
-    { text: a, bold: true, color: i === 4 ? RED : C100 },
-    { text: b },
-    { text: c, bold: true, color: i === 4 ? RED : C100, align: AlignmentType.RIGHT },
-    { text: d, align: AlignmentType.RIGHT },
-    { text: e, bold: i > 0, color: i > 0 ? C100 : C45, align: AlignmentType.RIGHT },
-  ], w2, i === 4 ? { fill: 'FFF6F7' } : {})),
+  row([{ text: '이런 상황이라면' }, { text: '이렇게 확인하고 판단합니다' }], w2, { header: true }),
+  ...cases.map(([a, b]) => row([
+    { text: a, bold: true, color: C100 }, { text: '→ ' + b },
+  ], w2)),
 ]);
-
-// ── 4. 화면 구성 ──────────────────────────────────────────────────
-const w4 = [620, 2260, 3200, 2940];
-const secs = [
-  ['1', '전체 운영 성과는 어땠나?', '방문자 8,084 · 세션 9,505 · 행동률 1.86% · 예약 유도율 1.11% (90건)', '이번 기간 성적을 한 줄로 확인'],
-  ['2', '어떤 광고로 들어왔고, 어디까지 갔나?', '광고 세트별 예약 유도율 · 랜딩페이지 행동 퍼널 5단계(단계별 이탈·전환)', '어느 구간에서 사람이 빠지는지 특정'],
-  ['3', '무엇을, 어디에서 눌렀나?', 'CTA 종류(메신저 56 · 전화 38 · 길찾기 12) · CTA 위치(hero 62 · floating 36 · header 12)', '잘 눌리는 버튼·위치는 강화, 안 눌리는 곳은 개선'],
-  ['4', '언제 예약 의도가 발생했나?', '요일 × 시간 히트맵 (기본값 예약 유도 · 방문 · CTA 전환 가능)', '예약이 몰리는 시간대에 응대·광고 집중'],
-  ['5', '어떤 광고 유입이 예약을 만들었나?', '소재별 방문자 · 행동 · 행동률 · CTA · 예약 유도 · 유도율', '잘 되는 소재로 예산 이동, 저효율 소재 중단'],
-];
-const tbl4 = table(w4, [
-  row([{ text: '영역' }, { text: '이 영역이 답하는 질문' }, { text: '무엇을 보나' }, { text: '어떤 판단을 하나' }], w4, { header: true }),
-  ...secs.map(([n, q, w, a], i) => row([
-    { text: n, bold: true, color: i === 4 ? RED : C100, align: AlignmentType.CENTER },
-    { text: q, bold: true, color: C100 },
-    { text: w },
-    { text: '→ ' + a, color: C100 },
-  ], w4, i === 4 ? { fill: 'FFF6F7' } : {})),
-]);
-
-const prin = [
-  ['중복은 한 번만', '노출 · CTR · CPC · 광고비는 2페이지에만 둡니다. 같은 숫자가 두 화면에 있으면 어느 쪽이 맞는지 확인하는 시간이 듭니다.'],
-  ['움직일 수 있는 것만', '"이 숫자를 보고 내일 무엇을 바꿀 수 있는가"에 답하지 못하는 지표는 뺐습니다. OS 분포 · 언어 · 메뉴 항목이 여기에 해당합니다.'],
-  ['모르는 건 모른다고', '측정하지 않은 것은 화면에 한계를 적습니다. 추정치를 확정치처럼 보여주는 것이 가장 위험합니다.'],
-];
 
 const doc = new Document({
-  styles: { default: { document: { run: { font: FONT, size: 19, color: C100 } } } },
+  styles: { default: { document: { run: { font: FONT, size: 18, color: C100 } } } },
   sections: [{
-    properties: { page: { margin: { top: 1000, bottom: 1000, left: 1440, right: 1440 } } },
+    properties: { page: { margin: { top: 1000, bottom: 900, left: 1440, right: 1440 } } },
     children: [
-      h1('대시보드 설계서'),
-      p([
-        t('하남돼지집 서호수점  ·  ', { size: 18, color: C70 }),
-        t('2026-07-20 ~ 08-02 (14일)', { size: 18, color: C70 }),
-        t('  ·  Amplitude 웹 계측 + Meta 광고 실적  ·  구현 Tableau', { size: 18, color: C70 }),
-      ], { after: 40 }),
+      ...h1('마케팅 운영 대시보드 설계서',
+        '하남돼지집 서호수점  ·  2026-07-20 ~ 08-02 (14일)  ·  Meta 광고 + 웹페이지 계측  ·  구현 Tableau'),
 
-      h2('1', '세 페이지, 세 가지 질문', '보는 사람도 답도 다르기 때문에 나눴습니다'),
+      h2('1', '무엇을 위해 만들었나'),
+      p(t('이 대시보드는 캠페인 결과를 보고하기 위한 자료가 아닙니다. 담당자가 화면을 보고 곧바로 다음 행동을 정할 수 있도록 만들었습니다.', { color: C70 })),
+      bullet('캠페인 전체 성과 확인 — ', '이번에 쓴 돈이 어떤 결과로 돌아왔는가'),
+      bullet('광고 예산 판단 — ', '어떤 광고에 더 쓰고, 어떤 광고를 줄일 것인가'),
+      bullet('고객 행동 확인 — ', '광고를 보고 들어온 사람이 페이지에서 실제로 무엇을 했는가'),
+      bullet('다음 운영 개선 — ', '광고와 웹페이지에서 각각 무엇을 고칠 것인가'),
+
+      h2('2', '누가 보는 화면인가'),
+      p(t('하남돼지집 마케팅 담당자, 광고 운영 담당자, 웹페이지 운영 담당자가 사용합니다. 데이터 분석을 따로 배우지 않아도 각 화면의 질문과 답이 바로 읽히도록 설계했습니다. 지표 이름을 몰라도 "무엇을 보고 무엇을 하면 되는지"가 화면 안에 문장으로 적혀 있습니다.', { color: C70 })),
+
+      h2('3', '세 페이지, 세 가지 질문'),
+      p(t('가장 중요한 설계 원칙은 각 페이지가 서로 다른 질문 하나에만 답하도록 나눈 것입니다.', { color: C70 }), { after: 100 }),
       tbl1,
 
-      h2('2', '3페이지가 따라가는 하나의 흐름', '광고를 클릭해 들어온 8,084명이 어디까지 갔는가'),
-      tbl2,
-      p([t('가장 큰 손실은 1 → 2 구간입니다. 방문자의 95.1%가 아무것도 누르지 않고 나갔습니다. ', { size: 17, color: C70 }),
-         t('4 → 5 는 81.8%로 가장 안정적입니다 — 버튼까지 온 사람은 대부분 예약 문의로 이어집니다.', { size: 17, color: C70 })],
-        { before: 90, after: 0 }),
-
-      h2('3', '세 가지 설계 원칙', '무엇을 넣을지가 아니라 무엇을 뺄지로 정했습니다'),
-      ...prin.flatMap(([k, v]) => [
-        p([t('■ ', { size: 17, color: RED }), t(k, { bold: true, size: 19 })], { after: 20 }),
-        p(t(v, { size: 17, color: C70 }), { after: 110, indent: { left: 200 } }),
-      ]),
+      h2('4', '세 페이지가 이어지는 하나의 흐름'),
+      p([
+        t('전체 성과 확인', { bold: true }), t('  →  ', { color: C45 }),
+        t('광고별 성과 비교', { bold: true }), t('  →  ', { color: C45 }),
+        t('웹페이지 행동 확인', { bold: true }), t('  →  ', { color: C45 }),
+        t('예약 유도 확인', { bold: true }), t('  →  ', { color: C45 }),
+        t('다음 운영 개선', { bold: true, color: RED }),
+      ], { after: 80 }),
+      p(t('1페이지에서 결과를 보고, 2페이지에서 그 결과를 만든 광고의 차이를 찾고, 3페이지에서 광고 이후 고객이 실제로 어떻게 움직였는지 확인하는 구조입니다. 같은 지표를 두 화면에 두지 않아, 숫자가 어긋날 일이 없습니다.', { color: C70 }), { after: 0 }),
 
       new Paragraph({ children: [new PageBreak()] }),
 
-      h1('3페이지 — 웹페이지 운영 대시보드'),
-      p(t('위에서 아래로 읽으면 다섯 개 질문에 순서대로 답이 나옵니다.', { size: 18, color: C70 }), { after: 40 }),
+      h2('5', '지표는 이렇게 골랐습니다'),
+      p(t('수집할 수 있는 데이터를 모두 넣지 않았습니다. "이 숫자를 보고 내일 무엇을 바꿀 수 있는가"에 답할 수 있는 지표만 남겼습니다.', { color: C70 })),
+      bullet('남긴 것 — ', '캠페인 전체 성과, 광고별 예산 배분 근거, 랜딩페이지 방문과 행동, 예약 의도, 다음 개선으로 이어지는 신호'),
+      bullet('뺀 것 — ', '다른 페이지와 겹치는 광고 지표, 운영 판단으로 이어지지 않는 세부 항목(OS·언어·메뉴 상세 등)'),
+      p(t('특히 3페이지의 핵심은 방문자 → 의미 있는 행동 → CTA 클릭 → 예약 유도로 이어지는 "방문 후 행동 흐름"입니다. 예약 유도율 1.11%라는 숫자만 보면 낮아 보이지만, 흐름과 함께 보면 어느 구간에서 사람이 빠지는지가 드러납니다. 이번 기간에는 방문 직후 구간의 손실이 가장 컸고, CTA를 누른 사람의 81.8%는 예약 문의까지 이어졌습니다.', { color: C70 }), { before: 80 }),
 
-      h2('4', '화면 구성과 읽는 순서', '각 영역은 "이 데이터를 보고 실제로 무엇을 할 수 있는가"로 남길지 정했습니다'),
-      tbl4,
+      h2('6', '실제로 이렇게 씁니다'),
+      tbl2,
+      p(t('데이터만으로 원인을 확정할 수 없을 때는 "문제 원인"이라고 쓰지 않고 "우선 점검 영역" 또는 "개선 가설"로 표현합니다. 3페이지의 운영 체크포인트도 같은 원칙으로 씌어 있습니다.', { color: C70 }), { before: 100 }),
 
-      h2('5', '이 대시보드가 말할 수 없는 것', '한계를 화면에도 함께 적어 둡니다'),
-      p([t('실제 예약 성사 여부는 알 수 없습니다. ', { bold: true }),
-         t('예약 시스템(POS)과 연동되어 있지 않아 90건은 "문의 버튼을 눌렀다"까지입니다. 상한선으로 읽어야 합니다.', { color: C70 })],
-        { after: 100 }),
-      p([t('측정 한계 — ', { bold: true }),
-         t('스크롤 Depth 미계측으로 정확한 이탈 구간은 확인할 수 없습니다. Navigation Click은 특정 섹션으로 ', { color: C70 }),
-         t('이동하려는 행동', { bold: true }),
-         t('을 의미하며 ', { color: C70 }),
-         t('이탈 위치를 의미하지 않습니다.', { bold: true })],
-        { after: 100 }),
-      p([t('Dead Click · Rage Click · Navigation', { bold: true }),
-         t('은 우측 하단 보조 지표 영역에만 두고, 핵심 흐름을 가리지 않게 했습니다. OS · 언어 · 메뉴 상세는 별도 상세 대시보드에서 확인합니다.', { color: C70 })],
-        { after: 100 }),
-      p([t('직접 유입 40명', { bold: true }),
-         t('은 소재별 성과 표에서 제외했습니다. 광고를 통하지 않은 방문이라 소재 성과로 볼 수 없습니다.', { color: C70 })],
-        { after: 0 }),
+      h2('7', '이 대시보드가 말할 수 없는 것'),
+      p(t('한계를 감추지 않고 해석 범위를 분명히 했습니다. 아래 내용은 화면을 복잡하게 만들지 않기 위해 대시보드에는 넣지 않고 이 문서에만 적습니다.', { color: C70 })),
+      bullet('실제 예약 성사 여부는 알 수 없습니다. ', '예약 시스템과 연동되어 있지 않아, "예약 유도"는 메신저 문의 또는 전화 걸기 버튼을 누른 것까지입니다. 실제 예약·방문·결제와 같은 뜻으로 읽지 않습니다.'),
+      bullet('메신저 전송 성공 여부는 확인할 수 없습니다. ', '버튼을 누른 뒤 실제로 메시지를 보냈는지는 측정 범위 밖입니다.'),
+      bullet('페이지의 어느 지점에서 이탈했는지는 알 수 없습니다. ', '스크롤 깊이를 측정하지 않았습니다. 그래서 퍼널을 "이탈 위치 분석"이 아니라 "방문 후 행동 흐름"으로 정의했습니다.'),
+      bullet('Navigation 클릭은 이탈 위치가 아닙니다. ', '특정 섹션으로 이동하려는 관심을 나타내는 보조 지표로만 사용합니다.'),
 
-      p([t('검증 · 방문자 8,084 / 세션 9,505 / 행동 150 / CTA 110 / 예약 유도 90 — 원본 집계와 일치', { size: 16, color: C45 })],
-        { before: 300, rule: LG, after: 0 }),
+      h2('8', '한 문장으로'),
+      p([t('캠페인 성과부터 광고별 성과, 랜딩페이지에서의 고객 행동과 예약 유도까지 하나로 이어 보여주어, 다음에 어디에 예산을 쓰고 무엇을 고칠지 바로 정할 수 있게 만든 마케팅 운영 대시보드.',
+        { bold: true, size: 19 })], { after: 0 }),
+
+      p(t('검증 · 방문자 8,084 / 세션 9,505 / 의미 있는 행동 150 / CTA 110 / 예약 유도 90 — 원본 집계와 일치',
+        { size: 15, color: C45 }), { before: 300, rule: LG, after: 0 }),
     ],
   }],
 });
