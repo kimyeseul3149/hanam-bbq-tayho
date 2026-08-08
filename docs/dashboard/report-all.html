@@ -847,12 +847,14 @@ select{font:inherit;font-size:10px;padding:2px 5px;border:1px solid var(--lg);bo
 .dr .nx b{color:var(--c100)}
 
 /* 세로 막대 비교 + 하단 미니 표 */
-.cmp{display:flex;align-items:flex-end;justify-content:center;gap:34px;height:86px;margin-top:2px}
-.cb{display:flex;flex-direction:column;align-items:center;cursor:pointer;flex:0 0 96px}
-.cb .p{font-size:17px;font-weight:700;margin-bottom:4px;font-variant-numeric:tabular-nums}
-.cb .col{width:74px;border-radius:3px 3px 0 0;transition:height .22s;min-height:3px}
+.cmp{display:flex;align-items:flex-end;justify-content:center;gap:56px;height:150px;margin-top:6px}
+.cb{display:flex;flex-direction:column;align-items:center;cursor:pointer;flex:0 0 118px}
+.cb .p{font-size:21px;font-weight:700;margin-bottom:5px;font-variant-numeric:tabular-nums}
+.cb .col{width:96px;border-radius:3px 3px 0 0;transition:height .22s;min-height:3px}
 .cb.on .col{outline:2px solid var(--c100);outline-offset:2px}
-.cb .nm{font-size:11.5px;font-weight:700;margin-top:5px}
+.cb .nm{font-size:13px;font-weight:700;margin-top:7px}
+.cb .sb{font-size:10px;color:var(--c45);margin-top:3px;text-align:center;line-height:1.5}
+.cb .sb b{color:var(--c70)}
 table.mini{width:100%;border-collapse:collapse;font-size:9.5px;margin-top:7px;
            font-variant-numeric:tabular-nums}
 table.mini th{font-size:8.5px;color:var(--c45);font-weight:500;text-align:right;
@@ -949,7 +951,6 @@ table.dt td.dim{color:var(--c25)}
   <div class=&quot;t&quot;>어떤 광고 유입이 예약으로 이어졌나? <span class=&quot;badge k&quot;>막대 클릭</span></div>
   <div class=&quot;s&quot; id=&quot;cmpSub&quot;></div>
   <div class=&quot;cmp&quot; id=&quot;cmp&quot;></div>
-  <table class=&quot;mini&quot; id=&quot;cmpTbl&quot;></table>
   <div class=&quot;cf&quot; id=&quot;cmpFoot&quot;></div>
 </div>
 
@@ -1080,8 +1081,14 @@ function drawKPI(o){
 const FN=[['arrive','방문자'],['anyclick','클릭'],['act','행동'],['cta','CTA'],['res','예약 유도']];
 function drawFn(o){
   const v0=o.arrive;
-  document.getElementById('fnSub').innerHTML=
-    `방문자 ${n(v0)}명 중 예약 유도 ${n(o.res)}명 · 무행동 이탈 ${pc1(v0-o.anyclick,v0)}`;
+  /* 단계를 누르면 그 단계까지 온 사람만 남긴다. 화면 전체가 같이 좁혀지므로
+     지금 누구를 보고 있는지 문장으로 알려 준다. */
+  const stLab=(FN.find(x=>x[0]===F.stage)||[])[1];
+  document.getElementById('fnSub').innerHTML=F.stage
+    ?`<b style=&quot;color:var(--red)&quot;>「${stLab}」 단계까지 온 ${n(v0)}명만</b> 보고 있습니다 —
+       화면의 모든 카드가 이 사람들 기준입니다 · 다시 누르면 해제`
+    :`방문자 ${n(v0)}명 중 예약 유도 ${n(o.res)}명 · 무행동 이탈 ${pc1(v0-o.anyclick,v0)}
+      <span style=&quot;color:var(--c25)&quot;>|</span> 단계를 누르면 그 단계까지 온 사람만 봅니다`;
   let h='';
   FN.forEach(([k,nm],i)=>{
     const v=o[k],w=v0?v/v0*100:0;
@@ -1184,23 +1191,20 @@ function drawCmp(rows){
   document.getElementById('cmp').innerHTML=main.map(x=>
     `<div class=&quot;cb${F.set===x.key?' on':''}&quot; data-k=&quot;${x.key}&quot;>
       <div class=&quot;p&quot; style=&quot;color:${CLR[x.raw]==='#F8C9CD'?'#C4909A':CLR[x.raw]}&quot;>${(x.resR*100).toFixed(2)}%</div>
-      <div class=&quot;col&quot; style=&quot;height:${Math.max(x.resR/mx*56,3).toFixed(0)}px;background:${CLR[x.raw]}&quot;></div>
-      <div class=&quot;nm&quot;>${x.label}</div></div>`).join('')
+      <div class=&quot;col&quot; style=&quot;height:${Math.max(x.resR/mx*88,3).toFixed(0)}px;background:${CLR[x.raw]}&quot;></div>
+      <div class=&quot;nm&quot;>${x.label}</div>
+      <div class=&quot;sb&quot;>방문 <b>${n(x.users)}명</b> · 유도 <b>${n(x.res)}명</b><br>
+        행동률 ${pc(x.act,x.users)} · CTA ${n(x.cta)}</div></div>`).join('')
     ||'<div class=&quot;empty&quot;>데이터 없음</div>';
   document.querySelectorAll('#cmp .cb').forEach(e=>e.onclick=()=>{
     const k=+e.dataset.k;F.set=F.set===k?null:k;
     document.getElementById('selSet').value=F.set===null?'':F.set;render();});
-  /* 막대 아래 미니 표 — 2페이지의 CTR·CPC가 아니라 '랜딩 이후'만 담는다 */
-  document.getElementById('cmpTbl').innerHTML=
-    '<tr><th>광고 세트</th><th>방문자</th><th>행동률</th><th>CTA</th><th>예약 유도</th><th>유도율</th></tr>'
-    +main.map(x=>`<tr><td>${x.label}</td><td class=&quot;b&quot;>${n(x.users)}</td><td>${pc(x.act,x.users)}</td>
-      <td>${n(x.cta)}</td><td class=&quot;b&quot;>${n(x.res)}</td><td class=&quot;b&quot;>${pc(x.res,x.users)}</td></tr>`).join('');
   const a=main[0],b=main[1];
   document.getElementById('cmpSub').innerHTML=(a&amp;&amp;b&amp;&amp;b.resR)
     ?`예약 유도율 — <b style=&quot;color:var(--c100)&quot;>${a.resR>=b.resR?a.label:b.label} 우세</b> ${(Math.max(a.resR,b.resR)/Math.min(a.resR,b.resR)).toFixed(2)}배`
     :'예약 유도율 비교';
   document.getElementById('cmpFoot').innerHTML=rest.map(x=>
-    `<b>${x.label}</b> 방문 ${n(x.users)}명 · 유도 ${n(x.res)}명 — 표본이 작아 막대·표에서 제외`).join('');
+    `<b>${x.label}</b> 방문 ${n(x.users)}명 · 유도 ${n(x.res)}명 — 표본이 작아 막대에서 제외`).join('');
 }
 
 /* 소재 표 — Meta 지표(노출·CTR·CPC·비용)는 2페이지 소관이라 넣지 않는다 */
