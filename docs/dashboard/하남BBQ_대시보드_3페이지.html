@@ -923,6 +923,23 @@ table.dt tr.tot td{border-top:1.2px solid var(--c25);border-bottom:none;color:va
 table.dt td.b{color:var(--c100);font-weight:700}
 table.dt td.dim{color:var(--c25)}
 
+/* 다음 운영 개선 — 광고 / 웹페이지 두 축 */
+.nx2{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}
+.nh{font-size:10.5px;font-weight:700;color:var(--c100);margin-bottom:5px;
+    border-bottom:1px solid var(--lg);padding-bottom:4px}
+.nh span{font-weight:500;color:var(--c45);font-size:9px}
+.nr{display:flex;gap:8px;align-items:baseline;font-size:9.5px;color:var(--c70);
+    line-height:1.55;margin-bottom:3px}
+.nr .i{flex:0 0 13px;height:13px;border-radius:50%;background:#F2F2EF;color:var(--c45);
+       font-size:8px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.nr b{color:var(--c100)}
+.nr .a{color:var(--red);font-weight:700;white-space:nowrap}
+
+/* 접기/펼치기 */
+.tgl{font:inherit;font-size:9px;padding:2px 9px;border:1px solid var(--c25);background:var(--surf);
+     color:var(--c70);border-radius:11px;cursor:pointer;white-space:nowrap}
+.tgl:hover{border-color:var(--red);color:var(--red)}
+
 /* 섹션 라벨 — 스토리 흐름을 끊어 읽게 하는 줄 */
 .sec{position:absolute;display:flex;align-items:center;gap:7px}
 .sec .n{width:17px;height:17px;border-radius:50%;background:var(--c100);color:#fff;font-size:9.5px;
@@ -933,15 +950,16 @@ table.dt td.dim{color:var(--c25)}
 .sec .sd b{color:var(--c70)}
 .sec .ln{flex:1;height:1px;background:var(--lg)}
 </style></head>
-<body><div class=&quot;board&quot; id=&quot;board&quot;>
+<body><div class=&quot;board&quot; id=&quot;board&quot; style=&quot;height:900px&quot;>
 
 <div class=&quot;hd&quot;>
   <h1>하남돼지집 서호수점 — 웹페이지 운영 대시보드</h1>
-  <span class=&quot;sub&quot;>방문에서 예약 문의까지 · 2026-07-20 ~ 08-02 (14일) · Amplitude 웹 계측</span>
+  <span class=&quot;sub&quot;>방문에서 예약 의사 표현까지 · 2026-07-20 ~ 08-02 (14일) · Amplitude 웹 계측</span>
   <span class=&quot;lab&quot; style=&quot;margin-left:auto&quot;>기간</span>
   <button class=&quot;btn on&quot; data-per=&quot;all&quot;>전체 14일</button>
   <button class=&quot;btn&quot; data-per=&quot;p1&quot;>1차 7/20~28</button>
   <button class=&quot;btn&quot; data-per=&quot;p2&quot;>2차 7/29~8/2</button>
+  <span class=&quot;lab&quot;>일자</span><select id=&quot;selDay&quot;></select>
   <span class=&quot;lab&quot;>세트</span><select id=&quot;selSet&quot;></select>
   <div class=&quot;chips&quot; id=&quot;chips&quot;></div>
 </div>
@@ -959,14 +977,14 @@ table.dt td.dim{color:var(--c25)}
   <span class=&quot;n&quot;>2</span><span class=&quot;st&quot;>유입 → 랜딩페이지 행동</span>
   <span class=&quot;sd&quot; id=&quot;sec2&quot;></span><span class=&quot;ln&quot;></span></div>
 
-<div class=&quot;c&quot; style=&quot;left:8px;top:166px;width:620px;height:268px&quot;>
+<div class=&quot;c&quot; style=&quot;left:8px;top:166px;width:620px;height:260px&quot;>
   <div class=&quot;t&quot;>어떤 광고 유입이 예약으로 이어졌나? <span class=&quot;badge k&quot;>막대 클릭</span></div>
   <div class=&quot;s&quot; id=&quot;cmpSub&quot;></div>
   <div class=&quot;cmp&quot; id=&quot;cmp&quot;></div>
   <div class=&quot;cf&quot; id=&quot;cmpFoot&quot;></div>
 </div>
 
-<div class=&quot;c&quot; style=&quot;left:644px;top:166px;width:948px;height:268px&quot;>
+<div class=&quot;c&quot; style=&quot;left:644px;top:166px;width:948px;height:260px&quot;>
   <div class=&quot;t&quot;>랜딩페이지 행동 퍼널 — 방문 후 행동 흐름 <span class=&quot;badge k&quot;>단계 클릭</span></div>
   <div class=&quot;s&quot; id=&quot;fnSub&quot;></div>
   <div id=&quot;fn&quot;></div>
@@ -976,29 +994,29 @@ table.dt td.dim{color:var(--c25)}
   </div>
 </div>
 
-<div class=&quot;sec&quot; style=&quot;left:8px;top:440px;width:1584px;height:16px&quot;>
+<div class=&quot;sec&quot; style=&quot;left:8px;top:432px;width:1584px;height:16px&quot;>
   <span class=&quot;n&quot;>3</span><span class=&quot;st&quot;>무엇을, 어디에서 눌렀나</span>
   <span class=&quot;sd&quot; id=&quot;sec3&quot;></span><span class=&quot;ln&quot;></span></div>
 
-<div class=&quot;c&quot; style=&quot;left:8px;top:456px;width:788px;height:142px&quot;>
+<div class=&quot;c&quot; style=&quot;left:8px;top:448px;width:788px;height:142px&quot;>
   <div class=&quot;t&quot;>CTA 종류별 클릭 <span class=&quot;badge k&quot;>클릭</span>
     <span class=&quot;badge&quot; style=&quot;margin-left:auto&quot;>예약·방문 의도 표현 방식</span></div>
   <div class=&quot;s&quot; id=&quot;ctSub&quot;></div>
   <div class=&quot;bl&quot; id=&quot;ctList&quot; style=&quot;--nw:82px&quot;></div>
 </div>
 
-<div class=&quot;c&quot; style=&quot;left:804px;top:456px;width:788px;height:142px&quot;>
+<div class=&quot;c&quot; style=&quot;left:804px;top:448px;width:788px;height:142px&quot;>
   <div class=&quot;t&quot;>CTA 위치별 클릭 <span class=&quot;badge k&quot;>클릭</span>
     <span class=&quot;badge&quot; style=&quot;margin-left:auto&quot;>페이지 어디를 고칠 것인가</span></div>
   <div class=&quot;s&quot; id=&quot;clSub&quot;></div>
   <div class=&quot;bl&quot; id=&quot;clList&quot; style=&quot;--nw:96px&quot;></div>
 </div>
 
-<div class=&quot;sec&quot; style=&quot;left:8px;top:604px;width:1584px;height:16px&quot;>
+<div class=&quot;sec&quot; style=&quot;left:8px;top:596px;width:1584px;height:16px&quot;>
   <span class=&quot;n&quot;>4</span><span class=&quot;st&quot;>언제 예약 의도가 발생했나</span>
   <span class=&quot;sd&quot; id=&quot;secWhen&quot;></span><span class=&quot;ln&quot;></span></div>
 
-<div class=&quot;c&quot; style=&quot;left:8px;top:620px;width:1290px;height:112px&quot;>
+<div class=&quot;c&quot; style=&quot;left:8px;top:612px;width:1290px;height:112px&quot;>
   <div class=&quot;t&quot;>요일 × 시간 <span class=&quot;badge k&quot;>칸 클릭</span>
     <div class=&quot;seg&quot; id=&quot;hmMode&quot;><div data-hm=&quot;sess&quot;>방문</div><div data-hm=&quot;cta&quot;>CTA</div>
       <div class=&quot;on&quot; data-hm=&quot;res&quot;>예약 유도</div></div>
@@ -1007,22 +1025,40 @@ table.dt td.dim{color:var(--c25)}
   <div class=&quot;hm&quot; id=&quot;hm&quot;></div>
 </div>
 
-<div class=&quot;c&quot; style=&quot;left:1306px;top:620px;width:286px;height:112px&quot;>
+<div class=&quot;c&quot; style=&quot;left:1306px;top:612px;width:286px;height:112px&quot;>
   <div class=&quot;t&quot;>보조 지표 <span class=&quot;badge&quot; style=&quot;margin-left:auto&quot;>참고</span></div>
   <div class=&quot;aux&quot; id=&quot;aux&quot;></div>
   <div class=&quot;axn&quot;>핵심 흐름을 방해하지 않도록 참고 수치만 둡니다.
     Navigation은 <b>섹션으로 이동하려는 행동</b>입니다.</div>
 </div>
 
-<div class=&quot;sec hero&quot; style=&quot;left:8px;top:738px;width:1584px;height:16px&quot;>
+<div class=&quot;sec&quot; style=&quot;left:8px;top:730px;width:1584px;height:16px&quot;>
   <span class=&quot;n&quot;>5</span><span class=&quot;st&quot;>어떤 광고 유입이 좋은 결과를 만들었나</span>
-  <span class=&quot;sd&quot; id=&quot;sec5&quot;></span><span class=&quot;ln&quot;></span></div>
+  <span class=&quot;sd&quot; id=&quot;sec5&quot;></span>
+  <button class=&quot;tgl&quot; id=&quot;tglDt&quot;>소재별 표 펼치기 ▾</button><span class=&quot;ln&quot;></span></div>
 
-<div class=&quot;c&quot; style=&quot;left:8px;top:754px;width:1584px;height:139px&quot;>
+<div class=&quot;c&quot; id=&quot;dtCard&quot; style=&quot;left:8px;top:746px;width:1584px;height:150px;display:none&quot;>
   <div class=&quot;t&quot;>소재별 랜딩 이후 성과 <span class=&quot;badge&quot;>위 필터가 그대로 적용</span>
     <span class=&quot;badge&quot; id=&quot;dtSub&quot;></span>
     <span class=&quot;badge&quot; style=&quot;margin-left:auto&quot;>Meta 광고 지표(노출·CTR·CPC·비용)는 2페이지 · 광고 외 직접 유입 제외</span></div>
   <table class=&quot;dt&quot; id=&quot;dt&quot;></table>
+</div>
+
+<div class=&quot;sec hero&quot; id=&quot;sec6bar&quot; style=&quot;left:8px;top:752px;width:1584px;height:16px&quot;>
+  <span class=&quot;n&quot;>6</span><span class=&quot;st&quot;>다음 운영에서 무엇을 고칠 것인가</span>
+  <span class=&quot;sd&quot;>현재 화면의 조건에서 나온 개선 가설입니다 — 원인 확정이 아닙니다</span><span class=&quot;ln&quot;></span></div>
+
+<div class=&quot;c&quot; id=&quot;nextCard&quot; style=&quot;left:8px;top:768px;width:1584px;height:124px&quot;>
+  <div class=&quot;nx2&quot;>
+    <div>
+      <div class=&quot;nh&quot;>광고 운영 <span>— 2페이지에서 이어서 판단</span></div>
+      <div id=&quot;nxAd&quot;></div>
+    </div>
+    <div>
+      <div class=&quot;nh&quot;>웹페이지 운영 <span>— 이 화면에서 판단</span></div>
+      <div id=&quot;nxWeb&quot;></div>
+    </div>
+  </div>
 </div>
 
 </div>
@@ -1051,7 +1087,7 @@ const ramp=r=>`rgb(${RL.map((v,i)=>Math.round(v+(RD[i]-v)*r)).join(',')})`;
 /* 퍼널 단계색 — 마지막만 빨강 */
 const FNC=['#C4C4C4','#8A8A80','#3D3D38','#E60012'];
 
-let F={per:'all',set:null,cre:null,cell:null,stage:null,ct:null,cl:null};
+let F={per:'all',day:null,set:null,cre:null,cell:null,stage:null,ct:null,cl:null};
 let M={hm:'res'};
 
 function ctaMask(){
@@ -1063,7 +1099,7 @@ function ctaMask(){
 function sel(){
   const[a,b]=PER[F.per],cm=ctaMask(),out=[];
   for(let i=0;i<S.length;i++){const r=S[i],dt=r[COL.date];
-    if(dt<a||dt>b)continue;
+    if(F.day!==null){if(dt!==F.day)continue;}else if(dt<a||dt>b)continue;
     if(F.set!==null&amp;&amp;r[COL.set]!==F.set)continue;
     if(F.cre!==null&amp;&amp;r[COL.cre]!==F.cre)continue;
     if(F.cell&amp;&amp;(r[COL.wd]!==F.cell[0]||r[COL.hour]!==F.cell[1]))continue;
@@ -1105,7 +1141,7 @@ function drawFn(o){
   document.getElementById('fnSub').innerHTML=F.stage
     ?`<b style=&quot;color:var(--red)&quot;>「${stLab}」 단계까지 온 ${n(v0)}명만</b> 보고 있습니다 —
        화면의 모든 카드가 이 사람들 기준입니다 · 다시 누르면 해제`
-    :`방문자 ${n(v0)}명 중 예약 유도 ${n(o.res)}명 · 무행동 이탈 ${pc1(v0-o.anyclick,v0)}
+    :`방문자 ${n(v0)}명 중 예약 의사 표현 ${n(o.res)}명 · 무행동 이탈 ${pc1(v0-o.anyclick,v0)}
       <span style=&quot;color:var(--c25)&quot;>|</span> 단계를 누르면 그 단계까지 온 사람만 봅니다`;
   let h='';
   FN.forEach(([k,nm],i)=>{
@@ -1139,8 +1175,6 @@ function drawCkp(o){
      '방문 직후 첫 화면 메시지·CTA가 관심을 끄는지 우선 점검'],
     ['가장 잘 이어짐',best?`${best.nm} · ${pc1(best.rate,1)} 전환`:'—',
      'CTA 구조는 유지하고 방문 직후 행동 유도를 먼저 개선'],
-    ['다음 운영','개선 가설',
-     '첫 화면 메시지·CTA 테스트 · 광고 메시지와 랜딩 일치 점검 · 다음 캠페인 재측정'],
   ];
   document.getElementById('ckp').innerHTML=rows.map(([k,f,a])=>
     `<div class=&quot;ckr&quot;><span class=&quot;k&quot;>${k}</span><span class=&quot;f&quot;>${f}</span><span class=&quot;a&quot;>→ ${a}</span></div>`).join('');
@@ -1275,9 +1309,74 @@ function drawDT(rows){
     :'해당 조건에 예약 유도 없음';
 }
 
+
+/* ── 다음 운영 개선 ──────────────────────────────────────────────
+   숫자는 현재 필터 결과에서 뽑고, 문장은 '점검·검토'로만 쓴다.
+   데이터가 말해 주는 것은 '어디가 얇은가'까지이고 이유는 아니다. */
+function drawNext(rows,o){
+  const NONE=C.cre.indexOf('(none)');
+  const grp={};rows.forEach(i=>{const k=S[i][COL.cre];if(k===NONE)return;(grp[k]=grp[k]||[]).push(i);});
+  const cre=Object.keys(grp).map(k=>{const a=agg(grp[k]);
+    a.label=lb(CRELB,C.cre[+k]);a.resR=a.users?a.res/a.users:0;return a;});
+  const big=cre.filter(x=>x.users>=300);
+  const top=big.slice().sort((a,b)=>b.resR-a.resR)[0];
+  const bot=big.slice().sort((a,b)=>a.resR-b.resR)[0];
+  /* 예약 의사 표현이 몰린 시간대 */
+  const hh=Array(24).fill(0);
+  rows.forEach(i=>{const r=S[i];if(r[COL.res])hh[r[COL.hour]]++;});
+  const tot=hh.reduce((a,b)=>a+b,0);
+  let bs=0,bv=0;for(let h=0;h<=20;h++){const v=hh[h]+hh[h+1]+hh[h+2]+hh[h+3];if(v>bv){bv=v;bs=h;}}
+  /* CTA 최다 위치 */
+  const rs=new Set(rows),lU={};
+  D.ctaEv.forEach(([si,t,l])=>{if(rs.has(si))(lU[l]=lU[l]||new Set()).add(S[si][COL.u]);});
+  const loc=Object.keys(lU).map(k=>({nm:lb(CLLB,C.ctaLoc[+k]),v:lU[k].size}))
+    .sort((a,b)=>b.v-a.v)[0];
+  const locAll=Object.values(lU).reduce((a,b)=>a+b.size,0);
+  /* 가장 많이 멈춘 단계 */
+  let worst=null;
+  for(let i=0;i<FN.length-1;i++){const a=o[FN[i][0]],b=o[FN[i+1][0]];
+    const r={nm:FN[i][1],rate:a?b/a:0,lost:a-b};if(!worst||r.rate<worst.rate)worst=r;}
+
+  const ad=[
+    top&amp;&amp;top.res?[`<b>${top.label}</b> 유도율 ${pc(top.res,top.users)}`,'예산 집중']:null,
+    bot&amp;&amp;bot!==top?[`<b>${bot.label}</b> 유도율 ${pc(bot.res,bot.users)}`,'소재 교체·중단 검토']:null,
+    tot?[`예약 의사 표현이 <b>${bs}~${bs+3}시</b>에 ${pc1(bv,tot)} 집중`,'해당 시간대 노출 비중 확대']:null,
+    [`광고 메시지와 랜딩 첫 화면의 <b>내용 일치</b> 여부`,'소재별로 대조 점검'],
+  ].filter(Boolean);
+
+  const web=[
+    worst?[`<b>${worst.nm}</b> 단계에서 ${n(worst.lost)}명이 멈춤 (${pc1(1-worst.rate,1)})`,'첫 화면 메시지·CTA 우선 점검']:null,
+    loc?[`CTA의 ${pc1(loc.v,locAll)}가 <b>${loc.nm}</b>에서 발생`,'해당 위치 유지·강화']:null,
+    o.cta?[`CTA → 예약 의사 표현 <b>${pc1(o.res,o.cta)}</b>`,'현재 CTA 구조는 유지']:null,
+    o.dead?[`반응 없는 요소 클릭 <b>${n(o.dead)}명</b>`,'무반응 요소 점검']:null,
+  ].filter(Boolean);
+
+  const html=list=>list.map(([f,a],i)=>
+    `<div class=&quot;nr&quot;><span class=&quot;i&quot;>${i+1}</span><span>${f}</span>
+      <span class=&quot;a&quot; style=&quot;margin-left:auto&quot;>→ ${a}</span></div>`).join('')
+    ||'<div class=&quot;empty&quot;>해당 조건에 표시할 내용 없음</div>';
+  document.getElementById('nxAd').innerHTML=html(ad);
+  document.getElementById('nxWeb').innerHTML=html(web);
+}
+
+/* 소재별 표 접기/펼치기 — 접혀 있을 때만 한 화면(900px)에 들어간다 */
+let DT_OPEN=false;
+const DT_H=150;
+function applyDt(){
+  const card=document.getElementById('dtCard');
+  card.style.display=DT_OPEN?'block':'none';
+  document.getElementById('sec6bar').style.top=(DT_OPEN?752+DT_H:752)+'px';
+  document.getElementById('nextCard').style.top=(DT_OPEN?768+DT_H:768)+'px';
+  document.getElementById('board').style.height=(DT_OPEN?900+DT_H:900)+'px';
+  document.getElementById('tglDt').textContent=DT_OPEN?'소재별 표 접기 ▴':'소재별 표 펼치기 ▾';
+  fitBoard();
+}
+document.getElementById('tglDt').onclick=()=>{DT_OPEN=!DT_OPEN;applyDt();};
+
 function drawChips(){
   const cs=[];
-  if(F.per!=='all')cs.push(['per',PERLAB[F.per]]);
+  if(F.day!==null)cs.push(['day',DATES[F.day].slice(5).replace('-','/')+' 하루']);
+  else if(F.per!=='all')cs.push(['per',PERLAB[F.per]]);
   if(F.set!==null)cs.push(['set','세트 '+lb(SETLB,C.set[F.set])]);
   if(F.cre!==null)cs.push(['cre',lb(CRELB,C.cre[F.cre])]);
   if(F.cell)cs.push(['cell',WD[F.cell[0]]+' '+F.cell[1]+'시']);
@@ -1289,16 +1388,17 @@ function drawChips(){
     +(cs.length>1?'<span class=&quot;chip&quot; data-k=&quot;ALL&quot;>전체 해제 ×</span>':'');
   el.querySelectorAll('.chip').forEach(e=>e.onclick=()=>{
     const k=e.dataset.k;
-    if(k==='ALL')F={per:'all',set:null,cre:null,cell:null,stage:null,ct:null,cl:null};
+    if(k==='ALL')F={per:'all',day:null,set:null,cre:null,cell:null,stage:null,ct:null,cl:null};
     else if(k==='per')F.per='all';else F[k]=null;
     document.querySelectorAll('[data-per]').forEach(b=>b.classList.toggle('on',b.dataset.per===F.per));
-    document.getElementById('selSet').value=F.set===null?'':F.set;render();});
+    document.getElementById('selSet').value=F.set===null?'':F.set;
+    document.getElementById('selDay').value=F.day===null?'':F.day;render();});
 }
 
 /* 섹션 라벨의 설명은 현재 필터에 맞춰 문장으로 다시 쓴다 */
 function drawSec(rows,o){
   document.getElementById('sec1').innerHTML=
-    `<b>${n(o.users)}명</b>이 들어와 <b>${n(o.res)}명</b>이 예약 문의로 이어졌다 — 유도율 <b>${pc(o.res,o.users)}</b>`;
+    `<b>${n(o.users)}명</b>이 들어와 <b>${n(o.res)}명</b>이 예약 의사를 표현했다 — 유도율 <b>${pc(o.res,o.users)}</b>`;
   document.getElementById('sec2').innerHTML=
     `광고를 클릭해 들어온 뒤 <b>${n(o.act)}명</b>이 페이지를 움직였고 <b>${n(o.cta)}명</b>이 CTA를 눌렀다`;
   const g=Array.from({length:7},()=>Array(24).fill(0));
@@ -1313,7 +1413,7 @@ function drawSec(rows,o){
 function render(){
   const rows=sel(),o=agg(rows);
   drawKPI(o);drawFn(o);drawCmp(rows);drawCTA(rows,o);drawSec(rows,o);
-  drawAux(o);drawHM(rows);drawDT(rows);drawChips();
+  drawAux(o);drawHM(rows);drawDT(rows);drawNext(rows,o);drawChips();
 }
 document.querySelectorAll('[data-per]').forEach(b=>b.onclick=()=>{
   F.per=b.dataset.per;
@@ -1321,14 +1421,26 @@ document.querySelectorAll('[data-per]').forEach(b=>b.onclick=()=>{
 const ss=document.getElementById('selSet');
 ss.innerHTML='<option value=&quot;&quot;>전체</option>'+C.set.map((v,i)=>`<option value=&quot;${i}&quot;>${lb(SETLB,v)}</option>`).join('');
 ss.onchange=()=>{F.set=ss.value===''?null:+ss.value;render();};
+/* 일자 — 하루만 보고 싶을 때. 고르면 기간 버튼은 '전체'로 되돌린다(겹치면 빈 화면이 된다) */
+const sd=document.getElementById('selDay');
+const WDS=['월','화','수','목','금','토','일'];
+sd.innerHTML='<option value=&quot;&quot;>전체 기간</option>'+DATES.map((v,i)=>{
+  const d=new Date(v+'T00:00:00'),w=WDS[(d.getDay()+6)%7];
+  return `<option value=&quot;${i}&quot;>${v.slice(5).replace('-','/')} (${w})</option>`;}).join('');
+sd.onchange=()=>{F.day=sd.value===''?null:+sd.value;
+  if(F.day!==null){F.per='all';
+    document.querySelectorAll('[data-per]').forEach(b=>b.classList.toggle('on',b.dataset.per==='all'));}
+  render();};
+document.querySelectorAll('[data-per]').forEach(b=>b.addEventListener('click',()=>{
+  F.day=null;sd.value='';}));
 document.querySelectorAll('#hmMode div').forEach(e=>e.onclick=()=>{
   M.hm=e.dataset.hm;
   document.querySelectorAll('#hmMode div').forEach(x=>x.classList.toggle('on',x===e));render();});
-(function(){const b=document.getElementById('board');
-  function fit(){const k=Math.min(1,innerWidth/1600);
-    b.style.transform='scale('+k+')';document.body.style.height=(900*k)+'px';}
-  addEventListener('resize',fit);fit();})();
-render();
+function fitBoard(){const b=document.getElementById('board');
+  const h=parseInt(b.style.height||900),k=Math.min(1,innerWidth/1600);
+  b.style.transform='scale('+k+')';document.body.style.height=(h*k)+'px';}
+addEventListener('resize',fitBoard);
+render();applyDt();
 </script></body></html>
 " title="3페이지 웹페이지 운영"></iframe>
 </div>
