@@ -886,13 +886,14 @@ table.mini td.b{color:var(--c100);font-weight:700}
 .hm .cell.on{outline:2px solid var(--red)}
 
 /* 운영 보조 지표 */
-.aux{display:flex;flex-direction:column;gap:4px;margin-top:1px}
-.ax{display:flex;align-items:baseline;gap:6px;font-size:9.5px;color:var(--c70)}
-.ax .v{margin-left:auto;font-size:12px;font-weight:700;color:var(--c100);
+.aux{display:flex;flex-direction:column;gap:2px;margin-top:0}
+.ax{display:flex;align-items:baseline;gap:5px;font-size:9px;color:var(--c70)}
+.ax .v{margin-left:auto;font-size:11px;font-weight:700;color:var(--c100);
        font-variant-numeric:tabular-nums}
 .ax .u{font-size:8.5px;color:var(--c45)}
-.axn{font-size:8px;color:var(--c45);line-height:1.5;margin-top:5px;
-     border-top:1px solid var(--lg);padding-top:5px}
+.axn{font-size:7px;color:var(--c45);line-height:1.45;margin-top:5px;
+     border-top:1px solid var(--lg);padding-top:4px}
+.axn b{color:var(--c70)}
 
 /* 표 */
 table.dt{width:100%;border-collapse:collapse;font-size:9px;font-variant-numeric:tabular-nums}
@@ -981,7 +982,7 @@ table.dt td.dim{color:var(--c25)}
   <span class=&quot;n&quot;>4</span><span class=&quot;st&quot;>언제 예약 의도가 발생했나</span>
   <span class=&quot;sd&quot; id=&quot;secWhen&quot;></span><span class=&quot;ln&quot;></span></div>
 
-<div class=&quot;c&quot; style=&quot;left:8px;top:582px;width:1180px;height:130px&quot;>
+<div class=&quot;c&quot; style=&quot;left:8px;top:582px;width:1290px;height:130px&quot;>
   <div class=&quot;t&quot;>요일 × 시간 <span class=&quot;badge k&quot;>칸 클릭</span>
     <div class=&quot;seg&quot; id=&quot;hmMode&quot;><div data-hm=&quot;sess&quot;>방문</div><div data-hm=&quot;cta&quot;>CTA</div>
       <div class=&quot;on&quot; data-hm=&quot;res&quot;>예약 유도</div></div>
@@ -990,11 +991,11 @@ table.dt td.dim{color:var(--c25)}
   <div class=&quot;hm&quot; id=&quot;hm&quot;></div>
 </div>
 
-<div class=&quot;c&quot; style=&quot;left:1196px;top:582px;width:396px;height:130px&quot;>
-  <div class=&quot;t&quot;>운영 보조 지표 <span class=&quot;badge&quot; style=&quot;margin-left:auto&quot;>참고</span></div>
+<div class=&quot;c&quot; style=&quot;left:1306px;top:582px;width:286px;height:130px&quot;>
+  <div class=&quot;t&quot;>보조 지표 <span class=&quot;badge&quot; style=&quot;margin-left:auto&quot;>참고</span></div>
   <div class=&quot;aux&quot; id=&quot;aux&quot;></div>
-  <div class=&quot;axn&quot;>스크롤 뎁스를 계측하지 않아 이탈 지점은 알 수 없습니다.
-    내비게이션은 <b>어느 섹션으로 가려 했는가</b>만 나타냅니다.</div>
+  <div class=&quot;axn&quot;><b>측정 한계</b> — 스크롤 Depth 미계측으로 정확한 이탈 구간은 확인할 수 없습니다.
+    Navigation Click은 특정 섹션으로 <b>이동하려는 행동</b>을 의미하며 <b>이탈 위치를 의미하지 않습니다</b>.</div>
 </div>
 
 <div class=&quot;sec hero&quot; style=&quot;left:8px;top:716px;width:1584px;height:16px&quot;>
@@ -1141,9 +1142,9 @@ function drawCTA(rows,o){
 /* 운영 보조 — 메인 스토리를 방해하지 않도록 수치만 작게 */
 function drawAux(o){
   document.getElementById('aux').innerHTML=[
-    ['내비게이션 클릭',o.nav,'섹션 이동 시도'],
-    ['Dead Click',o.dead,'반응 없는 요소'],
-    ['Rage Click',o.rage,'같은 곳 연타']]
+    ['Navigation',o.nav,'섹션 이동'],
+    ['Dead Click',o.dead,'무반응 요소'],
+    ['Rage Click',o.rage,'연타']]
     .map(([nm,v,u])=>`<div class=&quot;ax&quot;>${nm} <span class=&quot;u&quot;>${u}</span>
       <span class=&quot;v&quot;>${n(v)}<span class=&quot;u&quot;> 명</span></span></div>`).join('');
 }
