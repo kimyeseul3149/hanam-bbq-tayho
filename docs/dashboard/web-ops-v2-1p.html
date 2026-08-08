@@ -352,10 +352,11 @@ function ctaMask(){
   D.ctaEv.forEach(e=>{if((F.ct===null||e[1]===F.ct)&&(F.cl===null||e[2]===F.cl))s.add(e[0]);});
   return s;
 }
-function sel(){
+function sel(dayOverride){
   const[a,b]=PER[F.per],cm=ctaMask(),out=[];
+  const day=dayOverride===undefined?F.day:dayOverride;   // 전일 집계에 재사용
   for(let i=0;i<S.length;i++){const r=S[i],dt=r[COL.date];
-    if(F.day!==null){if(dt!==F.day)continue;}else if(dt<a||dt>b)continue;
+    if(day!==null){if(dt!==day)continue;}else if(dt<a||dt>b)continue;
     if(F.set!==null&&r[COL.set]!==F.set)continue;
     if(F.cre!==null&&r[COL.cre]!==F.cre)continue;
     if(F.cell&&(r[COL.wd]!==F.cell[0]||r[COL.hour]!==F.cell[1]))continue;
@@ -374,13 +375,30 @@ function agg(rows){
 }
 
 /* KPI 4장. 인당 세션은 실무 액션으로 이어지지 않아 세션 카드의 보조 문구로 내렸다. */
-function drawKPI(o){
+/* 증가는 빨강(좋음), 감소는 회색. 화살표는 방향만 나타낸다. */
+function dlt(cur,prev,mode){
+  const d=cur-prev,up=d>0,same=d===0;
+  const col=same?'var(--c45)':(up?'var(--red)':'var(--c70)');
+  const mark=same?'—':(up?'▲':'▼');
+  const size=mode==='pct'
+    ? (prev?Math.abs(d/prev*100).toFixed(1)+'%':'—')
+    : n(Math.abs(d))+'명';
+  return `<b style="color:${col}">${mark} ${same?'변화 없음':size}</b>`;
+}
+function drawKPI(o,pv){
+  /* 하루를 고른 경우에만 전일 대비를 붙인다. 전체 기간에는 '어제'가 없고,
+     첫날(7/20)도 전일이 없어 pv 가 null 이므로 기본 설명으로 돌아간다. */
+  const D0=pv?function(cur,prev,mode,label){
+    return dlt(cur,prev,mode)+' · 전일 '+label;}:null;
   const cards=[
-   ['방문자',n(o.users),'명','고유 device_id 기준'],
-   ['세션',n(o.sess),'','30분 무활동 기준 · 인당 '+o.spu.toFixed(2)+'세션'],
-   ['행동 방문자',n(o.act),'명','방문자 대비 '+pc(o.act,o.users)+' · 의미 있는 행동을 한 사람'],
-   ['예약 유도',n(o.res),'명',
-    '방문자 대비 <b>'+pc(o.res,o.users)+'</b> · 메신저 '+n(o.msg)+' · 전화 '+n(o.call)]];
+   ['방문자',n(o.users),'명',D0?D0(o.users,pv.users,'pct',n(pv.users)+'명')
+     :'고유 device_id 기준'],
+   ['세션',n(o.sess),'',D0?D0(o.sess,pv.sess,'pct',n(pv.sess))
+     :'30분 무활동 기준 · 인당 '+o.spu.toFixed(2)+'세션'],
+   ['행동 방문자',n(o.act),'명',D0?D0(o.act,pv.act,'cnt',n(pv.act)+'명')
+     :'방문자 대비 '+pc(o.act,o.users)+' · 의미 있는 행동을 한 사람'],
+   ['예약 유도',n(o.res),'명',D0?D0(o.res,pv.res,'cnt',n(pv.res)+'명')
+     :'방문자 대비 <b>'+pc(o.res,o.users)+'</b> · 메신저 '+n(o.msg)+' · 전화 '+n(o.call)]];
   cards.forEach((c,i)=>{document.getElementById('k'+i).innerHTML=
     `<div class="kt">${c[0]}</div><div class="kv">${c[1]}<span class="ku">${c[2]}</span></div>
      <div class="ks">${c[3]}</div>`;});
@@ -668,8 +686,11 @@ function drawChips(){
 
 /* 섹션 라벨의 설명은 현재 필터에 맞춰 문장으로 다시 쓴다 */
 function drawSec(rows,o){
-  document.getElementById('sec1').innerHTML=
-    `<b>${n(o.users)}명</b>이 들어와 <b>${n(o.res)}명</b>이 예약 의사를 표현했다 — 유도율 <b>${pc(o.res,o.users)}</b>`;
+  document.getElementById('sec1').innerHTML=F.day!==null
+    ? `<b>${DATES[F.day].slice(5).replace('-','/')}</b> 하루 — <b>${n(o.users)}명</b>이 들어와 <b>${n(o.res)}명</b>이
+       예약 의사를 표현했다 <span style="color:var(--c25)">|</span>
+       하루 단위는 표본이 작아 <b>비율보다 건수</b>로 봅니다`
+    : `<b>${n(o.users)}명</b>이 들어와 <b>${n(o.res)}명</b>이 예약 의사를 표현했다 — 유도율 <b>${pc(o.res,o.users)}</b>`;
   /* 이 줄은 왼쪽·오른쪽 카드가 각각 무엇을 보여주는지 안내한다.
      숫자는 카드 안에 이미 있으므로 여기서는 읽는 법만 쓴다. */
   document.getElementById('sec2').innerHTML=
@@ -685,7 +706,9 @@ function drawSec(rows,o){
 }
 function render(){
   const rows=sel(),o=agg(rows);
-  drawKPI(o);drawFn(o);drawCmp(rows);drawCTA(rows,o);drawSec(rows,o);
+  /* 하루를 골랐고 그 앞날이 있으면 같은 조건으로 전일을 한 번 더 집계한다 */
+  const pv=(F.day!==null&&F.day>0)?agg(sel(F.day-1)):null;
+  drawKPI(o,pv);drawFn(o);drawCmp(rows);drawCTA(rows,o);drawSec(rows,o);
   drawAux(o);drawHM(rows);drawDT(rows);drawNext(rows,o);drawChips();
 }
 document.querySelectorAll('[data-per]').forEach(b=>b.onclick=()=>{
