@@ -41,7 +41,7 @@ select{font:inherit;font-size:10px;padding:2px 5px;border:1px solid var(--lg);bo
 
 /* KPI — 4장. 인당 세션은 세션 카드의 보조 문구로 내렸다. */
 .k{padding:9px 13px}
-.k .kt{font-size:11.5px;font-weight:700;line-height:1.2}
+.k .kt{font-size:11.5px;font-weight:700;line-height:1.2;display:flex;align-items:center}
 .k .kv{font-size:23px;font-weight:700;line-height:1.15;margin-top:3px;font-variant-numeric:tabular-nums}
 .k .ku{font-size:11px;font-weight:500;color:var(--c70);margin-left:3px}
 .k .ks{font-size:9px;color:var(--c45);margin-top:3px}
@@ -208,23 +208,23 @@ table.dt td.dim{color:var(--c25)}
   <span class="n">1</span><span class="st">랜딩페이지 운영 성과</span>
   <span class="sd" id="sec1"></span><span class="ln"></span></div>
 
-<div class="c k" id="k0" style="left:8px;top:68px;width:384px;height:76px"></div>
-<div class="c k" id="k1" style="left:408px;top:68px;width:384px;height:76px"></div>
-<div class="c k" id="k2" style="left:808px;top:68px;width:384px;height:76px"></div>
-<div class="c k hero" id="k3" style="left:1208px;top:68px;width:384px;height:76px"></div>
+<div class="c k" id="k0" style="left:8px;top:68px;width:384px;height:80px"></div>
+<div class="c k" id="k1" style="left:408px;top:68px;width:384px;height:80px"></div>
+<div class="c k" id="k2" style="left:808px;top:68px;width:384px;height:80px"></div>
+<div class="c k hero" id="k3" style="left:1208px;top:68px;width:384px;height:80px"></div>
 
-<div class="sec" style="left:8px;top:150px;width:1584px;height:16px">
+<div class="sec" style="left:8px;top:154px;width:1584px;height:16px">
   <span class="n">2</span><span class="st">유입 → 랜딩페이지 행동</span>
   <span class="sd" id="sec2"></span><span class="ln"></span></div>
 
-<div class="c" style="left:8px;top:166px;width:620px;height:260px">
-  <div class="t">어떤 광고 유입이 예약으로 이어졌나? <span class="badge k">막대 클릭</span></div>
+<div class="c" style="left:8px;top:170px;width:620px;height:260px">
+  <div class="t">어떤 광고 유입에서 예약 의사가 많았나? <span class="badge k">막대 클릭</span></div>
   <div class="s" id="cmpSub"></div>
   <div class="cmp" id="cmp"></div>
   <div class="cf" id="cmpFoot"></div>
 </div>
 
-<div class="c" style="left:644px;top:166px;width:948px;height:260px">
+<div class="c" style="left:644px;top:170px;width:948px;height:260px">
   <div class="t">랜딩페이지 행동 퍼널 — 방문 후 행동 흐름 <span class="badge k">단계 클릭</span>
     <button class="qm" id="qmFn" title="단계 정의 보기">?</button></div>
   <div class="s" id="fnSub"></div>
@@ -235,29 +235,29 @@ table.dt td.dim{color:var(--c25)}
   </div>
 </div>
 
-<div class="sec" style="left:8px;top:432px;width:1584px;height:16px">
+<div class="sec" style="left:8px;top:436px;width:1584px;height:16px">
   <span class="n">3</span><span class="st">무엇을, 어디에서 눌렀나</span>
   <span class="sd" id="sec3"></span><span class="ln"></span></div>
 
-<div class="c" style="left:8px;top:448px;width:788px;height:142px">
+<div class="c" style="left:8px;top:452px;width:788px;height:148px">
   <div class="t">CTA 종류별 클릭 <span class="badge k">클릭</span>
     <span class="badge" style="margin-left:auto">예약·방문 의도 표현 방식</span></div>
   <div class="s" id="ctSub"></div>
   <div class="bl" id="ctList" style="--nw:82px"></div>
 </div>
 
-<div class="c" style="left:804px;top:448px;width:788px;height:142px">
+<div class="c" style="left:804px;top:452px;width:788px;height:148px">
   <div class="t">CTA 위치별 클릭 <span class="badge k">클릭</span>
     <span class="badge" style="margin-left:auto">페이지 어디를 고칠 것인가</span></div>
   <div class="s" id="clSub"></div>
   <div class="bl" id="clList" style="--nw:96px"></div>
 </div>
 
-<div class="sec" style="left:8px;top:596px;width:1584px;height:16px">
-  <span class="n">4</span><span class="st">언제 예약 의도가 발생했나</span>
+<div class="sec" style="left:8px;top:606px;width:1584px;height:16px">
+  <span class="n">4</span><span class="st">언제 예약 의사가 나왔나</span>
   <span class="sd" id="secWhen"></span><span class="ln"></span></div>
 
-<div class="c" style="left:8px;top:612px;width:1290px;height:214px">
+<div class="c" style="left:8px;top:622px;width:1290px;height:204px">
   <div class="t">요일 × 시간 <span class="badge k">칸 클릭</span>
     <div class="seg" id="hmMode"><div data-hm="sess">방문</div><div data-hm="cta">CTA</div>
       <div class="on" data-hm="res">예약 유도</div></div>
@@ -266,11 +266,11 @@ table.dt td.dim{color:var(--c25)}
   <div class="hm" id="hm"></div>
 </div>
 
-<div class="c" style="left:1306px;top:612px;width:286px;height:214px">
+<div class="c" style="left:1306px;top:622px;width:286px;height:204px">
   <div class="t">보조 지표 <span class="badge" style="margin-left:auto">참고</span></div>
   <div class="aux" id="aux"></div>
-  <div class="axn">핵심 흐름을 방해하지 않도록 참고 수치만 둡니다.
-    Navigation은 <b>섹션으로 이동하려는 행동</b>입니다.</div>
+  <div class="axn"><b>내비게이션 클릭</b> — 상단 메뉴를 눌러 메뉴·위치 등
+    다른 섹션으로 이동한 사람. 어디서 나갔는지가 아니라 <b>무엇을 더 보려 했는지</b>를 뜻합니다.</div>
 </div>
 
 <div class="sec" style="left:8px;top:834px;width:1584px;height:16px">
@@ -287,8 +287,7 @@ table.dt td.dim{color:var(--c25)}
 </div>
 
 <div class="c" id="nextCard" style="left:8px;top:856px;width:1584px;height:132px;display:none">
-  <div class="t">다음 운영에서 무엇을 고칠 것인가
-    <span class="badge" style="margin-left:auto">현재 화면의 조건에서 나온 개선 가설 — 원인 확정이 아닙니다</span></div>
+  <div class="t">다음 운영에서 무엇을 고칠 것인가</div>
   <div class="nx2" style="margin-top:6px">
     <div>
       <div class="nh">광고 운영 <span>— 2페이지에서 이어서 판단</span></div>
@@ -315,6 +314,29 @@ table.dt td.dim{color:var(--c25)}
   <div class="note">숫자는 <b>사람 수</b>입니다. 클릭 횟수가 아닙니다 —
     예약 유도 90명이 누른 횟수는 106건(메신저 61 · 전화 45)입니다.<br>
     한 사람이 메신저와 전화를 모두 눌렀을 수 있어 56 + 38 = 94가 아니라 90명입니다.</div>
+</div>
+
+<div class="hp" id="hpAct" style="left:700px;top:148px;width:600px">
+  <h4>"의미 있는 행동"이란</h4>
+  <table>
+    <tr><td>포함</td><td>페이지가 <b>실제로 반응한</b> 조작 — 메뉴 상세 열기, 메뉴 탭 전환,
+      메뉴 그룹 이동, 내비게이션 클릭, 언어 전환, CTA 버튼 클릭</td><td>150명</td></tr>
+    <tr><td>제외</td><td>로고·사진·빈 여백처럼 <b>눌러도 아무 일이 없는 곳</b>을 누른 것</td><td>—</td></tr>
+  </table>
+  <div class="note">방문자 8,084명 중 <b>396명</b>이 화면 어딘가를 눌렀지만,
+    그중 246명은 반응 없는 곳만 눌렀습니다. 남은 <b>150명</b>이 의미 있는 행동을 한 사람입니다.</div>
+</div>
+
+<div class="hp" id="hpRes" style="left:992px;top:148px;width:600px">
+  <h4>예약 유도는 이렇게 셉니다</h4>
+  <table>
+    <tr><td>메신저 예약</td><td>Nhắn tin đặt bàn — 테이블 예약 메시지 보내기</td><td>56명</td></tr>
+    <tr><td>전화 걸기</td><td>Gọi điện — 전화 연결</td><td>38명</td></tr>
+    <tr><td>둘 다 누름</td><td>같은 사람이 메신저와 전화를 모두 누른 경우</td><td>−4명</td></tr>
+    <tr><td>예약 유도</td><td><b>둘 중 하나라도 누른 사람</b></td><td>90명</td></tr>
+  </table>
+  <div class="note">56 + 38 = 94가 아니라 <b>90명</b>인 이유입니다. 같은 사람을 두 번 세지 않습니다.<br>
+    숫자는 <b>사람 수</b>입니다 — 90명이 실제로 누른 횟수는 106건(메신저 61 · 전화 45)입니다.</div>
 </div>
 
 </div>
@@ -396,12 +418,15 @@ function drawKPI(o,pv){
    ['세션',n(o.sess),'',D0?D0(o.sess,pv.sess,'pct',n(pv.sess))
      :'30분 무활동 기준 · 인당 '+o.spu.toFixed(2)+'세션'],
    ['행동 방문자',n(o.act),'명',D0?D0(o.act,pv.act,'cnt',n(pv.act)+'명')
-     :'방문자 대비 '+pc(o.act,o.users)+' · 의미 있는 행동을 한 사람'],
+     :'방문자 대비 '+pc(o.act,o.users)+' · 의미 있는 행동을 한 사람','hpAct'],
    ['예약 유도',n(o.res),'명',D0?D0(o.res,pv.res,'cnt',n(pv.res)+'명')
-     :'방문자 대비 <b>'+pc(o.res,o.users)+'</b> · 메신저 '+n(o.msg)+' · 전화 '+n(o.call)]];
+     :'방문자 대비 <b>'+pc(o.res,o.users)+'</b> · 메신저 '+n(o.msg)+' · 전화 '+n(o.call)
+      +(o.msg+o.call-o.res>0?' (둘 다 '+n(o.msg+o.call-o.res)+'명)':''),'hpRes']];
   cards.forEach((c,i)=>{document.getElementById('k'+i).innerHTML=
-    `<div class="kt">${c[0]}</div><div class="kv">${c[1]}<span class="ku">${c[2]}</span></div>
+    `<div class="kt">${c[0]}${c[4]?`<button class="qm" data-hp="${c[4]}" title="세는 법 보기">?</button>`:''}</div>
+     <div class="kv">${c[1]}<span class="ku">${c[2]}</span></div>
      <div class="ks">${c[3]}</div>`;});
+  bindHelp();
 }
 
 /* 방문 후 행동 흐름 4단계. '무엇이라도 클릭'(396)은 반응 없는 요소 클릭이 대부분이라
@@ -498,9 +523,9 @@ function drawCTA(rows,o){
 /* 운영 보조 — 메인 스토리를 방해하지 않도록 수치만 작게 */
 function drawAux(o){
   document.getElementById('aux').innerHTML=[
-    ['Navigation',o.nav,'섹션 이동'],
+    ['내비게이션 클릭',o.nav,'메뉴·위치로 이동'],
     ['Dead Click',o.dead,'무반응 요소'],
-    ['Rage Click',o.rage,'연타']]
+    ['Rage Click',o.rage,'같은 곳 연타']]
     .map(([nm,v,u])=>`<div class="ax">${nm} <span class="u">${u}</span>
       <span class="v">${n(v)}<span class="u"> 명</span></span></div>`).join('');
 }
@@ -655,12 +680,24 @@ function applyPanels(){
 }
 PANELS.forEach(p=>{document.getElementById(p.btn).onclick=()=>{p.open=!p.open;applyPanels();};});
 
-/* 단계 정의 — 클릭으로 열고 닫는다(마우스만 올려도 열리면 스크롤 중에 방해된다) */
-const qm=document.getElementById('qmFn'),hp=document.getElementById('hpFn');
-qm.onclick=e=>{e.stopPropagation();const on=!hp.classList.contains('on');
-  hp.classList.toggle('on',on);qm.classList.toggle('on',on);};
-document.addEventListener('click',e=>{if(!hp.contains(e.target)){
-  hp.classList.remove('on');qm.classList.remove('on');}});
+/* 도움말 — 클릭으로 열고 닫는다(마우스만 올려도 열리면 읽는 중에 방해된다).
+   버튼의 data-hp 가 가리키는 패널을 연다. KPI 는 매번 다시 그려지므로
+   drawKPI 끝에서 bindHelp() 를 다시 부른다. */
+function closeHelp(){
+  document.querySelectorAll('.hp').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('.qm').forEach(x=>x.classList.remove('on'));
+}
+function bindHelp(){
+  document.querySelectorAll('.qm').forEach(b=>{
+    if(b.dataset.bound)return;b.dataset.bound='1';
+    b.onclick=e=>{e.stopPropagation();
+      const t=document.getElementById(b.dataset.hp||'hpFn'),on=!t.classList.contains('on');
+      closeHelp();t.classList.toggle('on',on);b.classList.toggle('on',on);};});
+}
+document.getElementById('qmFn').dataset.hp='hpFn';
+bindHelp();
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.hp'))closeHelp();});
 
 function drawChips(){
   const cs=[];

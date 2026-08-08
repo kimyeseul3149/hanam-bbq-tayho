@@ -250,7 +250,7 @@ const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
 const el=id=>document.getElementById(id);
 const ch=r=>r.pl.indexOf('Instagram')===0?'Instagram':'Facebook';
 
-const MET={ctr:{n:'CTR',u:'%',up:true,f:o=>o.ctr*100,fmt:v=>n2(v)+'%'},
+const MET={ctr:{n:'CTR',u:'',up:true,f:o=>o.ctr*100,fmt:v=>n2(v)+'%'},
            cpc:{n:'CPC',u:'VND',up:false,f:o=>o.cpc,fmt:v=>n0(v)},
            clk:{n:'Click',u:'건',up:true,f:o=>o.clk,fmt:v=>n0(v)},
            imp:{n:'Imp.',u:'회',up:true,f:o=>o.imp,fmt:v=>n0(v)}};
