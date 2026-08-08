@@ -154,6 +154,26 @@ table.dt td.dim{color:var(--c25)}
 .nr b{color:var(--c100)}
 .nr .a{color:var(--red);font-weight:700;white-space:nowrap}
 
+/* 단계 정의 도움말 — 카드가 overflow:hidden 이라 패널은 보드 레벨에 둔다 */
+.qm{width:15px;height:15px;flex:none;border-radius:50%;border:1.4px solid var(--c45);
+    background:var(--surf);color:var(--c45);font:inherit;font-size:9.5px;font-weight:700;
+    line-height:1;cursor:pointer;padding:0;margin-left:4px}
+.qm:hover,.qm.on{border-color:var(--red);color:var(--red)}
+.qm.on{background:var(--red);color:#fff}
+.hp{position:absolute;display:none;z-index:60;background:var(--surf);border:1px solid var(--c25);
+    border-radius:10px;padding:13px 16px;box-shadow:0 12px 32px rgba(0,0,0,.16)}
+.hp.on{display:block}
+.hp h4{font-size:12px;margin-bottom:7px}
+.hp table{width:100%;border-collapse:collapse;font-size:10px}
+.hp td{padding:4px 0;border-bottom:1px solid #F2F2EF;line-height:1.55;vertical-align:top;color:var(--c70)}
+.hp tr:last-child td{border-bottom:none}
+.hp td:first-child{width:104px;font-weight:700;color:var(--c100)}
+.hp td:last-child{width:64px;text-align:right;font-weight:700;color:var(--c100);
+                  font-variant-numeric:tabular-nums}
+.hp .note{font-size:9px;color:var(--c45);line-height:1.6;margin-top:8px;
+          border-top:1px solid var(--lg);padding-top:7px}
+.hp .note b{color:var(--c70)}
+
 /* 접기/펼치기 */
 .tgl{font:inherit;font-size:9px;padding:2px 9px;margin-left:4px;border:1px solid var(--c25);background:var(--surf);
      color:var(--c70);border-radius:11px;cursor:pointer;white-space:nowrap}
@@ -205,7 +225,8 @@ table.dt td.dim{color:var(--c25)}
 </div>
 
 <div class="c" style="left:644px;top:166px;width:948px;height:260px">
-  <div class="t">랜딩페이지 행동 퍼널 — 방문 후 행동 흐름 <span class="badge k">단계 클릭</span></div>
+  <div class="t">랜딩페이지 행동 퍼널 — 방문 후 행동 흐름 <span class="badge k">단계 클릭</span>
+    <button class="qm" id="qmFn" title="단계 정의 보기">?</button></div>
   <div class="s" id="fnSub"></div>
   <div id="fn"></div>
   <div class="ckp">
@@ -280,6 +301,22 @@ table.dt td.dim{color:var(--c25)}
   </div>
 </div>
 
+<div class="hp" id="hpFn" style="left:664px;top:210px;width:600px">
+  <h4>퍼널 4단계는 이렇게 셉니다 <span style="font-weight:500;color:var(--c45);font-size:10px">— 모두 고유 사용자(device_id) 기준</span></h4>
+  <table>
+    <tr><td>방문자</td><td>랜딩페이지가 열린 사람. 로그인이 없어 기기 단위로 셉니다</td><td>8,084명</td></tr>
+    <tr><td>의미 있는 행동</td>
+        <td>페이지가 <b>실제로 반응한</b> 조작을 한 사람 — 메뉴 상세 열기, 메뉴 탭 전환,
+            메뉴 그룹 이동, 내비게이션 클릭, 언어 전환, CTA 클릭.
+            로고나 빈 여백처럼 반응 없는 곳을 누른 것은 제외합니다</td><td>150명</td></tr>
+    <tr><td>CTA 클릭</td><td>예약 관련 버튼 5종 중 하나를 누른 사람</td><td>110명</td></tr>
+    <tr><td>예약 유도</td><td>메신저 예약 또는 전화 걸기를 누른 사람</td><td>90명</td></tr>
+  </table>
+  <div class="note">숫자는 <b>사람 수</b>입니다. 클릭 횟수가 아닙니다 —
+    예약 유도 90명이 누른 횟수는 106건(메신저 61 · 전화 45)입니다.<br>
+    한 사람이 메신저와 전화를 모두 눌렀을 수 있어 56 + 38 = 94가 아니라 90명입니다.</div>
+</div>
+
 </div>
 <script>
 const D=/*__DATA__*/;
@@ -341,9 +378,9 @@ function drawKPI(o){
   const cards=[
    ['방문자',n(o.users),'명','고유 device_id 기준'],
    ['세션',n(o.sess),'','30분 무활동 기준 · 인당 '+o.spu.toFixed(2)+'세션'],
-   ['행동률',pc(o.act,o.users),'','의미 있는 행동 '+n(o.act)+'명 / 방문자 '+n(o.users)+'명'],
-   ['예약 유도율',pc(o.res,o.users),'',
-    '예약 유도 <b>'+n(o.res)+'건</b> · 메신저 '+n(o.msg)+' · 전화 '+n(o.call)]];
+   ['행동 방문자',n(o.act),'명','방문자 대비 '+pc(o.act,o.users)+' · 의미 있는 행동을 한 사람'],
+   ['예약 유도',n(o.res),'명',
+    '방문자 대비 <b>'+pc(o.res,o.users)+'</b> · 메신저 '+n(o.msg)+' · 전화 '+n(o.call)]];
   cards.forEach((c,i)=>{document.getElementById('k'+i).innerHTML=
     `<div class="kt">${c[0]}</div><div class="kv">${c[1]}<span class="ku">${c[2]}</span></div>
      <div class="ks">${c[3]}</div>`;});
@@ -599,6 +636,13 @@ function applyPanels(){
   fitBoard();
 }
 PANELS.forEach(p=>{document.getElementById(p.btn).onclick=()=>{p.open=!p.open;applyPanels();};});
+
+/* 단계 정의 — 클릭으로 열고 닫는다(마우스만 올려도 열리면 스크롤 중에 방해된다) */
+const qm=document.getElementById('qmFn'),hp=document.getElementById('hpFn');
+qm.onclick=e=>{e.stopPropagation();const on=!hp.classList.contains('on');
+  hp.classList.toggle('on',on);qm.classList.toggle('on',on);};
+document.addEventListener('click',e=>{if(!hp.contains(e.target)){
+  hp.classList.remove('on');qm.classList.remove('on');}});
 
 function drawChips(){
   const cs=[];
