@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<title>웹페이지 행동 측정 — 슬라이드 구상 8장</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Malgun Gothic','Segoe UI',sans-serif;background:#eceaf3;padding:26px;width:1112px}
+.grid{display:grid;grid-template-columns:840px;gap:26px;zoom:1.25}
+.slide{width:840px;height:472px;background:#fff;border-radius:6px;padding:26px 30px;position:relative;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.13)}
+.no{position:absolute;right:16px;bottom:12px;font-size:11px;color:#c3c0d2;font-weight:700}
+.kick{font-size:11px;color:#8b86a8;letter-spacing:.06em;font-weight:700;margin-bottom:5px}
+h2{font-size:23px;font-weight:800;color:#1c1a33;letter-spacing:-.4px;line-height:1.25}
+.sub{font-size:12px;color:#7d7898;margin-top:5px}
+.hr{height:2px;background:#4f46b8;width:38px;margin:11px 0 15px}
+.msg{position:absolute;left:30px;right:30px;bottom:26px;background:#f5f3fd;border-left:3px solid #4f46b8;padding:9px 13px;font-size:12.5px;color:#2e2a4d;line-height:1.5}
+.msg b{color:#4f46b8}
+.kpis{display:grid;gap:10px;margin-bottom:14px}
+.k{background:#f7f6fc;border-radius:8px;padding:11px 14px}
+.k .l{font-size:10.5px;color:#8b86a8}
+.k .v{font-size:27px;font-weight:800;color:#1c1a33;letter-spacing:-.6px;margin-top:1px}
+.k .v small{font-size:13px;font-weight:700;color:#7d7898;margin-left:3px}
+.k .s{font-size:10px;color:#a29dbb;margin-top:1px}
+.k.hero{background:#4f46b8}.k.hero .l,.k.hero .s{color:#c3bdf2}.k.hero .v{color:#fff}.k.hero .v small{color:#c3bdf2}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.lab{font-size:11px;font-weight:700;color:#5a5578;margin-bottom:7px}
+.bar{margin-bottom:9px}
+.bl{font-size:10.5px;color:#4b4767;display:flex;justify-content:space-between;margin-bottom:3px}
+.bl em{font-style:normal;color:#a29dbb}
+.tk{height:15px;background:#f0eef9;border-radius:4px;overflow:hidden}
+.fl{height:100%;border-radius:4px;background:#b9b7c9}
+.fl.on{background:#4f46b8}
+.fl.wn{background:#d9a441}
+.tb{width:100%;border-collapse:collapse;font-size:11px}
+.tb th{background:#f5f3fd;color:#5f5a86;font-size:10px;padding:5px 8px;text-align:left;border-bottom:1px solid #e4e0f2}
+.tb td{padding:5px 8px;border-bottom:1px solid #f2f0fa;color:#3a3657}
+.tb td.n{text-align:right}
+.tb tr.w td{background:#f7f5ff;font-weight:800;color:#241f4d}
+.chip{display:inline-block;font-size:10px;font-weight:700;border-radius:4px;padding:2px 7px}
+.ok{background:#e3f4ea;color:#1c8a5a}.bad{background:#fbe6e6;color:#c0392b}
+.stack{display:flex;height:30px;border-radius:5px;overflow:hidden;margin:6px 0 4px}
+.stack div{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff}
+.mock{border:1px solid #e0dcf0;border-radius:6px;height:212px;position:relative;background:#faf9fe;overflow:hidden}
+.mock .sec{position:absolute;left:0;right:0;font-size:9.5px;color:#a29dbb;padding:4px 8px}
+.pin{position:absolute;background:#4f46b8;color:#fff;font-size:9px;font-weight:700;border-radius:9px;padding:2px 7px;white-space:nowrap}
+.ev{font-size:11px;color:#3a3657;padding:5px 0;border-bottom:1px solid #f2f0fa;display:flex;justify-content:space-between}
+.ev b{color:#241f4d}
+.verd{display:flex;align-items:center;gap:9px;margin-top:10px}
+.verd .big{font-size:19px;font-weight:800;color:#1c8a5a}
+.cross{position:relative;height:150px}
+.col{position:absolute;top:0;width:180px}
+.rk{background:#f7f6fc;border-radius:6px;padding:7px 10px;margin-bottom:7px;font-size:11.5px;color:#3a3657}
+.rk.on{background:#4f46b8;color:#fff;font-weight:800}
+.rk.wn{background:#fdf0dc;color:#a86a10;font-weight:700}
+.note{font-size:10px;color:#a29dbb;margin-top:6px}
+.pill{display:inline-block;background:#eeecfa;color:#4f46b8;font-size:10px;font-weight:700;border-radius:10px;padding:2px 9px;margin-right:5px}
+</style></head>
+<style>
+body{background:transparent;padding:0;width:1680px}
+.grid{display:block;zoom:2}
+.slide{box-shadow:none;border-radius:0;margin:0}
+</style>
+<body>
+<div class="grid">
+<div class="slide">
+  <div class="kick">가설 검증 · 01</div>
+  <h2>가설 1 — 광고 1위 소재가 예약도 1위인가</h2>
+  <div class="sub">교차검증 · 독립된 두 도구가 같은 소재를 지목하는가</div>
+  <div class="hr"></div>
+  <div class="cross">
+    <div class="col" style="left:0">
+      <div class="lab">Meta 광고 반응 (클릭 순위)</div>
+      <div class="rk on">1위 business_taste</div>
+      <div class="rk wn">2위 family_taste</div>
+      <div class="rk">3위 family_bday_vid</div>
+    </div>
+    <svg viewBox="0 0 200 130" style="position:absolute;left:190px;top:22px;width:200px;height:130px">
+      <path d="M6 18 L194 18" stroke="#4f46b8" stroke-width="2" fill="none" marker-end="url(#a)"/>
+      <path d="M6 52 L194 86" stroke="#d9a441" stroke-width="2" fill="none" stroke-dasharray="4 3"/>
+      <path d="M6 86 L194 52" stroke="#b9b7c9" stroke-width="2" fill="none" stroke-dasharray="4 3"/>
+      <defs><marker id="a" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7z" fill="#4f46b8"/></marker></defs>
+      <text x="100" y="12" font-size="9" fill="#4f46b8" text-anchor="middle" font-weight="700">일치</text>
+      <text x="100" y="76" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">교차 — 순위 뒤집힘</text>
+    </svg>
+    <div class="col" style="left:390px">
+      <div class="lab">Amplitude 예약 (유도율 순위)</div>
+      <div class="rk on">1위 business_taste 1.45%</div>
+      <div class="rk">2위 family_bday_vid 0.83%</div>
+      <div class="rk wn">3위 family_taste 0.54%</div>
+    </div>
+    <div class="col" style="left:600px;width:180px">
+      <div class="lab">판정</div>
+      <div style="background:#e3f4ea;border-radius:8px;padding:13px">
+        <div style="font-size:20px;font-weight:800;color:#1c8a5a">✓ 확정</div>
+        <div style="font-size:10.5px;color:#3d7a5c;margin-top:3px;line-height:1.5">CTR·CPC·클릭 1위<br>예약 건수·유도율 1위<br>유도당 비용 최저</div>
+      </div>
+    </div>
+  </div>
+  <div style="background:#fdf0dc;border-radius:8px;padding:11px 14px;margin-top:14px;font-size:11.5px;color:#8a5a12;line-height:1.55">
+    <b style="color:#a86a10">반전 —</b> family_taste는 클릭 4,197(2위)로 2,028명을 데려왔으나 예약은 11건. 유도당 비용 <b>₫238,691</b>로 business_taste(₫64,828)의 <b>3.7배</b>
+  </div>
+  <div class="msg">1위는 두 도구가 일치 → <b>가설 1 확정</b>. 그러나 2·3위는 자리가 바뀜 → <b>클릭 순위 ≠ 예약 순위</b></div>
+  <div class="no">06</div>
+</div>
+</div>
+</body></html>

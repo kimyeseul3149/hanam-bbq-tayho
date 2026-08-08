@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<title>가설 1 대시보드 — 소재 성과의 교차검증</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Malgun Gothic','Segoe UI',sans-serif;background:#f3f2fa;color:#1c1a33;width:1360px}
+.wrap{display:flex;min-height:812px}
+/* sidebar */
+.side{width:212px;background:#241f4d;color:#cfcbe8;padding:22px 18px;flex-shrink:0}
+.brand{display:flex;gap:9px;align-items:flex-start;margin-bottom:18px}
+.blogo{width:28px;height:28px;border-radius:8px;background:#5b53c4;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff}
+.bname{font-size:14px;font-weight:700;color:#fff;line-height:1.35}
+.sdiv{border-top:1px solid #3b3468;margin:14px 0}
+.slab{font-size:9.5px;letter-spacing:.09em;color:#8d86bd;margin-bottom:3px}
+.sval{font-size:12.5px;font-weight:700;color:#fff;margin-bottom:13px;line-height:1.4}
+.verdict{margin-top:16px;background:#1c8a5a;border-radius:9px;padding:11px 12px}
+.verdict b{display:block;color:#fff;font-size:15px;margin-bottom:2px}
+.verdict span{font-size:10.5px;color:#bdf0d7;line-height:1.45}
+.legend{margin-top:16px;font-size:10.5px;line-height:1.9;color:#a9a3d4}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:1px}
+.foot{margin-top:26px;font-size:9.5px;color:#6d66a0;line-height:1.6}
+/* main */
+.main{flex:1;padding:20px 22px 22px}
+h1{font-size:23px;font-weight:800;letter-spacing:-.3px}
+h1 span{font-weight:500;color:#6b6690;font-size:17px}
+.sub{font-size:11.5px;color:#7a7597;margin-top:4px}
+.badge{float:right;background:#fff;border:1px solid #ded9f2;border-radius:14px;padding:5px 13px;font-size:11px;color:#5b53c4;font-weight:700}
+.sechd{font-size:12.5px;font-weight:800;color:#241f4d;margin-bottom:9px}
+.sechd i{color:#e08a1e;font-style:normal}
+/* kpi */
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin:15px 0 14px}
+.kpi{background:#fff;border:1px solid #e7e3f5;border-radius:11px;padding:11px 13px}
+.kpi.hero{background:#4f46b8;border-color:#4f46b8}
+.kpi .k1{font-size:9.5px;color:#8d88ad;letter-spacing:.04em}
+.kpi .k2{font-size:22px;font-weight:800;margin:3px 0 2px;letter-spacing:-.5px}
+.kpi .k3{font-size:9.5px;color:#8d88ad}
+.kpi.hero .k1,.kpi.hero .k3{color:#c4bff0}
+.kpi.hero .k2{color:#fff}
+.rank{display:inline-block;background:#fdf0dc;color:#a86a10;font-size:9px;font-weight:700;border-radius:4px;padding:1px 5px;margin-left:5px;vertical-align:2px}
+.kpi.hero .rank{background:#6a60cf;color:#ffe6bd}
+/* charts */
+.crow{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-bottom:13px}
+.card{background:#fff;border:1px solid #e7e3f5;border-radius:12px;padding:13px 15px}
+.ctitle{font-size:12.5px;font-weight:800;color:#241f4d}
+.cnote{font-size:9.5px;color:#9a95b5;margin:2px 0 12px}
+.bar{margin-bottom:11px}
+.blab{font-size:10.5px;color:#4b4767;margin-bottom:4px;display:flex;justify-content:space-between}
+.blab em{font-style:normal;color:#a29dbb;font-size:9.5px}
+.btk{height:19px;background:#f1effa;border-radius:5px;overflow:hidden}
+.bfill{height:100%;border-radius:5px}
+.bv{font-size:12px;font-weight:800;color:#241f4d;margin-top:3px}
+.bv.dim{color:#8d88ad;font-weight:700}
+/* table */
+.tbl{width:100%;border-collapse:collapse;font-size:11px}
+.tbl th{background:#f5f3fd;color:#5f5a86;font-size:10px;font-weight:700;padding:7px 9px;text-align:left;border-bottom:1px solid #e7e3f5}
+.tbl td{padding:7px 9px;border-bottom:1px solid #f0edf9;color:#3a3657}
+.tbl tr.win td{background:#f7f5ff;font-weight:700;color:#241f4d}
+.tbl td.num{text-align:right;font-variant-numeric:tabular-nums}
+.ok{color:#1c8a5a;font-weight:800}
+.no{color:#c0392b;font-weight:800}
+/* insight */
+.brow{display:grid;grid-template-columns:1.02fr 1fr;gap:11px}
+.ins{display:flex;gap:9px;padding:9px 0;border-bottom:1px solid #f0edf9}
+.ins:last-child{border-bottom:0}
+.inum{width:19px;height:19px;border-radius:6px;background:#efecfb;color:#4f46b8;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.itx{font-size:11px;line-height:1.55;color:#3a3657}
+.itx b{color:#241f4d}
+.itx .act{display:block;color:#a86a10;font-size:10.5px;margin-top:2px}
+.callout{background:#fff8ec;border:1px solid #f3dfba;border-radius:9px;padding:10px 12px;margin-top:10px;font-size:10.5px;line-height:1.6;color:#7a5a1c}
+.callout b{color:#a86a10}
+.note{font-size:9.5px;color:#9a95b5;margin-top:9px;line-height:1.6}
+</style></head><body>
+<div class="wrap">
+<aside class="side">
+  <div class="brand"><div class="blogo">◧</div><div class="bname">하남 BBQ<br>서호수점</div></div>
+  <div class="sdiv"></div>
+  <div class="slab">HYPOTHESIS</div>
+  <div class="sval">가설 1<br>소재 성과의 교차검증</div>
+  <div class="slab">PERIOD</div>
+  <div class="sval">2026-07-20 ~ 08-03</div>
+  <div class="slab">FILTER</div>
+  <div class="sval">Country = Vietnam<br>고유 사용자 · N≥300</div>
+  <div class="slab">SOURCE</div>
+  <div class="sval">Meta 광고관리자<br>× Amplitude</div>
+  <div class="verdict"><b>✓ 확정</b><span>3개 판정 기준 모두 충족<br>단, 2·3위 순위는 불일치</span></div>
+  <div class="legend">
+    <span class="dot" style="background:#4f46b8"></span>business_taste<br>
+    <span class="dot" style="background:#b9b7c9"></span>비교 소재
+  </div>
+  <div class="foot">예약 유도 = CTA Clicked<br>(message_book·call_phone)<br>POS 미연동 → 예약 완결 측정 불가</div>
+</aside>
+
+<main class="main">
+  <div class="badge">교차검증 · Meta × Amplitude</div>
+  <h1>가설 1 <span>/ business·taste는 광고와 예약 양쪽에서 승자인가</span></h1>
+  <div class="sub">광고 반응 1위 소재가 랜딩페이지 예약행동에서도 1위인가 — 예산 배분 기준을 클릭에서 예약으로 옮길 근거</div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="k1">광고 반응 · CTR</div><div class="k2">5.13%<span class="rank">1위</span></div><div class="k3">Meta 광고관리자</div></div>
+    <div class="kpi"><div class="k1">광고 반응 · 링크클릭</div><div class="k2">10,226<span class="rank">1위</span></div><div class="k3">전체 클릭의 57%</div></div>
+    <div class="kpi hero"><div class="k1">지표 1 · 예약 유도</div><div class="k2">64건<span class="rank">1위</span></div><div class="k3">전체 90건의 71%</div></div>
+    <div class="kpi hero"><div class="k1">지표 2 · 예약 유도율</div><div class="k2">1.45%<span class="rank">1위</span></div><div class="k3">사이트 평균 1.09%</div></div>
+    <div class="kpi hero"><div class="k1">지표 3 · 유도당 비용</div><div class="k2">₫64,828<span class="rank">최저</span></div><div class="k3">₫4,149,001 ÷ 64</div></div>
+  </div>
+
+  <div class="crow">
+    <div class="card">
+      <div class="ctitle">지표 1 · 예약 유도 건수</div>
+      <div class="cnote">많을수록 좋음 · 괄호는 방문자 수</div>
+      <div class="bar"><div class="blab"><span>business_taste</span><em>4,418명 방문</em></div><div class="btk"><div class="bfill" style="width:100%;background:#4f46b8"></div></div><div class="bv">64명 · 전체의 71%</div></div>
+      <div class="bar"><div class="blab"><span>family_bday_vid</span><em>1,445명 방문</em></div><div class="btk"><div class="bfill" style="width:18.8%;background:#b9b7c9"></div></div><div class="bv dim">12명</div></div>
+      <div class="bar"><div class="blab"><span>family_taste</span><em>2,028명 방문</em></div><div class="btk"><div class="bfill" style="width:17.2%;background:#b9b7c9"></div></div><div class="bv dim">11명</div></div>
+    </div>
+    <div class="card">
+      <div class="ctitle">지표 2 · 예약 유도율</div>
+      <div class="cnote">많을수록 좋음 · 방문 대비 · 볼륨 영향 제거</div>
+      <div class="bar"><div class="blab"><span>business_taste</span><em>64 ÷ 4,418</em></div><div class="btk"><div class="bfill" style="width:100%;background:#4f46b8"></div></div><div class="bv">1.45% · 2위의 1.75배</div></div>
+      <div class="bar"><div class="blab"><span>family_bday_vid</span><em>12 ÷ 1,445</em></div><div class="btk"><div class="bfill" style="width:57.2%;background:#b9b7c9"></div></div><div class="bv dim">0.83%</div></div>
+      <div class="bar"><div class="blab"><span>family_taste</span><em>11 ÷ 2,028</em></div><div class="btk"><div class="bfill" style="width:37.2%;background:#b9b7c9"></div></div><div class="bv dim">0.54%</div></div>
+    </div>
+    <div class="card">
+      <div class="ctitle">지표 3 · 유도당 비용 <span style="color:#e08a1e;font-size:10.5px">↓ 적을수록 좋음</span></div>
+      <div class="cnote">Meta 지출 ÷ 예약 유도 건수</div>
+      <div class="bar"><div class="blab"><span>business_taste</span><em>지출 ₫4.15M</em></div><div class="btk"><div class="bfill" style="width:27.2%;background:#4f46b8"></div></div><div class="bv">₫64,828 · 최저</div></div>
+      <div class="bar"><div class="blab"><span>family_bday_vid</span><em>지출 ₫1.50M</em></div><div class="btk"><div class="bfill" style="width:52.4%;background:#b9b7c9"></div></div><div class="bv dim">₫124,992</div></div>
+      <div class="bar"><div class="blab"><span>family_taste</span><em>지출 ₫2.63M</em></div><div class="btk"><div class="bfill" style="width:100%;background:#d9a441"></div></div><div class="bv dim">₫238,691 · 최고가 3.7배</div></div>
+    </div>
+  </div>
+
+  <div class="brow">
+    <div class="card">
+      <div class="sechd">결과 <i>—</i> 판정 기준 대조</div>
+      <table class="tbl">
+        <tr><th>판정 기준</th><th>결과</th><th style="width:52px">충족</th></tr>
+        <tr><td>① Meta 광고 반응 1위</td><td>CTR 5.13% · CPC ₫406 · 클릭 10,226 전부 1위</td><td class="ok">충족</td></tr>
+        <tr><td>② Amplitude 예약 1위</td><td>건수 64건 · 유도율 1.45% 모두 1위</td><td class="ok">충족</td></tr>
+        <tr><td>③ 유도당 비용 최저</td><td>₫64,828 — 최고가 소재의 27%</td><td class="ok">충족</td></tr>
+      </table>
+      <div class="sechd" style="margin:14px 0 9px">소재별 전체 비교 <span style="font-weight:500;color:#9a95b5;font-size:10px">· N≥300만 순위 비교</span></div>
+      <table class="tbl">
+        <tr><th>소재</th><th class="num">방문</th><th class="num">예약</th><th class="num">유도율</th><th class="num">유도당 비용</th></tr>
+        <tr class="win"><td>business_taste</td><td class="num">4,418</td><td class="num">64</td><td class="num">1.45%</td><td class="num">₫64,828</td></tr>
+        <tr><td>family_bday_vid</td><td class="num">1,445</td><td class="num">12</td><td class="num">0.83%</td><td class="num">₫124,992</td></tr>
+        <tr><td>family_taste</td><td class="num">2,028</td><td class="num">11</td><td class="num">0.54%</td><td class="num">₫238,691</td></tr>
+        <tr><td style="color:#9a95b5">전체 (소표본 포함)</td><td class="num" style="color:#9a95b5">8,223</td><td class="num" style="color:#9a95b5">90</td><td class="num" style="color:#9a95b5">1.09%</td><td class="num" style="color:#9a95b5">—</td></tr>
+      </table>
+      <div class="note">방문 합계 8,223 &gt; 고유 사용자 8,091 — 복수 소재 재유입 중복분. business_taste 방문은 Amplitude UI 기준 4,415와 3명 차이(집계 시점).</div>
+    </div>
+
+    <div class="card">
+      <div class="sechd">결론 &amp; 인사이트 <i>—</i> Finding → Action</div>
+      <div class="ins"><div class="inum">1</div><div class="itx"><b>가설 1 확정.</b> 두 독립 도구가 같은 소재를 승자로 지목 — 우연·측정오류로 보기 어렵다.<span class="act">→ business_taste를 차기 캠페인 대표 소재로 확정</span></div></div>
+      <div class="ins"><div class="inum">2</div><div class="itx"><b>단, 클릭 순위 = 예약 순위는 아니다.</b> 클릭 2위 family_taste가 예약은 꼴찌(0.54%). 2,028명을 데려오고 11건.<span class="act">→ 예산 배분 기준을 클릭 수에서 예약 유도율로 교체</span></div></div>
+      <div class="ins"><div class="inum">3</div><div class="itx"><b>낭비 규모는 ₫2.63M.</b> family_taste 예산을 business_taste 효율로 돌렸다면 이론상 40건 — 실제 11건 대비 <b>+29건</b>(전체 +32%).<span class="act">→ family_taste 중단, 예산 business_taste로 이관</span></div></div>
+      <div class="ins"><div class="inum">4</div><div class="itx"><b>저예산 유망주 발견.</b> family_bday_vid는 예산 최소(₫1.5M)인데 유도율 2위(0.83%).<span class="act">→ 소액 증액 테스트로 확장 가능성 검증</span></div></div>
+      <div class="ins"><div class="inum">5</div><div class="itx"><b>구조적 원인은 캠페인 목표.</b> 트래픽 목표(traffic_aware_tayho)는 클릭할 사람을 찾지, 예약할 사람을 찾지 않는다.<span class="act">→ 전환 목표 + Meta 픽셀 예약 이벤트 연동</span></div></div>
+      <div class="callout"><b>주의 ·</b> ③의 40건은 효율이 그대로 유지된다는 가정의 <b>이론적 상한</b>이다. 예산 확대 시 노출 빈도 상승으로 CPC·효율이 나빠질 수 있어 실제 증분은 이보다 작다. 또한 POS 미연동으로 이 수치는 <b>예약 유도</b>까지이며 실제 방문·매출과는 다르다.</div>
+    </div>
+  </div>
+</main>
+</div>
+</body></html>

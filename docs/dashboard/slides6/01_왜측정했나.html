@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<title>웹페이지 행동 측정 — 슬라이드 6장 (질문형)</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Malgun Gothic','Segoe UI',sans-serif;background:#eceaf3;padding:26px;width:1112px}
+.grid{display:grid;grid-template-columns:840px;gap:26px;zoom:1.25}
+.slide{width:840px;height:472px;background:#fff;border-radius:6px;padding:26px 30px;position:relative;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.13)}
+.no{position:absolute;right:16px;bottom:12px;font-size:11px;color:#c3c0d2;font-weight:700}
+.kick{font-size:11px;color:#8b86a8;letter-spacing:.06em;font-weight:700;margin-bottom:5px}
+.kick em{font-style:normal;color:#4f46b8}
+h2{font-size:23px;font-weight:800;color:#1c1a33;letter-spacing:-.4px;line-height:1.25}
+.sub{font-size:12px;color:#7d7898;margin-top:5px}
+.hr{height:2px;background:#4f46b8;width:38px;margin:11px 0 15px}
+.msg{position:absolute;left:30px;right:30px;bottom:26px;background:#f5f3fd;border-left:3px solid #4f46b8;padding:9px 13px;font-size:12.5px;color:#2e2a4d;line-height:1.5}
+.msg b{color:#4f46b8}
+.kpis{display:grid;gap:10px;margin-bottom:14px}
+.k{background:#f7f6fc;border-radius:8px;padding:11px 14px}
+.k .l{font-size:10.5px;color:#8b86a8}
+.k .v{font-size:27px;font-weight:800;color:#1c1a33;letter-spacing:-.6px;margin-top:1px}
+.k .v small{font-size:13px;font-weight:700;color:#7d7898;margin-left:3px}
+.k .s{font-size:10px;color:#a29dbb;margin-top:1px}
+.k.hero{background:#4f46b8}.k.hero .l,.k.hero .s{color:#c3bdf2}.k.hero .v{color:#fff}.k.hero .v small{color:#c3bdf2}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.lab{font-size:11px;font-weight:700;color:#5a5578;margin-bottom:7px}
+.bar{margin-bottom:9px}
+.bl{font-size:10.5px;color:#4b4767;display:flex;justify-content:space-between;margin-bottom:3px}
+.bl em{font-style:normal;color:#a29dbb}
+.tk{height:15px;background:#f0eef9;border-radius:4px;overflow:hidden}
+.fl{height:100%;border-radius:4px;background:#b9b7c9}
+.fl.on{background:#4f46b8}
+.fl.wn{background:#d9a441}
+.tb{width:100%;border-collapse:collapse;font-size:11px}
+.tb th{background:#f5f3fd;color:#5f5a86;font-size:10px;padding:5px 8px;text-align:left;border-bottom:1px solid #e4e0f2}
+.tb td{padding:6.5px 8px;border-bottom:1px solid #f2f0fa;color:#3a3657}
+.tb td.n{text-align:right}
+.tb tr.w td{background:#f7f5ff;font-weight:800;color:#241f4d}
+.chip{display:inline-block;font-size:10px;font-weight:700;border-radius:4px;padding:2px 7px}
+.ok{background:#e3f4ea;color:#1c8a5a}.bad{background:#fbe6e6;color:#c0392b}
+.stack{display:flex;height:30px;border-radius:5px;overflow:hidden;margin:6px 0 4px}
+.stack div{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff}
+.mock{border:1px solid #e0dcf0;border-radius:6px;height:212px;position:relative;background:#faf9fe;overflow:hidden}
+.mock .sec{position:absolute;left:0;right:0;font-size:9.5px;color:#a29dbb;padding:4px 8px}
+.pin{position:absolute;background:#4f46b8;color:#fff;font-size:9px;font-weight:700;border-radius:9px;padding:2px 7px;white-space:nowrap}
+.ev{font-size:11px;color:#3a3657;padding:5px 0;border-bottom:1px solid #f2f0fa;display:flex;justify-content:space-between}
+.ev b{color:#241f4d}
+.note{font-size:10px;color:#a29dbb;margin-top:6px}
+.pill{display:inline-block;background:#eeecfa;color:#4f46b8;font-size:10px;font-weight:700;border-radius:10px;padding:2px 9px;margin-right:5px}
+.q{background:#f5f3fd;border-radius:8px;padding:9px 13px;font-size:12px;color:#4f46b8;font-weight:700;margin-bottom:13px}
+.q span{color:#8b86a8;font-weight:700;margin-right:7px}
+.verdict{display:flex;align-items:center;gap:10px;background:#e3f4ea;border-radius:8px;padding:9px 14px;margin-top:9px}
+.kmini{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:11px}
+.kmini .k{padding:8px 12px}
+.kmini .k .v{font-size:21px}
+.kmini .k .v small{font-size:11px}
+.verdict .t{font-size:15px;font-weight:800;color:#1c8a5a;white-space:nowrap}
+.verdict .d{font-size:11px;color:#3d7a5c;line-height:1.45}
+.ins{background:#f7f6fc;border-radius:8px;padding:11px 13px;height:100%}
+.ins .h{font-size:12px;font-weight:800;color:#241f4d;margin-bottom:6px}
+.ins .b{font-size:10.8px;color:#4b4767;line-height:1.55}
+.ins .e{font-size:9.8px;color:#8b86a8;margin-top:6px;padding-top:5px;border-top:1px solid #e7e4f3}
+.act{display:grid;grid-template-columns:64px 1fr 96px;gap:10px;align-items:center;padding:12.5px 0;border-bottom:1px solid #f2f0fa}
+.act .n2{background:#4f46b8;color:#fff;font-size:10px;font-weight:800;border-radius:5px;padding:4px 0;text-align:center}
+.act .n2.g{background:#b9b7c9}
+.act .tx{font-size:11.5px;color:#2e2a4d;line-height:1.45}
+.act .tx b{color:#241f4d}
+.act .wh{font-size:9.8px;color:#8b86a8;text-align:right;line-height:1.4}
+</style></head><body>
+<style>body{background:transparent;padding:0;width:1680px}
+.grid{display:block;zoom:2}.slide{box-shadow:none;border-radius:0;margin:0}</style><div class="grid">
+<div class="slide">
+  <div class="kick">01 · 측정 <em>MEASURE</em></div>
+  <h2>우리는 왜 이것을 측정했나?</h2>
+  <div class="sub">광고 클릭 이후가 보이지 않았다 — 예약 행동을 직접 계측하기로 결정</div>
+  <div class="hr"></div>
+  <div class="q"><span>측정 목적</span>"광고비가 클릭이 아니라 예약을 만들고 있는가"를 확인하기 위해</div>
+  <div class="two">
+    <div>
+      <div class="lab">무엇을, 어디에 심었나</div>
+      <div class="mock" style="height:168px">
+        <div class="sec" style="top:6px">HERO — 메인 비주얼</div>
+        <div class="pin" style="top:24px;left:12px">CTA · hero</div>
+        <div class="sec" style="top:56px">MENU — 메뉴 섹션</div>
+        <div class="pin" style="top:74px;left:12px">Menu Item Viewed</div>
+        <div class="sec" style="top:106px">VISIT — 위치·예약</div>
+        <div class="pin" style="top:124px;left:12px">CTA · visit_section</div>
+        <div class="pin" style="bottom:9px;right:12px;background:#e08a1e">CTA · floating</div>
+      </div>
+    </div>
+    <div>
+      <div class="lab">수집된 이벤트 <span style="font-weight:400;color:#a29dbb">— 총 41,211건</span></div>
+      <div class="ev"><span>Page Viewed</span><b>10,159</b></div>
+      <div class="ev"><span>CTA Clicked</span><b>133</b></div>
+      <div class="ev"><span>Menu Item Viewed</span><b>41</b></div>
+      <div class="lab" style="margin-top:11px">함께 수집한 속성</div>
+      <div style="font-size:11px;line-height:1.95;color:#4b4767">
+        <span class="pill">utm_content</span><span class="pill">utm_term</span><br>
+        <span class="pill">cta_type</span><span class="pill">cta_location</span><span class="pill">city</span>
+      </div>
+      <div class="note">결측률 0.8~1.5% · 기기·세션·마찰지표는 자동 수집</div>
+    </div>
+  </div>
+  <div class="msg">버튼을 <b>종류·위치별로 나눠</b> 심었기 때문에 "어떤 광고가 데려온 사람이, 어떤 버튼을 눌렀나"까지 추적 가능</div>
+  <div class="no">01</div></div></body></html>

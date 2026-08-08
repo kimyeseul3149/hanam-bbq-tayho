@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>하남돼지집 서호수점 — 웹페이지 운영 대시보드</title>
+<style>
+:root{--red:#E60012;--red45:#F48C94;--red12:#FCE3E5;--c100:#1A1A1A;--c70:#616161;
+      --c45:#939393;--c25:#C4C4C4;--lg:#E9E9E9;--ivory:#FFF9F2;--surf:#FFFFFF}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ivory);color:var(--c100);
+     font-family:system-ui,"Segoe UI","Malgun Gothic",sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1320px;margin:0 auto;padding:16px 16px 60px}
+.hd{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--surf);
+    border:1px solid var(--lg);border-top:4px solid var(--red);border-radius:10px;
+    padding:12px 16px;margin-bottom:12px}
+.hd h1{font-size:17px;margin:0}
+.hd .sub{font-size:10.5px;color:var(--c70);margin-top:2px}
+.param{display:flex;align-items:center;gap:6px;padding:5px 10px;border:1px solid var(--lg);border-radius:8px}
+.param .lab{font-size:10px;color:var(--c45)}
+.btn{font:inherit;font-size:11px;padding:4px 9px;border:1px solid var(--lg);background:var(--surf);
+     color:var(--c70);border-radius:14px;cursor:pointer}
+.btn:hover{border-color:var(--c45);color:var(--c100)}
+.btn.on{background:var(--c100);border-color:var(--c100);color:#fff}
+select{font:inherit;font-size:11px;padding:4px 6px;border:1px solid var(--lg);border-radius:6px;
+       background:var(--surf);color:var(--c70)}
+.chips{display:flex;gap:5px;flex-wrap:wrap}
+.chip{font-size:10px;border:1px solid var(--red45);color:var(--red);background:var(--red12);
+      border-radius:12px;padding:2px 8px;cursor:pointer;white-space:nowrap}
+.chip:hover{background:var(--red);color:#fff;border-color:var(--red)}
+.chip .x{margin-left:4px;font-weight:700}
+.help{margin-left:auto;position:relative}
+.help .q{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--c45);color:var(--c45);
+   display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;cursor:help}
+.help:hover .q{border-color:var(--red);color:var(--red)}
+.help .panel{display:none;position:absolute;right:0;top:32px;width:540px;background:var(--surf);
+   border:1px solid var(--c25);border-radius:10px;padding:14px 16px;z-index:80;
+   box-shadow:0 12px 32px rgba(0,0,0,.15);font-size:11.5px;line-height:1.75;color:var(--c70)}
+.help:hover .panel{display:block}
+.help .panel b{color:var(--c100)}
+.help .panel h4{margin:0 0 6px;font-size:12.5px;color:var(--c100)}
+.help .panel ol{margin:5px 0 8px 16px;padding:0}
+
+/* 섹션 라벨 */
+.sec{display:flex;align-items:center;gap:8px;margin:18px 2px 8px}
+.sec .n{width:19px;height:19px;border-radius:50%;background:var(--c100);color:#fff;
+        font-size:10.5px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none}
+.sec .t{font-size:12.5px;font-weight:700;letter-spacing:.02em}
+.sec .d{font-size:10.5px;color:var(--c45)}
+.sec .ln{flex:1;height:1px;background:var(--lg)}
+
+/* KPI */
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.kpi{background:var(--surf);border:1px solid var(--lg);border-radius:10px;padding:11px 13px 9px;position:relative}
+.kpi.hero{border-color:var(--red45);background:linear-gradient(180deg,#FFF6F7,#fff 52%)}
+.kpi .t{font-size:12px;font-weight:700}
+.kpi .v{font-size:26px;font-weight:700;line-height:1.15;margin-top:3px;font-variant-numeric:tabular-nums}
+.kpi.hero .v{color:var(--red)}
+.kpi .u{font-size:11px;font-weight:500;color:var(--c70);margin-left:3px}
+.kpi .s{font-size:9.5px;color:var(--c45);min-height:14px;margin-top:2px}
+.kpi .star{position:absolute;top:9px;right:11px;font-size:9px;color:var(--red)}
+
+/* 카드 */
+.card{background:var(--surf);border:1px solid var(--lg);border-radius:10px;padding:12px 14px}
+.g-2a{display:grid;grid-template-columns:1.25fr 1fr;gap:12px;align-items:start}
+.g-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;align-items:start}
+.g-3b{display:grid;grid-template-columns:1fr 1fr 1.5fr;gap:12px;align-items:start}
+.g-2b{display:grid;grid-template-columns:1fr 1.55fr;gap:12px;align-items:start}
+.g-2c{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}
+.ct{font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px;min-width:0}
+.cs{font-size:10.5px;color:var(--c45);margin:3px 0 9px;line-height:1.55}
+.badge{font-size:9px;border:1px solid var(--c25);color:var(--c45);border-radius:10px;padding:1px 6px;white-space:nowrap}
+.badge.click{border-color:var(--red45);color:var(--red)}
+.info{margin-left:auto;position:relative;width:16px;height:16px;border-radius:50%;border:1px solid var(--c25);
+      color:var(--c45);font-size:10px;display:flex;align-items:center;justify-content:center;cursor:help;flex:none}
+.info .tip{display:none;position:absolute;right:0;top:20px;width:330px;background:var(--c100);color:#fff;
+      border-radius:8px;padding:10px 12px;font-size:10.5px;line-height:1.7;z-index:90;font-weight:400}
+.info:hover .tip{display:block}
+.info .tip b{color:var(--red45)}
+.seg{display:flex;border:1px solid var(--lg);border-radius:7px;overflow:hidden;flex:none}
+.seg div{font-size:10px;padding:3px 9px;color:var(--c45);cursor:pointer;white-space:nowrap}
+.seg div.on{background:var(--c100);color:#fff}
+.mla{margin-left:auto}
+
+/* 퍼널 */
+.fn{margin-top:4px}
+.fstep{padding:7px 9px;border:1px solid var(--lg);border-radius:8px;margin-bottom:5px;cursor:pointer;
+       position:relative;overflow:hidden;background:var(--surf)}
+.fstep:hover{border-color:var(--c45)}
+.fstep.on{border:1.5px solid var(--red);background:var(--red12)}
+.fstep .bar{position:absolute;left:0;top:0;bottom:0;background:#EFEFEC;z-index:0;transition:width .2s}
+.fstep.on .bar{background:#FBD3D7}
+.fstep .in{position:relative;z-index:1;display:flex;align-items:baseline;gap:7px}
+.fstep .nm{font-size:11.5px;font-weight:700}
+.fstep .n{margin-left:auto;font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
+.fstep .pc{font-size:10px;color:var(--c70);width:52px;text-align:right;font-variant-numeric:tabular-nums}
+.drop{font-size:9.5px;color:var(--red);text-align:right;margin:-2px 2px 4px 0}
+
+/* 세트 비교 — 세로 막대 */
+.cmp{display:flex;align-items:flex-end;justify-content:center;gap:34px;height:196px;margin:10px 0 2px}
+.cmpb{display:flex;flex-direction:column;align-items:center;cursor:pointer;flex:0 0 110px}
+.cmpb .pct{font-size:19px;font-weight:700;font-variant-numeric:tabular-nums;margin-bottom:6px}
+.cmpb .col{width:78px;border-radius:5px 5px 0 0;transition:height .22s;min-height:3px}
+.cmpb:hover .col{opacity:.82}
+.cmpb.on .col{outline:2px solid var(--red);outline-offset:2px}
+.cmpb .nm{font-size:12.5px;font-weight:700;margin-top:7px}
+.cmpb .sub{font-size:9.5px;color:var(--c45);margin-top:2px;text-align:center;line-height:1.5}
+.cmpf{font-size:9.5px;color:var(--c45);border-top:1px solid var(--lg);padding-top:7px;margin-top:4px;line-height:1.6}
+.cmpf b{color:var(--c70)}
+
+/* 막대 리스트 */
+.bl{display:flex;flex-direction:column;gap:6px}
+.brow{display:grid;grid-template-columns:82px 1fr 46px 40px;gap:7px;align-items:center;
+      font-size:10.5px;cursor:pointer;font-variant-numeric:tabular-nums}
+.brow:hover .bg i{opacity:.75}
+.brow.on .nm{color:var(--red);font-weight:700}
+.brow .nm{color:var(--c70);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.brow .bg{position:relative;height:14px;background:var(--lg);border-radius:2px;overflow:hidden}
+.brow .bg i{position:absolute;left:0;top:0;bottom:0;background:var(--c100);border-radius:2px;transition:width .2s}
+.brow.on .bg i{background:var(--red)}
+.brow .v{text-align:right;font-weight:700}
+.brow .p{text-align:right;color:var(--c45)}
+.bl.wide .brow{grid-template-columns:132px 1fr 46px 40px}
+.empty{font-size:10.5px;color:var(--c45);padding:14px 2px;text-align:center}
+
+/* 매트릭스 */
+.mx{width:100%;border-collapse:collapse;font-size:10.5px;font-variant-numeric:tabular-nums}
+.mx th{font-size:9.5px;color:var(--c45);font-weight:500;padding:3px 4px;text-align:center;white-space:nowrap}
+.mx th.rh{text-align:left}
+.mx td{padding:0;text-align:center}
+.mx td div{padding:7px 4px;border-radius:3px;cursor:pointer;font-weight:700}
+.mx td div:hover{outline:1.5px solid var(--red)}
+.mx td.rh{text-align:left;color:var(--c70);padding:0 6px 0 2px;white-space:nowrap;font-size:10px}
+
+/* 히트맵 */
+.hmw{overflow-x:auto}
+.hm{display:grid;grid-template-columns:22px repeat(24,1fr);gap:2px;min-width:520px}
+.hm .hh{font-size:8.5px;color:var(--c45);text-align:center}
+.hm .rh{font-size:9.5px;color:var(--c70);display:flex;align-items:center}
+.hm .cell{aspect-ratio:1;border-radius:2px;cursor:pointer}
+.hm .cell:hover{outline:1.5px solid var(--red)}
+.hm .cell.on{outline:2px solid var(--red)}
+.lg2{display:flex;align-items:center;gap:4px;font-size:9px;color:var(--c45);margin-top:6px;justify-content:flex-end}
+.lg2 i{width:15px;height:9px;border-radius:2px}
+
+/* 표 */
+.tbw{overflow-x:auto}
+table.dt{width:100%;border-collapse:collapse;font-size:10.5px;font-variant-numeric:tabular-nums;min-width:820px}
+table.dt th{font-size:9.5px;color:var(--c45);font-weight:500;text-align:right;padding:0 7px 5px;
+            border-bottom:1.5px solid var(--c25);white-space:nowrap}
+table.dt th:first-child{text-align:left}
+table.dt td{padding:6px 7px;text-align:right;border-bottom:1px solid var(--lg);color:var(--c70)}
+table.dt td:first-child{text-align:left;color:var(--c100);font-weight:600}
+table.dt tr.clk{cursor:pointer}
+table.dt tr.clk:hover td{background:#FAFAF8}
+table.dt tr.on td{background:var(--red12)}
+table.dt tr.tot td{border-top:1.5px solid var(--c25);border-bottom:none;color:var(--c100);font-weight:700}
+table.dt td.b{color:var(--c100);font-weight:700}
+table.dt td.dim{color:var(--c25)}
+
+.note{font-size:9.5px;color:var(--c45);line-height:1.85;margin-top:14px;
+      background:var(--surf);border:1px solid var(--lg);border-radius:10px;padding:12px 15px}
+.note b{color:var(--c70)}
+.note .w{color:var(--red)}
+.note li{margin-bottom:2px}
+.note ul{margin:0;padding-left:16px}
+
+@media (max-width:900px){
+  .wrap{padding:10px 10px 40px}
+  .kpis{grid-template-columns:repeat(2,1fr);gap:8px}
+  .g-2a,.g-2b,.g-2c,.g-3,.g-3b{grid-template-columns:1fr;gap:10px}
+  .hd{gap:9px;padding:10px 12px}
+  .hd h1{font-size:15px}
+  .help .panel{width:min(88vw,420px)}
+  .info .tip{width:min(80vw,300px)}
+  .kpi .v{font-size:22px}
+  .bl .brow{grid-template-columns:76px 1fr 42px 36px}
+  .bl.wide .brow{grid-template-columns:108px 1fr 42px 36px}
+}
+</style></head>
+<body><div class="wrap">
+
+<div class="hd">
+  <div>
+    <h1>하남돼지집 서호수점 — 웹페이지 운영 대시보드</h1>
+    <div class="sub">Amplitude 웹 계측 · 하노이 시각 기준 · 2026-07-20 ~ 08-02 (14일)
+      &nbsp;|&nbsp; <b>광고 성과가 아니라 “랜딩 이후 행동”만 다룹니다</b></div>
+  </div>
+  <div class="param"><span class="lab">기간</span>
+    <button class="btn on" data-per="all">전체 14일</button>
+    <button class="btn" data-per="p1">1차 7/20~28</button>
+    <button class="btn" data-per="p2">2차 7/29~8/2</button>
+  </div>
+  <div class="param"><span class="lab">세트</span><select id="selSet"></select></div>
+  <div class="chips" id="chips"></div>
+  <div class="help"><div class="q">?</div><div class="panel">
+    <h4>이 대시보드 읽는 법</h4>
+    <ol>
+      <li><b>모든 필터가 모든 패널에 적용됩니다.</b> 광고 지표(지출·CTR·도착률)를 뺐기 때문에
+          모든 숫자가 웹 계측 하나에서 나옵니다.</li>
+      <li>퍼널 단계·CTA 막대·히트맵 칸·표의 행을 <b>클릭</b>하면 그 조건으로 전체 화면이 좁혀집니다.
+          다시 클릭하면 해제.</li>
+      <li>사람 수 지표는 모두 <b>고유 사용자</b> 기준이라 부분 합이 전체보다 클 수 있습니다
+          (한 사람이 여러 조건에 걸림).</li>
+    </ol>
+    <b>방문자</b> = 도착 이벤트가 있는 고유 device_id ·
+    <b>행동률</b> = 의미 있는 행동(메뉴/CTA/내비 등 의도적 클릭) 사용자 ÷ 방문자 ·
+    <b>예약 유도율</b> = 메신저·전화 CTA 클릭 사용자 ÷ 방문자
+  </div></div>
+</div>
+
+<div class="sec"><span class="n">1</span><span class="t">KPI 요약</span>
+  <span class="d">규모 · 재방문 · 전환</span><span class="ln"></span></div>
+<div class="kpis" id="kpis"></div>
+
+<div class="sec"><span class="n">2</span><span class="t">랜딩 퍼널 · 광고세트 비교</span>
+  <span class="d">어디서 새는가 · 어느 세트가 랜딩 이후 더 잘 남았나</span><span class="ln"></span></div>
+<div class="g-2a">
+  <div class="card">
+    <div class="ct">어디서 새는가 — 랜딩 퍼널 <span class="badge click">단계 클릭 = 전체 좁힘</span>
+      <div class="info mla">i<div class="tip">막대 폭 = 방문자 대비 비율.
+        단계를 클릭하면 그 단계까지 온 사용자로 화면 전체가 좁혀집니다.</div></div>
+    </div>
+    <div class="cs" id="fnSub"></div>
+    <div class="fn" id="fn"></div>
+  </div>
+  <div class="card">
+    <div class="ct">광고세트별 랜딩 이후 성과 <span class="badge click">막대 클릭</span>
+      <div class="seg mla" id="cmpMode"><div class="on" data-cm="resR">예약 유도율</div><div data-cm="actR">행동률</div><div data-cm="users">방문자</div></div>
+    </div>
+    <div class="cs" id="cmpSub"></div>
+    <div class="cmp" id="cmp"></div>
+    <div class="cmpf" id="cmpFoot"></div>
+  </div>
+</div>
+
+<div class="sec"><span class="n">3</span><span class="t">CTA 분석</span>
+  <span class="d">무엇을 · 어디서 눌렀나</span><span class="ln"></span></div>
+<div class="g-3b">
+  <div class="card">
+    <div class="ct">CTA 종류 <span class="badge click">클릭</span>
+      <div class="info">i<div class="tip">막대 = <b>클릭한 사용자 수</b>(고유).
+        괄호 안 %는 방문자 대비. 메신저·전화만 예약 유도로 집계합니다.</div></div></div>
+    <div class="cs" id="ctSub"></div>
+    <div class="bl" id="ctList"></div>
+  </div>
+  <div class="card">
+    <div class="ct">CTA 위치 <span class="badge click">클릭</span>
+      <div class="info">i<div class="tip">페이지의 어느 지점에서 눌렸는가.
+        <b>footer에는 CTA가 없습니다</b> — 하단 CTA는 visit 섹션에 있습니다.</div></div></div>
+    <div class="cs" id="clSub"></div>
+    <div class="bl wide" id="clList"></div>
+  </div>
+  <div class="card">
+    <div class="ct">위치 × 종류 <span class="badge click">칸 클릭</span>
+      <div class="info">i<div class="tip">숫자 = <b>클릭 건수</b>(사용자 수 아님).
+        같은 사람이 여러 번 누른 것이 포함됩니다.</div></div></div>
+    <div class="cs" id="mxSub"></div>
+    <div class="tbw"><table class="mx" id="mx"></table></div>
+  </div>
+</div>
+
+<div class="sec"><span class="n">4</span><span class="t">콘텐츠 참여</span>
+  <span class="d">무엇에 관심을 보였나 · 언제 오는가</span><span class="ln"></span></div>
+<div class="g-2b">
+  <div class="card">
+    <div class="ct">콘텐츠 관심 신호
+      <div class="info">i<div class="tip"><b>스크롤 뎁스를 계측하지 않아</b> 섹션별 열람률을 알 수 없습니다.
+        대신 각 섹션과 연결된 클릭을 관심 대리 지표로 씁니다.
+        <b>내비게이션은 클릭 17건이 잡혔지만 어느 메뉴를 눌렀는지(nav_item)는
+        이번 export에 컬럼이 없어 쪼갤 수 없습니다.</b></div></div></div>
+    <div class="cs">사용자 수 · 방문자 대비 %</div>
+    <div class="bl wide" id="intList"></div>
+  </div>
+  <div class="card">
+    <div class="ct">언제 오는가 — 요일 × 시간 <span class="badge click">칸 클릭</span>
+      <div class="seg mla" id="hmMode"><div class="on" data-hm="sess">방문</div><div data-hm="cta">CTA</div><div data-hm="res">예약유도</div></div>
+    </div>
+    <div class="cs" id="hmSub"></div>
+    <div class="hmw"><div class="hm" id="hm"></div></div>
+    <div class="lg2"><span>적음</span><i style="background:#F0F0EC"></i><i style="background:#C9C9C2"></i>
+      <i style="background:#8E8E86"></i><i style="background:#4A4A45"></i><i style="background:#1A1A1A"></i><span>많음</span></div>
+  </div>
+</div>
+
+<div class="sec"><span class="n">5</span><span class="t">UX 모니터링</span>
+  <span class="d">막히지 않았나 · 어떤 환경에서 보나</span><span class="ln"></span></div>
+<div class="g-2c">
+  <div class="card">
+    <div class="ct">좌절 신호
+      <div class="info">i<div class="tip">Amplitude <b>휴리스틱 자동 판정</b>입니다.
+        Dead Click 89건 중 34건이 로고 오탐이었습니다. 절대값이 아니라 <b>경향</b>으로만 보세요.</div></div></div>
+    <div class="cs" id="uxSub"></div>
+    <div class="bl wide" id="uxList"></div>
+  </div>
+  <div class="card">
+    <div class="ct">OS · 기기 · 브라우저 <span class="badge click">클릭</span>
+      <div class="seg mla" id="dvMode"><div class="on" data-dv="ofam">OS</div><div data-dv="dv">기기</div><div data-dv="os">브라우저</div></div>
+    </div>
+    <div class="cs" id="dvSub"></div>
+    <div class="bl wide" id="dvList"></div>
+  </div>
+</div>
+
+<div class="sec"><span class="n">6</span><span class="t">상세 테이블</span>
+  <span class="d">웹 행동 지표 — 광고 지표 없음</span><span class="ln"></span></div>
+<div class="card">
+  <div class="ct">이 숫자, 어디서 나온 건가 <span class="badge">위 필터가 그대로 적용됩니다</span>
+    <div class="seg mla" id="dtMode">
+      <div class="on" data-dt="cre">소재별</div><div data-dt="date">일별</div>
+      <div data-dt="set">세트별</div><div data-dt="ofam">OS별</div>
+      <div data-dt="os">브라우저별</div><div data-dt="city">도시별</div>
+    </div>
+  </div>
+  <div class="cs" id="dtSub"></div>
+  <div class="tbw"><table class="dt" id="dt"></table></div>
+</div>
+
+<div class="note" id="note"></div>
+</div>
+
+<script>
+const D=/*__DATA__*/;
+const COL={};D.sessCols.forEach((c,i)=>COL[c]=i);
+const S=D.sess,C=D.cats,DATES=D.dates;
+const PER={all:[0,13],p1:[0,8],p2:[9,13]};
+const PERLAB={all:'전체 14일',p1:'1차 7/20~28',p2:'2차 7/29~8/2'};
+const WD=['월','화','수','목','금','토','일'];
+const CRELB={business_taste:'비즈니스 × 맛 (영상)',family_taste:'가족 × 맛 (영상)',
+  family_bday_vid:'가족 × 생일 (영상)',family_bday_img:'가족 × 생일 (이미지)',
+  business_space_vid:'비즈니스 × 공간 (영상)',business_space_carousel:'비즈니스 × 공간 (캐러셀)',
+  '(none)':'광고 외 직접 유입'};
+const SETLB={hanoi_2549_mf_business:'business',hanoi_2549_mf_family:'family','(none)':'광고 외'};
+const CTLB={message_book:'메신저 예약',call_phone:'전화 걸기',
+  directions_reserve:'길찾기·지도',view_menu:'메뉴 보기'};
+const CLLB={hero:'hero — 첫 화면',floating:'floating — 우하단',header:'header — 상단',
+  visit_section:'visit — 하단',visit_map_embed:'visit — 지도'};
+const lb=(m,k)=>m[k]||k;
+const n=v=>v.toLocaleString();
+const pc=(a,b)=>b?(a/b*100).toFixed(2)+'%':'—';
+const pc1=(a,b)=>b?(a/b*100).toFixed(1)+'%':'—';
+
+let F={per:'all',set:null,cre:null,seg:null,cell:null,stage:null,ct:null,cl:null};
+let M={hm:'sess',dv:'ofam',dt:'cre',cmp:'resR'};
+
+/* ── 선택 ────────────────────────────────────────────────────── */
+function ctaMask(){
+  if(F.ct===null&&F.cl===null)return null;
+  const s=new Set();
+  D.ctaEv.forEach(e=>{if((F.ct===null||e[1]===F.ct)&&(F.cl===null||e[2]===F.cl))s.add(e[0]);});
+  return s;
+}
+function sel(){
+  const[a,b]=PER[F.per],cm=ctaMask(),out=[];
+  for(let i=0;i<S.length;i++){
+    const r=S[i],dt=r[COL.date];
+    if(dt<a||dt>b)continue;
+    if(F.set!==null&&r[COL.set]!==F.set)continue;
+    if(F.cre!==null&&r[COL.cre]!==F.cre)continue;
+    if(F.seg&&r[COL[F.seg.d]]!==F.seg.v)continue;
+    if(F.cell&&(r[COL.wd]!==F.cell[0]||r[COL.hour]!==F.cell[1]))continue;
+    if(F.stage&&!r[COL[F.stage]])continue;
+    if(cm&&!cm.has(i))continue;
+    out.push(i);
+  }
+  return out;
+}
+/* 고유 사용자 집계 */
+function agg(rows){
+  const K=['arrive','anyclick','act','cta','res','msg','call','menu','dead','rage',
+           'nav','tab','jump','langsw','priv','vmenu','dirs'];
+  const st={};K.forEach(k=>st[k]=new Set());
+  rows.forEach(i=>{const r=S[i],u=r[COL.u];K.forEach(k=>{if(r[COL[k]])st[k].add(u);});});
+  const o={sess:rows.length};K.forEach(k=>o[k]=st[k].size);
+  o.users=o.arrive;
+  o.spu=o.users?rows.length/o.users:0;
+  return o;
+}
+
+/* ── KPI ─────────────────────────────────────────────────────── */
+function drawKPI(o){
+  const cards=[
+    {t:'방문자',v:n(o.users),u:'명',s:'고유 device_id · 로그인 없어 기기 단위'},
+    {t:'세션',v:n(o.sess),u:'',s:'30분 무활동 기준 Amplitude 세션'},
+    {t:'인당 세션',v:o.spu.toFixed(2),u:'',s:'세션 ÷ 방문자 · 재방문 강도'},
+    {t:'행동률',v:pc(o.act,o.users),u:'',s:`의미 있는 행동 ${n(o.act)}명`},
+    {t:'예약 유도율',v:pc(o.res,o.users),u:'',s:`유도 ${n(o.res)}명 · 메신저 ${n(o.msg)} · 전화 ${n(o.call)}`,hero:1},
+  ];
+  document.getElementById('kpis').innerHTML=cards.map(c=>
+    `<div class="kpi${c.hero?' hero':''}">${c.hero?'<span class="star">핵심</span>':''}
+      <div class="t">${c.t}</div>
+      <div class="v">${c.v}<span class="u">${c.u}</span></div>
+      <div class="s">${c.s}</div></div>`).join('');
+}
+
+/* ── 퍼널 ────────────────────────────────────────────────────── */
+const FN=[['arrive','① 도착 (방문자)'],['anyclick','② 무엇이라도 클릭'],
+          ['act','③ 의미 있는 행동'],['cta','④ CTA 클릭'],['res','⑤ 예약 유도']];
+function drawFn(o){
+  const v0=o.arrive;
+  document.getElementById('fnSub').innerHTML=
+    `방문자 ${n(v0)}명 중 예약 유도 ${n(o.res)}명 · 무행동 이탈 ${pc1(v0-o.anyclick,v0)}`;
+  let h='';
+  FN.forEach(([k,nm],idx)=>{
+    const v=o[k],w=v0?v/v0*100:0;
+    h+=`<div class="fstep${F.stage===k?' on':''}" data-stage="${k}">
+      <div class="bar" style="width:${w.toFixed(2)}%"></div>
+      <div class="in"><span class="nm">${nm}</span>
+        <span class="n">${n(v)}</span><span class="pc">${pc1(v,v0)}</span></div></div>`;
+    if(idx<FN.length-1){
+      const nx=o[FN[idx+1][0]],dr=v-nx;
+      h+=`<div class="drop">↓ ${n(dr)}명 이탈 (${pc1(dr,v)})</div>`;
+    }
+  });
+  document.getElementById('fn').innerHTML=h;
+  document.querySelectorAll('#fn .fstep').forEach(e=>e.onclick=()=>{
+    const k=e.dataset.stage;F.stage=(F.stage===k||k==='arrive')?null:k;render();});
+}
+
+/* ── 막대 리스트 공용 ────────────────────────────────────────── */
+function bars(el,items,total,onclick,activeKey){
+  const box=document.getElementById(el);
+  if(!items.length){box.innerHTML='<div class="empty">해당 조건에 데이터가 없습니다</div>';return;}
+  const mx=Math.max(...items.map(i=>i.v))||1;
+  box.innerHTML=items.map((it,i)=>
+    `<div class="brow${it.on?' on':''}" data-i="${i}">
+      <span class="nm" title="${it.nm.replace(/<[^>]*>/g,'')}">${it.nm}</span>
+      <span class="bg"><i style="width:${(it.v/mx*100).toFixed(1)}%"></i></span>
+      <span class="v">${n(it.v)}</span>
+      <span class="p">${total?pc1(it.v,total):(it.sub||'')}</span></div>`).join('');
+  if(onclick)box.querySelectorAll('.brow').forEach(e=>
+    e.onclick=()=>onclick(items[+e.dataset.i]));
+}
+
+/* ── CTA ─────────────────────────────────────────────────────── */
+function drawCTA(rows,o){
+  const rs=new Set(rows);
+  const tU={},tC={},lU={},lC={},mxv={};
+  D.ctaEv.forEach(([si,t,l])=>{
+    if(!rs.has(si))return;const u=S[si][COL.u];
+    (tU[t]=tU[t]||new Set()).add(u);tC[t]=(tC[t]||0)+1;
+    (lU[l]=lU[l]||new Set()).add(u);lC[l]=(lC[l]||0)+1;
+    const k=l+'_'+t;mxv[k]=(mxv[k]||0)+1;
+  });
+  const tItems=C.ctaType.map((nm,i)=>({i,nm:lb(CTLB,nm),v:(tU[i]||{size:0}).size,
+      on:F.ct===i})).filter(x=>x.v>0).sort((a,b)=>b.v-a.v);
+  bars('ctList',tItems,o.users,it=>{F.ct=F.ct===it.i?null:it.i;render();});
+  document.getElementById('ctSub').innerHTML=
+    `사용자 ${n(o.cta)}명 · 클릭 ${n(Object.values(tC).reduce((a,b)=>a+b,0))}건 · % = 방문자 대비`;
+
+  const lItems=C.ctaLoc.map((nm,i)=>({i,nm:lb(CLLB,nm),v:(lU[i]||{size:0}).size,
+      on:F.cl===i})).filter(x=>x.v>0).sort((a,b)=>b.v-a.v);
+  bars('clList',lItems,o.users,it=>{F.cl=F.cl===it.i?null:it.i;render();});
+  const top2=lItems.slice(0,2).reduce((a,b)=>a+b.v,0),all=lItems.reduce((a,b)=>a+b.v,0);
+  document.getElementById('clSub').innerHTML=all
+    ?`상위 2개 지점이 ${pc1(top2,all)} 집중`:'&nbsp;';
+
+  // 매트릭스
+  const locs=C.ctaLoc.map((nm,i)=>i).filter(i=>lC[i]),typs=C.ctaType.map((nm,i)=>i).filter(i=>tC[i]);
+  const mmax=Math.max(1,...Object.values(mxv));
+  let h='<tr><th class="rh"></th>'+typs.map(t=>`<th>${lb(CTLB,C.ctaType[t])}</th>`).join('')+'</tr>';
+  locs.forEach(l=>{
+    h+=`<tr><td class="rh">${lb(CLLB,C.ctaLoc[l])}</td>`;
+    typs.forEach(t=>{
+      const v=mxv[l+'_'+t]||0,r=v/mmax;
+      const bg=v?`background:rgba(26,26,26,${(0.10+r*0.85).toFixed(2)});color:${r>0.45?'#fff':'#1A1A1A'}`:'background:#FAFAF8;color:#C4C4C4';
+      h+=`<td><div style="${bg}" data-l="${l}" data-t="${t}">${v||''}</div></td>`;});
+    h+='</tr>';});
+  const mxEl=document.getElementById('mx');mxEl.innerHTML=h;
+  mxEl.querySelectorAll('div[data-l]').forEach(e=>e.onclick=()=>{
+    const l=+e.dataset.l,t=+e.dataset.t;
+    if(F.cl===l&&F.ct===t){F.cl=null;F.ct=null;}else{F.cl=l;F.ct=t;}render();});
+  document.getElementById('mxSub').innerHTML=
+    `클릭 ${n(Object.values(mxv).reduce((a,b)=>a+b,0))}건 · 진할수록 많음`;
+}
+
+/* ── 관심 · 메뉴 ─────────────────────────────────────────────── */
+function drawEngage(rows,o){
+  const items=D.interest.map(([f,lab,sec])=>({nm:`${lab} <span style="color:#C4C4C4">${sec}</span>`,
+      v:o[f]})).filter(x=>x.v>0).sort((a,b)=>b.v-a.v);
+  bars('intList',items,o.users,null);
+}
+
+/* ── 히트맵 ──────────────────────────────────────────────────── */
+function drawHM(rows){
+  const g=Array.from({length:7},()=>Array(24).fill(0));
+  const us=Array.from({length:7},()=>Array.from({length:24},()=>null));
+  rows.forEach(i=>{const r=S[i],w=r[COL.wd],h=r[COL.hour];
+    if(M.hm==='sess'){g[w][h]++;return;}
+    if(!r[COL[M.hm]])return;
+    (us[w][h]=us[w][h]||new Set()).add(r[COL.u]);});
+  if(M.hm!=='sess')for(let w=0;w<7;w++)for(let h=0;h<24;h++)g[w][h]=us[w][h]?us[w][h].size:0;
+  const mx=Math.max(1,...g.flat());
+  let html='<div></div>'+Array.from({length:24},(_,h)=>
+    `<div class="hh">${h%3===0?h:''}</div>`).join('');
+  for(let w=0;w<7;w++){
+    html+=`<div class="rh">${WD[w]}</div>`;
+    for(let h=0;h<24;h++){
+      const v=g[w][h],r=v/mx,on=F.cell&&F.cell[0]===w&&F.cell[1]===h;
+      html+=`<div class="cell${on?' on':''}" data-w="${w}" data-h="${h}"
+        title="${WD[w]} ${h}시 · ${n(v)}"
+        style="background:${v?`rgba(26,26,26,${(0.07+r*0.88).toFixed(2)})`:'#F7F7F4'}"></div>`;}
+  }
+  const el=document.getElementById('hm');el.innerHTML=html;
+  el.querySelectorAll('.cell').forEach(e=>e.onclick=()=>{
+    const w=+e.dataset.w,h=+e.dataset.h;
+    F.cell=(F.cell&&F.cell[0]===w&&F.cell[1]===h)?null:[w,h];render();});
+  const lab={sess:'세션',cta:'CTA 사용자',res:'예약 유도 사용자'}[M.hm];
+  document.getElementById('hmSub').innerHTML=
+    `${lab} 분포 · 최대 ${n(mx)}${M.hm!=='sess'?' (칸 안에서 고유 사용자)':''}`;
+}
+
+/* ── UX · 세그먼트 ───────────────────────────────────────────── */
+function drawUX(rows,o){
+  bars('uxList',[
+    {nm:'Dead Click — 반응 없는 요소 클릭',v:o.dead},
+    {nm:'Rage Click — 같은 자리 연타',v:o.rage},
+  ],o.users,null);
+  document.getElementById('uxSub').innerHTML=
+    `방문자 ${n(o.users)}명 중 Dead ${pc(o.dead,o.users)} · Rage ${pc(o.rage,o.users)} — 휴리스틱 판정`;
+
+  segCard('dvList','dvSub',M.dv,rows,o);
+}
+function segCard(listId,subId,dim,rows,o){
+  const u={};
+  rows.forEach(i=>{const r=S[i];if(!r[COL.arrive])return;
+    const k=r[COL[dim]];(u[k]=u[k]||new Set()).add(r[COL.u]);});
+  const items=Object.keys(u).map(k=>({i:+k,nm:C[dim][k],v:u[k].size,
+      on:F.seg&&F.seg.d===dim&&F.seg.v===+k})).sort((a,b)=>b.v-a.v).slice(0,8);
+  bars(listId,items,o.users,it=>{
+    F.seg=(F.seg&&F.seg.d===dim&&F.seg.v===it.i)?null:{d:dim,v:it.i};render();});
+  const nm={ofam:'OS',dv:'기기',os:'브라우저',city:'도시'}[dim];
+  const top=items[0];
+  document.getElementById(subId).innerHTML=top
+    ?`${nm} · 상위 ${top.nm} ${pc1(top.v,o.users)}`+(items.length>=8?' · 상위 8개':''):'&nbsp;';
+}
+
+/* ── 상세 테이블 ─────────────────────────────────────────────── */
+const DTCOL=[['방문자','users',1],['세션','sess',0],['인당','spu',0],['클릭','anyclick',0],
+  ['행동','act',0],['행동률','actR',0],['CTA','cta',0],['예약 유도','res',1],
+  ['유도율','resR',1],['Dead','dead',0],['Rage','rage',0]];
+function drawDT(rows){
+  const dim=M.dt,grp={};
+  rows.forEach(i=>{const k=S[i][COL[dim==='date'?'date':dim]];(grp[k]=grp[k]||[]).push(i);});
+  const lab=k=>dim==='cre'?lb(CRELB,C.cre[k]):dim==='set'?lb(SETLB,C.set[k])
+    :dim==='date'?DATES[k].slice(5).replace('-','/')+' ('+WD[new Date(DATES[k]).getDay()===0?6:new Date(DATES[k]).getDay()-1]+')'
+    :C[dim][k];
+  let items=Object.keys(grp).map(k=>{const a=agg(grp[k]);
+    a.key=+k;a.label=lab(+k);a.actR=a.users?a.act/a.users:0;a.resR=a.users?a.res/a.users:0;return a;});
+  items.sort((a,b)=>dim==='date'?a.key-b.key:b.users-a.users);
+  const T=agg(rows);T.actR=T.users?T.act/T.users:0;T.resR=T.users?T.res/T.users:0;
+  const fmt=(r,c)=>c==='spu'?r.spu.toFixed(2):(c==='actR'||c==='resR')?(r[c]?(r[c]*100).toFixed(2)+'%':'—'):n(r[c]);
+  let h='<tr><th>'+({cre:'소재',date:'날짜',set:'광고세트',ofam:'OS',dv:'기기',os:'브라우저',city:'도시'}[dim])+'</th>'
+    +DTCOL.map(c=>`<th>${c[0]}</th>`).join('')+'</tr>';
+  items.forEach(r=>{
+    const clickable=(dim==='cre'||dim==='set'||dim==='dv'||dim==='lang'||dim==='city');
+    const on=(dim==='cre'&&F.cre===r.key)||(dim==='set'&&F.set===r.key)
+      ||(F.seg&&F.seg.d===dim&&F.seg.v===r.key);
+    h+=`<tr class="${clickable?'clk':''}${on?' on':''}" data-k="${r.key}">
+      <td>${r.label}</td>`+DTCOL.map(c=>
+      `<td class="${c[2]?'b':''}${r[c[1]]?'':' dim'}">${fmt(r,c[1])}</td>`).join('')+'</tr>';});
+  h+='<tr class="tot"><td>전체</td>'+DTCOL.map(c=>`<td>${fmt(T,c[1])}</td>`).join('')+'</tr>';
+  const el=document.getElementById('dt');el.innerHTML=h;
+  el.querySelectorAll('tr.clk').forEach(e=>e.onclick=()=>{
+    const k=+e.dataset.k;
+    if(dim==='cre')F.cre=F.cre===k?null:k;
+    else if(dim==='set')F.set=F.set===k?null:k;
+    else F.seg=(F.seg&&F.seg.d===dim&&F.seg.v===k)?null:{d:dim,v:k};
+    render();});
+  document.getElementById('dtSub').innerHTML=
+    `${items.length}개 행 · 사람 수는 모두 고유 사용자 · <b>행 합계 ≠ 전체</b>(중복 제거 때문)`;
+}
+
+/* ── 칩 ──────────────────────────────────────────────────────── */
+function drawChips(){
+  const cs=[];
+  if(F.per!=='all')cs.push(['per',PERLAB[F.per]]);
+  if(F.set!==null)cs.push(['set','세트 '+lb(SETLB,C.set[F.set])]);
+  if(F.cre!==null)cs.push(['cre',lb(CRELB,C.cre[F.cre])]);
+  if(F.seg)cs.push(['seg',{ofam:'OS',dv:'기기',os:'브라우저',city:'도시'}[F.seg.d]+' '+C[F.seg.d][F.seg.v]]);
+  if(F.cell)cs.push(['cell',WD[F.cell[0]]+' '+F.cell[1]+'시']);
+  if(F.stage)cs.push(['stage',(FN.find(x=>x[0]===F.stage)||['',''])[1]]);
+  if(F.ct!==null)cs.push(['ct','CTA '+lb(CTLB,C.ctaType[F.ct])]);
+  if(F.cl!==null)cs.push(['cl','위치 '+lb(CLLB,C.ctaLoc[F.cl])]);
+  const el=document.getElementById('chips');
+  el.innerHTML=cs.map(([k,t])=>`<span class="chip" data-k="${k}">${t}<span class="x">×</span></span>`).join('')
+    +(cs.length>1?'<span class="chip" data-k="ALL">전체 해제<span class="x">×</span></span>':'');
+  el.querySelectorAll('.chip').forEach(e=>e.onclick=()=>{
+    const k=e.dataset.k;
+    if(k==='ALL')F={per:'all',set:null,cre:null,seg:null,cell:null,stage:null,ct:null,cl:null};
+    else if(k==='per')F.per='all';else F[k]=null;
+    document.querySelectorAll('[data-per]').forEach(b=>b.classList.toggle('on',b.dataset.per===F.per));
+    document.getElementById('selSet').value=F.set===null?'':F.set;
+    render();});
+}
+
+/* ── 각주 ────────────────────────────────────────────────────── */
+function drawNote(){
+  document.getElementById('note').innerHTML=`<ul>
+  <li><b>이 대시보드에는 광고 지표가 없습니다.</b> 지출·CTR·CPC·도착률·유도당 비용은 1·2페이지 소관입니다.
+      덕분에 모든 숫자가 웹 계측 하나에서 나와 <b>모든 필터가 모든 패널에 적용</b>됩니다.</li>
+  <li><b>방문자</b> = 도착 이벤트(Page Viewed / session_start)가 있는 고유 <b>device_id</b>.
+      로그인이 없어 사람이 아니라 <b>기기</b> 단위입니다. 같은 사람의 폰·PC는 2명으로 잡힙니다.</li>
+  <li><b>의미 있는 행동</b> = 자동 수집 클릭을 뺀 의도적 클릭 7종
+      (CTA · 메뉴 상세 · 내비게이션 · 메뉴 탭 · 메뉴 그룹 · 언어 전환 · 모달 닫기).</li>
+  <li><b>행 합계 ≠ 전체</b>는 정상입니다. 고유 사용자를 세므로 한 사람이 여러 소재·조건에 걸립니다
+      (예: 소재별 방문자 합 8,211 vs 전체 8,084).</li>
+  <li><b>소재 귀속은 세션 단위</b>(첫 도착 이벤트 기준). 이벤트 단위로 집계한 원본 시트보다
+      소재별 방문자가 최대 2명 적습니다.</li>
+  <li class="w"><b>내비게이션은 클릭 17건만 잡히고 어느 항목(nav_item)인지 쪼갤 수 없습니다.</b>
+      이번 Amplitude export에 nav_item 컬럼이 없습니다. 섹션별 관심도를 보려면 재추출이 필요합니다.</li>
+  <li><b>측정 한계</b> — POS 미연동으로 <b>실제 예약 완결은 측정 불가</b>(예약 유도가 상한선) ·
+      스크롤 뎁스 미계측으로 이탈 지점 확인 불가 · session_end가 14.9%에만 있어 체류시간 측정 포기 ·
+      Dead/Rage Click은 휴리스틱 판정으로 89건 중 34건이 로고 오탐.</li>
+  <li><b>7/20은 부분일</b>입니다. 광고가 하노이 13시경 시작돼 약 11시간만 집행됐습니다.
+      일별 비교의 기준선에서는 제외하세요.</li>
+  </ul>`;
+}
+
+/* ── 렌더 ────────────────────────────────────────────────────── */
+function render(){
+  const rows=sel(),o=agg(rows);
+  drawKPI(o);drawFn(o);drawSetTable(rows);drawCTA(rows,o);
+  drawEngage(rows,o);drawHM(rows);drawUX(rows,o);drawDT(rows);drawChips();
+}
+/* 광고세트 비교 — 세로 막대 두 개.
+   '광고 외'는 막대에서 빼고 각주로 내린다. 방문자 37명뿐인데 유도율이 가장 높아
+   나란히 그리면 "직접 유입이 제일 좋다"로 잘못 읽힌다. */
+const SETCLR={hanoi_2549_mf_business:'#1A1A1A',hanoi_2549_mf_family:'#B5AA97'};
+function drawSetTable(rows){
+  const grp={};
+  rows.forEach(i=>{const k=S[i][COL.set];(grp[k]=grp[k]||[]).push(i);});
+  const all=Object.keys(grp).map(k=>{const a=agg(grp[k]);
+    a.key=+k;a.raw=C.set[+k];a.label=lb(SETLB,a.raw);
+    a.resR=a.users?a.res/a.users:0;a.actR=a.users?a.act/a.users:0;return a;});
+  const main=all.filter(x=>SETCLR[x.raw]).sort((a,b)=>b.users-a.users);
+  const rest=all.filter(x=>!SETCLR[x.raw]);
+  const m=M.cmp,isPc=m!=='users';
+  const mx=Math.max(...main.map(x=>x[m]),0)||1;
+  const fmt=x=>isPc?(x[m]*100).toFixed(2)+'%':n(x[m]);
+  document.getElementById('cmp').innerHTML=main.map(x=>{
+    const clr=SETCLR[x.raw];
+    return `<div class="cmpb${F.set===x.key?' on':''}" data-k="${x.key}">
+      <div class="pct" style="color:${clr}">${fmt(x)}</div>
+      <div class="col" style="height:${Math.max(x[m]/mx*118,2).toFixed(0)}px;background:${clr}"></div>
+      <div class="nm">${x.label}</div>
+      <div class="sub">방문자 ${n(x.users)}명<br>유도 ${n(x.res)}명 · 행동 ${n(x.act)}명</div>
+    </div>`;}).join('')||'<div class="empty">해당 조건에 데이터가 없습니다</div>';
+  document.querySelectorAll('#cmp .cmpb').forEach(e=>e.onclick=()=>{
+    const k=+e.dataset.k;F.set=F.set===k?null:k;
+    document.getElementById('selSet').value=F.set===null?'':F.set;render();});
+
+  const a=main[0],b=main[1];
+  document.getElementById('cmpSub').innerHTML=(a&&b&&b[m])
+    ?`<b style="color:var(--c100)">${a[m]>=b[m]?a.label:b.label} 우세</b> — ${
+       (Math.max(a[m],b[m])/Math.min(a[m],b[m])).toFixed(2)}배`
+    :'같은 돈으로 데려온 사람이 랜딩 이후 얼마나 남았는가';
+  document.getElementById('cmpFoot').innerHTML=rest.length
+    ?rest.map(x=>`<b>${x.label}</b> 방문자 ${n(x.users)}명 · 유도 ${n(x.res)}명 · 유도율 ${pc(x.res,x.users)}
+       <span style="color:var(--c25)">— 표본이 작아 막대에서 제외</span>`).join('<br>')
+    :'';
+}
+
+/* ── 초기화 ──────────────────────────────────────────────────── */
+document.querySelectorAll('[data-per]').forEach(b=>b.onclick=()=>{
+  F.per=b.dataset.per;
+  document.querySelectorAll('[data-per]').forEach(x=>x.classList.toggle('on',x===b));render();});
+const ss=document.getElementById('selSet');
+ss.innerHTML='<option value="">전체</option>'+C.set.map((v,i)=>
+  `<option value="${i}">${lb(SETLB,v)}</option>`).join('');
+ss.onchange=()=>{F.set=ss.value===''?null:+ss.value;render();};
+[['hmMode','hm','hm'],['dvMode','dv','dv'],['dtMode','dt','dt'],['cmpMode','cm','cmp']].forEach(([id,attr,key])=>{
+  document.querySelectorAll(`#${id} div`).forEach(e=>e.onclick=()=>{
+    M[key]=e.dataset[attr];
+    document.querySelectorAll(`#${id} div`).forEach(x=>x.classList.toggle('on',x===e));render();});});
+drawNote();render();
+</script>
+</body></html>

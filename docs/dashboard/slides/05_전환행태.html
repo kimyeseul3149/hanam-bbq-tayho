@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<title>웹페이지 행동 측정 — 슬라이드 구상 8장</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Malgun Gothic','Segoe UI',sans-serif;background:#eceaf3;padding:26px;width:1112px}
+.grid{display:grid;grid-template-columns:840px;gap:26px;zoom:1.25}
+.slide{width:840px;height:472px;background:#fff;border-radius:6px;padding:26px 30px;position:relative;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.13)}
+.no{position:absolute;right:16px;bottom:12px;font-size:11px;color:#c3c0d2;font-weight:700}
+.kick{font-size:11px;color:#8b86a8;letter-spacing:.06em;font-weight:700;margin-bottom:5px}
+h2{font-size:23px;font-weight:800;color:#1c1a33;letter-spacing:-.4px;line-height:1.25}
+.sub{font-size:12px;color:#7d7898;margin-top:5px}
+.hr{height:2px;background:#4f46b8;width:38px;margin:11px 0 15px}
+.msg{position:absolute;left:30px;right:30px;bottom:26px;background:#f5f3fd;border-left:3px solid #4f46b8;padding:9px 13px;font-size:12.5px;color:#2e2a4d;line-height:1.5}
+.msg b{color:#4f46b8}
+.kpis{display:grid;gap:10px;margin-bottom:14px}
+.k{background:#f7f6fc;border-radius:8px;padding:11px 14px}
+.k .l{font-size:10.5px;color:#8b86a8}
+.k .v{font-size:27px;font-weight:800;color:#1c1a33;letter-spacing:-.6px;margin-top:1px}
+.k .v small{font-size:13px;font-weight:700;color:#7d7898;margin-left:3px}
+.k .s{font-size:10px;color:#a29dbb;margin-top:1px}
+.k.hero{background:#4f46b8}.k.hero .l,.k.hero .s{color:#c3bdf2}.k.hero .v{color:#fff}.k.hero .v small{color:#c3bdf2}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.lab{font-size:11px;font-weight:700;color:#5a5578;margin-bottom:7px}
+.bar{margin-bottom:9px}
+.bl{font-size:10.5px;color:#4b4767;display:flex;justify-content:space-between;margin-bottom:3px}
+.bl em{font-style:normal;color:#a29dbb}
+.tk{height:15px;background:#f0eef9;border-radius:4px;overflow:hidden}
+.fl{height:100%;border-radius:4px;background:#b9b7c9}
+.fl.on{background:#4f46b8}
+.fl.wn{background:#d9a441}
+.tb{width:100%;border-collapse:collapse;font-size:11px}
+.tb th{background:#f5f3fd;color:#5f5a86;font-size:10px;padding:5px 8px;text-align:left;border-bottom:1px solid #e4e0f2}
+.tb td{padding:5px 8px;border-bottom:1px solid #f2f0fa;color:#3a3657}
+.tb td.n{text-align:right}
+.tb tr.w td{background:#f7f5ff;font-weight:800;color:#241f4d}
+.chip{display:inline-block;font-size:10px;font-weight:700;border-radius:4px;padding:2px 7px}
+.ok{background:#e3f4ea;color:#1c8a5a}.bad{background:#fbe6e6;color:#c0392b}
+.stack{display:flex;height:30px;border-radius:5px;overflow:hidden;margin:6px 0 4px}
+.stack div{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff}
+.mock{border:1px solid #e0dcf0;border-radius:6px;height:212px;position:relative;background:#faf9fe;overflow:hidden}
+.mock .sec{position:absolute;left:0;right:0;font-size:9.5px;color:#a29dbb;padding:4px 8px}
+.pin{position:absolute;background:#4f46b8;color:#fff;font-size:9px;font-weight:700;border-radius:9px;padding:2px 7px;white-space:nowrap}
+.ev{font-size:11px;color:#3a3657;padding:5px 0;border-bottom:1px solid #f2f0fa;display:flex;justify-content:space-between}
+.ev b{color:#241f4d}
+.verd{display:flex;align-items:center;gap:9px;margin-top:10px}
+.verd .big{font-size:19px;font-weight:800;color:#1c8a5a}
+.cross{position:relative;height:150px}
+.col{position:absolute;top:0;width:180px}
+.rk{background:#f7f6fc;border-radius:6px;padding:7px 10px;margin-bottom:7px;font-size:11.5px;color:#3a3657}
+.rk.on{background:#4f46b8;color:#fff;font-weight:800}
+.rk.wn{background:#fdf0dc;color:#a86a10;font-weight:700}
+.note{font-size:10px;color:#a29dbb;margin-top:6px}
+.pill{display:inline-block;background:#eeecfa;color:#4f46b8;font-size:10px;font-weight:700;border-radius:10px;padding:2px 9px;margin-right:5px}
+</style></head>
+<style>
+body{background:transparent;padding:0;width:1680px}
+.grid{display:block;zoom:2}
+.slide{box-shadow:none;border-radius:0;margin:0}
+</style>
+<body>
+<div class="grid">
+<div class="slide">
+  <div class="kick">웹페이지 행동 측정 · 05</div>
+  <h2>어떻게 눌렀나 — 전환 행태</h2>
+  <div class="sub">예약 버튼을 누른 사용자의 소요 시간과 버튼 위치</div>
+  <div class="hr"></div>
+  <div class="two">
+    <div>
+      <div class="lab">전환 소요 시간 (방문 → 예약 CTA)</div>
+      <div style="background:#f7f6fc;border-radius:8px;padding:16px;text-align:center;margin-bottom:8px">
+        <div style="font-size:40px;font-weight:800;color:#4f46b8;letter-spacing:-1px">12.5<span style="font-size:17px">초</span></div>
+        <div style="font-size:10.5px;color:#8b86a8;margin-top:2px">중앙값 · 앰플리튜드 퍼널</div>
+      </div>
+      <div class="note">도착 후 망설임 없이 즉시 결정하는 패턴</div>
+    </div>
+    <div>
+      <div class="lab">예약 버튼 위치 분포</div>
+      <div class="bar"><div class="bl"><span>hero (상단)</span><em>45.3%</em></div><div class="tk"><div class="fl on" style="width:100%"></div></div></div>
+      <div class="bar"><div class="bl"><span>floating (고정)</span><em>40.6%</em></div><div class="tk"><div class="fl on" style="width:90%"></div></div></div>
+      <div class="bar"><div class="bl"><span>header</span><em>12.3%</em></div><div class="tk"><div class="fl" style="width:27%"></div></div></div>
+      <div class="bar"><div class="bl"><span>본문 visit</span><em>1.9%</em></div><div class="tk"><div class="fl" style="width:4%"></div></div></div>
+      <div style="background:#f5f3fd;border-radius:6px;padding:8px 11px;font-size:12px;font-weight:800;color:#4f46b8;margin-top:4px">상단 + 플로팅 = 85.8%</div>
+    </div>
+  </div>
+  <div class="msg">도착하면 <b>12.5초</b> 안에 결정하고, 클릭은 <b>상단·플로팅 버튼에 85.8% 집중</b> · 예약 CTA의 <b>41.5%가 19–22시</b>(방문 비중 32.4%)</div>
+  <div class="no">05</div>
+</div>
+</div>
+</body></html>

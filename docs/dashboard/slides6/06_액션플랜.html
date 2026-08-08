@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<title>웹페이지 행동 측정 — 슬라이드 6장 (질문형)</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Malgun Gothic','Segoe UI',sans-serif;background:#eceaf3;padding:26px;width:1112px}
+.grid{display:grid;grid-template-columns:840px;gap:26px;zoom:1.25}
+.slide{width:840px;height:472px;background:#fff;border-radius:6px;padding:26px 30px;position:relative;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.13)}
+.no{position:absolute;right:16px;bottom:12px;font-size:11px;color:#c3c0d2;font-weight:700}
+.kick{font-size:11px;color:#8b86a8;letter-spacing:.06em;font-weight:700;margin-bottom:5px}
+.kick em{font-style:normal;color:#4f46b8}
+h2{font-size:23px;font-weight:800;color:#1c1a33;letter-spacing:-.4px;line-height:1.25}
+.sub{font-size:12px;color:#7d7898;margin-top:5px}
+.hr{height:2px;background:#4f46b8;width:38px;margin:11px 0 15px}
+.msg{position:absolute;left:30px;right:30px;bottom:26px;background:#f5f3fd;border-left:3px solid #4f46b8;padding:9px 13px;font-size:12.5px;color:#2e2a4d;line-height:1.5}
+.msg b{color:#4f46b8}
+.kpis{display:grid;gap:10px;margin-bottom:14px}
+.k{background:#f7f6fc;border-radius:8px;padding:11px 14px}
+.k .l{font-size:10.5px;color:#8b86a8}
+.k .v{font-size:27px;font-weight:800;color:#1c1a33;letter-spacing:-.6px;margin-top:1px}
+.k .v small{font-size:13px;font-weight:700;color:#7d7898;margin-left:3px}
+.k .s{font-size:10px;color:#a29dbb;margin-top:1px}
+.k.hero{background:#4f46b8}.k.hero .l,.k.hero .s{color:#c3bdf2}.k.hero .v{color:#fff}.k.hero .v small{color:#c3bdf2}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.lab{font-size:11px;font-weight:700;color:#5a5578;margin-bottom:7px}
+.bar{margin-bottom:9px}
+.bl{font-size:10.5px;color:#4b4767;display:flex;justify-content:space-between;margin-bottom:3px}
+.bl em{font-style:normal;color:#a29dbb}
+.tk{height:15px;background:#f0eef9;border-radius:4px;overflow:hidden}
+.fl{height:100%;border-radius:4px;background:#b9b7c9}
+.fl.on{background:#4f46b8}
+.fl.wn{background:#d9a441}
+.tb{width:100%;border-collapse:collapse;font-size:11px}
+.tb th{background:#f5f3fd;color:#5f5a86;font-size:10px;padding:5px 8px;text-align:left;border-bottom:1px solid #e4e0f2}
+.tb td{padding:6.5px 8px;border-bottom:1px solid #f2f0fa;color:#3a3657}
+.tb td.n{text-align:right}
+.tb tr.w td{background:#f7f5ff;font-weight:800;color:#241f4d}
+.chip{display:inline-block;font-size:10px;font-weight:700;border-radius:4px;padding:2px 7px}
+.ok{background:#e3f4ea;color:#1c8a5a}.bad{background:#fbe6e6;color:#c0392b}
+.stack{display:flex;height:30px;border-radius:5px;overflow:hidden;margin:6px 0 4px}
+.stack div{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff}
+.mock{border:1px solid #e0dcf0;border-radius:6px;height:212px;position:relative;background:#faf9fe;overflow:hidden}
+.mock .sec{position:absolute;left:0;right:0;font-size:9.5px;color:#a29dbb;padding:4px 8px}
+.pin{position:absolute;background:#4f46b8;color:#fff;font-size:9px;font-weight:700;border-radius:9px;padding:2px 7px;white-space:nowrap}
+.ev{font-size:11px;color:#3a3657;padding:5px 0;border-bottom:1px solid #f2f0fa;display:flex;justify-content:space-between}
+.ev b{color:#241f4d}
+.note{font-size:10px;color:#a29dbb;margin-top:6px}
+.pill{display:inline-block;background:#eeecfa;color:#4f46b8;font-size:10px;font-weight:700;border-radius:10px;padding:2px 9px;margin-right:5px}
+.q{background:#f5f3fd;border-radius:8px;padding:9px 13px;font-size:12px;color:#4f46b8;font-weight:700;margin-bottom:13px}
+.q span{color:#8b86a8;font-weight:700;margin-right:7px}
+.verdict{display:flex;align-items:center;gap:10px;background:#e3f4ea;border-radius:8px;padding:9px 14px;margin-top:9px}
+.kmini{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:11px}
+.kmini .k{padding:8px 12px}
+.kmini .k .v{font-size:21px}
+.kmini .k .v small{font-size:11px}
+.verdict .t{font-size:15px;font-weight:800;color:#1c8a5a;white-space:nowrap}
+.verdict .d{font-size:11px;color:#3d7a5c;line-height:1.45}
+.ins{background:#f7f6fc;border-radius:8px;padding:11px 13px;height:100%}
+.ins .h{font-size:12px;font-weight:800;color:#241f4d;margin-bottom:6px}
+.ins .b{font-size:10.8px;color:#4b4767;line-height:1.55}
+.ins .e{font-size:9.8px;color:#8b86a8;margin-top:6px;padding-top:5px;border-top:1px solid #e7e4f3}
+.act{display:grid;grid-template-columns:64px 1fr 96px;gap:10px;align-items:center;padding:12.5px 0;border-bottom:1px solid #f2f0fa}
+.act .n2{background:#4f46b8;color:#fff;font-size:10px;font-weight:800;border-radius:5px;padding:4px 0;text-align:center}
+.act .n2.g{background:#b9b7c9}
+.act .tx{font-size:11.5px;color:#2e2a4d;line-height:1.45}
+.act .tx b{color:#241f4d}
+.act .wh{font-size:9.8px;color:#8b86a8;text-align:right;line-height:1.4}
+</style></head><body>
+<style>body{background:transparent;padding:0;width:1680px}
+.grid{display:block;zoom:2}.slide{box-shadow:none;border-radius:0;margin:0}</style><div class="grid">
+<div class="slide">
+  <div class="kick">06 · 결론 <em>ACTION</em></div>
+  <h2>그래서 다음에 무엇을 할 것인가?</h2>
+  <div class="sub">인사이트 ①~④에 각각 대응하는 실행 항목</div>
+  <div class="hr"></div>
+  <div class="act">
+    <div class="n2">광고</div>
+    <div class="tx">예산을 <b>business 계열로 재배분</b>하고 family_taste는 중단 또는 소재 리뉴얼 — 클릭이 아닌 <b>예약 유도당 비용</b>을 배분 기준으로</div>
+    <div class="wh">인사이트 ③<br>즉시</div>
+  </div>
+  <div class="act">
+    <div class="n2">광고</div>
+    <div class="tx">캠페인 목표를 <b>Traffic → Messages/Conversions로 전환</b> — 현재는 '클릭할 사람'을 찾도록 최적화돼 무행동 98.24%의 구조적 원인</div>
+    <div class="wh">인사이트 ③<br>다음 캠페인</div>
+  </div>
+  <div class="act">
+    <div class="n2">운영</div>
+    <div class="tx"><b>저녁 19–22시 메신저 응대 전담자 지정</b> — 예약 문의의 60%가 메신저이고 그 시간이 매장 피크와 겹침</div>
+    <div class="wh">인사이트 ②<br>즉시</div>
+  </div>
+  <div class="act">
+    <div class="n2">웹</div>
+    <div class="tx">hero·플로팅 버튼 구조는 <b>유지</b>(85.8% 집중, 검증됨). 개선은 페이지가 아니라 <b>회식·단체 메시지 강화</b>에 집중</div>
+    <div class="wh">인사이트 ①<br>다음 캠페인</div>
+  </div>
+  <div class="act" style="border-bottom:none">
+    <div class="n2 g">측정</div>
+    <div class="tx"><b>예약 접수 시 유입경로 1문항 + POS 연동</b>, 웹에는 스크롤 뎁스 계측 추가 — 다음 발표에서 '실제 매출'까지 말하기 위해</div>
+    <div class="wh">인사이트 ④<br>다음 분기</div>
+  </div>
+  <div class="msg">측정 → 분석 → 검증을 거쳐 <b>"어디에 돈을 쓸지"와 "무엇을 더 재야 할지"</b>가 함께 나왔다는 것이 이번 계측의 성과</div>
+  <div class="no">06</div>
+</div></div></body></html>

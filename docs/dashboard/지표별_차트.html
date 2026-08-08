@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<title>하남BBQ 앰플리튜드 — 지표별 차트</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --acc:#4f46b8;      /* 강조 — 주인공 */
+  --warn:#c2861a;     /* 경고 — 나쁜 신호 전용 */
+  --ctx:#c5c2d4;      /* 맥락 — 회색 */
+  --ctx2:#e6e4ef;
+  --ink:#1c1a33; --ink2:#5a5578; --ink3:#918da8;
+  --line:#e9e7f2; --surf:#fff; --bg:#f2f1f6;
+}
+body{font-family:'Malgun Gothic','Segoe UI',sans-serif;background:var(--bg);padding:30px;width:1080px;color:var(--ink)}
+.card{background:var(--surf);border-radius:10px;padding:24px 26px;margin-bottom:20px}
+.eyebrow{font-size:10.5px;font-weight:800;color:var(--acc);letter-spacing:.08em;margin-bottom:6px}
+h3{font-size:17px;font-weight:800;letter-spacing:-.3px;margin-bottom:3px}
+.cap{font-size:11.5px;color:var(--ink3);margin-bottom:18px;line-height:1.5}
+.foot{font-size:10.5px;color:var(--ink3);margin-top:13px;padding-top:11px;border-top:1px solid var(--line);line-height:1.55}
+.foot b{color:var(--ink2)}
+
+/* 스탯 타일 */
+.tiles{display:grid;gap:14px}
+.tile{background:#f8f7fc;border-radius:9px;padding:15px 18px}
+.tile.on{background:var(--acc)}
+.tile .l{font-size:11px;color:var(--ink3);font-weight:700}
+.tile.on .l{color:#c8c3f0}
+.tile .v{font-size:33px;font-weight:800;letter-spacing:-1px;margin-top:3px;line-height:1}
+.tile.on .v{color:#fff}
+.tile .v small{font-size:15px;font-weight:700;color:var(--ink3);margin-left:3px}
+.tile.on .v small{color:#c8c3f0}
+.tile .s{font-size:10.5px;color:var(--ink3);margin-top:6px}
+.tile.on .s{color:#c8c3f0}
+
+/* 가로 막대 */
+.hb{margin-bottom:13px}
+.hb:last-child{margin-bottom:0}
+.hbl{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;margin-bottom:5px}
+.hbl .nm{font-weight:700;color:var(--ink)}
+.hbl .nm.mute{font-weight:400;color:var(--ink2)}
+.hbl .n{font-size:10.5px;color:var(--ink3)}
+.hbt{height:22px;background:var(--ctx2);border-radius:4px;position:relative}
+.hbf{height:100%;border-radius:4px;background:var(--ctx)}
+.hbf.on{background:var(--acc)}
+.hbf.wn{background:var(--warn)}
+.hbv{position:absolute;top:0;height:22px;display:flex;align-items:center;font-size:12px;font-weight:800;padding-left:9px}
+
+/* 통합 성과표 */
+.pt{width:100%;border-collapse:collapse;font-size:12px}
+.pt th{font-size:10.5px;font-weight:800;color:var(--ink2);padding:7px 9px;text-align:right;border-bottom:1.5px solid #ddd9ec;white-space:nowrap}
+.pt th.l,.pt td.l{text-align:left}
+.pt td{padding:9px;text-align:right;border-bottom:1px solid var(--line);color:var(--ink2);white-space:nowrap}
+.pt tr.win td{background:#f4f2fd;color:var(--ink);font-weight:800}
+.pt tr.win td.l{color:var(--acc)}
+.pt tr.sml td{color:#a9a5bb;font-size:11px;padding:6px 9px}
+.pt tr.tot td{background:#f7f6fb;font-weight:800;color:var(--ink);border-top:1.5px solid #ddd9ec;border-bottom:none}
+.grp{font-size:10px;font-weight:800;letter-spacing:.05em;padding:5px 9px;border-radius:5px 5px 0 0;text-align:center}
+.grp.meta{background:#fdf4e4;color:#8a5f14}
+.grp.amp{background:#eeecfa;color:var(--acc)}
+.grp.calc{background:#f2f1f6;color:var(--ink2)}
+.blank{color:#c9b98f;font-style:italic;font-size:11px}
+.mini{display:inline-block;height:7px;border-radius:3px;background:var(--ctx);vertical-align:middle;margin-right:7px}
+.mini.on{background:var(--acc)}
+.mini.wn{background:var(--warn)}
+
+/* 소거법 2열 */
+.elim{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.box{border-radius:10px;padding:15px 17px}
+.box.ok{background:#eef7f2}
+.box.no{background:#fdf5e9}
+.box .bh{font-size:12.5px;font-weight:800;margin-bottom:3px}
+.box.ok .bh{color:#1c7a52}
+.box.no .bh{color:#8a5f14}
+.box .bs{font-size:10.5px;margin-bottom:11px}
+.box.ok .bs{color:#5c9c7c}
+.box.no .bs{color:#a8863f}
+.ev{display:flex;justify-content:space-between;align-items:baseline;font-size:11.5px;padding:7px 0;border-bottom:1px solid rgba(0,0,0,.06)}
+.ev:last-of-type{border-bottom:none}
+.ev .k{color:var(--ink2)}
+.ev .val{font-weight:800;font-size:13px}
+.box.ok .val{color:#1c7a52}
+.box.no .val{color:#8a5f14}
+.bnote{font-size:10.5px;line-height:1.5;margin-top:10px;padding-top:9px;border-top:1px solid rgba(0,0,0,.08)}
+.box.ok .bnote{color:#4e8a6c}
+.box.no .bnote{color:#96793c}
+.verdict{display:flex;align-items:center;gap:13px;background:#f4f2fd;border-radius:9px;padding:13px 17px;margin-top:16px}
+.verdict .vt{font-size:15px;font-weight:800;color:var(--acc);white-space:nowrap}
+.verdict .vd{font-size:11.5px;color:var(--ink2);line-height:1.55}
+
+/* 100% 스택 */
+.stack{display:flex;height:44px;border-radius:6px;overflow:hidden;gap:2px}
+.stack div{display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff}
+</style></head><body>
+
+<!-- ═══ 0. 측정 설계 ═══ -->
+<div class="card">
+  <div class="eyebrow">슬라이드 01 · 측정 설계</div>
+  <h3>우리는 왜 이것을 측정했나?</h3>
+  <div class="cap">광고 클릭 이후가 보이지 않았습니다. 랜딩페이지에 이벤트를 직접 심어 예약 행동을 추적했습니다.</div>
+
+  <div style="background:#f4f2fd;border-radius:9px;padding:13px 17px;margin-bottom:20px">
+    <div style="font-size:10.5px;font-weight:800;color:var(--ink3);letter-spacing:.05em;margin-bottom:4px">① 측정 목적</div>
+    <div style="font-size:14px;font-weight:800;color:var(--acc);line-height:1.5">
+      "광고비가 <u>클릭</u>이 아니라 <u>예약</u>을 만들고 있는가"를 확인하기 위해
+    </div>
+    <div style="font-size:11px;color:var(--ink2);margin-top:7px;line-height:1.6">
+      Meta 광고관리자는 클릭까지만 보여줍니다. 그 뒤에 무슨 일이 일어났는지 알 수 없어
+      <b>예산 배분 근거가 클릭에 머물러 있었습니다.</b> 버튼을 종류·위치별로 나눠 심어
+      "어떤 광고가 데려온 사람이 어떤 버튼을 눌렀나"까지 잇는 것이 목표입니다.
+    </div>
+  </div>
+
+  <div style="font-size:10.5px;font-weight:800;color:var(--ink3);letter-spacing:.05em;margin-bottom:11px">② 클릭 버튼 구성</div>
+  <div style="display:grid;grid-template-columns:270px 1fr;gap:24px;align-items:start;margin-bottom:22px">
+    <div style="border:1px solid #e4e1f0;border-radius:8px;height:300px;position:relative;background:#faf9fd;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:26px;background:#f0eef8;font-size:9.5px;color:#918da8;padding:7px 10px">HEADER</div>
+      <div style="position:absolute;top:31px;left:10px;background:var(--ctx);color:#fff;font-size:9.5px;font-weight:800;border-radius:5px;padding:3px 8px">💬 메신저</div>
+      <div style="position:absolute;top:66px;left:10px;font-size:9.5px;color:#b3afc4">HERO — 메인 비주얼</div>
+      <div style="position:absolute;top:84px;left:10px;background:var(--acc);color:#fff;font-size:11px;font-weight:800;border-radius:5px;padding:5px 12px">💬 메신저 예약</div>
+      <div style="position:absolute;top:116px;left:10px;background:var(--ctx);color:#fff;font-size:9.5px;font-weight:800;border-radius:5px;padding:3px 8px">📍 길찾기</div>
+      <div style="position:absolute;top:116px;left:80px;background:var(--ctx);color:#fff;font-size:9.5px;font-weight:800;border-radius:5px;padding:3px 8px">📖 메뉴 보기</div>
+      <div style="position:absolute;top:154px;left:10px;font-size:9.5px;color:#b3afc4">MENU — 메뉴 섹션</div>
+      <div style="position:absolute;top:172px;left:10px;background:#eae8f2;color:#8a86a0;font-size:9px;font-weight:700;border-radius:4px;padding:2px 7px">Menu Item Viewed</div>
+      <div style="position:absolute;top:200px;left:10px;font-size:9.5px;color:#b3afc4">VISIT — 위치·지도</div>
+      <div style="position:absolute;top:216px;left:10px;background:#eae8f2;color:#8a86a0;font-size:9px;font-weight:700;border-radius:4px;padding:2px 7px">📞 전화 · 📍 길찾기</div>
+      <div style="position:absolute;bottom:10px;left:10px;right:10px;background:var(--acc);color:#fff;font-size:11px;font-weight:800;border-radius:6px;padding:6px 0;text-align:center">📞 전화 걸기 (화면 고정)</div>
+    </div>
+    <div>
+      <table class="pt" style="font-size:11.5px">
+        <tr>
+          <th class="l">버튼 종류 (cta_type)</th><th class="l">연결되는 곳</th>
+          <th class="l">심은 위치 (cta_location)</th><th>클릭</th>
+        </tr>
+        <tr class="win">
+          <td class="l">message_book <span style="font-weight:400;font-size:10.5px">메신저 예약</span></td>
+          <td class="l">Zalo · Messenger</td>
+          <td class="l">hero 48 · header 13</td><td>61</td>
+        </tr>
+        <tr class="win">
+          <td class="l">call_phone <span style="font-weight:400;font-size:10.5px">전화 걸기</span></td>
+          <td class="l">전화 앱</td>
+          <td class="l">floating 43 · visit_section 2</td><td>45</td>
+        </tr>
+        <tr>
+          <td class="l">directions_reserve <span style="font-size:10.5px">길찾기</span></td>
+          <td class="l">Google Maps</td>
+          <td class="l">hero 13 · 지도 2 · visit 1</td><td>16</td>
+        </tr>
+        <tr>
+          <td class="l">view_menu <span style="font-size:10.5px">메뉴 보기</span></td>
+          <td class="l">메뉴 섹션 이동</td>
+          <td class="l">hero 11</td><td>11</td>
+        </tr>
+        <tr class="tot"><td class="l">합계</td><td></td><td></td><td>133</td></tr>
+      </table>
+      <div style="background:#f4f2fd;border-radius:7px;padding:10px 13px;margin-top:13px;font-size:11.5px;color:var(--ink2);line-height:1.6">
+        보라색 2종(<b style="color:var(--acc)">메신저 · 전화</b>)만 <b>예약 유도</b>로 셉니다.
+        길찾기·메뉴 보기는 관심 신호이지 예약 의사 표시가 아닙니다.
+      </div>
+    </div>
+  </div>
+
+  <div style="font-size:10.5px;font-weight:800;color:var(--ink3);letter-spacing:.05em;margin-bottom:11px">③ 수집된 이벤트</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+    <div>
+      <div style="font-size:11px;font-weight:800;color:var(--acc);margin-bottom:8px">직접 심은 커스텀 이벤트 8종</div>
+      <div class="ev" style="border-color:var(--line)"><span class="k">CTA Clicked</span><span class="val" style="color:var(--acc)">133</span></div>
+      <div class="ev" style="border-color:var(--line)"><span class="k">Menu Item Viewed</span><span class="val" style="color:var(--ink2)">41</span></div>
+      <div class="ev" style="border-color:var(--line)"><span class="k">Navigation Clicked</span><span class="val" style="color:var(--ink2)">17</span></div>
+      <div class="ev" style="border-color:var(--line)"><span class="k">Menu Modal Closed</span><span class="val" style="color:var(--ink2)">12</span></div>
+      <div class="ev" style="border-color:var(--line)"><span class="k">Menu Tab Switched · Language Switched<br>Menu Group Jumped · Privacy Policy Viewed</span><span class="val" style="color:var(--ink2)">21</span></div>
+    </div>
+    <div>
+      <div style="font-size:11px;font-weight:800;color:var(--ink2);margin-bottom:8px">자동 수집 (Amplitude SDK)</div>
+      <div class="ev" style="border-color:var(--line)"><span class="k">Page Viewed</span><span class="val" style="color:var(--ink2)">10,150</span></div>
+      <div class="ev" style="border-color:var(--line)"><span class="k">session_start / session_end</span><span class="val" style="color:var(--ink2)">9,472 / 1,413</span></div>
+      <div class="ev" style="border-color:var(--line)"><span class="k">Web Vitals (페이지 속도)</span><span class="val" style="color:var(--ink2)">4,191</span></div>
+      <div class="ev" style="border-color:var(--line)"><span class="k">Rage Click / Dead Click</span><span class="val" style="color:var(--ink2)">155 / 89</span></div>
+      <div style="font-size:11px;font-weight:800;color:var(--ink2);margin:14px 0 8px">함께 붙는 속성</div>
+      <div style="font-size:11px;line-height:2;color:var(--ink2)">
+        <span class="pill" style="display:inline-block;background:#eeecfa;color:var(--acc);font-size:10px;font-weight:700;border-radius:10px;padding:2px 9px;margin-right:5px">utm_content</span>
+        <span class="pill" style="display:inline-block;background:#eeecfa;color:var(--acc);font-size:10px;font-weight:700;border-radius:10px;padding:2px 9px;margin-right:5px">utm_term</span>
+        <span class="pill" style="display:inline-block;background:#eeecfa;color:var(--acc);font-size:10px;font-weight:700;border-radius:10px;padding:2px 9px;margin-right:5px">cta_type</span>
+        <span class="pill" style="display:inline-block;background:#eeecfa;color:var(--acc);font-size:10px;font-weight:700;border-radius:10px;padding:2px 9px;margin-right:5px">cta_location</span>
+        <span class="pill" style="display:inline-block;background:#eeecfa;color:var(--acc);font-size:10px;font-weight:700;border-radius:10px;padding:2px 9px;margin-right:5px">destination</span>
+        <span class="pill" style="display:inline-block;background:#eeecfa;color:var(--acc);font-size:10px;font-weight:700;border-radius:10px;padding:2px 9px;margin-right:5px">city</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    총 <b>41,180건</b> 수집 · 속성 결측률 <b>0.8~1.5%</b> · <code>utm_content</code>가 광고 소재, <code>utm_term</code>이 광고세트와 연결됩니다<br>
+    ⚠️ <b>스크롤 뎁스는 심지 않았습니다</b> — "어디까지 읽고 나갔는지"는 이번 분석에서 알 수 없습니다 (한계점에서 명시)
+  </div>
+</div>
+
+<!-- ═══ 1. 유입 규모 ═══ -->
+<div class="card">
+  <div class="eyebrow">슬라이드 02 · ① 고유 사용자</div>
+  <h3>유입 규모</h3>
+  <div class="cap">값이 하나인 지표는 차트보다 큰 숫자가 정확합니다. 주인공만 색을 씁니다.</div>
+  <div class="tiles" style="grid-template-columns:repeat(3,1fr)">
+    <div class="tile on"><div class="l">고유 사용자 (방문자)</div><div class="v">8,084<small>명</small></div><div class="s">중복 제거된 실제 사람 수</div></div>
+    <div class="tile"><div class="l">세션 (방문 횟수)</div><div class="v">9,505</div><div class="s">인당 1.18회</div></div>
+    <div class="tile"><div class="l">1회성 방문</div><div class="v">88.0<small>%</small></div><div class="s">7,111명 — 재방문 거의 없음</div></div>
+  </div>
+  <div class="foot">기간 <b>2026-07-20 ~ 08-02</b> (하노이 현지시각 14일) · Country = Vietnam · 광고가 04:13에 중단된 8/3은 부분일이라 <b>Meta 리포트와 맞춰 제외</b><br>
+  Amplitude UI에서 <code>Page Viewed · 고유 사용자</code>로 조회하면 <b>8,083명</b> — 차이 1명은 Page Viewed 없이 세션만 시작된 사용자</div>
+</div>
+
+<!-- ═══ 2. 일별 방문 추이 ═══ -->
+<div class="card">
+  <div class="eyebrow">슬라이드 02 · ② 일별 방문 추이</div>
+  <h3>광고 기간 동안 유입은 어떻게 변했나</h3>
+  <div class="cap">시간에 따른 변화이므로 막대가 아니라 선입니다. 양 끝 이틀은 온전한 하루가 아니라 별도 표시했습니다.</div>
+  <svg viewBox="0 0 1010 250" style="width:100%;height:250px">
+    <!-- grid -->
+    <g stroke="#eeecf5" stroke-width="1">
+      <line x1="46" y1="30" x2="1000" y2="30"/><line x1="46" y1="75" x2="1000" y2="75"/>
+      <line x1="46" y1="120" x2="1000" y2="120"/><line x1="46" y1="165" x2="1000" y2="165"/>
+    </g>
+    <line x1="46" y1="210" x2="1000" y2="210" stroke="#d9d6e6"/>
+    <g font-size="10" fill="#918da8" text-anchor="end">
+      <text x="38" y="34">1,000</text><text x="38" y="79">750</text>
+      <text x="38" y="124">500</text><text x="38" y="169">250</text><text x="38" y="214">0</text>
+    </g>
+    <!-- 전일 구간 실선 : 7/21~8/02 -->
+    <polyline fill="none" stroke="#4f46b8" stroke-width="2.5" stroke-linejoin="round"
+      points="128,101 196,63 264,118 332,121 400,124 468,84 536,91 604,95 672,113 740,46 808,64 876,66 944,73"/>
+    <!-- 부분일 점선 연결 -->
+    <polyline fill="none" stroke="#c5c2d4" stroke-width="2.5" stroke-dasharray="5 4" points="60,173 128,101"/>
+    <!-- 점 -->
+    <g fill="#4f46b8">
+      <circle cx="128" cy="101" r="4"/><circle cx="196" cy="63" r="4"/><circle cx="264" cy="118" r="4"/>
+      <circle cx="332" cy="121" r="4"/><circle cx="400" cy="124" r="4"/><circle cx="468" cy="84" r="4"/>
+      <circle cx="536" cy="91" r="4"/><circle cx="604" cy="95" r="4"/><circle cx="672" cy="113" r="4"/>
+      <circle cx="740" cy="46" r="5.5"/><circle cx="808" cy="64" r="4"/><circle cx="876" cy="66" r="4"/>
+      <circle cx="944" cy="73" r="4"/>
+    </g>
+    <g fill="#fff" stroke="#c5c2d4" stroke-width="2">
+      <circle cx="60" cy="173" r="4"/>
+    </g>
+    <!-- 피크 라벨 -->
+    <text x="740" y="34" font-size="12" font-weight="800" fill="#4f46b8" text-anchor="middle">911</text>
+    <!-- 부분일 주석 -->
+    <text x="60" y="192" font-size="9.5" fill="#918da8" text-anchor="middle">203</text>
+    <text x="62" y="152" font-size="9.5" fill="#918da8">◀ 13:30 광고 시작</text>
+    <text x="944" y="60" font-size="9.5" fill="#918da8" text-anchor="end">763 ▶</text>
+    <!-- x축 -->
+    <g font-size="9.5" fill="#918da8" text-anchor="middle">
+      <text x="60" y="228">7/20</text><text x="196" y="228">7/22</text><text x="332" y="228">7/24</text>
+      <text x="468" y="228">7/26</text><text x="604" y="228">7/28</text><text x="740" y="228">7/30</text>
+      <text x="876" y="228">8/01</text><text x="944" y="228">8/02</text>
+    </g>
+  </svg>
+  <div class="foot">속이 빈 회색 점 = <b>부분일</b>. 7/20은 광고가 13:30에 시작해 반나절치입니다 · 최고 <b>7/30 911명</b>, 전일 평균 <b>674명</b> · <b>8/3 제외</b>(광고 04:13 중단, Meta 리포트와 기간 일치)</div>
+</div>
+
+<!-- ═══ 3. 슬로프 ═══ -->
+<div class="card">
+  <div class="eyebrow">슬라이드 03 · 가설 1 핵심</div>
+  <h3>광고 클릭 순위와 예약 순위가 일치하는가</h3>
+  <div class="cap">순위 변동이 메시지이므로, 두 순위를 선으로 잇습니다. 선이 교차하는 지점이 곧 발견입니다.</div>
+  <svg viewBox="0 0 1010 230" style="width:100%;height:230px">
+    <text x="150" y="18" font-size="11" font-weight="800" fill="#5a5578" text-anchor="middle">Meta 광고 클릭 순위</text>
+    <text x="860" y="18" font-size="11" font-weight="800" fill="#5a5578" text-anchor="middle">Amplitude 예약 유도율 순위</text>
+    <!-- 연결선 -->
+    <line x1="300" y1="58" x2="710" y2="58" stroke="#4f46b8" stroke-width="3"/>
+    <line x1="300" y1="120" x2="710" y2="182" stroke="#c2861a" stroke-width="3"/>
+    <line x1="300" y1="182" x2="710" y2="120" stroke="#c5c2d4" stroke-width="3"/>
+    <text x="505" y="50" font-size="11" font-weight="800" fill="#4f46b8" text-anchor="middle">일치</text>
+    <text x="505" y="156" font-size="11" font-weight="800" fill="#c2861a" text-anchor="middle">교차 — 순위 뒤집힘</text>
+    <!-- 좌 -->
+    <g>
+      <rect x="20" y="42" width="280" height="32" rx="6" fill="#4f46b8"/>
+      <text x="34" y="63" font-size="12.5" font-weight="800" fill="#fff">1위  business_taste</text>
+      <rect x="20" y="104" width="280" height="32" rx="6" fill="#f6efe2"/>
+      <text x="34" y="125" font-size="12.5" font-weight="700" fill="#8a5f14">2위  family_taste</text>
+      <rect x="20" y="166" width="280" height="32" rx="6" fill="#f3f2f7"/>
+      <text x="34" y="187" font-size="12.5" fill="#5a5578">3위  family_bday_vid</text>
+    </g>
+    <!-- 우 -->
+    <g>
+      <rect x="710" y="42" width="280" height="32" rx="6" fill="#4f46b8"/>
+      <text x="724" y="63" font-size="12.5" font-weight="800" fill="#fff">1위  business_taste　1.45%</text>
+      <rect x="710" y="104" width="280" height="32" rx="6" fill="#f3f2f7"/>
+      <text x="724" y="125" font-size="12.5" fill="#5a5578">2위  family_bday_vid　0.83%</text>
+      <rect x="710" y="166" width="280" height="32" rx="6" fill="#f6efe2"/>
+      <text x="724" y="187" font-size="12.5" font-weight="700" fill="#8a5f14">3위  family_taste　0.54%</text>
+    </g>
+    <text x="505" y="220" font-size="10" fill="#918da8" text-anchor="middle">Meta 클릭 순위는 광고관리자 별도 결합 · 방문 300명 이상 3종만 비교</text>
+  </svg>
+</div>
+
+<!-- ═══ 4. 소재별 통합 성과표 ═══ -->
+<div class="card">
+  <div class="eyebrow">슬라이드 03 · 소재별 성과 통합</div>
+  <h3>광고 반응부터 예약 유도 비용까지 한 표에서</h3>
+  <div class="cap">광고(Meta)와 랜딩페이지(Amplitude)를 <b>소재 이름으로 이어 붙인 표</b>입니다. 노란 영역은 광고관리자에서 받아 채울 자리입니다.</div>
+
+  <table class="pt">
+    <tr>
+      <td></td>
+      <td colspan="4"><div class="grp meta">META 광고관리자 — 입력 예정</div></td>
+      <td colspan="3"><div class="grp amp">AMPLITUDE — 측정 완료</div></td>
+      <td><div class="grp calc">계산</div></td>
+    </tr>
+    <tr>
+      <th class="l">광고 소재 (utm_content)</th>
+      <th>노출</th><th>클릭</th><th>CTR</th><th>CPC</th>
+      <th>방문</th><th>예약 유도</th><th>예약 유도율</th>
+      <th>예약 유도 비용</th>
+    </tr>
+
+    <tr class="win">
+      <td class="l">business_taste</td>
+      <td class="blank">—</td><td class="blank">—</td><td class="blank">—</td><td class="blank">—</td>
+      <td>4,415</td><td>64</td>
+      <td><span class="mini on" style="width:52px"></span>1.45%</td>
+      <td>₫64,828</td>
+    </tr>
+    <tr>
+      <td class="l">family_bday_vid</td>
+      <td class="blank">—</td><td class="blank">—</td><td class="blank">—</td><td class="blank">—</td>
+      <td>1,442</td><td>12</td>
+      <td><span class="mini" style="width:30px"></span>0.83%</td>
+      <td class="blank">—</td>
+    </tr>
+    <tr>
+      <td class="l">family_taste</td>
+      <td class="blank">—</td><td class="blank">—</td><td class="blank">—</td><td class="blank">—</td>
+      <td>2,028</td><td>11</td>
+      <td><span class="mini wn" style="width:19px"></span><b style="color:var(--warn)">0.54%</b></td>
+      <td><b style="color:var(--warn)">₫238,691</b></td>
+    </tr>
+
+    <tr class="sml">
+      <td class="l">business_space_vid <span style="font-size:9.5px">· 표본 작음</span></td>
+      <td class="blank">—</td><td class="blank">—</td><td class="blank">—</td><td class="blank">—</td>
+      <td>122</td><td>0</td><td>0.00%</td><td class="blank">—</td>
+    </tr>
+    <tr class="sml">
+      <td class="l">family_bday_img <span style="font-size:9.5px">· 표본 작음</span></td>
+      <td class="blank">—</td><td class="blank">—</td><td class="blank">—</td><td class="blank">—</td>
+      <td>120</td><td>2</td><td>1.67%</td><td class="blank">—</td>
+    </tr>
+    <tr class="sml">
+      <td class="l">business_space_carousel <span style="font-size:9.5px">· 표본 작음</span></td>
+      <td class="blank">—</td><td class="blank">—</td><td class="blank">—</td><td class="blank">—</td>
+      <td>48</td><td>0</td><td>0.00%</td><td class="blank">—</td>
+    </tr>
+    <tr class="sml">
+      <td class="l">(광고 외 직접 유입)</td>
+      <td>—</td><td>—</td><td>—</td><td>—</td>
+      <td>42</td><td>1</td><td>2.38%</td><td>—</td>
+    </tr>
+
+    <tr class="tot">
+      <td class="l">전체</td>
+      <td class="blank">—</td><td class="blank">—</td><td class="blank">—</td><td class="blank">—</td>
+      <td>8,084</td><td>90</td><td>1.11%</td><td class="blank">—</td>
+    </tr>
+  </table>
+
+  <div style="margin-top:20px">
+    <div style="font-size:11px;font-weight:800;color:var(--ink2);margin-bottom:10px">예약 유도율 — 방문 300명 이상 3종</div>
+    <div class="hb">
+      <div class="hbl"><span class="nm">business_taste</span><span class="n">방문 4,415명 · 예약 유도 64명</span></div>
+      <div class="hbt"><div class="hbf on" style="width:100%"></div><div class="hbv" style="color:#fff">1.45%</div></div>
+    </div>
+    <div class="hb">
+      <div class="hbl"><span class="nm mute">family_bday_vid</span><span class="n">방문 1,442명 · 예약 유도 12명</span></div>
+      <div class="hbt"><div class="hbf" style="width:57.2%"></div><div class="hbv" style="color:#5a5578">0.83%</div></div>
+    </div>
+    <div class="hb">
+      <div class="hbl"><span class="nm mute">family_taste</span><span class="n">방문 2,028명 · 예약 유도 11명</span></div>
+      <div class="hbt"><div class="hbf wn" style="width:37.2%"></div><div class="hbv" style="color:#fff">0.54%</div></div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <b>Meta에서 받을 것</b> — 소재별 노출·클릭·CTR·CPC·지출액. <code>03_소재별성과</code> 시트의 같은 이름 컬럼에 넣으면 <b>예약 유도 비용 = 지출 ÷ 예약 유도 수</b>로 자동 계산됩니다<br>
+    <b>예약 유도 비용은 ↓ 낮을수록 좋습니다</b> — family_taste는 business_taste의 <b>3.7배</b>. 클릭은 많이 데려왔지만 예약으로 이어지지 않았습니다<br>
+    ⚠️ 소재별 방문 수를 모두 더하면 8,217명으로 전체(8,084명)보다 큽니다 — <b>여러 소재를 본 사람이 중복 집계</b>되기 때문입니다. 전체 행은 중복 제거한 값입니다<br>
+    ⚠️ 표본 300명 미만 4종은 <b>순위 비교에서 제외</b>합니다 — family_bday_img는 1.67%로 1위처럼 보이지만 예약이 2명뿐입니다
+  </div>
+</div>
+
+<!-- ═══ 6. 무행동 이탈 ═══ -->
+<div class="card">
+  <div class="eyebrow">슬라이드 04 · ① 무행동 이탈률 · ③ CTA 클릭률</div>
+  <h3>도착한 8,084명 중 무엇이라도 한 사람</h3>
+  <div class="cap">전체 대비 비율이므로 원그래프가 아니라 가로 막대 한 줄. 1.86%는 너무 얇아 바깥에 라벨을 뺐습니다.</div>
+  <div class="stack">
+    <div style="width:98.14%;background:var(--ctx)">무행동 이탈　98.14%　·　7,934명</div>
+    <div style="width:1.86%;background:var(--acc)"></div>
+  </div>
+  <svg viewBox="0 0 1010 34" style="width:100%;height:34px;margin-top:2px">
+    <path d="M995 2 L995 14 L940 14" stroke="#4f46b8" stroke-width="1.5" fill="none"/>
+    <text x="932" y="18" font-size="12" font-weight="800" fill="#4f46b8" text-anchor="end">행동한 사용자 150명 · 1.86%</text>
+  </svg>
+  <div class="tiles" style="grid-template-columns:repeat(2,1fr);margin-top:16px">
+    <div class="tile"><div class="l">무행동 이탈률</div><div class="v" style="color:var(--ink2)">98.14<small>%</small></div><div class="s">7,934명 — 클릭·메뉴 열람 전혀 없음</div></div>
+    <div class="tile on"><div class="l">CTA 클릭률</div><div class="v">1.36<small>%</small></div><div class="s">110명 — 버튼을 한 번이라도 누른 사람</div></div>
+  </div>
+  <div class="foot">행동 = 커스텀 이벤트(CTA·메뉴·내비게이션·언어전환) 1건 이상 발생 · <b>스크롤은 미계측</b>이라 "읽기만 한 사람"은 무행동으로 분류됩니다</div>
+</div>
+
+<!-- ═══ 7. Top Event ═══ -->
+<div class="card">
+  <div class="eyebrow">슬라이드 04 · ② Top Event</div>
+  <h3>어떤 행동이 실제로 일어났나 <span style="font-size:12px;color:var(--ink3);font-weight:700">— 직접 심은 이벤트만</span></h3>
+  <div class="cap">Page Viewed(10,150건)까지 한 차트에 넣으면 나머지가 보이지 않습니다. 자동 수집 이벤트는 아래 표로 분리했습니다.</div>
+  <div class="hb">
+    <div class="hbl"><span class="nm">CTA Clicked</span><span class="n">110명</span></div>
+    <div class="hbt"><div class="hbf on" style="width:100%"></div><div class="hbv" style="color:#fff">133건</div></div>
+  </div>
+  <div class="hb">
+    <div class="hbl"><span class="nm mute">Menu Item Viewed</span><span class="n">37명</span></div>
+    <div class="hbt"><div class="hbf" style="width:30.8%"></div><div class="hbv" style="color:#5a5578">41건</div></div>
+  </div>
+  <div class="hb">
+    <div class="hbl"><span class="nm mute">Navigation Clicked</span><span class="n">8명</span></div>
+    <div class="hbt"><div class="hbf" style="width:12.8%"></div><div class="hbv" style="color:#5a5578">17건</div></div>
+  </div>
+  <div class="hb">
+    <div class="hbl"><span class="nm mute">Menu Modal Closed</span><span class="n">10명</span></div>
+    <div class="hbt"><div class="hbf" style="width:9%"></div><div class="hbv" style="color:#5a5578">12건</div></div>
+  </div>
+  <div class="hb">
+    <div class="hbl"><span class="nm mute">Menu Tab Switched · Language Switched · Menu Group Jumped</span><span class="n">13명</span></div>
+    <div class="hbt"><div class="hbf" style="width:15%"></div><div class="hbv" style="color:#5a5578">20건</div></div>
+  </div>
+  <div class="foot"><b>자동 수집(참고)</b> — Page Viewed 10,150 · session_start 9,472 · Replay Captured 7,176 · Web Vitals 4,191 · Element Clicked 585 · Rage Click 155 · Dead Click 89<br>
+  ⚠️ Dead Click 89건 중 34건은 로고 클릭입니다. 로고는 <code>href="#top"</code>이라 최상단에서는 화면이 안 움직여 <b>오탐</b>으로 기록됩니다 — 개선 근거로 쓰지 마세요</div>
+</div>
+
+<!-- ═══ 8. CTA 위치 ═══ -->
+<div class="card">
+  <div class="eyebrow">슬라이드 04 · ④ CTA 클릭 위치 분포</div>
+  <h3>예약 버튼은 페이지 어디에서 눌렸나</h3>
+  <div class="cap">위치 데이터이므로 막대보다 페이지 모형이 정확합니다. "어디"라는 정보가 살아 있습니다.</div>
+  <div style="display:grid;grid-template-columns:300px 1fr;gap:26px;align-items:start">
+    <div style="border:1px solid #e4e1f0;border-radius:8px;height:250px;position:relative;background:#faf9fd;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:26px;background:#f0eef8;font-size:9.5px;color:#918da8;padding:7px 10px">HEADER</div>
+      <div style="position:absolute;top:30px;left:10px;background:var(--ctx);color:#fff;font-size:10px;font-weight:800;border-radius:5px;padding:3px 9px">header　12.3%</div>
+      <div style="position:absolute;top:66px;left:10px;font-size:9.5px;color:#b3afc4">HERO — 메인 비주얼</div>
+      <div style="position:absolute;top:84px;left:10px;background:var(--acc);color:#fff;font-size:12px;font-weight:800;border-radius:5px;padding:6px 14px">hero　45.3%</div>
+      <div style="position:absolute;top:140px;left:10px;font-size:9.5px;color:#b3afc4">MENU · VISIT — 본문</div>
+      <div style="position:absolute;top:158px;left:10px;background:#eae8f2;color:#8a86a0;font-size:9.5px;font-weight:700;border-radius:5px;padding:2px 8px">visit_section　1.9%</div>
+      <div style="position:absolute;bottom:12px;left:10px;right:10px;background:var(--acc);color:#fff;font-size:12px;font-weight:800;border-radius:6px;padding:7px 0;text-align:center">floating　40.6%</div>
+    </div>
+    <div>
+      <div class="hb">
+        <div class="hbl"><span class="nm">hero (상단 고정 버튼)</span><span class="n">48건 · 44명</span></div>
+        <div class="hbt"><div class="hbf on" style="width:100%"></div><div class="hbv" style="color:#fff">45.3%</div></div>
+      </div>
+      <div class="hb">
+        <div class="hbl"><span class="nm">floating (화면 하단 떠 있는 버튼)</span><span class="n">43건 · 36명</span></div>
+        <div class="hbt"><div class="hbf on" style="width:89.6%"></div><div class="hbv" style="color:#fff">40.6%</div></div>
+      </div>
+      <div class="hb">
+        <div class="hbl"><span class="nm mute">header</span><span class="n">13건 · 12명</span></div>
+        <div class="hbt"><div class="hbf" style="width:27.1%"></div><div class="hbv" style="color:#5a5578">12.3%</div></div>
+      </div>
+      <div class="hb">
+        <div class="hbl"><span class="nm mute">visit_section (본문 하단)</span><span class="n">2건 · 2명</span></div>
+        <div class="hbt"><div class="hbf" style="width:4.2%"></div><div class="hbv" style="color:#5a5578">1.9%</div></div>
+      </div>
+      <div style="background:#f0eefb;border-radius:7px;padding:11px 14px;margin-top:15px;font-size:13px;font-weight:800;color:var(--acc)">
+        상단 + 플로팅 = 85.8%
+      </div>
+    </div>
+  </div>
+  <div class="foot">예약 CTA(메신저·전화) 106건 기준 · 본문까지 내려가서 누르는 사람은 <b>사실상 없습니다</b> — 버튼 배치는 이미 최적</div>
+</div>
+
+<!-- ═══ 9. 전환 KPI ═══ -->
+<div class="card">
+  <div class="eyebrow">슬라이드 05 · ① 예약 유도 수 · ② 유도율 · ④ 상단+플로팅</div>
+  <h3>전환 결과</h3>
+  <div class="cap">값이 하나인 지표 4개. 주인공(유도율)만 강조합니다.</div>
+  <div class="tiles" style="grid-template-columns:repeat(4,1fr)">
+    <div class="tile"><div class="l">예약 유도</div><div class="v">90<small>명</small></div><div class="s">이벤트 106건</div></div>
+    <div class="tile on"><div class="l">예약 유도율</div><div class="v">1.11<small>%</small></div><div class="s">90 ÷ 8,084명</div></div>
+    <div class="tile"><div class="l">메신저 / 전화</div><div class="v" style="font-size:26px">56 / 38</div><div class="s">둘 다 누른 4명 중복</div></div>
+    <div class="tile"><div class="l">상단+플로팅 클릭</div><div class="v">85.8<small>%</small></div><div class="s">버튼 배치는 문제 아님</div></div>
+  </div>
+  <div class="foot">예약 유도 = <code>CTA Clicked</code> 중 <code>cta_type</code>이 message_book 또는 call_phone · <b>POS 미연동으로 실제 방문·매출은 측정 불가</b> — '의도'까지만 증명됩니다</div>
+</div>
+
+<!-- ═══ 10. 전환 소요 시간 ═══ -->
+<div class="card">
+  <div class="eyebrow">슬라이드 05 · ③ 전환 소요 시간</div>
+  <h3>도착해서 예약 버튼을 누르기까지</h3>
+  <div class="cap">중앙값만 크게 띄우면 "우연 아닌가"라는 반문이 나옵니다. 94건 전체 분포를 함께 보여 근거를 만듭니다.</div>
+  <div style="display:grid;grid-template-columns:200px 1fr;gap:26px;align-items:center">
+    <div style="background:#f8f7fc;border-radius:9px;padding:22px 0;text-align:center">
+      <div style="font-size:46px;font-weight:800;color:var(--acc);letter-spacing:-1.5px;line-height:1">12.5<span style="font-size:19px">초</span></div>
+      <div style="font-size:11px;color:var(--ink3);margin-top:7px">중앙값 · Amplitude 퍼널</div>
+    </div>
+    <svg viewBox="0 0 760 200" style="width:100%;height:200px">
+      <line x1="30" y1="160" x2="750" y2="160" stroke="#d9d6e6"/>
+      <g fill="#c5c2d4">
+        <rect x="34" y="28" width="52" height="132" rx="3" fill="#4f46b8"/>
+        <rect x="90" y="92" width="52" height="68" rx="3" fill="#4f46b8"/>
+        <rect x="146" y="124" width="52" height="36" rx="3"/>
+        <rect x="202" y="144" width="52" height="16" rx="3"/>
+        <rect x="258" y="128" width="52" height="32" rx="3"/>
+        <rect x="314" y="136" width="52" height="24" rx="3"/>
+        <rect x="370" y="144" width="52" height="16" rx="3"/>
+        <rect x="426" y="136" width="52" height="24" rx="3"/>
+        <rect x="482" y="156" width="52" height="4" rx="2"/>
+        <rect x="538" y="148" width="52" height="12" rx="3"/>
+        <rect x="594" y="159" width="52" height="1" rx="0"/>
+        <rect x="650" y="148" width="52" height="12" rx="3"/>
+      </g>
+      <g font-size="11" font-weight="800" fill="#4f46b8"><text x="60" y="21" text-anchor="middle">33</text><text x="116" y="85" text-anchor="middle">17</text></g>
+      <g font-size="10" fill="#918da8"><text x="172" y="117" text-anchor="middle">9</text><text x="228" y="137" text-anchor="middle">4</text>
+        <text x="284" y="121" text-anchor="middle">8</text><text x="340" y="129" text-anchor="middle">6</text>
+        <text x="396" y="137" text-anchor="middle">4</text><text x="452" y="129" text-anchor="middle">6</text>
+        <text x="508" y="149" text-anchor="middle">1</text><text x="564" y="141" text-anchor="middle">3</text>
+        <text x="620" y="152" text-anchor="middle">0</text><text x="676" y="141" text-anchor="middle">3</text></g>
+      <!-- 중앙값 선 -->
+      <line x1="119" y1="14" x2="119" y2="168" stroke="#c2861a" stroke-width="2" stroke-dasharray="4 3"/>
+      <text x="126" y="14" font-size="10.5" font-weight="800" fill="#c2861a">중앙값</text>
+      <g font-size="9" fill="#918da8" text-anchor="middle">
+        <text x="60" y="176">0–5초</text><text x="116" y="176">5–10</text><text x="172" y="176">10–15</text>
+        <text x="228" y="176">15–20</text><text x="284" y="176">20–30</text><text x="340" y="176">30–45</text>
+        <text x="396" y="176">45–60</text><text x="452" y="176">60–90</text><text x="508" y="176">90–120</text>
+        <text x="564" y="176">120–180</text><text x="620" y="176">180–300</text><text x="676" y="176">300–710</text>
+      </g>
+      <text x="390" y="196" font-size="10" fill="#918da8" text-anchor="middle">도착 → 첫 예약 CTA 소요 시간 (초) · N = 94</text>
+    </svg>
+  </div>
+  <div class="foot" id="ttcfoot"><b>50명(53%)이 10초 안에</b> 눌렀습니다 — 중앙값이 우연이 아님을 분포가 뒷받침합니다 · 같은 방문 안에서만 재면 <b>7.6초</b>, 최초 방문부터 재면 <b>15.4초</b>. 발표에는 Amplitude 화면에서 재현 가능한 <b>12.5초</b>를 씁니다</div>
+</div>
+
+<!-- ═══ 11. 가설 2 판정 ═══ -->
+<div class="card">
+  <div class="eyebrow">슬라이드 05 · 가설 2 검증</div>
+  <h3>낮은 예약률의 원인은 페이지인가, 유입인가</h3>
+  <div class="cap">
+    <b style="color:var(--ink2)">가설 2 —</b> 낮은 예약 CTA율(1.11%)의 원인은 랜딩페이지나 버튼이 아니다. 진짜 원인은 유입되는 사용자의 예약 의도가 낮다는 데 있다.<br>
+    직접 증거가 없으므로 <b>소거법</b>으로 검증합니다. 페이지 쪽 용의자를 하나씩 지우고, 남는 것을 지목합니다.
+  </div>
+
+  <div class="elim">
+    <div class="box ok">
+      <div class="bh">✓ 페이지·버튼은 용의선상 제외</div>
+      <div class="bs">문제가 있다면 나타났어야 할 신호가 하나도 없음</div>
+      <div class="ev"><span class="k">전환 소요 시간 (중앙값)</span><span class="val">12.5초</span></div>
+      <div class="ev"><span class="k">상단+플로팅 클릭 집중도</span><span class="val">85.8%</span></div>
+      <div class="ev"><span class="k">페이지 로딩 LCP (중앙값)</span><span class="val">1.31초</span></div>
+      <div class="ev"><span class="k">LCP 'good' 비율</span><span class="val">77.0%</span></div>
+      <div class="bnote">
+        헤매지 않고 <b>12.5초 만에 결정</b>했고, 의도한 버튼에 <b>85.8%가 집중</b>됐으며, 페이지는 <b>1.3초 만에</b> 떴습니다(Google 기준 'good'). 찾기 어렵거나 느려서 못 누른 것이 아닙니다.
+      </div>
+    </div>
+
+    <div class="box no">
+      <div class="bh">△ 남는 원인 — 유입 사용자의 의도</div>
+      <div class="bs">같은 페이지인데 <b>어떤 광고로 왔느냐</b>에 따라 결과가 갈림</div>
+      <div class="ev"><span class="k">무행동 이탈률 (전체)</span><span class="val">98.14%</span></div>
+      <div class="ev"><span class="k">소재별 예약 유도율 격차</span><span class="val">2.7배</span></div>
+      <div class="ev"><span class="k">소재별 무행동률 범위</span><span class="val">97.85 ~ 98.96%</span></div>
+      <div class="ev"><span class="k">광고세트별 유도율 격차</span><span class="val">2.0배</span></div>
+      <div class="bnote">
+        페이지·버튼은 <b>모든 소재에 동일</b>합니다. 그런데 business_taste는 1.45%, family_taste는 0.54%. <b>변수는 페이지가 아니라 데려온 사람</b>뿐입니다.
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:18px">
+    <div style="font-size:11px;font-weight:800;color:var(--ink2);margin-bottom:4px">같은 페이지, 다른 결과 — 소재별 <b style="color:var(--acc)">행동률</b></div>
+    <div style="font-size:10.5px;color:var(--ink3);margin-bottom:11px">무행동률(97.85% vs 98.96%)로 그리면 막대가 거의 같아 보입니다. <b>뒤집어 행동률로 보면 2배 격차</b>가 드러납니다.</div>
+    <div class="hb">
+      <div class="hbl"><span class="nm">business_taste</span><span class="n">방문 4,415명 중 95명 행동 · 무행동 97.85%</span></div>
+      <div class="hbt"><div class="hbf on" style="width:100%"></div><div class="hbv" style="color:#fff">2.15%</div></div>
+    </div>
+    <div class="hb">
+      <div class="hbl"><span class="nm mute">family_taste</span><span class="n">방문 2,028명 중 27명 행동 · 무행동 98.67%</span></div>
+      <div class="hbt"><div class="hbf wn" style="width:61.9%"></div><div class="hbv" style="color:#fff">1.33%</div></div>
+    </div>
+    <div class="hb">
+      <div class="hbl"><span class="nm mute">family_bday_vid</span><span class="n">방문 1,442명 중 15명 행동 · 무행동 98.96%</span></div>
+      <div class="hbt"><div class="hbf wn" style="width:48.4%"></div><div class="hbv" style="color:#fff">1.04%</div></div>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="vt">△ 가설 2 뒷받침</span>
+    <span class="vd">
+      8개 지표가 모두 같은 방향을 가리킵니다. 다만 <b>소거법이므로 "확정"이 아니라 "강하게 시사"까지</b>입니다 —
+      비전환자가 페이지에서 무엇을 했는지 보여주는 <b>직접 증거는 미계측</b>입니다.
+    </span>
+  </div>
+
+  <div class="foot">
+    <b>측정하지 못한 것</b> — ① 스크롤 뎁스(어디까지 읽고 나갔는지) ② 비전환자 체류 시간(<code>session_end</code>가 14.9%에만 존재) ③ INP(클릭 후 반응 지연)<br>
+    <b>다음 캠페인 전 보완</b> — 스크롤 뎁스 이벤트를 심으면 "읽지도 않고 나갔다"를 직접 증명할 수 있어, 가설 2가 <b>소거법에서 직접 증거로</b> 올라섭니다<br>
+    <b>구조적 원인 후보</b> — Meta 캠페인 목표가 <code>Traffic</code>이라 '클릭할 사람'을 찾도록 최적화됩니다. 예약할 사람이 아니라 <b>클릭할 사람이 왔다</b>는 해석과 지표가 일치합니다
+  </div>
+</div>
+
+</body></html>
