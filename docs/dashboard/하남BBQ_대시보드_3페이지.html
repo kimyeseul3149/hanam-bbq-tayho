@@ -892,17 +892,17 @@ table.mini td.b{color:var(--c100);font-weight:700}
 .empty{font-size:9.5px;color:var(--c45);padding:12px 2px;text-align:center}
 
 /* 히트맵 */
-.hm{display:grid;grid-template-columns:18px repeat(24,1fr);gap:1.5px}
-.hm .hh{font-size:7.5px;line-height:1;color:var(--c45);text-align:center}
-.hm .rh{font-size:8px;line-height:1;color:var(--c70);display:flex;align-items:center}
-.hm .cell{height:6px;border-radius:1.5px;cursor:pointer}
+.hm{display:grid;grid-template-columns:20px repeat(24,1fr);gap:2px}
+.hm .hh{font-size:8.5px;line-height:1;color:var(--c45);text-align:center}
+.hm .rh{font-size:9.5px;line-height:1;color:var(--c70);display:flex;align-items:center}
+.hm .cell{height:17px;border-radius:1.5px;cursor:pointer}
 .hm .cell:hover{outline:1.5px solid var(--red)}
 .hm .cell.on{outline:2px solid var(--red)}
 
 /* 운영 보조 지표 */
-.aux{display:flex;flex-direction:column;gap:2px;margin-top:0}
-.ax{display:flex;align-items:baseline;gap:5px;font-size:9px;color:var(--c70)}
-.ax .v{margin-left:auto;font-size:11px;font-weight:700;color:var(--c100);
+.aux{display:flex;flex-direction:column;gap:9px;margin-top:4px}
+.ax{display:flex;align-items:baseline;gap:5px;font-size:10px;color:var(--c70)}
+.ax .v{margin-left:auto;font-size:14px;font-weight:700;color:var(--c100);
        font-variant-numeric:tabular-nums}
 .ax .u{font-size:8.5px;color:var(--c45)}
 .axn{font-size:7px;color:var(--c45);line-height:1.45;margin-top:5px;
@@ -936,9 +936,10 @@ table.dt td.dim{color:var(--c25)}
 .nr .a{color:var(--red);font-weight:700;white-space:nowrap}
 
 /* 접기/펼치기 */
-.tgl{font:inherit;font-size:9px;padding:2px 9px;border:1px solid var(--c25);background:var(--surf);
+.tgl{font:inherit;font-size:9px;padding:2px 9px;margin-left:4px;border:1px solid var(--c25);background:var(--surf);
      color:var(--c70);border-radius:11px;cursor:pointer;white-space:nowrap}
 .tgl:hover{border-color:var(--red);color:var(--red)}
+.tgl.on{background:var(--c100);border-color:var(--c100);color:#fff}
 
 /* 섹션 라벨 — 스토리 흐름을 끊어 읽게 하는 줄 */
 .sec{position:absolute;display:flex;align-items:center;gap:7px}
@@ -1016,7 +1017,7 @@ table.dt td.dim{color:var(--c25)}
   <span class=&quot;n&quot;>4</span><span class=&quot;st&quot;>언제 예약 의도가 발생했나</span>
   <span class=&quot;sd&quot; id=&quot;secWhen&quot;></span><span class=&quot;ln&quot;></span></div>
 
-<div class=&quot;c&quot; style=&quot;left:8px;top:612px;width:1290px;height:112px&quot;>
+<div class=&quot;c&quot; style=&quot;left:8px;top:612px;width:1290px;height:214px&quot;>
   <div class=&quot;t&quot;>요일 × 시간 <span class=&quot;badge k&quot;>칸 클릭</span>
     <div class=&quot;seg&quot; id=&quot;hmMode&quot;><div data-hm=&quot;sess&quot;>방문</div><div data-hm=&quot;cta&quot;>CTA</div>
       <div class=&quot;on&quot; data-hm=&quot;res&quot;>예약 유도</div></div>
@@ -1025,31 +1026,30 @@ table.dt td.dim{color:var(--c25)}
   <div class=&quot;hm&quot; id=&quot;hm&quot;></div>
 </div>
 
-<div class=&quot;c&quot; style=&quot;left:1306px;top:612px;width:286px;height:112px&quot;>
+<div class=&quot;c&quot; style=&quot;left:1306px;top:612px;width:286px;height:214px&quot;>
   <div class=&quot;t&quot;>보조 지표 <span class=&quot;badge&quot; style=&quot;margin-left:auto&quot;>참고</span></div>
   <div class=&quot;aux&quot; id=&quot;aux&quot;></div>
   <div class=&quot;axn&quot;>핵심 흐름을 방해하지 않도록 참고 수치만 둡니다.
     Navigation은 <b>섹션으로 이동하려는 행동</b>입니다.</div>
 </div>
 
-<div class=&quot;sec&quot; style=&quot;left:8px;top:730px;width:1584px;height:16px&quot;>
-  <span class=&quot;n&quot;>5</span><span class=&quot;st&quot;>어떤 광고 유입이 좋은 결과를 만들었나</span>
+<div class=&quot;sec&quot; style=&quot;left:8px;top:834px;width:1584px;height:16px&quot;>
+  <span class=&quot;n&quot;>5</span><span class=&quot;st&quot;>더 자세히</span>
   <span class=&quot;sd&quot; id=&quot;sec5&quot;></span>
-  <button class=&quot;tgl&quot; id=&quot;tglDt&quot;>소재별 표 펼치기 ▾</button><span class=&quot;ln&quot;></span></div>
+  <button class=&quot;tgl&quot; id=&quot;tglDt&quot;>소재별 성과 ▾</button>
+  <button class=&quot;tgl&quot; id=&quot;tglNx&quot;>다음 운영 개선 ▾</button><span class=&quot;ln&quot;></span></div>
 
-<div class=&quot;c&quot; id=&quot;dtCard&quot; style=&quot;left:8px;top:746px;width:1584px;height:150px;display:none&quot;>
+<div class=&quot;c&quot; id=&quot;dtCard&quot; style=&quot;left:8px;top:856px;width:1584px;height:150px;display:none&quot;>
   <div class=&quot;t&quot;>소재별 랜딩 이후 성과 <span class=&quot;badge&quot;>위 필터가 그대로 적용</span>
     <span class=&quot;badge&quot; id=&quot;dtSub&quot;></span>
     <span class=&quot;badge&quot; style=&quot;margin-left:auto&quot;>Meta 광고 지표(노출·CTR·CPC·비용)는 2페이지 · 광고 외 직접 유입 제외</span></div>
   <table class=&quot;dt&quot; id=&quot;dt&quot;></table>
 </div>
 
-<div class=&quot;sec hero&quot; id=&quot;sec6bar&quot; style=&quot;left:8px;top:752px;width:1584px;height:16px&quot;>
-  <span class=&quot;n&quot;>6</span><span class=&quot;st&quot;>다음 운영에서 무엇을 고칠 것인가</span>
-  <span class=&quot;sd&quot;>현재 화면의 조건에서 나온 개선 가설입니다 — 원인 확정이 아닙니다</span><span class=&quot;ln&quot;></span></div>
-
-<div class=&quot;c&quot; id=&quot;nextCard&quot; style=&quot;left:8px;top:768px;width:1584px;height:124px&quot;>
-  <div class=&quot;nx2&quot;>
+<div class=&quot;c&quot; id=&quot;nextCard&quot; style=&quot;left:8px;top:856px;width:1584px;height:132px;display:none&quot;>
+  <div class=&quot;t&quot;>다음 운영에서 무엇을 고칠 것인가
+    <span class=&quot;badge&quot; style=&quot;margin-left:auto&quot;>현재 화면의 조건에서 나온 개선 가설 — 원인 확정이 아닙니다</span></div>
+  <div class=&quot;nx2&quot; style=&quot;margin-top:6px&quot;>
     <div>
       <div class=&quot;nh&quot;>광고 운영 <span>— 2페이지에서 이어서 판단</span></div>
       <div id=&quot;nxAd&quot;></div>
@@ -1359,19 +1359,27 @@ function drawNext(rows,o){
   document.getElementById('nxWeb').innerHTML=html(web);
 }
 
-/* 소재별 표 접기/펼치기 — 접혀 있을 때만 한 화면(900px)에 들어간다 */
-let DT_OPEN=false;
-const DT_H=150;
-function applyDt(){
-  const card=document.getElementById('dtCard');
-  card.style.display=DT_OPEN?'block':'none';
-  document.getElementById('sec6bar').style.top=(DT_OPEN?752+DT_H:752)+'px';
-  document.getElementById('nextCard').style.top=(DT_OPEN?768+DT_H:768)+'px';
-  document.getElementById('board').style.height=(DT_OPEN?900+DT_H:900)+'px';
-  document.getElementById('tglDt').textContent=DT_OPEN?'소재별 표 접기 ▴':'소재별 표 펼치기 ▾';
+/* 두 패널 모두 기본은 접힘. 열면 보드가 그만큼 길어진다 —
+   나머지를 찌그러뜨리지 않고, 기본 화면은 정확히 한 장으로 남긴다. */
+const PANELS=[
+  {open:false,btn:'tglDt',card:'dtCard',h:150,lab:'소재별 성과'},
+  {open:false,btn:'tglNx',card:'nextCard',h:132,lab:'다음 운영 개선'},
+];
+const BASE_TOP=856, BASE_H=900;
+function applyPanels(){
+  let y=BASE_TOP;
+  PANELS.forEach(p=>{
+    const c=document.getElementById(p.card);
+    c.style.display=p.open?'block':'none';
+    if(p.open){c.style.top=y+'px';y+=p.h+8;}
+    document.getElementById(p.btn).textContent=p.lab+(p.open?' ▴':' ▾');
+    document.getElementById(p.btn).classList.toggle('on',p.open);
+  });
+  const anyOpen=PANELS.some(p=>p.open);
+  document.getElementById('board').style.height=(anyOpen?y-8+8:BASE_H)+'px';
   fitBoard();
 }
-document.getElementById('tglDt').onclick=()=>{DT_OPEN=!DT_OPEN;applyDt();};
+PANELS.forEach(p=>{document.getElementById(p.btn).onclick=()=>{p.open=!p.open;applyPanels();};});
 
 function drawChips(){
   const cs=[];
@@ -1440,7 +1448,7 @@ function fitBoard(){const b=document.getElementById('board');
   const h=parseInt(b.style.height||900),k=Math.min(1,innerWidth/1600);
   b.style.transform='scale('+k+')';document.body.style.height=(h*k)+'px';}
 addEventListener('resize',fitBoard);
-render();applyDt();
+render();applyPanels();
 </script></body></html>
 " title="3페이지 웹페이지 운영"></iframe>
 </div>
