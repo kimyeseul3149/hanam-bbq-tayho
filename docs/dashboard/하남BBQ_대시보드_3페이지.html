@@ -1451,8 +1451,10 @@ function drawChips(){
 function drawSec(rows,o){
   document.getElementById('sec1').innerHTML=
     `<b>${n(o.users)}명</b>이 들어와 <b>${n(o.res)}명</b>이 예약 의사를 표현했다 — 유도율 <b>${pc(o.res,o.users)}</b>`;
+  /* 이 줄은 왼쪽·오른쪽 카드가 각각 무엇을 보여주는지 안내한다.
+     숫자는 카드 안에 이미 있으므로 여기서는 읽는 법만 쓴다. */
   document.getElementById('sec2').innerHTML=
-    `광고를 클릭해 들어온 뒤 <b>${n(o.act)}명</b>이 페이지를 움직였고 <b>${n(o.cta)}명</b>이 CTA를 눌렀다`;
+    '왼쪽은 <b>어느 광고로 들어왔는가</b>, 오른쪽은 <b>들어온 뒤 어디까지 갔는가</b>';
   const g=Array.from({length:7},()=>Array(24).fill(0));
   rows.forEach(i=>{const r=S[i];if(r[COL.res])g[r[COL.wd]][r[COL.hour]]++;});
   let bw=0,bh=0,bv=0,hh=Array(24).fill(0);
