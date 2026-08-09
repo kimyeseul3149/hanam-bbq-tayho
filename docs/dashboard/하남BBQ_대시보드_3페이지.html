@@ -855,6 +855,8 @@ select{font:inherit;font-size:10px;padding:2px 5px;border:1px solid var(--lg);bo
     white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .kf .kk{font-size:8px;font-weight:700;color:var(--sl2);margin-right:5px}
 .kf.inl{margin:0 0 0 10px;border:none;padding:0;font-weight:400;flex:1;min-width:0}
+/* 카드가 좁아지면 한 줄로는 못 담는다. 잘라내지 말고 두 줄로 흐르게. */
+.kf.wrap{white-space:normal}
 .kf b{color:var(--c100);font-weight:700}
 
 /* ACTION 레일 — 관찰(사실) / 가설(회색) / ACTION(빨강) 세 줄로만 */
@@ -908,7 +910,7 @@ table.mini td.b{color:var(--c100);font-weight:700}
 .hm{display:grid;grid-template-columns:22px repeat(24,1fr);gap:2px}
 .hm .hh{font-size:8.5px;line-height:1;color:var(--c45);text-align:center}
 .hm .rh{font-size:9.5px;line-height:1;color:var(--c70);display:flex;align-items:center}
-.hm .cell{height:13px;border-radius:1.5px;cursor:pointer}
+.hm .cell{height:11px;border-radius:1.5px;cursor:pointer}
 .hm .cell:hover{outline:1.5px solid var(--sl3)}
 .hm .cell.on{outline:2px solid var(--sl)}
 
@@ -926,7 +928,7 @@ table.mini td.b{color:var(--c100);font-weight:700}
 /* 소재표 — 상위 3행만 보이고 나머지는 스크롤. 머리글과 합계는 붙박이. */
 /* 74px = 머리글 16 + 행 13×3.5 + 합계 12. 네 번째 행이 반쯤 보여야
    &quot;아래 더 있다&quot;가 눈에 들어온다. */
-.dtw{overflow-y:auto;margin-top:2px;max-height:280px}
+.dtw{overflow-y:auto;margin-top:4px;max-height:107px}
 .dtw::-webkit-scrollbar{width:6px}
 .dtw::-webkit-scrollbar-thumb{background:var(--lg);border-radius:3px}
 table.dt{width:100%;border-collapse:collapse;font-size:11px;font-variant-numeric:tabular-nums}
@@ -1059,55 +1061,50 @@ table.dt td.dim{color:var(--c25)}
   <span class=&quot;n&quot;>4</span><span class=&quot;st&quot;>방문자 행동 분석</span>
   <span class=&quot;sd&quot; id=&quot;sec4&quot; style=&quot;color:var(--c25)&quot;></span><span class=&quot;ln&quot;></span></div>
 
-<div class=&quot;c&quot; style=&quot;left:14px;top:488px;width:778px;height:180px&quot;>
-  <div class=&quot;t&quot;>어떤 CTA를 눌렀나? <span class=&quot;badge k&quot;>막대 클릭</span>
-    <span class=&quot;badge&quot; style=&quot;margin-left:auto&quot;>예약·방문 의도 표현 방식</span></div>
-  <div class=&quot;bl&quot; id=&quot;ctList&quot; style=&quot;--nw:82px;margin-top:5px&quot;></div>
-  <div class=&quot;kf&quot; id=&quot;ctFind&quot;></div>
+<div class=&quot;c&quot; style=&quot;left:14px;top:488px;width:372px;height:200px&quot;>
+  <div class=&quot;t&quot;>어떤 CTA를 눌렀나? <span class=&quot;badge k&quot;>막대 클릭</span></div>
+  <div class=&quot;bl&quot; id=&quot;ctList&quot; style=&quot;--nw:70px;margin-top:7px&quot;></div>
+  <div class=&quot;kf wrap&quot; id=&quot;ctFind&quot;></div>
 </div>
 
-<div class=&quot;c&quot; style=&quot;left:808px;top:488px;width:778px;height:180px&quot;>
-  <div class=&quot;t&quot;>페이지 어디에서 눌렀나? <span class=&quot;badge k&quot;>막대 클릭</span>
-    <span class=&quot;badge&quot; style=&quot;margin-left:auto&quot;>페이지 어디를 고칠 것인가</span></div>
-  <div class=&quot;bl&quot; id=&quot;clList&quot; style=&quot;--nw:96px;margin-top:5px&quot;></div>
-  <div class=&quot;kf&quot; id=&quot;clFind&quot;></div>
+<div class=&quot;c&quot; style=&quot;left:398px;top:488px;width:372px;height:200px&quot;>
+  <div class=&quot;t&quot;>페이지 어디에서 눌렀나? <span class=&quot;badge k&quot;>막대 클릭</span></div>
+  <div class=&quot;bl&quot; id=&quot;clList&quot; style=&quot;--nw:80px;margin-top:7px&quot;></div>
+  <div class=&quot;kf wrap&quot; id=&quot;clFind&quot;></div>
 </div>
 
-<!-- 히트맵은 7행이라 세로 여유가 없다. 핵심 발견을 제목 줄 안쪽에 넣는다. -->
-<div class=&quot;c&quot; style=&quot;left:14px;top:676px;width:1280px;height:184px&quot;>
+<div class=&quot;c&quot; style=&quot;left:782px;top:488px;width:516px;height:200px&quot;>
   <div class=&quot;t&quot;>예약 의사는 언제 나왔나? <span class=&quot;badge k&quot;>칸 클릭</span>
-    <span class=&quot;kf inl&quot; id=&quot;hmFind&quot;></span>
     <div class=&quot;seg&quot; id=&quot;hmMode&quot;><div data-hm=&quot;sess&quot;>방문</div><div data-hm=&quot;cta&quot;>CTA</div>
       <div class=&quot;on&quot; data-hm=&quot;res&quot;>예약 유도</div></div>
   </div>
-  <div class=&quot;hm&quot; id=&quot;hm&quot; style=&quot;margin-top:6px&quot;></div>
+  <div class=&quot;hm&quot; id=&quot;hm&quot; style=&quot;margin-top:8px&quot;></div>
+  <div class=&quot;kf wrap&quot; id=&quot;hmFind&quot;></div>
 </div>
 
-<div class=&quot;c&quot; style=&quot;left:1310px;top:676px;width:276px;height:184px&quot;>
+<div class=&quot;c&quot; style=&quot;left:1310px;top:488px;width:276px;height:200px&quot;>
   <div class=&quot;t&quot;>보조 지표 <span class=&quot;badge&quot; style=&quot;margin-left:auto&quot;>참고</span></div>
   <div class=&quot;aux&quot; id=&quot;aux&quot;></div>
   <div class=&quot;axn&quot;><b>내비게이션 클릭</b> — 상단 메뉴를 눌러 메뉴·위치 등
     다른 섹션으로 이동한 사람. 어디서 나갔는지가 아니라 <b>무엇을 더 보려 했는지</b>를 뜻합니다.</div>
 </div>
 
-<div class=&quot;sec&quot; style=&quot;left:14px;top:868px;width:1572px;height:18px&quot;>
+<div class=&quot;sec&quot; style=&quot;left:14px;top:696px;width:1320px;height:18px&quot;>
   <span class=&quot;n&quot;>5</span><span class=&quot;st&quot;>소재별 랜딩 이후 성과</span>
   <span class=&quot;sd&quot; id=&quot;sec5&quot;></span>
-  <button class=&quot;tgl&quot; id=&quot;tglDt&quot;>소재별 표 ▾</button>
   <button class=&quot;tgl&quot; id=&quot;tglNx&quot;>전체 ACTION 요약 ▾</button><span class=&quot;ln&quot;></span></div>
+<div class=&quot;sec&quot; style=&quot;left:1346px;top:696px;width:240px;height:18px&quot;>
+  <span class=&quot;st&quot; style=&quot;font-size:10px;color:var(--c45)&quot;>ACTION</span><span class=&quot;ln&quot;></span></div>
 
-<!-- 표와 그 ACTION 은 떠 있는 패널. 바닥에 자리를 비워 두지 않아도 되므로
-     그만큼을 위쪽 카드들의 여백으로 돌렸다. -->
-<div class=&quot;hp wide&quot; id=&quot;dtCard&quot; style=&quot;left:236px;top:252px;width:1128px&quot;>
-  <h4>어떤 소재가 예약 유도까지 연결했나?
-    <span style=&quot;font-weight:500;color:var(--c45);font-size:10px&quot;>— 행을 누르면 상세 · 광고 외 직접 유입 제외 · Meta 지표(노출·CTR·CPC·비용)는 2페이지</span>
-    <span class=&quot;badge&quot; id=&quot;dtSub&quot; style=&quot;float:right&quot;></span></h4>
-  <div style=&quot;display:flex;gap:18px;align-items:flex-start;margin-top:4px&quot;>
-    <div style=&quot;flex:1;min-width:0&quot;><div class=&quot;dtw&quot; id=&quot;dtw&quot;><table class=&quot;dt&quot; id=&quot;dt&quot;></table></div></div>
-    <div class=&quot;rail&quot; id=&quot;dtRail&quot; style=&quot;width:252px;flex:none;border:1px solid var(--lg);border-radius:10px&quot;>
-      <div class=&quot;rl&quot; id=&quot;rlDt&quot;></div>
-    </div>
-  </div>
+<div class=&quot;c&quot; id=&quot;dtCard&quot; style=&quot;left:14px;top:718px;width:1320px;height:168px&quot;>
+  <div class=&quot;t&quot;>어떤 소재가 예약 유도까지 연결했나? <span class=&quot;badge k&quot;>행 클릭 시 상세</span>
+    <span class=&quot;badge&quot; id=&quot;dtSub&quot; style=&quot;margin-left:auto&quot;></span>
+    <span class=&quot;badge&quot;>광고 외 직접 유입 제외 · Meta 지표는 2페이지</span></div>
+  <div class=&quot;dtw&quot; id=&quot;dtw&quot;><table class=&quot;dt&quot; id=&quot;dt&quot;></table></div>
+</div>
+
+<div class=&quot;c rail&quot; id=&quot;dtRail&quot; style=&quot;left:1346px;top:718px;width:240px;height:168px&quot;>
+  <div class=&quot;rl&quot; id=&quot;rlDt&quot;></div>
 </div>
 
 <!-- 보드 높이를 늘리지 않으려고 접기 패널이 아니라 떠 있는 오버레이로 둔다 -->
@@ -1155,7 +1152,7 @@ table.dt td.dim{color:var(--c25)}
     한 사람이 메신저와 전화를 모두 눌렀을 수 있어 56 + 38 = 94가 아니라 90명입니다.</div>
 </div>
 
-<div class=&quot;hp&quot; id=&quot;hpAct&quot; style=&quot;left:700px;top:176px;width:600px&quot;>
+<div class=&quot;hp&quot; id=&quot;hpAct&quot; style=&quot;left:660px;top:176px;width:600px&quot;>
   <h4>&quot;의미 있는 행동&quot;이란</h4>
   <table>
     <tr><td>포함</td><td>페이지가 <b>실제로 반응한</b> 조작 — 메뉴 상세 열기, 메뉴 탭 전환,
@@ -1564,12 +1561,6 @@ function drawNext(rows,o){
 
 /* 소재별 표는 기본 접힘. 섹션 라벨이 이미 1위 소재와 유도율을 들고 있어서
    자세히 볼 때만 편다. 보드 높이는 그대로다 — 자리는 늘 비워 두었다. */
-const DTB=document.getElementById('tglDt'),DTP=document.getElementById('dtCard');
-DTB.onclick=e=>{e.stopPropagation();
-  const on=!DTP.classList.contains('on');
-  closeHelp();DTP.classList.toggle('on',on);DTB.classList.toggle('on',on);
-  DTB.textContent='소재별 표 '+(on?'▴':'▾');};
-
 /* 전체 ACTION 요약은 떠 있는 패널로 연다. 보드를 늘리면 900을 넘기 때문이다. */
 const NXB=document.getElementById('tglNx'),NXC=document.getElementById('nextCard');
 NXB.onclick=e=>{e.stopPropagation();
@@ -1585,8 +1576,6 @@ function closeHelp(){
   document.querySelectorAll('.qm').forEach(x=>x.classList.remove('on'));
   const b=document.getElementById('tglNx');
   if(b){b.classList.remove('on');b.textContent='전체 ACTION 요약 ▾';}
-  const d=document.getElementById('tglDt');
-  if(d){d.classList.remove('on');d.textContent='소재별 표 ▾';}
 }
 function bindHelp(){
   document.querySelectorAll('.qm').forEach(b=>{
@@ -1598,7 +1587,7 @@ function bindHelp(){
 document.getElementById('qmFn').dataset.hp='hpFn';
 bindHelp();
 document.addEventListener('click',e=>{
-  if(!e.target.closest('.hp')&amp;&amp;e.target.id!=='tglNx'&amp;&amp;e.target.id!=='tglDt')closeHelp();});
+  if(!e.target.closest('.hp')&amp;&amp;e.target.id!=='tglNx')closeHelp();});
 
 function drawChips(){
   const cs=[];
