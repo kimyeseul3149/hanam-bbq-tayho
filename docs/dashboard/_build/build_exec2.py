@@ -7,7 +7,7 @@ build_exec.py 와 **숫자·문구·레이아웃은 동일**하고 색·서체·
   남색 사이드바 → 차콜 #1A1A1A
   보라(Meta)    → 차콜 계열 4단
   주황(Amplitude) → 레드 계열 2단
-  연보라 카드   → 아이보리 배경 + 흰 카드 + 1px #E9E9E9
+  연보라 카드   → 아이보리 배경 + 흰 카드 + 1px #E4E0D8
   초록 액션박스 → 중립 회색 + 레드 화살표
 
 수치 기준 — 2026-07-20 ~ 08-02 (14일).
@@ -34,7 +34,7 @@ stages = [
 ]
 mx = stages[0][1]
 MCOL = ['#1A1A1A', '#3D3D38', '#616159', '#8A8A80']      # Meta — 차콜 4단
-ACOL = ['#F48C94', '#E60012']                             # Amplitude — 레드 2단
+ACOL = ['#C58189', '#8C1D2A']                             # Amplitude — 레드 2단
 
 
 def fw(v):
@@ -82,8 +82,8 @@ plan = [
 ]
 prow = ''.join(f'<tr><td class="pf">{f}</td><td class="pa">→ {a}</td></tr>' for f, a in plan)
 
-CSS = """:root{--red:#E60012;--red45:#F48C94;--red12:#FCE3E5;--c100:#1A1A1A;--c70:#616161;
-  --c45:#939393;--c25:#C4C4C4;--lg:#E9E9E9;--ivory:#FFF9F2;--surf:#FFFFFF;}
+CSS = """:root{--red:#8C1D2A;--red45:#C58189;--red12:#F4E8EA;--c100:#1A1A1A;--c70:#5C594F;
+  --c45:#8B877D;--c25:#C7C3B9;--lg:#E4E0D8;--ivory:#FFF9F2;--surf:#FFFFFF;}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
 html{background:#F1ECE4;}
 body{font-family:system-ui,'Segoe UI','Malgun Gothic',sans-serif;color:var(--c100);
@@ -136,15 +136,15 @@ body{font-family:system-ui,'Segoe UI','Malgun Gothic',sans-serif;color:var(--c10
 .knode .knum{font-size:23px;font-weight:700;letter-spacing:-.01em;margin-top:2px;
   font-variant-numeric:tabular-nums;}
 .knode .ksub{font-size:9.5px;color:var(--c45);margin-top:3px;}
-.knode.hero{border-color:var(--red45);background:linear-gradient(180deg,#FFF6F7,#fff 52%);}
+.knode.hero{border-color:var(--red45);background:linear-gradient(180deg,#FAF2F3,#fff 52%);}
 .knode.hero .knum{color:var(--red);}
-.knode.budget{background:#F7F7F5;border-style:dashed;border-color:var(--c25);}
+.knode.budget{background:#F7F4ED;border-style:dashed;border-color:var(--c25);}
 .knode.budget .knum{font-size:19px;color:var(--c70);}
 .karrow{display:flex;align-items:center;color:var(--c25);font-size:16px;font-weight:700;padding:0 7px;}
 
 /* 전환율 스트립 */
 .convstrip{display:flex;gap:10px;margin-bottom:9px;}
-.convpill{flex:1;background:#F7F7F5;border:1px solid var(--lg);border-radius:8px;padding:8px 12px;
+.convpill{flex:1;background:#F7F4ED;border:1px solid var(--lg);border-radius:8px;padding:8px 12px;
   display:flex;align-items:baseline;justify-content:space-between;}
 .convpill .cvn{font-size:19px;font-weight:700;color:var(--c100);font-variant-numeric:tabular-nums;}
 .convpill .cvl{font-size:10.5px;color:var(--c70);font-weight:600;}
@@ -164,7 +164,7 @@ body{font-family:system-ui,'Segoe UI','Malgun Gothic',sans-serif;color:var(--c10
 .frow .fcv b{color:var(--c100);font-weight:700;}
 .fnote{margin:9px 0 0 144px;font-size:9.5px;color:var(--c45);line-height:1.5;}
 .fnote b{color:var(--c70);}
-.fdiv{margin:2px 0 2px 144px;font-size:10px;color:var(--red);background:#FFF6F7;
+.fdiv{margin:2px 0 2px 144px;font-size:10px;color:var(--red);background:#FAF2F3;
   border:1px dashed var(--red45);border-radius:8px;padding:4px 10px;}
 
 /* 유도당 비용 막대 */
@@ -196,7 +196,7 @@ body = f'''<div class="slide"><aside class="side">
   <div class="fl">목표</div><div class="fv">인지→브랜딩→예약유도</div>
   <div class="fl">KPI</div><div class="fv">예약 유도 · 유도당 비용</div><hr>
   <div class="leg"><span class="dot" style="background:#1A1A1A;outline:1px solid #616159"></span>Meta (광고 노출~클릭)<br>
-    <span class="dot" style="background:#E60012"></span>Amplitude (방문~유도)</div>
+    <span class="dot" style="background:#8C1D2A"></span>Amplitude (방문~유도)</div>
   <div class="pagechip">Executive · 경영 요약</div>
 </aside>
 <main class="main">
@@ -231,7 +231,7 @@ body = f'''<div class="slide"><aside class="side">
       <div class="ctitle">광고세트 통합 효율 — 유도당 비용</div>
       <div class="csub">Meta 지출 ÷ Amplitude 유도 · 막대가 짧을수록 저렴 · 지출 잠정</div>
       <div class="hrow"><div class="lb">business</div><div class="tk">
-        <div class="fi" style="width:40%;background:#E60012">₫69,696</div></div></div>
+        <div class="fi" style="width:40%;background:#8C1D2A">₫69,696</div></div></div>
       <div class="hrow"><div class="lb">전체</div><div class="tk">
         <div class="fi" style="width:56%;background:#8A8A80">₫97,961</div></div></div>
       <div class="hrow"><div class="lb">family</div><div class="tk">
