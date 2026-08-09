@@ -783,8 +783,10 @@ init();
 /* 2페이지(메타 광고 운영)와 같은 팔레트를 쓴다.
    평소엔 무채색, 누른 것만 빨강 — 세 페이지의 규칙이 같아야 한 묶음으로 읽힌다.
    빨강이 남는 예외는 클릭 대상이 아닌 곳뿐이다: KPI 예약 유도 숫자, ACTION 뱃지. */
-:root{--red:#E60012;--rd:#B0000E;--rl:#F8C9CD;--red45:#F48C94;--red12:#FCE3E5;
-      --deep:#8C1D2A;
+/* 빨강은 딥레드 하나뿐이다 — 예약 유도와 '선택됨'이 같은 색을 쓴다.
+   둘의 구분은 색이 아니라 외곽선과 이름 굵기가 맡는다. */
+:root{--red:#8C1D2A;--rd:#6E1621;--rl:#E3BFC4;--red45:#C58189;--red12:#F4E8EA;
+      --brand:#E60012;--deep:#8C1D2A;
       --c100:#1A1A1A;--c70:#5C594F;--c45:#8B877D;--c25:#C7C3B9;--lg:#E4E0D8;
       --g5:#F2EFE8;
       --ivory:#FFF9F2;--surf:#FFFFFF;--page:#F1ECE4}
@@ -807,7 +809,7 @@ body{font-family:&quot;Malgun Gothic&quot;,system-ui,&quot;Segoe UI&quot;,sans-s
 
 /* 헤더 */
 .hd{position:absolute;left:14px;top:14px;width:1572px;height:44px;background:var(--surf);
-    border:1px solid var(--lg);border-top:3px solid var(--red);border-radius:10px;
+    border:1px solid var(--lg);border-top:3px solid var(--brand);border-radius:10px;
     display:flex;align-items:center;gap:12px;padding:0 18px}
 .hd h1{font-size:14px;font-weight:700}
 .hd .sub{font-size:9.5px;color:var(--c45);margin-left:2px}
@@ -841,7 +843,7 @@ select{font:inherit;font-size:10px;padding:2px 5px;border:1px solid var(--lg);bo
       transition:width .22s;min-width:88px}
 .fbar .nm{font-size:13px;font-weight:700;white-space:nowrap}
 .fs2:hover .fbar{filter:brightness(.95)}
-.fs2.on .fbar{outline:2px solid var(--red);outline-offset:2px}
+.fs2.on .fbar{outline:2.5px solid var(--c100);outline-offset:2.5px}
 .fval{text-align:right;font-variant-numeric:tabular-nums;line-height:1.2}
 .fval b{font-size:16px;font-weight:700}
 .fval span{display:block;font-size:10px;color:var(--c45);margin-top:1px}
@@ -883,7 +885,7 @@ select{font:inherit;font-size:10px;padding:2px 5px;border:1px solid var(--lg);bo
 .cb{display:flex;flex-direction:column;align-items:center;cursor:pointer;flex:0 0 118px}
 .cb .p{font-size:22px;font-weight:700;margin-bottom:5px;font-variant-numeric:tabular-nums}
 .cb .col{width:96px;border-radius:3px 3px 0 0;transition:height .22s;min-height:3px}
-.cb.on .col{outline:2px solid var(--red);outline-offset:2px}
+.cb.on .col{outline:2.5px solid var(--c100);outline-offset:2.5px}
 .cb .nm{font-size:13px;font-weight:700;margin-top:7px}
 .cb .sb{font-size:10px;color:var(--c45);margin-top:3px;text-align:center;line-height:1.5}
 .cb .sb b{color:var(--c70)}
@@ -918,7 +920,7 @@ table.mini td.b{color:var(--c100);font-weight:700}
 .hm .rh{font-size:9.5px;line-height:1;color:var(--c70);display:flex;align-items:center}
 .hm .cell{height:11px;border-radius:1.5px;cursor:pointer}
 .hm .cell:hover{outline:1.5px solid var(--c45)}
-.hm .cell.on{outline:2px solid var(--red)}
+.hm .cell.on{outline:2px solid var(--c100)}
 
 /* 운영 보조 지표 */
 .aux{display:flex;flex-direction:column;gap:13px;margin-top:8px}
@@ -942,7 +944,7 @@ table.dt thead th{position:sticky;top:0;background:var(--surf);z-index:2}
 table.dt tfoot td{position:sticky;bottom:0;background:var(--surf);z-index:2}
 table.dt .sm{color:var(--c45);font-weight:400;font-size:9px}
 /* 행을 누르면 그 아래로 펼쳐지는 상세 — 행동률/유도율은 여기로 내렸다 */
-table.dt tr.dx td{background:#FFF6F7;color:var(--c70);font-size:10px;text-align:left;white-space:normal;
+table.dt tr.dx td{background:#FAF2F3;color:var(--c70);font-size:10px;text-align:left;white-space:normal;
                   padding:3px 8px;border-bottom:1px solid var(--lg)}
 table.dt tr.dx b{color:var(--c100);font-weight:700}
 table.dt td .rs{font-size:9.5px;color:var(--c45);font-weight:400;margin-left:4px}
