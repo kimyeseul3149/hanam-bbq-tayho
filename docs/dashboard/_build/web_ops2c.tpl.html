@@ -4,12 +4,13 @@
 <meta name="robots" content="noindex,nofollow">
 <title>하남돼지집 서호수점 — 웹페이지 운영 대시보드 (1페이지)</title>
 <style>
-/* 빨강은 '최종 전환'에만 쓴다 — 예약 유도 수치, 퍼널 마지막 단계, ACTION 뱃지.
-   그 밖의 막대·강조는 전부 슬레이트 무채색으로 둔다. */
-:root{--red:#E60012;--rd:#B0000E;--rl:#F8C9CD;--red45:#F48C94;
-      --sl:#475569;--sl2:#64748B;--sl3:#94A3B8;--sl4:#CBD5E1;--sl5:#EEF1F5;
-      --c100:#1A1A1A;--c70:#5B6472;--c45:#8A93A1;--c25:#C4CAD3;--lg:#E5E7EB;
-      --ivory:#FFFBF6;--surf:#FFFFFF;--page:#F1ECE4}
+/* 2페이지(메타 광고 운영)와 같은 팔레트를 쓴다.
+   평소엔 무채색, 누른 것만 빨강 — 세 페이지의 규칙이 같아야 한 묶음으로 읽힌다.
+   빨강이 남는 예외는 클릭 대상이 아닌 곳뿐이다: KPI 예약 유도 숫자, ACTION 뱃지. */
+:root{--red:#E60012;--rd:#B0000E;--rl:#F8C9CD;--red45:#F48C94;--red12:#FCE3E5;
+      --c100:#1A1A1A;--c70:#616161;--c45:#939393;--c25:#C4C4C4;--lg:#E9E9E9;
+      --g5:#F4F4F1;
+      --ivory:#FFF9F2;--surf:#FFFFFF;--page:#F1ECE4}
 *{box-sizing:border-box;margin:0;padding:0}
 html{background:var(--page)}
 body{font-family:"Malgun Gothic",system-ui,"Segoe UI",sans-serif;color:var(--c100);
@@ -22,7 +23,7 @@ body{font-family:"Malgun Gothic",system-ui,"Segoe UI",sans-serif;color:var(--c10
 .t{font-size:12.5px;font-weight:700;display:flex;align-items:center;gap:6px;white-space:nowrap}
 .s{font-size:9.5px;color:var(--c45);margin:3px 0 7px;line-height:1.5}
 .badge{font-size:8.5px;border:1px solid var(--c25);color:var(--c45);border-radius:9px;padding:0 5px}
-.badge.k{border-color:var(--sl4);color:var(--sl2)}
+.badge.k{border-color:var(--c25);color:var(--c70)}
 .seg{display:flex;border:1px solid var(--lg);border-radius:6px;overflow:hidden;margin-left:auto;flex:none}
 .seg div{font-size:9px;padding:2px 7px;color:var(--c45);cursor:pointer;white-space:nowrap}
 .seg div.on{background:var(--c100);color:#fff}
@@ -38,7 +39,7 @@ body{font-family:"Malgun Gothic",system-ui,"Segoe UI",sans-serif;color:var(--c10
 .btn.on{background:var(--c100);border-color:var(--c100);color:#fff}
 select{font:inherit;font-size:10px;padding:2px 5px;border:1px solid var(--lg);border-radius:5px;color:var(--c70)}
 .lab{font-size:9px;color:var(--c45)}
-.chip{font-size:9px;border:1px solid var(--sl4);color:var(--sl);background:var(--sl5);
+.chip{font-size:9px;border:1px solid var(--red45);color:var(--red);background:var(--red12);
       border-radius:10px;padding:1px 7px;cursor:pointer;white-space:nowrap}
 .chips{display:flex;gap:4px;flex-wrap:wrap;max-width:420px}
 
@@ -63,7 +64,7 @@ select{font:inherit;font-size:10px;padding:2px 5px;border:1px solid var(--lg);bo
       transition:width .22s;min-width:88px}
 .fbar .nm{font-size:13px;font-weight:700;white-space:nowrap}
 .fs2:hover .fbar{filter:brightness(.95)}
-.fs2.on .fbar{outline:2px solid var(--sl);outline-offset:2px}
+.fs2.on .fbar{outline:2px solid var(--red);outline-offset:2px}
 .fval{text-align:right;font-variant-numeric:tabular-nums;line-height:1.2}
 .fval b{font-size:16px;font-weight:700}
 .fval span{display:block;font-size:10px;color:var(--c45);margin-top:1px}
@@ -81,7 +82,7 @@ select{font:inherit;font-size:10px;padding:2px 5px;border:1px solid var(--lg);bo
 .kf{font-size:9.5px;color:var(--c70);line-height:1.5;margin-top:9px;
     border-top:1px solid var(--lg);padding-top:7px;
     white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.kf .kk{font-size:8px;font-weight:700;color:var(--sl2);margin-right:5px}
+.kf .kk{font-size:8px;font-weight:700;color:var(--c70);margin-right:5px}
 .kf.inl{margin:0 0 0 10px;border:none;padding:0;font-weight:400;flex:1;min-width:0}
 /* 카드가 좁아지면 한 줄로는 못 담는다. 잘라내지 말고 두 줄로 흐르게. */
 .kf.wrap{white-space:normal}
@@ -105,7 +106,7 @@ select{font:inherit;font-size:10px;padding:2px 5px;border:1px solid var(--lg);bo
 .cb{display:flex;flex-direction:column;align-items:center;cursor:pointer;flex:0 0 118px}
 .cb .p{font-size:22px;font-weight:700;margin-bottom:5px;font-variant-numeric:tabular-nums}
 .cb .col{width:96px;border-radius:3px 3px 0 0;transition:height .22s;min-height:3px}
-.cb.on .col{outline:2px solid var(--c100);outline-offset:2px}
+.cb.on .col{outline:2px solid var(--red);outline-offset:2px}
 .cb .nm{font-size:13px;font-weight:700;margin-top:7px}
 .cb .sb{font-size:10px;color:var(--c45);margin-top:3px;text-align:center;line-height:1.5}
 .cb .sb b{color:var(--c70)}
@@ -124,8 +125,8 @@ table.mini td.b{color:var(--c100);font-weight:700}
 .br{display:grid;grid-template-columns:var(--nw,72px) 1fr 48px;gap:9px;align-items:center;
     font-size:10.5px;cursor:pointer;font-variant-numeric:tabular-nums}
 .br .nm{color:var(--c70);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.br.on .nm{color:var(--c100);font-weight:700}
-.br .bg{position:relative;height:9px;background:var(--sl5);border-radius:2px;overflow:hidden}
+.br.on .nm{color:var(--red);font-weight:700}
+.br .bg{position:relative;height:9px;background:#EDEDEA;border-radius:2px;overflow:hidden}
 .br .bg i{position:absolute;left:0;top:0;bottom:0;border-radius:2px;transition:width .2s}
 .br .v{text-align:right;font-weight:700}
 .br .v .u{font-size:8.5px;font-weight:400;color:var(--c45)}
@@ -139,8 +140,8 @@ table.mini td.b{color:var(--c100);font-weight:700}
 .hm .hh{font-size:8.5px;line-height:1;color:var(--c45);text-align:center}
 .hm .rh{font-size:9.5px;line-height:1;color:var(--c70);display:flex;align-items:center}
 .hm .cell{height:11px;border-radius:1.5px;cursor:pointer}
-.hm .cell:hover{outline:1.5px solid var(--sl3)}
-.hm .cell.on{outline:2px solid var(--sl)}
+.hm .cell:hover{outline:1.5px solid var(--c45)}
+.hm .cell.on{outline:2px solid var(--red)}
 
 /* 운영 보조 지표 */
 .aux{display:flex;flex-direction:column;gap:13px;margin-top:8px}
@@ -164,7 +165,7 @@ table.dt thead th{position:sticky;top:0;background:var(--surf);z-index:2}
 table.dt tfoot td{position:sticky;bottom:0;background:var(--surf);z-index:2}
 table.dt .sm{color:var(--c45);font-weight:400;font-size:9px}
 /* 행을 누르면 그 아래로 펼쳐지는 상세 — 행동률/유도율은 여기로 내렸다 */
-table.dt tr.dx td{background:var(--sl5);color:var(--c70);font-size:10px;text-align:left;white-space:normal;
+table.dt tr.dx td{background:#FFF6F7;color:var(--c70);font-size:10px;text-align:left;white-space:normal;
                   padding:3px 8px;border-bottom:1px solid var(--lg)}
 table.dt tr.dx b{color:var(--c100);font-weight:700}
 table.dt td .rs{font-size:9.5px;color:var(--c45);font-weight:400;margin-left:4px}
@@ -176,7 +177,7 @@ table.dt td:first-child{min-width:190px}
 table.dt td:first-child{text-align:left;color:var(--c100);font-weight:600}
 table.dt tr.clk{cursor:pointer}
 table.dt tr.clk:hover td{background:#FAFAF8}
-table.dt tr.on td{background:var(--sl5)}
+table.dt tr.on td{background:var(--red12)}
 table.dt tr.tot td{border-top:1.2px solid var(--c25);border-bottom:none;color:var(--c100);font-weight:700}
 table.dt td.b{color:var(--c100);font-weight:700}
 table.dt td.dim{color:var(--c25)}
@@ -197,8 +198,8 @@ table.dt td.dim{color:var(--c25)}
 .qm{width:15px;height:15px;flex:none;border-radius:50%;border:1.4px solid var(--c45);
     background:var(--surf);color:var(--c45);font:inherit;font-size:9.5px;font-weight:700;
     line-height:1;cursor:pointer;padding:0;margin-left:4px}
-.qm:hover,.qm.on{border-color:var(--sl);color:var(--sl)}
-.qm.on{background:var(--sl);color:#fff}
+.qm:hover,.qm.on{border-color:var(--c100);color:var(--c100)}
+.qm.on{background:var(--c100);color:#fff}
 .hp{position:absolute;display:none;z-index:60;background:var(--surf);border:1px solid var(--c25);
     border-radius:10px;padding:13px 16px;box-shadow:0 12px 32px rgba(0,0,0,.16)}
 .hp.on{display:block}
@@ -217,7 +218,7 @@ table.dt td.dim{color:var(--c25)}
 /* 접기/펼치기 */
 .tgl{font:inherit;font-size:9px;padding:2px 9px;margin-left:4px;border:1px solid var(--c25);background:var(--surf);
      color:var(--c70);border-radius:11px;cursor:pointer;white-space:nowrap}
-.tgl:hover{border-color:var(--sl);color:var(--sl)}
+.tgl:hover{border-color:var(--c100);color:var(--c100)}
 .tgl.on{background:var(--c100);border-color:var(--c100);color:#fff}
 
 /* 섹션 라벨 — 스토리 흐름을 끊어 읽게 하는 줄 */
@@ -432,11 +433,11 @@ const lb=(m,k)=>m[k]||k, n=v=>v.toLocaleString();
 const pc=(a,b)=>b?(a/b*100).toFixed(2)+'%':'—', pc1=(a,b)=>b?(a/b*100).toFixed(1)+'%':'—';
 /* 작은 비율은 소수 첫째 자리로 자르면 1.86% 가 1.9% 가 되어 KPI 와 어긋난다 */
 const pcx=(a,b)=>!b?'—':(a/b*100<10?pc(a,b):pc1(a,b));
-/* 값이 클수록 진한 슬레이트. 빨강은 최종 전환에만 남긴다. */
-const RL=[203,213,225], RD=[71,85,105];
+/* 값이 클수록 진한 회색. 2페이지의 무채색 눈금과 같은 계열. */
+const RL=[226,226,222], RD=[61,61,58];
 const ramp=r=>`rgb(${RL.map((v,i)=>Math.round(v+(RD[i]-v)*r)).join(',')})`;
 /* 퍼널 단계색 — 마지막만 빨강 */
-const FNC=['#DDE3EA','#B4C0CE','#7E8FA5','#E60012'];
+const FNC=['#E2E2DE','#B9B9B3','#7A7A74','#1A1A1A'];
 const FNT=['#1A1A1A','#1A1A1A','#FFFFFF','#FFFFFF'];
 /* 폭 압축 — 방문자 대비 비율을 0.35 제곱해 18~100% 로 편다.
    선형이면 150/8,084 = 1.9% 라 막대가 사라진다. 값은 숫자로 읽는다. */
@@ -536,9 +537,11 @@ function drawFn(o){
   let h='';
   FN.forEach(([k,nm],i)=>{
     const v=o[k];
-    h+=`<div class="fs2${F.stage===k?' on':''}" data-stage="${k}">
-      <div class="fbw"><div class="fbar" style="width:${fw(v,v0).toFixed(1)}%;background:${FNC[i]}">
-        <span class="nm" style="color:${FNT[i]}">${nm}</span></div></div>
+    const on=F.stage===k;
+    h+=`<div class="fs2${on?' on':''}" data-stage="${k}">
+      <div class="fbw"><div class="fbar" style="width:${fw(v,v0).toFixed(1)}%;background:${
+        on?'var(--red)':FNC[i]}">
+        <span class="nm" style="color:${on?'#fff':FNT[i]}">${nm}</span></div></div>
       <div class="fval"><b>${n(v)}</b><span>${pc1(v,v0)}</span></div></div>`;
   });
   const el=document.getElementById('fn');el.innerHTML=h;
@@ -586,7 +589,7 @@ function bars(id,items,onclick){
     :`<div class="br${it.on?' on':''}${it.dim?' sub':''}" data-i="${i}">
       <span class="nm" title="${it.nm.replace(/<[^>]*>/g,'')}">${it.nm}</span>
       <span class="bg"><i style="width:${(it.v/mx*100).toFixed(1)}%;background:${
-        it.c||ramp(it.v/mx)}"></i></span>
+        it.on?'var(--red)':(it.c||ramp(it.v/mx))}"></i></span>
       <span class="v">${n(it.v)}<span class="u"> 명</span></span></div>`).join('');
   if(onclick)box.querySelectorAll('.br').forEach(e=>e.onclick=()=>onclick(items[+e.dataset.i]));
 }
@@ -600,7 +603,7 @@ function drawCTA(rows,o){
   const hot=idx.filter(i=>INTENT.includes(C.ctaType[i])).map(mk).filter(x=>x.v>0)
               .sort((a,b)=>b.v-a.v);
   const cold=idx.filter(i=>!INTENT.includes(C.ctaType[i])).map(mk).filter(x=>x.v>0)
-               .sort((a,b)=>b.v-a.v).map(x=>Object.assign(x,{dim:1,c:'#DCE1E8'}));
+               .sort((a,b)=>b.v-a.v).map(x=>Object.assign(x,{dim:1,c:'#D8D8D2'}));
   const items=cold.length?hot.concat([{split:'방문·탐색 의도 (예약 유도에는 포함하지 않음)'}],cold):hot;
   bars('ctList',items,it=>{if(it.split)return;F.ct=F.ct===it.i?null:it.i;render();});
   const hv=o.res;   // 메신저·전화를 모두 누른 사람이 있어 단순 합(94)은 틀리다
@@ -630,7 +633,7 @@ function drawAux(o){
       <span class="v">${n(v)}<span class="u"> 명</span></span></div>`).join('');
 }
 
-const HMC=['#EFF1F5','#CBD5E1','#94A3B8','#64748B','#334155'];
+const HMC=['#F1F1EE','#D2D2CC','#A0A099','#6B6B65','#33332F'];
 function drawHM(rows){
   const g=Array.from({length:7},()=>Array(24).fill(0));
   const us=Array.from({length:7},()=>Array.from({length:24},()=>null));
@@ -649,7 +652,7 @@ function drawHM(rows){
     for(let h=0;h<24;h++){const v=g[w][h],on=F.cell&&F.cell[0]===w&&F.cell[1]===h;
       const bin=v?Math.min(4,Math.floor(v/mx*5-1e-9)):-1;
       html+=`<div class="cell${on?' on':''}" data-w="${w}" data-h="${h}" title="${WD[w]} ${h}시 · ${n(v)}"
-        style="background:${bin<0?'#F9F9F6':HMC[bin]}"></div>`;}}
+        style="background:${on?'var(--red)':(bin<0?'#F9F9F6':HMC[bin])}"></div>`;}}
   const el=document.getElementById('hm');el.innerHTML=html;
   el.querySelectorAll('.cell').forEach(e=>e.onclick=()=>{
     const w=+e.dataset.w,h=+e.dataset.h;
@@ -666,7 +669,7 @@ function drawCmp(rows){
   const all=Object.keys(grp).map(k=>{const a=agg(grp[k]);
     a.key=+k;a.raw=C.set[+k];a.label=lb(SETLB,a.raw);
     a.actR=a.users?a.act/a.users:0;a.resR=a.users?a.res/a.users:0;return a;});
-  const CLR={hanoi_2549_mf_business:'#475569',hanoi_2549_mf_family:'#CBD5E1'};
+  const CLR={hanoi_2549_mf_business:'#3D3D3A',hanoi_2549_mf_family:'#C9C9C2'};
   const main=all.filter(x=>CLR[x.raw]).sort((a,b)=>b.users-a.users),rest=all.filter(x=>!CLR[x.raw]);
   /* 막대 높이는 예약 유도 사람 수. 비율로 그리면 규모가 작은 쪽이 커 보인다.
      상세를 펼치면 그만큼 기둥을 낮춰 카드 밖으로 넘치지 않게 한다. */
@@ -674,8 +677,9 @@ function drawCmp(rows){
   const CH=F.set===null?104:66;
   document.getElementById('cmp').innerHTML=main.map(x=>
     `<div class="cb${F.set===x.key?' on':''}" data-k="${x.key}">
-      <div class="p" style="color:${CLR[x.raw]==='#CBD5E1'?'#94A3B8':CLR[x.raw]}">${n(x.res)}<span style="font-size:12px"> 명</span></div>
-      <div class="col" style="height:${Math.max(x.res/mx*CH,3).toFixed(0)}px;background:${CLR[x.raw]}"></div>
+      <div class="p" style="color:${F.set===x.key?'var(--red)':(CLR[x.raw]==='#C9C9C2'?'#8A8A84':CLR[x.raw])}">${n(x.res)}<span style="font-size:12px"> 명</span></div>
+      <div class="col" style="height:${Math.max(x.res/mx*CH,3).toFixed(0)}px;background:${
+        F.set===x.key?'var(--red)':CLR[x.raw]}"></div>
       <div class="nm">${x.label}</div>${F.set===x.key
         ?`<div class="sb">방문 <b>${n(x.users)}명</b> · CTA ${n(x.cta)}<br>
            유도율 <b>${pc(x.res,x.users)}</b> · 행동률 ${pc(x.act,x.users)}</div>`
