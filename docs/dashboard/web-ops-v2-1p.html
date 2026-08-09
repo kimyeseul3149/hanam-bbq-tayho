@@ -8,8 +8,9 @@
    평소엔 무채색, 누른 것만 빨강 — 세 페이지의 규칙이 같아야 한 묶음으로 읽힌다.
    빨강이 남는 예외는 클릭 대상이 아닌 곳뿐이다: KPI 예약 유도 숫자, ACTION 뱃지. */
 :root{--red:#E60012;--rd:#B0000E;--rl:#F8C9CD;--red45:#F48C94;--red12:#FCE3E5;
-      --c100:#1A1A1A;--c70:#616161;--c45:#939393;--c25:#C4C4C4;--lg:#E9E9E9;
-      --g5:#F4F4F1;
+      --deep:#8C1D2A;
+      --c100:#1A1A1A;--c70:#5C594F;--c45:#8B877D;--c25:#C7C3B9;--lg:#E4E0D8;
+      --g5:#F2EFE8;
       --ivory:#FFF9F2;--surf:#FFFFFF;--page:#F1ECE4}
 *{box-sizing:border-box;margin:0;padding:0}
 html{background:var(--page)}
@@ -95,7 +96,7 @@ select{font:inherit;font-size:10px;padding:2px 5px;border:1px solid var(--lg);bo
 .rr{font-size:9.5px;line-height:1.5;color:var(--c70)}
 .rr b{color:var(--c100);font-weight:700}
 .rk{display:inline-block;font-size:7.5px;font-weight:700;border-radius:7px;
-    padding:0 5px;margin-right:4px;background:#F2F2EF;color:var(--c45);
+    padding:0 5px;margin-right:4px;background:#F0EDE6;color:var(--c45);
     vertical-align:1px}
 .rr.h,.rr.h b{color:var(--c45)}
 .rr.a{color:var(--c100);font-weight:700}
@@ -115,7 +116,7 @@ table.mini{width:100%;border-collapse:collapse;font-size:9.5px;margin-top:7px;
 table.mini th{font-size:8.5px;color:var(--c45);font-weight:500;text-align:right;
               padding:0 5px 3px;border-bottom:1px solid var(--lg)}
 table.mini th:first-child{text-align:left}
-table.mini td{padding:3px 5px;text-align:right;color:var(--c70);border-bottom:1px solid #F4F4F1}
+table.mini td{padding:3px 5px;text-align:right;color:var(--c70);border-bottom:1px solid #F2EFE8}
 table.mini td:first-child{text-align:left;color:var(--c100);font-weight:700}
 table.mini td.b{color:var(--c100);font-weight:700}
 .cf{font-size:8.5px;color:var(--c45);margin-top:5px}
@@ -126,7 +127,7 @@ table.mini td.b{color:var(--c100);font-weight:700}
     font-size:10.5px;cursor:pointer;font-variant-numeric:tabular-nums}
 .br .nm{color:var(--c70);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .br.on .nm{color:var(--red);font-weight:700}
-.br .bg{position:relative;height:9px;background:#EDEDEA;border-radius:2px;overflow:hidden}
+.br .bg{position:relative;height:9px;background:#E7E3DB;border-radius:2px;overflow:hidden}
 .br .bg i{position:absolute;left:0;top:0;bottom:0;border-radius:2px;transition:width .2s}
 .br .v{text-align:right;font-weight:700}
 .br .v .u{font-size:8.5px;font-weight:400;color:var(--c45)}
@@ -176,7 +177,7 @@ table.dt td{padding:3px 7px;text-align:right;border-bottom:1px solid var(--lg);c
 table.dt td:first-child{min-width:190px}
 table.dt td:first-child{text-align:left;color:var(--c100);font-weight:600}
 table.dt tr.clk{cursor:pointer}
-table.dt tr.clk:hover td{background:#FAFAF8}
+table.dt tr.clk:hover td{background:#FAF7F1}
 table.dt tr.on td{background:var(--red12)}
 table.dt tr.tot td{border-top:1.2px solid var(--c25);border-bottom:none;color:var(--c100);font-weight:700}
 table.dt td.b{color:var(--c100);font-weight:700}
@@ -189,7 +190,7 @@ table.dt td.dim{color:var(--c25)}
 .nh span{font-weight:500;color:var(--c45);font-size:9px}
 .nr{display:flex;gap:8px;align-items:baseline;font-size:9.5px;color:var(--c70);
     line-height:1.55;margin-bottom:3px}
-.nr .i{flex:0 0 13px;height:13px;border-radius:50%;background:#F2F2EF;color:var(--c45);
+.nr .i{flex:0 0 13px;height:13px;border-radius:50%;background:#F0EDE6;color:var(--c45);
        font-size:8px;font-weight:700;display:flex;align-items:center;justify-content:center}
 .nr b{color:var(--c100)}
 .nr .a{color:var(--red);font-weight:700;white-space:nowrap}
@@ -206,7 +207,7 @@ table.dt td.dim{color:var(--c25)}
 .hp h4{font-size:12px;margin-bottom:7px}
 .hp.wide{padding:14px 18px}
 .hp table{width:100%;border-collapse:collapse;font-size:10px}
-.hp td{padding:4px 0;border-bottom:1px solid #F2F2EF;line-height:1.55;vertical-align:top;color:var(--c70)}
+.hp td{padding:4px 0;border-bottom:1px solid #F0EDE6;line-height:1.55;vertical-align:top;color:var(--c70)}
 .hp tr:last-child td{border-bottom:none}
 .hp td:first-child{width:104px;font-weight:700;color:var(--c100)}
 .hp td:last-child{width:64px;text-align:right;font-weight:700;color:var(--c100);
@@ -433,11 +434,14 @@ const lb=(m,k)=>m[k]||k, n=v=>v.toLocaleString();
 const pc=(a,b)=>b?(a/b*100).toFixed(2)+'%':'—', pc1=(a,b)=>b?(a/b*100).toFixed(1)+'%':'—';
 /* 작은 비율은 소수 첫째 자리로 자르면 1.86% 가 1.9% 가 되어 KPI 와 어긋난다 */
 const pcx=(a,b)=>!b?'—':(a/b*100<10?pc(a,b):pc1(a,b));
-/* 값이 클수록 진한 회색. 2페이지의 무채색 눈금과 같은 계열. */
-const RL=[226,226,222], RD=[61,61,58];
+/* 값이 클수록 진한 회색. 아래쪽 끝을 #C7C3B9 로 올려 베이지 배경에서도
+   가장 작은 막대가 읽히게 한다. 위쪽 끝은 검정. */
+const RL=[199,195,185], RD=[26,26,26];
 const ramp=r=>`rgb(${RL.map((v,i)=>Math.round(v+(RD[i]-v)*r)).join(',')})`;
 /* 퍼널 단계색 — 마지막만 빨강 */
-const FNC=['#E2E2DE','#B9B9B3','#7A7A74','#1A1A1A'];
+/* 마지막 단계(예약 유도)만 딥레드. 최종 목표라서 PPT 와 같은 강조를 준다.
+   어둡고 탁해서 눌렀을 때의 밝은 빨강(#E60012)과 헷갈리지 않는다. */
+const FNC=['#C7C3B9','#9A968C','#5C594F','#8C1D2A'];
 const FNT=['#1A1A1A','#1A1A1A','#FFFFFF','#FFFFFF'];
 /* 폭 압축 — 방문자 대비 비율을 0.35 제곱해 18~100% 로 편다.
    선형이면 150/8,084 = 1.9% 라 막대가 사라진다. 값은 숫자로 읽는다. */
@@ -603,7 +607,7 @@ function drawCTA(rows,o){
   const hot=idx.filter(i=>INTENT.includes(C.ctaType[i])).map(mk).filter(x=>x.v>0)
               .sort((a,b)=>b.v-a.v);
   const cold=idx.filter(i=>!INTENT.includes(C.ctaType[i])).map(mk).filter(x=>x.v>0)
-               .sort((a,b)=>b.v-a.v).map(x=>Object.assign(x,{dim:1,c:'#D8D8D2'}));
+               .sort((a,b)=>b.v-a.v).map(x=>Object.assign(x,{dim:1,c:'#CFCBC1'}));
   const items=cold.length?hot.concat([{split:'방문·탐색 의도 (예약 유도에는 포함하지 않음)'}],cold):hot;
   bars('ctList',items,it=>{if(it.split)return;F.ct=F.ct===it.i?null:it.i;render();});
   const hv=o.res;   // 메신저·전화를 모두 누른 사람이 있어 단순 합(94)은 틀리다
@@ -633,7 +637,7 @@ function drawAux(o){
       <span class="v">${n(v)}<span class="u"> 명</span></span></div>`).join('');
 }
 
-const HMC=['#F1F1EE','#D2D2CC','#A0A099','#6B6B65','#33332F'];
+const HMC=['#F2EFE8','#C7C3B9','#9A968C','#5C594F','#1A1A1A'];
 function drawHM(rows){
   const g=Array.from({length:7},()=>Array(24).fill(0));
   const us=Array.from({length:7},()=>Array.from({length:24},()=>null));
@@ -652,7 +656,7 @@ function drawHM(rows){
     for(let h=0;h<24;h++){const v=g[w][h],on=F.cell&&F.cell[0]===w&&F.cell[1]===h;
       const bin=v?Math.min(4,Math.floor(v/mx*5-1e-9)):-1;
       html+=`<div class="cell${on?' on':''}" data-w="${w}" data-h="${h}" title="${WD[w]} ${h}시 · ${n(v)}"
-        style="background:${on?'var(--red)':(bin<0?'#F9F9F6':HMC[bin])}"></div>`;}}
+        style="background:${on?'var(--red)':(bin<0?'#F7F4ED':HMC[bin])}"></div>`;}}
   const el=document.getElementById('hm');el.innerHTML=html;
   el.querySelectorAll('.cell').forEach(e=>e.onclick=()=>{
     const w=+e.dataset.w,h=+e.dataset.h;
@@ -669,7 +673,7 @@ function drawCmp(rows){
   const all=Object.keys(grp).map(k=>{const a=agg(grp[k]);
     a.key=+k;a.raw=C.set[+k];a.label=lb(SETLB,a.raw);
     a.actR=a.users?a.act/a.users:0;a.resR=a.users?a.res/a.users:0;return a;});
-  const CLR={hanoi_2549_mf_business:'#3D3D3A',hanoi_2549_mf_family:'#C9C9C2'};
+  const CLR={hanoi_2549_mf_business:'#5C594F',hanoi_2549_mf_family:'#C7C3B9'};
   const main=all.filter(x=>CLR[x.raw]).sort((a,b)=>b.users-a.users),rest=all.filter(x=>!CLR[x.raw]);
   /* 막대 높이는 예약 유도 사람 수. 비율로 그리면 규모가 작은 쪽이 커 보인다.
      상세를 펼치면 그만큼 기둥을 낮춰 카드 밖으로 넘치지 않게 한다. */
@@ -677,7 +681,7 @@ function drawCmp(rows){
   const CH=F.set===null?104:66;
   document.getElementById('cmp').innerHTML=main.map(x=>
     `<div class="cb${F.set===x.key?' on':''}" data-k="${x.key}">
-      <div class="p" style="color:${F.set===x.key?'var(--red)':(CLR[x.raw]==='#C9C9C2'?'#8A8A84':CLR[x.raw])}">${n(x.res)}<span style="font-size:12px"> 명</span></div>
+      <div class="p" style="color:${F.set===x.key?'var(--red)':(CLR[x.raw]==='#C7C3B9'?'#8B877D':CLR[x.raw])}">${n(x.res)}<span style="font-size:12px"> 명</span></div>
       <div class="col" style="height:${Math.max(x.res/mx*CH,3).toFixed(0)}px;background:${
         F.set===x.key?'var(--red)':CLR[x.raw]}"></div>
       <div class="nm">${x.label}</div>${F.set===x.key
