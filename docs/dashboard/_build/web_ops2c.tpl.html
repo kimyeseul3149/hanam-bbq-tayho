@@ -130,7 +130,16 @@ table.mini td.b{color:var(--c100);font-weight:700}
 .axn b{color:var(--c70)}
 
 /* 표 */
+/* 소재표 — 상위 3행만 보이고 나머지는 스크롤. 머리글과 합계는 붙박이. */
+/* 74px = 머리글 16 + 행 13×3.5 + 합계 12. 네 번째 행이 반쯤 보여야
+   "아래 더 있다"가 눈에 들어온다. */
+.dtw{overflow-y:auto;margin-top:2px;max-height:74px}
+.dtw::-webkit-scrollbar{width:6px}
+.dtw::-webkit-scrollbar-thumb{background:var(--lg);border-radius:3px}
 table.dt{width:100%;border-collapse:collapse;font-size:9px;font-variant-numeric:tabular-nums}
+table.dt thead th{position:sticky;top:0;background:var(--surf);z-index:2}
+table.dt tfoot td{position:sticky;bottom:0;background:var(--surf);z-index:2}
+table.dt .sm{color:var(--c45);font-weight:400;font-size:8px}
 table.dt th{font-size:8.5px;color:var(--c45);font-weight:500;text-align:right;padding:0 6px 4px;
             border-bottom:1.2px solid var(--c25);white-space:nowrap}
 table.dt th:first-child{text-align:left}
@@ -280,11 +289,11 @@ table.dt td.dim{color:var(--c25)}
   <button class="tgl" id="tglDt">소재별 성과 ▾</button>
   <button class="tgl" id="tglNx">다음 운영 개선 ▾</button><span class="ln"></span></div>
 
-<div class="c" id="dtCard" style="left:8px;top:856px;width:1584px;height:150px;display:none">
+<div class="c" id="dtCard" style="left:8px;top:856px;width:1584px;height:112px;display:none">
   <div class="t">소재별 랜딩 이후 성과 <span class="badge">위 필터가 그대로 적용</span>
     <span class="badge" id="dtSub"></span>
     <span class="badge" style="margin-left:auto">Meta 광고 지표(노출·CTR·CPC·비용)는 2페이지 · 광고 외 직접 유입 제외</span></div>
-  <table class="dt" id="dt"></table>
+  <div class="dtw" id="dtw"><table class="dt" id="dt"></table></div>
 </div>
 
 <div class="c" id="nextCard" style="left:8px;top:856px;width:1584px;height:132px;display:none">
@@ -359,6 +368,8 @@ const CLLB={hero:'hero 첫화면',floating:'floating 우하단',header:'header �
 /* 예약과 직접 연결되는 CTA는 메신저·전화 둘뿐이다.
    길찾기는 방문 의도, 메뉴 보기는 콘텐츠 열람이라 아래 묶음으로 내린다. */
 const INTENT=['message_book','call_phone'];
+/* 소재 순위의 최소 표본. 이 아래는 비율이 표본에 따라 출렁여 비교하지 않는다. */
+const MIN_N=300;
 const lb=(m,k)=>m[k]||k, n=v=>v.toLocaleString();
 const pc=(a,b)=>b?(a/b*100).toFixed(2)+'%':'—', pc1=(a,b)=>b?(a/b*100).toFixed(1)+'%':'—';
 /* 값이 클수록 진한 빨강 — 태블로 '하남 레드 순차'와 같은 양 끝 */
@@ -591,23 +602,33 @@ function drawDT(rows){
   const grp={};rows.forEach(i=>{const k=S[i][COL.cre];if(k===NONE)return;(grp[k]=grp[k]||[]).push(i);});
   const items=Object.keys(grp).map(k=>{const a=agg(grp[k]);
     a.key=+k;a.label=lb(CRELB,C.cre[+k]);
-    a.actR=a.users?a.act/a.users:0;a.resR=a.users?a.res/a.users:0;return a;})
+    a.actR=a.users?a.act/a.users:0;a.resR=a.users?a.res/a.users:0;
+    /* 방문 300명 미만은 비율이 크게 출렁여 순위 비교에서 뺀다.
+       (방문 120명에서 예약 2명이면 1.67% — 1명만 늘어도 2.5%가 된다) */
+    a.small=a.users<MIN_N;return a;})
     .sort((a,b)=>b.users-a.users);
   const flat=[].concat(...Object.values(grp)),T=agg(flat);
   T.actR=T.users?T.act/T.users:0;T.resR=T.users?T.res/T.users:0;
   const fmt=(r,c)=>(c==='actR'||c==='resR')?(r[c]?(r[c]*100).toFixed(2)+'%':'—'):n(r[c]);
-  let h='<tr><th>소재</th>'+DTC.map(c=>`<th>${c[0]}</th>`).join('')+'</tr>';
-  items.forEach(r=>{h+=`<tr class="clk${F.cre===r.key?' on':''}" data-k="${r.key}"><td>${r.label}</td>`
-    +DTC.map(c=>`<td class="${c[2]?'b':''}${r[c[1]]?'':' dim'}">${fmt(r,c[1])}</td>`).join('')+'</tr>';});
-  h+='<tr class="tot"><td>전체</td>'+DTC.map(c=>`<td>${fmt(T,c[1])}</td>`).join('')+'</tr>';
+  let h='<thead><tr><th>소재</th>'+DTC.map(c=>`<th>${c[0]}</th>`).join('')+'</tr></thead><tbody>';
+  items.forEach(r=>{h+=`<tr class="clk${F.cre===r.key?' on':''}" data-k="${r.key}"><td>${r.label}${
+    r.small?' <span class="sm">N작음</span>':''}</td>`
+    +DTC.map(c=>`<td class="${c[2]&&!r.small?'b':''}${r[c[1]]?'':' dim'}">${fmt(r,c[1])}</td>`).join('')+'</tr>';});
+  h+='</tbody><tfoot><tr class="tot"><td>전체</td>'
+    +DTC.map(c=>`<td>${fmt(T,c[1])}</td>`).join('')+'</tr></tfoot>';
   const el=document.getElementById('dt');el.innerHTML=h;
   el.querySelectorAll('tr.clk').forEach(e=>e.onclick=()=>{
     const k=+e.dataset.k;F.cre=F.cre===k?null:k;render();});
-  document.getElementById('dtSub').innerHTML=`${items.length}개 소재 · 방문자 내림차순 · 행 클릭 시 화면 전체가 좁혀집니다`;
-  const bst=items.slice().sort((a,b)=>b.resR-a.resR)[0];
+  document.getElementById('dtSub').innerHTML=`${items.length}개 소재 · 방문자 내림차순 · 아래로 스크롤하면 나머지 · 행 클릭 시 화면 전체가 좁혀집니다`;
+  /* 순위는 방문 300명 이상에서만 매긴다 — 「다음 운영 개선」과 같은 규칙 */
+  const big=items.filter(x=>!x.small);
+  const bst=big.slice().sort((a,b)=>b.resR-a.resR)[0];
   document.getElementById('sec5').innerHTML=bst&&bst.resR
-    ?`유도율 1위 <b>${bst.label} ${(bst.resR*100).toFixed(2)}%</b> · 예약 <b>${n(bst.res)}명</b>`
-    :'해당 조건에 예약 유도 없음';
+    ?`유도율 1위 <b>${bst.label} ${(bst.resR*100).toFixed(2)}%</b> · 예약 <b>${n(bst.res)}명</b>
+      <span style="color:var(--c45)">· 방문 ${n(MIN_N)}명 이상 소재만 비교</span>`
+    :(items.some(x=>x.res)
+      ?`<span style="color:var(--c45)">방문 ${n(MIN_N)}명 이상인 소재가 없어 순위 비교를 생략합니다</span>`
+      :'해당 조건에 예약 유도 없음');
 }
 
 
@@ -619,7 +640,7 @@ function drawNext(rows,o){
   const grp={};rows.forEach(i=>{const k=S[i][COL.cre];if(k===NONE)return;(grp[k]=grp[k]||[]).push(i);});
   const cre=Object.keys(grp).map(k=>{const a=agg(grp[k]);
     a.label=lb(CRELB,C.cre[+k]);a.resR=a.users?a.res/a.users:0;return a;});
-  const big=cre.filter(x=>x.users>=300);
+  const big=cre.filter(x=>x.users>=MIN_N);
   const top=big.slice().sort((a,b)=>b.resR-a.resR)[0];
   const bot=big.slice().sort((a,b)=>a.resR-b.resR)[0];
   /* 예약 의사 표현이 몰린 시간대 */
@@ -663,7 +684,7 @@ function drawNext(rows,o){
 /* 두 패널 모두 기본은 접힘. 열면 보드가 그만큼 길어진다 —
    나머지를 찌그러뜨리지 않고, 기본 화면은 정확히 한 장으로 남긴다. */
 const PANELS=[
-  {open:false,btn:'tglDt',card:'dtCard',h:150,lab:'소재별 성과'},
+  {open:false,btn:'tglDt',card:'dtCard',h:112,lab:'소재별 성과'},
   {open:false,btn:'tglNx',card:'nextCard',h:132,lab:'다음 운영 개선'},
 ];
 const BASE_TOP=856, BASE_H=900;
