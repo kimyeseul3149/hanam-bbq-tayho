@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<title>SA 장표 04 — 퍼널</title>
+<style>
+/* 발표 장표에 얹는 그림. 대시보드와 같은 색·서체를 쓴다.
+   한 장에 14,570과 90을 같은 눈금으로 그리면 마지막 두 단계가 머리카락이 된다.
+   그래서 눈금을 세 번 새로 잡고, 그때마다 기준값을 적는다. */
+:root{--red:#E60012;--c100:#1A1A1A;--c70:#616161;--c45:#939393;--c25:#C4C4C4;
+      --lg:#E9E9E9;--ivory:#FFF9F2;--surf:#FFFFFF}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1600px;height:720px;background:var(--ivory);
+     font-family:"Malgun Gothic",system-ui,sans-serif;color:var(--c100);
+     -webkit-font-smoothing:antialiased;padding:44px 56px;display:flex;flex-direction:column}
+
+.hd{display:flex;align-items:baseline;gap:14px;border-top:5px solid var(--red);
+    padding-top:16px;margin-bottom:6px}
+.hd h1{font-size:31px;font-weight:800;letter-spacing:-.01em}
+.hd .sub{font-size:15px;color:var(--c45)}
+
+.tier{margin-top:26px}
+.th{display:flex;align-items:baseline;gap:9px;margin-bottom:11px}
+.th .no{width:25px;height:25px;border-radius:50%;background:var(--c100);color:#fff;
+        font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;
+        flex:none;transform:translateY(4px)}
+.th .tt{font-size:19px;font-weight:700}
+.th .base{font-size:13.5px;color:var(--c45)}
+
+.row{display:flex;align-items:center;gap:16px;margin-bottom:7px}
+.row .nm{width:158px;flex:none;font-size:16px;font-weight:700;text-align:right}
+.row .track{flex:1;height:42px;background:#EFEDE8;border-radius:4px;position:relative}
+.row .fill{position:absolute;left:0;top:0;bottom:0;border-radius:4px}
+.row .inv{position:absolute;top:0;bottom:0;display:flex;align-items:center;
+           padding-left:15px;font-size:22px;font-weight:800;color:#fff;
+           font-variant-numeric:tabular-nums}
+.row .out{position:absolute;top:0;bottom:0;display:flex;align-items:center;
+           padding-left:13px;font-size:22px;font-weight:800;color:var(--c100);
+           font-variant-numeric:tabular-nums;white-space:nowrap}
+.row .pct{width:104px;flex:none;font-size:19px;font-weight:700;text-align:right;
+          font-variant-numeric:tabular-nums}
+
+.gap{display:flex;align-items:center;gap:10px;margin:2px 0 7px 174px;
+     font-size:14.5px;color:var(--c70)}
+.gap .ar{color:var(--c45);font-size:13px}
+.gap b{color:var(--red);font-weight:700}
+.gap .keep b{color:var(--c100)}
+
+.ft{margin-top:auto;padding-top:16px;border-top:1px solid var(--lg);
+    display:flex;gap:22px;font-size:12.5px;color:var(--c45)}
+.ft b{color:var(--c70);font-weight:700}
+</style></head><body>
+
+<div class="hd">
+  <h1>광고 클릭에서 예약 의사 표현까지</h1>
+  <div class="sub">단계마다 규모가 달라 눈금을 세 번 새로 잡았습니다 — 각 단계의 기준값을 함께 표기</div>
+</div>
+
+<!-- ① 클릭 → 도착 : 사람이 절반 사라지는 구간 -->
+<div class="tier">
+  <div class="th"><span class="no">1</span><span class="tt">광고를 누른 사람 중 페이지에 도착한 사람</span>
+    <span class="base">기준 · 고유 링크클릭 14,570명</span></div>
+  <div class="row"><div class="nm">고유 클릭</div>
+    <div class="track"><div class="fill" style="width:100%;background:#C4C4C4"></div>
+      <div class="inv">14,570</div></div><div class="pct">100%</div></div>
+  <div class="gap"><span class="ar">└</span>
+    <span><b>6,486명(44.5%)</b>이 페이지 도착 전에 사라짐 — 로딩 이탈·인앱 브라우저 오류 등</span></div>
+  <div class="row"><div class="nm">랜딩 도착</div>
+    <div class="track"><div class="fill" style="width:55.48%;background:#8A8A80"></div>
+      <div class="inv">8,084</div></div><div class="pct">55.5%</div></div>
+</div>
+
+<!-- ② 도착 → CTA : 대부분이 아무것도 누르지 않는 구간 -->
+<div class="tier">
+  <div class="th"><span class="no">2</span><span class="tt">도착한 사람 중 버튼을 누른 사람</span>
+    <span class="base">기준 · 랜딩 도착 8,084명</span></div>
+  <div class="row"><div class="nm">랜딩 도착</div>
+    <div class="track"><div class="fill" style="width:100%;background:#8A8A80"></div>
+      <div class="inv">8,084</div></div><div class="pct">100%</div></div>
+  <div class="gap"><span class="ar">└</span>
+    <span><b>7,974명(98.6%)</b>이 아무 버튼도 누르지 않고 이탈</span></div>
+  <div class="row"><div class="nm">CTA 클릭</div>
+    <div class="track"><div class="fill" style="width:1.36%;background:#3D3D38"></div>
+      <div class="out" style="left:1.36%">110</div></div><div class="pct">1.36%</div></div>
+</div>
+
+<!-- ③ CTA → 예약 유도 : 여기만 잔존율이 높다 -->
+<div class="tier">
+  <div class="th"><span class="no">3</span><span class="tt">버튼을 누른 사람 중 예약 의사를 표현한 사람</span>
+    <span class="base">기준 · CTA 클릭 110명</span></div>
+  <div class="row"><div class="nm">CTA 클릭</div>
+    <div class="track"><div class="fill" style="width:100%;background:#3D3D38"></div>
+      <div class="inv">110</div></div><div class="pct">100%</div></div>
+  <div class="gap"><span class="ar">└</span>
+    <span class="keep">누른 사람의 <b>81.8%</b>가 예약 메시지 보내기·전화 걸기까지 이어짐 — 버튼은 제 역할을 했다</span></div>
+  <div class="row"><div class="nm">예약 유도</div>
+    <div class="track"><div class="fill" style="width:81.82%;background:#E60012"></div>
+      <div class="inv">90</div></div><div class="pct">81.8%</div></div>
+</div>
+
+<div class="ft">
+  <span><b>기간</b> 2026-07-20 ~ 08-02 (14일, 하노이 현지 달력)</span>
+  <span><b>출처</b> Meta 광고 관리자 · Amplitude 이벤트 실측</span>
+  <span><b>단위</b> 모두 사람 수(고유 기기 기준) — 클릭 횟수 아님</span>
+  <span><b>예약 유도</b> 예약 메시지 보내기 · 전화 걸기 버튼 클릭까지 (실제 예약 성사는 미연동)</span>
+</div>
+
+</body></html>
