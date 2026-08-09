@@ -835,6 +835,7 @@ select{font:inherit;font-size:10px;padding:2px 5px;border:1px solid var(--lg);bo
 .fs .n{margin-left:auto;font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
 .fs .pc{font-size:10px;color:var(--c70);width:52px;text-align:right;font-variant-numeric:tabular-nums}
 .fs.on{outline:1.5px solid var(--red);outline-offset:-1.5px}
+#fn.plain .fs:not(:last-child){margin-bottom:18px}
 /* 전환식 줄 — 분자/분모를 왼쪽에, 이탈을 오른쪽에. 계산 기준이 보여야 한다 */
 .dr{font-size:9.5px;color:var(--c45);display:flex;justify-content:space-between;
     height:14px;line-height:14px;padding:0 12px}
@@ -867,9 +868,9 @@ select{font:inherit;font-size:10px;padding:2px 5px;border:1px solid var(--lg);bo
 .rr.a .rk{background:var(--red);color:#fff}
 
 /* 세로 막대 비교 */
-.cmp{display:flex;align-items:flex-end;justify-content:center;gap:52px;height:140px;margin-top:4px}
+.cmp{display:flex;align-items:flex-end;justify-content:center;gap:52px;height:164px;margin-top:6px}
 .cb{display:flex;flex-direction:column;align-items:center;cursor:pointer;flex:0 0 118px}
-.cb .p{font-size:20px;font-weight:700;margin-bottom:4px;font-variant-numeric:tabular-nums}
+.cb .p{font-size:22px;font-weight:700;margin-bottom:5px;font-variant-numeric:tabular-nums}
 .cb .col{width:96px;border-radius:3px 3px 0 0;transition:height .22s;min-height:3px}
 .cb.on .col{outline:2px solid var(--c100);outline-offset:2px}
 .cb .nm{font-size:13px;font-weight:700;margin-top:7px}
@@ -1010,8 +1011,7 @@ table.dt td.dim{color:var(--c25)}
 </div>
 
 <div class=&quot;sec&quot; style=&quot;left:8px;top:52px;width:1584px;height:16px&quot;>
-  <span class=&quot;n&quot;>1</span><span class=&quot;st&quot;>랜딩페이지 운영 성과</span>
-  <span class=&quot;sd&quot; id=&quot;sec1&quot;></span><span class=&quot;ln&quot;></span></div>
+  <span class=&quot;n&quot;>1</span><span class=&quot;st&quot;>랜딩페이지 운영 성과</span><span class=&quot;ln&quot;></span></div>
 
 <div class=&quot;c k&quot; id=&quot;k0&quot; style=&quot;left:8px;top:68px;width:384px;height:76px&quot;></div>
 <div class=&quot;c k&quot; id=&quot;k1&quot; style=&quot;left:408px;top:68px;width:384px;height:76px&quot;></div>
@@ -1029,8 +1029,9 @@ table.dt td.dim{color:var(--c25)}
   <span class=&quot;st&quot; style=&quot;font-size:10px;color:var(--c45)&quot;>ACTION</span><span class=&quot;ln&quot;></span></div>
 
 <div class=&quot;c&quot; style=&quot;left:8px;top:164px;width:545px;height:238px&quot;>
-  <div class=&quot;t&quot;>어떤 광고가 유입을 만들었나? <span class=&quot;badge k&quot;>막대 클릭</span></div>
-  <div class=&quot;s&quot; id=&quot;cmpSub&quot;></div>
+  <div class=&quot;t&quot;>어떤 광고가 유입을 만들었나?
+    <button class=&quot;qm&quot; data-hp=&quot;hpCmp&quot; title=&quot;세는 법 보기&quot;>?</button>
+    <span class=&quot;badge k&quot;>막대 클릭</span></div>
   <div class=&quot;cmp&quot; id=&quot;cmp&quot;></div>
   <div class=&quot;kf&quot; id=&quot;cmpFind&quot;></div>
 </div>
@@ -1038,7 +1039,7 @@ table.dt td.dim{color:var(--c25)}
 <div class=&quot;c&quot; style=&quot;left:565px;top:164px;width:775px;height:238px&quot;>
   <div class=&quot;t&quot;>유입 후 어디에서 이탈했나? <span class=&quot;badge k&quot;>단계 클릭</span>
     <button class=&quot;qm&quot; id=&quot;qmFn&quot; title=&quot;단계 정의 보기&quot;>?</button>
-    <span class=&quot;badge&quot; style=&quot;margin-left:auto&quot;>전환율 = 다음 단계 ÷ 직전 단계 · 모두 사람 수</span></div>
+    <span class=&quot;badge&quot; style=&quot;margin-left:auto&quot;>단계를 누르면 전환율 계산식</span></div>
   <div class=&quot;s&quot; id=&quot;fnSub&quot;></div>
   <div id=&quot;fn&quot;></div>
   <div class=&quot;ckp&quot;><div class=&quot;kf&quot; id=&quot;ckp&quot; style=&quot;margin-top:0;border-top:none;padding-top:0&quot;></div></div>
@@ -1052,7 +1053,7 @@ table.dt td.dim{color:var(--c25)}
 <!-- 옛 3(무엇을·어디에서)과 4(언제)를 한 섹션으로 합쳤다. 라벨 한 줄만큼 공간이 남는다. -->
 <div class=&quot;sec&quot; style=&quot;left:8px;top:406px;width:1584px;height:16px&quot;>
   <span class=&quot;n&quot;>4</span><span class=&quot;st&quot;>방문자 행동 분석</span>
-  <span class=&quot;sd&quot; id=&quot;sec4&quot;></span><span class=&quot;ln&quot;></span></div>
+  <span class=&quot;sd&quot; id=&quot;sec4&quot; style=&quot;color:var(--c25)&quot;></span><span class=&quot;ln&quot;></span></div>
 
 <div class=&quot;c&quot; style=&quot;left:8px;top:422px;width:788px;height:148px&quot;>
   <div class=&quot;t&quot;>어떤 CTA를 눌렀나? <span class=&quot;badge k&quot;>막대 클릭</span>
@@ -1088,11 +1089,12 @@ table.dt td.dim{color:var(--c25)}
 <div class=&quot;sec&quot; style=&quot;left:8px;top:746px;width:1332px;height:16px&quot;>
   <span class=&quot;n&quot;>5</span><span class=&quot;st&quot;>소재별 랜딩 이후 성과</span>
   <span class=&quot;sd&quot; id=&quot;sec5&quot;></span>
+  <button class=&quot;tgl&quot; id=&quot;tglDt&quot;>소재별 표 ▾</button>
   <button class=&quot;tgl&quot; id=&quot;tglNx&quot;>전체 ACTION 요약 ▾</button><span class=&quot;ln&quot;></span></div>
 <div class=&quot;sec&quot; style=&quot;left:1352px;top:746px;width:240px;height:16px&quot;>
   <span class=&quot;st&quot; style=&quot;font-size:10px;color:var(--c45)&quot;>ACTION</span><span class=&quot;ln&quot;></span></div>
 
-<div class=&quot;c&quot; id=&quot;dtCard&quot; style=&quot;left:8px;top:762px;width:1332px;height:130px;padding:5px 11px&quot;>
+<div class=&quot;c&quot; id=&quot;dtCard&quot; style=&quot;left:8px;top:762px;width:1332px;height:130px;padding:5px 11px;display:none&quot;>
   <div class=&quot;t&quot; style=&quot;font-size:11.5px&quot;>어떤 소재가 예약 유도까지 연결했나?
     <span class=&quot;badge k&quot;>행 클릭 시 상세</span>
     <span class=&quot;badge&quot; id=&quot;dtSub&quot; style=&quot;margin-left:auto&quot;></span>
@@ -1100,7 +1102,7 @@ table.dt td.dim{color:var(--c25)}
   <div class=&quot;dtw&quot; id=&quot;dtw&quot;><table class=&quot;dt&quot; id=&quot;dt&quot;></table></div>
 </div>
 
-<div class=&quot;c rail&quot; style=&quot;left:1352px;top:762px;width:240px;height:130px&quot;>
+<div class=&quot;c rail&quot; id=&quot;dtRail&quot; style=&quot;left:1352px;top:762px;width:240px;height:130px&quot;>
   <div class=&quot;rl&quot; id=&quot;rlDt&quot;></div>
 </div>
 
@@ -1117,6 +1119,20 @@ table.dt td.dim{color:var(--c25)}
       <div id=&quot;nxWeb&quot;></div>
     </div>
   </div>
+</div>
+
+<div class=&quot;hp&quot; id=&quot;hpCmp&quot; style=&quot;left:20px;top:196px;width:560px&quot;>
+  <h4>이 막대는 이렇게 셉니다 <span style=&quot;font-weight:500;color:var(--c45);font-size:10px&quot;>— 모두 고유 사용자(device_id) 기준</span></h4>
+  <table>
+    <tr><td>막대 높이</td><td><b>예약 유도 사람 수</b> — 메신저 예약 또는 전화 걸기를 누른 사람</td></tr>
+    <tr><td>방문</td><td>그 광고세트로 들어와 랜딩페이지가 열린 사람</td></tr>
+    <tr><td>CTA</td><td>예약 관련 버튼 5종 중 하나를 누른 사람</td></tr>
+    <tr><td>유도율</td><td>예약 유도 ÷ 방문</td></tr>
+  </table>
+  <div class=&quot;note&quot;>막대 높이를 비율이 아니라 <b>사람 수</b>로 둔 이유 —
+    비율은 방문 규모가 작은 쪽이 쉽게 커 보입니다. 규모를 먼저 보고 비율은 아래 줄에서 확인합니다.<br>
+    광고세트가 둘뿐이라 <b>business</b>와 <b>family</b>만 막대로 그리고,
+    나머지는 표본이 작아 제외합니다.</div>
 </div>
 
 <div class=&quot;hp&quot; id=&quot;hpFn&quot; style=&quot;left:585px;top:202px;width:600px&quot;>
@@ -1261,11 +1277,11 @@ function drawFn(o){
   /* 단계를 누르면 그 단계까지 온 사람만 남긴다. 화면 전체가 같이 좁혀지므로
      지금 누구를 보고 있는지 문장으로 알려 준다. */
   const stLab=(FN.find(x=>x[0]===F.stage)||[])[1];
-  document.getElementById('fnSub').innerHTML=F.stage
+  /* 고른 단계가 있을 때만 안내한다. 없을 때 쓰던 문장은 섹션 라벨과 겹쳐 뺐다. */
+  document.getElementById('fnSub').innerHTML=(F.stage&amp;&amp;F.stage!=='arrive')
     ?`<b style=&quot;color:var(--red)&quot;>「${stLab}」 단계까지 온 ${n(v0)}명만</b> 보고 있습니다 —
        화면의 모든 카드가 이 사람들 기준입니다 · 다시 누르면 해제`
-    :`방문자 ${n(v0)}명 중 예약 의사 표현 ${n(o.res)}명 · 무행동 이탈 ${pc1(v0-o.anyclick,v0)}
-      <span style=&quot;color:var(--c25)&quot;>|</span> 단계를 누르면 그 단계까지 온 사람만 봅니다`;
+    :'&amp;nbsp;';
   let h='';
   FN.forEach(([k,nm],i)=>{
     const v=o[k],w=v0?v/v0*100:0;
@@ -1273,14 +1289,16 @@ function drawFn(o){
       <i style=&quot;width:${w.toFixed(2)}%;background:${FNC[i]}&quot;></i>
       <div class=&quot;in&quot;><span class=&quot;nm&quot;>${nm}</span>
         <span class=&quot;n&quot;>${n(v)}</span><span class=&quot;pc&quot;>${pc1(v,v0)}</span></div></div>`;
-    if(i<FN.length-1){const nx=o[FN[i+1][0]],dr=v-nx;
-      /* 전환율의 분자와 분모를 그대로 보여 준다 — 무엇을 무엇으로 나눴는지가 보여야 한다 */
+    /* 계산식은 그 단계를 눌렀을 때만. 늘 켜 두면 막대보다 글씨가 많아진다. */
+    if(i<FN.length-1&amp;&amp;F.stage===k){const nx=o[FN[i+1][0]],dr=v-nx;
       h+=`<div class=&quot;dr&quot;><span class=&quot;fx&quot;>${FN[i+1][1]} ${n(nx)} / ${nm} ${n(v)} = <b>${pcx(nx,v)}</b></span>
         <span class=&quot;ls&quot;>이탈 <b>${n(dr)}명</b> (${pc1(dr,v)})</span></div>`;}
   });
   const el=document.getElementById('fn');el.innerHTML=h;
+  /* 계산식이 없을 때도 막대 간격이 같아야 카드 높이가 흔들리지 않는다 */
+  el.className=F.stage?'':'plain';
   el.querySelectorAll('.fs').forEach(e=>e.onclick=()=>{
-    const k=e.dataset.stage;F.stage=(F.stage===k||k==='arrive')?null:k;render();});
+    const k=e.dataset.stage;F.stage=F.stage===k?null:k;render();});
   drawCkp(o);
 }
 
@@ -1375,6 +1393,10 @@ function drawHM(rows){
     (us[w][h]=us[w][h]||new Set()).add(r[COL.u]);});
   if(M.hm!=='sess')for(let w=0;w<7;w++)for(let h=0;h<24;h++)g[w][h]=us[w][h]?us[w][h].size:0;
   const mx=Math.max(1,...g.flat());
+  /* 가장 많았던 칸과 저녁 시간대 비중 — 라벨에서 뺀 문장을 여기로 옮겼다 */
+  let bw=0,bh=0,bv=0,tot=0,ev=0;
+  for(let w=0;w<7;w++)for(let h=0;h<24;h++){const v=g[w][h];tot+=v;
+    if(h>=18&amp;&amp;h<=22)ev+=v; if(v>bv){bv=v;bw=w;bh=h;}}
   let html='<div></div>'+Array.from({length:24},(_,h)=>`<div class=&quot;hh&quot;>${h%2===0?h:''}</div>`).join('');
   for(let w=0;w<7;w++){html+=`<div class=&quot;rh&quot;>${WD[w]}</div>`;
     for(let h=0;h<24;h++){const v=g[w][h],on=F.cell&amp;&amp;F.cell[0]===w&amp;&amp;F.cell[1]===h;
@@ -1385,8 +1407,11 @@ function drawHM(rows){
   el.querySelectorAll('.cell').forEach(e=>e.onclick=()=>{
     const w=+e.dataset.w,h=+e.dataset.h;
     F.cell=(F.cell&amp;&amp;F.cell[0]===w&amp;&amp;F.cell[1]===h)?null:[w,h];render();});
-  find('hmFind',`${{sess:'세션',cta:'CTA 사용자',res:'예약 유도 사용자'}[M.hm]} 분포 ·
-    가장 짙은 칸 ${n(mx)} · 5단계 · 진할수록 많음`);
+  const ML={sess:'방문',cta:'CTA 클릭',res:'예약 유도'}[M.hm];
+  find('hmFind',tot
+    ?`${ML}가 가장 많았던 때는 <b>${WD[bw]} ${bh}시</b> — ${n(bv)}${M.hm==='sess'?'':'명'}
+      · 저녁 18~22시에 <b>${pc1(ev,tot)}</b> 집중`
+    :`해당 조건에 ${ML} 없음`);
 }
 
 function drawCmp(rows){
@@ -1396,21 +1421,20 @@ function drawCmp(rows){
     a.actR=a.users?a.act/a.users:0;a.resR=a.users?a.res/a.users:0;return a;});
   const CLR={hanoi_2549_mf_business:'#B0000E',hanoi_2549_mf_family:'#F8C9CD'};
   const main=all.filter(x=>CLR[x.raw]).sort((a,b)=>b.users-a.users),rest=all.filter(x=>!CLR[x.raw]);
-  const mx=Math.max(...main.map(x=>x.resR),0)||1;
+  /* 막대 높이는 예약 유도 사람 수. 비율로 그리면 규모가 작은 쪽이 커 보인다. */
+  const mx=Math.max(...main.map(x=>x.res),0)||1;
   document.getElementById('cmp').innerHTML=main.map(x=>
     `<div class=&quot;cb${F.set===x.key?' on':''}&quot; data-k=&quot;${x.key}&quot;>
-      <div class=&quot;p&quot; style=&quot;color:${CLR[x.raw]==='#F8C9CD'?'#C4909A':CLR[x.raw]}&quot;>${(x.resR*100).toFixed(2)}%</div>
-      <div class=&quot;col&quot; style=&quot;height:${Math.max(x.resR/mx*60,3).toFixed(0)}px;background:${CLR[x.raw]}&quot;></div>
+      <div class=&quot;p&quot; style=&quot;color:${CLR[x.raw]==='#F8C9CD'?'#C4909A':CLR[x.raw]}&quot;>${n(x.res)}<span style=&quot;font-size:12px&quot;> 명</span></div>
+      <div class=&quot;col&quot; style=&quot;height:${Math.max(x.res/mx*90,3).toFixed(0)}px;background:${CLR[x.raw]}&quot;></div>
       <div class=&quot;nm&quot;>${x.label}</div>
-      <div class=&quot;sb&quot;>방문 <b>${n(x.users)}명</b> · 유도 <b>${n(x.res)}명</b><br>
-        행동률 ${pc(x.act,x.users)} · CTA ${n(x.cta)}</div></div>`).join('')
+      <div class=&quot;sb&quot;>방문 <b>${n(x.users)}명</b> · CTA ${n(x.cta)}<br>
+        유도율 ${pc(x.res,x.users)}</div></div>`).join('')
     ||'<div class=&quot;empty&quot;>데이터 없음</div>';
   document.querySelectorAll('#cmp .cb').forEach(e=>e.onclick=()=>{
     const k=+e.dataset.k;F.set=F.set===k?null:k;
     document.getElementById('selSet').value=F.set===null?'':F.set;render();});
   const a=main[0],b=main[1];
-  document.getElementById('cmpSub').innerHTML=
-    '막대 높이 = 예약 유도율 (예약 유도 ÷ 방문자) · 모두 사람 수';
   const win=(a&amp;&amp;b)?(a.resR>=b.resR?a:b):a;
   const lose=(a&amp;&amp;b)?(a.resR>=b.resR?b:a):null;
   find('cmpFind',win
@@ -1532,6 +1556,13 @@ function drawNext(rows,o){
   document.getElementById('nxWeb').innerHTML=html(web);
 }
 
+/* 소재별 표는 기본 접힘. 섹션 라벨이 이미 1위 소재와 유도율을 들고 있어서
+   자세히 볼 때만 편다. 보드 높이는 그대로다 — 자리는 늘 비워 두었다. */
+const DTB=document.getElementById('tglDt');
+DTB.onclick=()=>{const on=DTB.textContent.indexOf('▾')>=0;
+  document.getElementById('dtCard').style.display=on?'block':'none';
+  DTB.textContent='소재별 표 '+(on?'▴':'▾');DTB.classList.toggle('on',on);};
+
 /* 전체 ACTION 요약은 떠 있는 패널로 연다. 보드를 늘리면 900을 넘기 때문이다. */
 const NXB=document.getElementById('tglNx'),NXC=document.getElementById('nextCard');
 NXB.onclick=e=>{e.stopPropagation();
@@ -1567,7 +1598,7 @@ function drawChips(){
   if(F.set!==null)cs.push(['set','세트 '+lb(SETLB,C.set[F.set])]);
   if(F.cre!==null)cs.push(['cre',lb(CRELB,C.cre[F.cre])]);
   if(F.cell)cs.push(['cell',WD[F.cell[0]]+' '+F.cell[1]+'시']);
-  if(F.stage)cs.push(['stage',(FN.find(x=>x[0]===F.stage)||['',''])[1]]);
+  if(F.stage&amp;&amp;F.stage!=='arrive')cs.push(['stage',(FN.find(x=>x[0]===F.stage)||['',''])[1]]);
   if(F.ct!==null)cs.push(['ct',lb(CTLB,C.ctaType[F.ct])]);
   if(F.cl!==null)cs.push(['cl',lb(CLLB,C.ctaLoc[F.cl])]);
   const el=document.getElementById('chips');
@@ -1582,24 +1613,12 @@ function drawChips(){
     document.getElementById('selDay').value=F.day===null?'':F.day;render();});
 }
 
-/* 섹션 라벨의 설명은 현재 필터에 맞춰 문장으로 다시 쓴다 */
+/* 섹션 라벨의 설명은 현재 필터에 맞춰 문장으로 다시 쓴다.
+   같은 말을 두 번 하지 않는다 — 카드 안에 이미 있는 숫자는 라벨에 쓰지 않는다. */
 function drawSec(rows,o){
-  document.getElementById('sec1').innerHTML=F.day!==null
-    ? `<b>${DATES[F.day].slice(5).replace('-','/')}</b> 하루 — <b>${n(o.users)}명</b>이 들어와 <b>${n(o.res)}명</b>이
-       예약 의사를 표현했다 <span style=&quot;color:var(--c25)&quot;>|</span>
-       하루 단위는 표본이 작아 <b>비율보다 건수</b>로 봅니다`
-    : `<b>${n(o.users)}명</b>이 들어와 <b>${n(o.res)}명</b>이 예약 의사를 표현했다 — 유도율 <b>${pc(o.res,o.users)}</b>`;
   document.getElementById('sec3').innerHTML=
     `방문자 <b>${n(o.users)}</b> → 행동 <b>${n(o.act)}</b> → CTA <b>${n(o.cta)}</b> → 예약 유도 <b>${n(o.res)}</b> (모두 명)`;
-  const g=Array.from({length:7},()=>Array(24).fill(0));
-  rows.forEach(i=>{const r=S[i];if(r[COL.res])g[r[COL.wd]][r[COL.hour]]++;});
-  let bw=0,bh=0,bv=0,hh=Array(24).fill(0);
-  for(let w=0;w<7;w++)for(let h=0;h<24;h++){if(g[w][h]>bv){bv=g[w][h];bw=w;bh=h;}hh[h]+=g[w][h];}
-  const ev=hh.slice(18,23).reduce((a,b)=>a+b,0),tot=hh.reduce((a,b)=>a+b,0);
-  document.getElementById('sec4').innerHTML=tot
-    ?`무엇을 · 어디에서 · 언제 눌렀는가 <span style=&quot;color:var(--c25)&quot;>|</span>
-      예약 유도의 <b>${pc1(ev,tot)}</b>가 저녁 18~22시에 나왔다 — 최다 <b>${WD[bw]} ${bh}시</b>`
-    :'무엇을 · 어디에서 · 언제 눌렀는가';
+  document.getElementById('sec4').innerHTML='무엇을 · 어디에서 · 언제 눌렀는가';
 }
 function render(){
   const rows=sel(),o=agg(rows);
