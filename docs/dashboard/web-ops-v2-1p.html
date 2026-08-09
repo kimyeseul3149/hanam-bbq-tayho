@@ -618,10 +618,14 @@ function drawCTA(rows,o){
   const li=C.ctaLoc.map((nm,i)=>({i,nm:lb(CLLB,nm),v:(lU[i]||{size:0}).size,on:F.cl===i}))
     .filter(x=>x.v>0).sort((a,b)=>b.v-a.v);
   bars('clList',li,it=>{F.cl=F.cl===it.i?null:it.i;render();});
-  const all=li.reduce((a,b)=>a+b.v,0),top=li[0];
+  /* 분모는 고유 CTA 클릭자다. 위치별 사용자 수를 더하면 두 곳에서 누른
+     사람이 두 번 세어진다(115 vs 110). 상위 2개도 합이 아니라 합집합. */
+  const top=li[0];
+  const uni=(a,b)=>{const t=new Set();[a,b].forEach(i=>{if(i!==undefined&&lU[i])lU[i].forEach(x=>t.add(x));});return t.size;};
+  const top2=li.length>1?uni(li[0].i,li[1].i):(top?top.v:0);
   find('clFind',top
-    ?`<b>${top.nm}</b>에서 가장 많이 눌렀다 — <b>${n(top.v)}명</b> (${pc1(top.v,all)})
-      · 상위 2개 지점에 ${pc1(li.slice(0,2).reduce((a,b)=>a+b.v,0),all)} 집중`
+    ?`<b>${top.nm}</b>에서 가장 많이 눌렀다 — <b>${n(top.v)}명</b> / CTA 클릭자 ${n(o.cta)}명 = ${pc1(top.v,o.cta)}
+      · 상위 2개 지점 중 한 곳 이상에서 누른 사람 ${pc1(top2,o.cta)}`
     :'해당 조건에 CTA 클릭 없음');
   const ht=hot[0];
   find('ctFind',ht
