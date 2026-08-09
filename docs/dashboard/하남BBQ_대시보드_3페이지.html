@@ -476,7 +476,7 @@ const ch=r=>r.pl.indexOf('Instagram')===0?'Instagram':'Facebook';
 
 const MET={ctr:{n:'CTR',u:'',up:true,f:o=>o.ctr*100,fmt:v=>n2(v)+'%'},
            cpc:{n:'CPC',u:'VND',up:false,f:o=>o.cpc,fmt:v=>n0(v)},
-           clk:{n:'Click',u:'건',up:true,f:o=>o.clk,fmt:v=>n0(v)},
+           clk:{n:'링크 클릭',u:'건',up:true,f:o=>o.clk,fmt:v=>n0(v)},
            imp:{n:'Imp.',u:'회',up:true,f:o=>o.imp,fmt:v=>n0(v)}};
 
 const inP=(r,f,t)=>r.d>=f&amp;&amp;r.d<=t;
@@ -733,7 +733,7 @@ function renderTable(){
   if(!S.tbl)return;
   const rs=base();
   const cols=[['일자','d',1],['차수','ph',1],['광고세트','set',1],['소재','cr',1],['포맷','fmt',1],
-              ['노출위치','pl',1],['채널','_ch',1],['노출','imp',0],['클릭','clk',0],
+              ['노출위치','pl',1],['채널','_ch',1],['노출','imp',0],['링크 클릭','clk',0],
               ['지출(VND)','spd',0],['CTR','ctr',0],['CPC','cpc',0],['CPM','cpm',0]];
   const w=rs.map(r=>({...r,_ch:ch(r),ctr:r.clk/r.imp,cpc:r.clk?r.spd/r.clk:NaN,cpm:r.spd/r.imp*1000}));
   const [sk,sd]=S.sort, col=cols.find(c=>c[0]===sk)||cols[7];
@@ -874,13 +874,14 @@ table.mini td.b{color:var(--c100);font-weight:700}
 
 /* 가로 막대 리스트 */
 .bl{display:flex;flex-direction:column;gap:2px}
-.br{display:grid;grid-template-columns:var(--nw,72px) 1fr 34px;gap:7px;align-items:center;
+.br{display:grid;grid-template-columns:var(--nw,72px) 1fr 48px;gap:7px;align-items:center;
     font-size:10px;cursor:pointer;font-variant-numeric:tabular-nums}
 .br .nm{color:var(--c70);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .br.on .nm{color:var(--red);font-weight:700}
 .br .bg{position:relative;height:12px;background:#F2F2EF;border-radius:2px;overflow:hidden}
 .br .bg i{position:absolute;left:0;top:0;bottom:0;border-radius:2px;transition:width .2s}
 .br .v{text-align:right;font-weight:700}
+.br .v .u{font-size:8.5px;font-weight:400;color:var(--c45)}
 .br.sub .nm,.br.sub .v{color:var(--c45)}
 .split{display:flex;align-items:center;gap:6px;font-size:8.5px;color:var(--c45);margin:3px 0 2px}
 .split::after{content:'';flex:1;height:1px;background:var(--lg)}
@@ -1016,14 +1017,14 @@ table.dt td.dim{color:var(--c25)}
   <span class=&quot;sd&quot; id=&quot;sec3&quot;></span><span class=&quot;ln&quot;></span></div>
 
 <div class=&quot;c&quot; style=&quot;left:8px;top:452px;width:788px;height:148px&quot;>
-  <div class=&quot;t&quot;>CTA 종류별 클릭 <span class=&quot;badge k&quot;>클릭</span>
+  <div class=&quot;t&quot;>어떤 CTA를 눌렀나 <span class=&quot;badge k&quot;>막대 클릭</span>
     <span class=&quot;badge&quot; style=&quot;margin-left:auto&quot;>예약·방문 의도 표현 방식</span></div>
   <div class=&quot;s&quot; id=&quot;ctSub&quot;></div>
   <div class=&quot;bl&quot; id=&quot;ctList&quot; style=&quot;--nw:82px&quot;></div>
 </div>
 
 <div class=&quot;c&quot; style=&quot;left:804px;top:452px;width:788px;height:148px&quot;>
-  <div class=&quot;t&quot;>CTA 위치별 클릭 <span class=&quot;badge k&quot;>클릭</span>
+  <div class=&quot;t&quot;>페이지 어디서 눌렀나 <span class=&quot;badge k&quot;>막대 클릭</span>
     <span class=&quot;badge&quot; style=&quot;margin-left:auto&quot;>페이지 어디를 고칠 것인가</span></div>
   <div class=&quot;s&quot; id=&quot;clSub&quot;></div>
   <div class=&quot;bl&quot; id=&quot;clList&quot; style=&quot;--nw:96px&quot;></div>
@@ -1266,7 +1267,7 @@ function bars(id,items,onclick){
       <span class=&quot;nm&quot; title=&quot;${it.nm.replace(/<[^>]*>/g,'')}&quot;>${it.nm}</span>
       <span class=&quot;bg&quot;><i style=&quot;width:${(it.v/mx*100).toFixed(1)}%;background:${
         it.c||ramp(it.v/mx)}&quot;></i></span>
-      <span class=&quot;v&quot;>${n(it.v)}</span></div>`).join('');
+      <span class=&quot;v&quot;>${n(it.v)}<span class=&quot;u&quot;> 명</span></span></div>`).join('');
   if(onclick)box.querySelectorAll('.br').forEach(e=>e.onclick=()=>onclick(items[+e.dataset.i]));
 }
 

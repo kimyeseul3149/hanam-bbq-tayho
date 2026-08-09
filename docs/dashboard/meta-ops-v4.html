@@ -252,7 +252,7 @@ const ch=r=>r.pl.indexOf('Instagram')===0?'Instagram':'Facebook';
 
 const MET={ctr:{n:'CTR',u:'',up:true,f:o=>o.ctr*100,fmt:v=>n2(v)+'%'},
            cpc:{n:'CPC',u:'VND',up:false,f:o=>o.cpc,fmt:v=>n0(v)},
-           clk:{n:'Click',u:'건',up:true,f:o=>o.clk,fmt:v=>n0(v)},
+           clk:{n:'링크 클릭',u:'건',up:true,f:o=>o.clk,fmt:v=>n0(v)},
            imp:{n:'Imp.',u:'회',up:true,f:o=>o.imp,fmt:v=>n0(v)}};
 
 const inP=(r,f,t)=>r.d>=f&&r.d<=t;
@@ -509,7 +509,7 @@ function renderTable(){
   if(!S.tbl)return;
   const rs=base();
   const cols=[['일자','d',1],['차수','ph',1],['광고세트','set',1],['소재','cr',1],['포맷','fmt',1],
-              ['노출위치','pl',1],['채널','_ch',1],['노출','imp',0],['클릭','clk',0],
+              ['노출위치','pl',1],['채널','_ch',1],['노출','imp',0],['링크 클릭','clk',0],
               ['지출(VND)','spd',0],['CTR','ctr',0],['CPC','cpc',0],['CPM','cpm',0]];
   const w=rs.map(r=>({...r,_ch:ch(r),ctr:r.clk/r.imp,cpc:r.clk?r.spd/r.clk:NaN,cpm:r.spd/r.imp*1000}));
   const [sk,sd]=S.sort, col=cols.find(c=>c[0]===sk)||cols[7];
