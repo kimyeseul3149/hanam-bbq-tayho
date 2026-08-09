@@ -1101,18 +1101,19 @@ table.dt td.dim{color:var(--c25)}
 <div class=&quot;sec&quot; style=&quot;left:14px;top:696px;width:1320px;height:18px&quot;>
   <span class=&quot;n&quot;>5</span><span class=&quot;st&quot;>소재별 랜딩 이후 성과</span>
   <span class=&quot;sd&quot; id=&quot;sec5&quot;></span>
+  <button class=&quot;tgl&quot; id=&quot;tglDt&quot;>소재별 표 ▾</button>
   <button class=&quot;tgl&quot; id=&quot;tglNx&quot;>전체 ACTION 요약 ▾</button><span class=&quot;ln&quot;></span></div>
-<div class=&quot;sec&quot; style=&quot;left:1346px;top:696px;width:240px;height:18px&quot;>
+<div class=&quot;sec&quot; id=&quot;dtRailLab&quot; style=&quot;left:1346px;top:696px;width:240px;height:18px;display:none&quot;>
   <span class=&quot;st&quot; style=&quot;font-size:10px;color:var(--c45)&quot;>ACTION</span><span class=&quot;ln&quot;></span></div>
 
-<div class=&quot;c&quot; id=&quot;dtCard&quot; style=&quot;left:14px;top:718px;width:1320px;height:168px&quot;>
+<div class=&quot;c&quot; id=&quot;dtCard&quot; style=&quot;left:14px;top:718px;width:1320px;height:168px;display:none&quot;>
   <div class=&quot;t&quot;>어떤 소재가 예약 유도까지 연결했나? <span class=&quot;badge k&quot;>행 클릭 시 상세</span>
     <span class=&quot;badge&quot; id=&quot;dtSub&quot; style=&quot;margin-left:auto&quot;></span>
     <span class=&quot;badge&quot;>광고 외 직접 유입 제외 · Meta 지표는 2페이지</span></div>
   <div class=&quot;dtw&quot; id=&quot;dtw&quot;><table class=&quot;dt&quot; id=&quot;dt&quot;></table></div>
 </div>
 
-<div class=&quot;c rail&quot; id=&quot;dtRail&quot; style=&quot;left:1346px;top:718px;width:240px;height:168px&quot;>
+<div class=&quot;c rail&quot; id=&quot;dtRail&quot; style=&quot;left:1346px;top:718px;width:240px;height:168px;display:none&quot;>
   <div class=&quot;rl&quot; id=&quot;rlDt&quot;></div>
 </div>
 
@@ -1594,6 +1595,14 @@ function drawNext(rows,o){
 
 /* 소재별 표는 기본 접힘. 섹션 라벨이 이미 1위 소재와 유도율을 들고 있어서
    자세히 볼 때만 편다. 보드 높이는 그대로다 — 자리는 늘 비워 두었다. */
+/* (5) 소재별 표 — 기본 접힘. 라벨 줄이 이미 1위 소재와 유도율을 들고 있어
+   자세히 볼 때만 편다. 좌표는 그대로라 위쪽 카드가 흔들리지 않는다. */
+const DTB=document.getElementById('tglDt');
+const DTPARTS=[['dtCard','block'],['dtRail','flex'],['dtRailLab','flex']];
+DTB.onclick=()=>{const on=DTB.textContent.indexOf('▾')>=0;
+  DTPARTS.forEach(([id,d])=>document.getElementById(id).style.display=on?d:'none');
+  DTB.textContent='소재별 표 '+(on?'▴':'▾');DTB.classList.toggle('on',on);};
+
 /* 전체 ACTION 요약은 떠 있는 패널로 연다. 보드를 늘리면 900을 넘기 때문이다. */
 const NXB=document.getElementById('tglNx'),NXC=document.getElementById('nextCard');
 NXB.onclick=e=>{e.stopPropagation();

@@ -325,18 +325,19 @@ table.dt td.dim{color:var(--c25)}
 <div class="sec" style="left:14px;top:696px;width:1320px;height:18px">
   <span class="n">5</span><span class="st">소재별 랜딩 이후 성과</span>
   <span class="sd" id="sec5"></span>
+  <button class="tgl" id="tglDt">소재별 표 ▾</button>
   <button class="tgl" id="tglNx">전체 ACTION 요약 ▾</button><span class="ln"></span></div>
-<div class="sec" style="left:1346px;top:696px;width:240px;height:18px">
+<div class="sec" id="dtRailLab" style="left:1346px;top:696px;width:240px;height:18px;display:none">
   <span class="st" style="font-size:10px;color:var(--c45)">ACTION</span><span class="ln"></span></div>
 
-<div class="c" id="dtCard" style="left:14px;top:718px;width:1320px;height:168px">
+<div class="c" id="dtCard" style="left:14px;top:718px;width:1320px;height:168px;display:none">
   <div class="t">어떤 소재가 예약 유도까지 연결했나? <span class="badge k">행 클릭 시 상세</span>
     <span class="badge" id="dtSub" style="margin-left:auto"></span>
     <span class="badge">광고 외 직접 유입 제외 · Meta 지표는 2페이지</span></div>
   <div class="dtw" id="dtw"><table class="dt" id="dt"></table></div>
 </div>
 
-<div class="c rail" id="dtRail" style="left:1346px;top:718px;width:240px;height:168px">
+<div class="c rail" id="dtRail" style="left:1346px;top:718px;width:240px;height:168px;display:none">
   <div class="rl" id="rlDt"></div>
 </div>
 
@@ -818,6 +819,14 @@ function drawNext(rows,o){
 
 /* 소재별 표는 기본 접힘. 섹션 라벨이 이미 1위 소재와 유도율을 들고 있어서
    자세히 볼 때만 편다. 보드 높이는 그대로다 — 자리는 늘 비워 두었다. */
+/* (5) 소재별 표 — 기본 접힘. 라벨 줄이 이미 1위 소재와 유도율을 들고 있어
+   자세히 볼 때만 편다. 좌표는 그대로라 위쪽 카드가 흔들리지 않는다. */
+const DTB=document.getElementById('tglDt');
+const DTPARTS=[['dtCard','block'],['dtRail','flex'],['dtRailLab','flex']];
+DTB.onclick=()=>{const on=DTB.textContent.indexOf('▾')>=0;
+  DTPARTS.forEach(([id,d])=>document.getElementById(id).style.display=on?d:'none');
+  DTB.textContent='소재별 표 '+(on?'▴':'▾');DTB.classList.toggle('on',on);};
+
 /* 전체 ACTION 요약은 떠 있는 패널로 연다. 보드를 늘리면 900을 넘기 때문이다. */
 const NXB=document.getElementById('tglNx'),NXC=document.getElementById('nextCard');
 NXB.onclick=e=>{e.stopPropagation();
