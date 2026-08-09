@@ -835,18 +835,22 @@ select{font:inherit;font-size:10px;padding:2px 5px;border:1px solid var(--lg);bo
 
 /* 퍼널 — 가운데를 축으로 좁아지는 모양.
    폭은 거듭제곱(0.35)으로 압축했다. 선형으로 그리면 2~4단계가 방문자의
-   1~2% 라 전부 실선이 되어 모양도 값도 못 읽는다. 정확한 값은 오른쪽 숫자다. */
+   1~2% 라 전부 실선이 되어 모양도 값도 못 읽는다. 정확한 값은 막대 안 숫자다. */
 #fn{display:flex;flex-direction:column;gap:6px}
-.fs2{display:grid;grid-template-columns:1fr 106px;align-items:center;gap:12px;cursor:pointer}
+.fs2{display:grid;grid-template-columns:1fr 58px;align-items:center;gap:10px;cursor:pointer}
 .fbw{display:flex;justify-content:center;min-width:0}
-.fbar{height:29px;border-radius:3px;display:flex;align-items:center;justify-content:center;
-      transition:width .22s;min-width:88px}
-.fbar .nm{font-size:13px;font-weight:700;white-space:nowrap}
+/* 이름과 사람 수를 한 막대 안에 둔다. 눈이 좌우로 오갈 일이 없어진다.
+   두 줄로 쌓지 않는 이유는 높이다 — 29px 를 넘기면 카드가 900px 를 넘친다. */
+.fbar{height:29px;border-radius:3px;display:flex;align-items:baseline;justify-content:center;
+      gap:9px;transition:width .22s;min-width:112px;padding:0 12px;overflow:hidden}
+.fbar .nm{font-size:12.5px;font-weight:700;white-space:nowrap}
+.fbar .nv{font-size:15px;font-weight:700;white-space:nowrap;
+          font-variant-numeric:tabular-nums;letter-spacing:-.2px}
 .fs2:hover .fbar{filter:brightness(.95)}
 .fs2.on .fbar{outline:2.5px solid var(--c100);outline-offset:2.5px}
-.fval{text-align:right;font-variant-numeric:tabular-nums;line-height:1.2}
-.fval b{font-size:16px;font-weight:700}
-.fval span{display:block;font-size:10px;color:var(--c45);margin-top:1px}
+/* 오른쪽에는 비율만 남는다. 사람 수는 막대 안으로 옮겼다. */
+.fval{text-align:right;font-variant-numeric:tabular-nums;
+      font-size:12px;font-weight:700;color:var(--c70)}
 /* 전환식 줄 — 분자/분모를 왼쪽에, 이탈을 오른쪽에. 계산 기준이 보여야 한다 */
 .dr{font-size:9.5px;color:var(--c45);display:flex;justify-content:space-between;
     height:13px;line-height:13px;padding:0 12px}
@@ -1038,7 +1042,7 @@ table.dt td.dim{color:var(--c25)}
   <span class=&quot;n&quot;>2</span><span class=&quot;st&quot;>광고 유입별 성과</span><span class=&quot;ln&quot;></span></div>
 <div class=&quot;sec&quot; style=&quot;left:570px;top:182px;width:760px;height:18px&quot;>
   <span class=&quot;n&quot;>3</span><span class=&quot;st&quot;>랜딩페이지 행동 퍼널</span>
-  <span class=&quot;sd&quot; id=&quot;sec3&quot;></span><span class=&quot;ln&quot;></span></div>
+  <span class=&quot;ln&quot;></span></div>
 <div class=&quot;sec&quot; style=&quot;left:1346px;top:182px;width:240px;height:18px&quot;>
   <span class=&quot;st&quot; style=&quot;font-size:10px;color:var(--c45)&quot;>ACTION</span><span class=&quot;ln&quot;></span></div>
 
@@ -1053,7 +1057,7 @@ table.dt td.dim{color:var(--c25)}
 <div class=&quot;c&quot; style=&quot;left:570px;top:204px;width:760px;height:254px&quot;>
   <div class=&quot;t&quot;>유입 후 어디에서 이탈했나? <span class=&quot;badge k&quot;>단계 클릭</span>
     <button class=&quot;qm&quot; id=&quot;qmFn&quot; title=&quot;단계 정의 보기&quot;>?</button>
-    <span class=&quot;badge&quot; style=&quot;margin-left:auto&quot;>막대 폭은 비교용으로 압축 · 값은 오른쪽 숫자</span>
+    <span class=&quot;badge&quot; style=&quot;margin-left:auto&quot;>막대 폭은 비교용으로 압축 · 값은 막대 안 숫자</span>
     <span class=&quot;badge k&quot;>단계를 누르면 계산식</span></div>
   <div class=&quot;s&quot; id=&quot;fnSub&quot;></div>
   <div id=&quot;fn&quot;></div>
@@ -1160,7 +1164,7 @@ table.dt td.dim{color:var(--c25)}
   </table>
   <div class=&quot;note&quot;><b>막대 폭에 대하여</b> — 방문자 8,084명과 예약 유도 90명을 같은 눈금으로
     그리면 뒤 세 단계가 실선이 되어 아무것도 읽을 수 없습니다. 그래서 폭만 압축해 그렸습니다.
-    <b>폭끼리 직접 비교하지 마시고 오른쪽 숫자와 %로 읽어 주세요.</b><br><br>
+    <b>폭끼리 직접 비교하지 마시고 막대 안 숫자와 오른쪽 %로 읽어 주세요.</b><br><br>
     숫자는 <b>사람 수</b>입니다. 클릭 횟수가 아닙니다 —
     예약 유도 90명이 누른 횟수는 106건(메신저 61 · 전화 45)입니다.<br>
     한 사람이 메신저와 전화를 모두 눌렀을 수 있어 56 + 38 = 94가 아니라 90명입니다.</div>
@@ -1330,11 +1334,13 @@ function drawFn(o){
   FN.forEach(([k,nm],i)=>{
     const v=o[k];
     const on=F.stage===k;
+    const tc=on?'#fff':FNT[i];
     h+=`<div class=&quot;fs2${on?' on':''}&quot; data-stage=&quot;${k}&quot;>
       <div class=&quot;fbw&quot;><div class=&quot;fbar&quot; style=&quot;width:${fw(v,v0).toFixed(1)}%;background:${
         on?'var(--red)':FNC[i]}&quot;>
-        <span class=&quot;nm&quot; style=&quot;color:${on?'#fff':FNT[i]}&quot;>${nm}</span></div></div>
-      <div class=&quot;fval&quot;><b>${n(v)}</b><span>${pc1(v,v0)}</span></div></div>`;
+        <span class=&quot;nm&quot; style=&quot;color:${tc};opacity:.82&quot;>${nm}</span>
+        <span class=&quot;nv&quot; style=&quot;color:${tc}&quot;>${n(v)}명</span></div></div>
+      <div class=&quot;fval&quot;>${pc1(v,v0)}</div></div>`;
   });
   const el=document.getElementById('fn');el.innerHTML=h;
   el.querySelectorAll('.fs2').forEach(e=>e.onclick=()=>{
@@ -1669,8 +1675,8 @@ function drawChips(){
 /* 섹션 라벨의 설명은 현재 필터에 맞춰 문장으로 다시 쓴다.
    같은 말을 두 번 하지 않는다 — 카드 안에 이미 있는 숫자는 라벨에 쓰지 않는다. */
 function drawSec(rows,o){
-  document.getElementById('sec3').innerHTML=
-    `방문자 <b>${n(o.users)}</b> → 행동 <b>${n(o.act)}</b> → CTA <b>${n(o.cta)}</b> → 예약 유도 <b>${n(o.res)}</b> (모두 명)`;
+  /* ③ 라벨에는 아무것도 쓰지 않는다. 막대 네 개가 바로 아래에서
+     같은 숫자를 이미 보여 준다. */
   document.getElementById('sec4').innerHTML='무엇을 · 어디에서 · 언제';
 }
 function render(){
