@@ -780,9 +780,12 @@ init();
 <meta name=&quot;robots&quot; content=&quot;noindex,nofollow&quot;>
 <title>하남돼지집 서호수점 — 웹페이지 운영 대시보드 (1페이지)</title>
 <style>
+/* 빨강은 '최종 전환'에만 쓴다 — 예약 유도 수치, 퍼널 마지막 단계, ACTION 뱃지.
+   그 밖의 막대·강조는 전부 슬레이트 무채색으로 둔다. */
 :root{--red:#E60012;--rd:#B0000E;--rl:#F8C9CD;--red45:#F48C94;
-      --c100:#1A1A1A;--c70:#616161;--c45:#939393;--c25:#C4C4C4;--lg:#E9E9E9;
-      --ivory:#FFF9F2;--surf:#FFFFFF;--page:#F1ECE4}
+      --sl:#475569;--sl2:#64748B;--sl3:#94A3B8;--sl4:#CBD5E1;--sl5:#EEF1F5;
+      --c100:#1A1A1A;--c70:#5B6472;--c45:#8A93A1;--c25:#C4CAD3;--lg:#E5E7EB;
+      --ivory:#FFFBF6;--surf:#FFFFFF;--page:#F1ECE4}
 *{box-sizing:border-box;margin:0;padding:0}
 html{background:var(--page)}
 body{font-family:&quot;Malgun Gothic&quot;,system-ui,&quot;Segoe UI&quot;,sans-serif;color:var(--c100);
@@ -790,20 +793,20 @@ body{font-family:&quot;Malgun Gothic&quot;,system-ui,&quot;Segoe UI&quot;,sans-s
 /* 태블로 대시보드와 같은 1600x900 고정 보드. 좁은 화면에서는 통째로 축소한다. */
 .board{width:1600px;height:900px;flex:none;position:relative;background:var(--ivory);
        transform-origin:top center}
-.c{position:absolute;background:var(--surf);border:1px solid var(--lg);border-radius:8px;
-   padding:8px 11px;overflow:hidden}
+.c{position:absolute;background:var(--surf);border:1px solid var(--lg);border-radius:10px;
+   padding:12px 15px;overflow:hidden}
 .t{font-size:12.5px;font-weight:700;display:flex;align-items:center;gap:6px;white-space:nowrap}
-.s{font-size:9.5px;color:var(--c45);margin:1px 0 5px;line-height:1.4}
+.s{font-size:9.5px;color:var(--c45);margin:3px 0 7px;line-height:1.5}
 .badge{font-size:8.5px;border:1px solid var(--c25);color:var(--c45);border-radius:9px;padding:0 5px}
-.badge.k{border-color:var(--red45);color:var(--red)}
+.badge.k{border-color:var(--sl4);color:var(--sl2)}
 .seg{display:flex;border:1px solid var(--lg);border-radius:6px;overflow:hidden;margin-left:auto;flex:none}
 .seg div{font-size:9px;padding:2px 7px;color:var(--c45);cursor:pointer;white-space:nowrap}
 .seg div.on{background:var(--c100);color:#fff}
 
 /* 헤더 */
-.hd{position:absolute;left:8px;top:8px;width:1584px;height:40px;background:var(--surf);
-    border:1px solid var(--lg);border-top:3px solid var(--red);border-radius:8px;
-    display:flex;align-items:center;gap:12px;padding:0 14px}
+.hd{position:absolute;left:14px;top:14px;width:1572px;height:44px;background:var(--surf);
+    border:1px solid var(--lg);border-top:3px solid var(--red);border-radius:10px;
+    display:flex;align-items:center;gap:12px;padding:0 18px}
 .hd h1{font-size:14px;font-weight:700}
 .hd .sub{font-size:9.5px;color:var(--c45);margin-left:2px}
 .btn{font:inherit;font-size:10px;padding:3px 8px;border:1px solid var(--lg);background:var(--surf);
@@ -811,17 +814,17 @@ body{font-family:&quot;Malgun Gothic&quot;,system-ui,&quot;Segoe UI&quot;,sans-s
 .btn.on{background:var(--c100);border-color:var(--c100);color:#fff}
 select{font:inherit;font-size:10px;padding:2px 5px;border:1px solid var(--lg);border-radius:5px;color:var(--c70)}
 .lab{font-size:9px;color:var(--c45)}
-.chip{font-size:9px;border:1px solid var(--red45);color:var(--red);background:#FCE3E5;
+.chip{font-size:9px;border:1px solid var(--sl4);color:var(--sl);background:var(--sl5);
       border-radius:10px;padding:1px 7px;cursor:pointer;white-space:nowrap}
 .chips{display:flex;gap:4px;flex-wrap:wrap;max-width:420px}
 
 /* KPI — 4장. 인당 세션은 세션 카드의 보조 문구로 내렸다. */
-.k{padding:7px 13px}
+.k{padding:10px 15px}
 .k .kt{font-size:11.5px;font-weight:700;line-height:1.2;display:flex;align-items:center}
-.k .kv{font-size:22px;font-weight:700;line-height:1.12;margin-top:2px;font-variant-numeric:tabular-nums}
+.k .kv{font-size:22px;font-weight:700;line-height:1.15;margin-top:4px;font-variant-numeric:tabular-nums}
 .k .ku{font-size:11px;font-weight:500;color:var(--c70);margin-left:3px}
-.k .ks{font-size:9px;color:var(--c45);margin-top:2px;line-height:1.4}
-.k.hero{border-color:var(--red45);background:linear-gradient(180deg,#FFF6F7,#fff 55%)}
+.k .ks{font-size:9px;color:var(--c45);margin-top:4px;line-height:1.5}
+/* 최종 전환 카드. 테두리와 배경은 다른 카드와 같게 두고 숫자만 빨강. */
 .k.hero .kv{color:var(--red)}
 .k.hero .ks{color:var(--c70);font-size:10px}
 .k.hero .ks b{color:var(--red)}
@@ -834,31 +837,31 @@ select{font:inherit;font-size:10px;padding:2px 5px;border:1px solid var(--lg);bo
 .fs .nm{font-size:12px;font-weight:700;width:100px;flex:none;white-space:nowrap}
 .fs .n{margin-left:auto;font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
 .fs .pc{font-size:10px;color:var(--c70);width:52px;text-align:right;font-variant-numeric:tabular-nums}
-.fs.on{outline:1.5px solid var(--red);outline-offset:-1.5px}
-#fn.plain .fs:not(:last-child){margin-bottom:18px}
+.fs.on{outline:1.5px solid var(--sl);outline-offset:-1.5px}
+#fn.plain .fs:not(:last-child){margin-bottom:14px}
 /* 전환식 줄 — 분자/분모를 왼쪽에, 이탈을 오른쪽에. 계산 기준이 보여야 한다 */
 .dr{font-size:9.5px;color:var(--c45);display:flex;justify-content:space-between;
     height:14px;line-height:14px;padding:0 12px}
 .dr .fx{color:var(--c70)}
 .dr .fx b{color:var(--c100);font-weight:700}
-.dr .ls b{color:var(--red);font-weight:700}
+.dr .ls b{color:var(--c100);font-weight:700}
 
 /* 운영 체크포인트 — 퍼널 바로 아래. 원인 단정이 아니라 '우선 점검' 표현을 쓴다 */
 .ckp{margin-top:6px;border-top:1px solid var(--lg);padding-top:5px}
 
 /* 핵심 발견 — 차트 아래 한 줄. 관찰된 사실만 쓴다. */
-.kf{font-size:9.5px;color:var(--c70);line-height:1.5;margin-top:5px;
-    border-top:1px solid var(--lg);padding-top:4px;
+.kf{font-size:9.5px;color:var(--c70);line-height:1.5;margin-top:9px;
+    border-top:1px solid var(--lg);padding-top:7px;
     white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.kf .kk{font-size:8px;font-weight:700;color:var(--red);margin-right:5px}
+.kf .kk{font-size:8px;font-weight:700;color:var(--sl2);margin-right:5px}
 .kf.inl{margin:0 0 0 10px;border:none;padding:0;font-weight:400;flex:1;min-width:0}
 .kf b{color:var(--c100);font-weight:700}
 
 /* ACTION 레일 — 관찰(사실) / 가설(회색) / ACTION(빨강) 세 줄로만 */
-.rail{padding:7px 9px;display:flex;flex-direction:column;gap:6px}
+.rail{padding:11px 12px;display:flex;flex-direction:column;gap:10px}
 .rl{display:flex;flex-direction:column;gap:2px}
-.rl+.rl{border-top:1px solid var(--lg);padding-top:6px}
-.rr{font-size:9px;line-height:1.4;color:var(--c70)}
+.rl+.rl{border-top:1px solid var(--lg);padding-top:10px}
+.rr{font-size:9.5px;line-height:1.5;color:var(--c70)}
 .rr b{color:var(--c100);font-weight:700}
 .rk{display:inline-block;font-size:7.5px;font-weight:700;border-radius:7px;
     padding:0 5px;margin-right:4px;background:#F2F2EF;color:var(--c45);
@@ -868,7 +871,7 @@ select{font:inherit;font-size:10px;padding:2px 5px;border:1px solid var(--lg);bo
 .rr.a .rk{background:var(--red);color:#fff}
 
 /* 세로 막대 비교 */
-.cmp{display:flex;align-items:flex-end;justify-content:center;gap:52px;height:164px;margin-top:6px}
+.cmp{display:flex;align-items:flex-end;justify-content:center;gap:64px;height:150px;margin-top:8px}
 .cb{display:flex;flex-direction:column;align-items:center;cursor:pointer;flex:0 0 118px}
 .cb .p{font-size:22px;font-weight:700;margin-bottom:5px;font-variant-numeric:tabular-nums}
 .cb .col{width:96px;border-radius:3px 3px 0 0;transition:height .22s;min-height:3px}
@@ -887,12 +890,12 @@ table.mini td.b{color:var(--c100);font-weight:700}
 .cf{font-size:8.5px;color:var(--c45);margin-top:5px}
 
 /* 가로 막대 리스트 */
-.bl{display:flex;flex-direction:column;gap:1px}
-.br{display:grid;grid-template-columns:var(--nw,72px) 1fr 48px;gap:7px;align-items:center;
-    font-size:10px;cursor:pointer;font-variant-numeric:tabular-nums}
+.bl{display:flex;flex-direction:column;gap:3px}
+.br{display:grid;grid-template-columns:var(--nw,72px) 1fr 48px;gap:9px;align-items:center;
+    font-size:10.5px;cursor:pointer;font-variant-numeric:tabular-nums}
 .br .nm{color:var(--c70);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.br.on .nm{color:var(--red);font-weight:700}
-.br .bg{position:relative;height:11px;background:#F2F2EF;border-radius:2px;overflow:hidden}
+.br.on .nm{color:var(--c100);font-weight:700}
+.br .bg{position:relative;height:9px;background:var(--sl5);border-radius:2px;overflow:hidden}
 .br .bg i{position:absolute;left:0;top:0;bottom:0;border-radius:2px;transition:width .2s}
 .br .v{text-align:right;font-weight:700}
 .br .v .u{font-size:8.5px;font-weight:400;color:var(--c45)}
@@ -902,15 +905,15 @@ table.mini td.b{color:var(--c100);font-weight:700}
 .empty{font-size:9.5px;color:var(--c45);padding:12px 2px;text-align:center}
 
 /* 히트맵 */
-.hm{display:grid;grid-template-columns:20px repeat(24,1fr);gap:2px}
+.hm{display:grid;grid-template-columns:22px repeat(24,1fr);gap:2px}
 .hm .hh{font-size:8.5px;line-height:1;color:var(--c45);text-align:center}
 .hm .rh{font-size:9.5px;line-height:1;color:var(--c70);display:flex;align-items:center}
 .hm .cell{height:13px;border-radius:1.5px;cursor:pointer}
-.hm .cell:hover{outline:1.5px solid var(--red)}
-.hm .cell.on{outline:2px solid var(--red)}
+.hm .cell:hover{outline:1.5px solid var(--sl3)}
+.hm .cell.on{outline:2px solid var(--sl)}
 
 /* 운영 보조 지표 */
-.aux{display:flex;flex-direction:column;gap:9px;margin-top:4px}
+.aux{display:flex;flex-direction:column;gap:13px;margin-top:8px}
 .ax{display:flex;align-items:baseline;gap:5px;font-size:10px;color:var(--c70)}
 .ax .v{margin-left:auto;font-size:14px;font-weight:700;color:var(--c100);
        font-variant-numeric:tabular-nums}
@@ -923,7 +926,7 @@ table.mini td.b{color:var(--c100);font-weight:700}
 /* 소재표 — 상위 3행만 보이고 나머지는 스크롤. 머리글과 합계는 붙박이. */
 /* 74px = 머리글 16 + 행 13×3.5 + 합계 12. 네 번째 행이 반쯤 보여야
    &quot;아래 더 있다&quot;가 눈에 들어온다. */
-.dtw{overflow-y:auto;margin-top:2px;max-height:90px}
+.dtw{overflow-y:auto;margin-top:2px;max-height:280px}
 .dtw::-webkit-scrollbar{width:6px}
 .dtw::-webkit-scrollbar-thumb{background:var(--lg);border-radius:3px}
 table.dt{width:100%;border-collapse:collapse;font-size:11px;font-variant-numeric:tabular-nums}
@@ -931,18 +934,19 @@ table.dt thead th{position:sticky;top:0;background:var(--surf);z-index:2}
 table.dt tfoot td{position:sticky;bottom:0;background:var(--surf);z-index:2}
 table.dt .sm{color:var(--c45);font-weight:400;font-size:9px}
 /* 행을 누르면 그 아래로 펼쳐지는 상세 — 행동률/유도율은 여기로 내렸다 */
-table.dt tr.dx td{background:#FCF6F6;color:var(--c70);font-size:9.5px;text-align:left;
+table.dt tr.dx td{background:var(--sl5);color:var(--c70);font-size:10px;text-align:left;white-space:normal;
                   padding:3px 8px;border-bottom:1px solid var(--lg)}
 table.dt tr.dx b{color:var(--c100);font-weight:700}
 table.dt td .rs{font-size:9.5px;color:var(--c45);font-weight:400;margin-left:4px}
 table.dt th{font-size:9.5px;color:var(--c45);font-weight:500;text-align:right;padding:0 7px 4px;
             border-bottom:1.2px solid var(--c25);white-space:nowrap}
 table.dt th:first-child{text-align:left}
-table.dt td{padding:1px 7px;text-align:right;border-bottom:1px solid var(--lg);color:var(--c70)}
+table.dt td{padding:3px 7px;text-align:right;border-bottom:1px solid var(--lg);color:var(--c70);white-space:nowrap}
+table.dt td:first-child{min-width:190px}
 table.dt td:first-child{text-align:left;color:var(--c100);font-weight:600}
 table.dt tr.clk{cursor:pointer}
 table.dt tr.clk:hover td{background:#FAFAF8}
-table.dt tr.on td{background:#FCE3E5}
+table.dt tr.on td{background:var(--sl5)}
 table.dt tr.tot td{border-top:1.2px solid var(--c25);border-bottom:none;color:var(--c100);font-weight:700}
 table.dt td.b{color:var(--c100);font-weight:700}
 table.dt td.dim{color:var(--c25)}
@@ -963,8 +967,8 @@ table.dt td.dim{color:var(--c25)}
 .qm{width:15px;height:15px;flex:none;border-radius:50%;border:1.4px solid var(--c45);
     background:var(--surf);color:var(--c45);font:inherit;font-size:9.5px;font-weight:700;
     line-height:1;cursor:pointer;padding:0;margin-left:4px}
-.qm:hover,.qm.on{border-color:var(--red);color:var(--red)}
-.qm.on{background:var(--red);color:#fff}
+.qm:hover,.qm.on{border-color:var(--sl);color:var(--sl)}
+.qm.on{background:var(--sl);color:#fff}
 .hp{position:absolute;display:none;z-index:60;background:var(--surf);border:1px solid var(--c25);
     border-radius:10px;padding:13px 16px;box-shadow:0 12px 32px rgba(0,0,0,.16)}
 .hp.on{display:block}
@@ -983,7 +987,7 @@ table.dt td.dim{color:var(--c25)}
 /* 접기/펼치기 */
 .tgl{font:inherit;font-size:9px;padding:2px 9px;margin-left:4px;border:1px solid var(--c25);background:var(--surf);
      color:var(--c70);border-radius:11px;cursor:pointer;white-space:nowrap}
-.tgl:hover{border-color:var(--red);color:var(--red)}
+.tgl:hover{border-color:var(--sl);color:var(--sl)}
 .tgl.on{background:var(--c100);border-color:var(--c100);color:#fff}
 
 /* 섹션 라벨 — 스토리 흐름을 끊어 읽게 하는 줄 */
@@ -1010,25 +1014,25 @@ table.dt td.dim{color:var(--c25)}
   <div class=&quot;chips&quot; id=&quot;chips&quot;></div>
 </div>
 
-<div class=&quot;sec&quot; style=&quot;left:8px;top:52px;width:1584px;height:16px&quot;>
+<div class=&quot;sec&quot; style=&quot;left:14px;top:66px;width:1572px;height:18px&quot;>
   <span class=&quot;n&quot;>1</span><span class=&quot;st&quot;>랜딩페이지 운영 성과</span><span class=&quot;ln&quot;></span></div>
 
-<div class=&quot;c k&quot; id=&quot;k0&quot; style=&quot;left:8px;top:68px;width:384px;height:76px&quot;></div>
-<div class=&quot;c k&quot; id=&quot;k1&quot; style=&quot;left:408px;top:68px;width:384px;height:76px&quot;></div>
-<div class=&quot;c k&quot; id=&quot;k2&quot; style=&quot;left:808px;top:68px;width:384px;height:76px&quot;></div>
-<div class=&quot;c k hero&quot; id=&quot;k3&quot; style=&quot;left:1208px;top:68px;width:384px;height:76px&quot;></div>
+<div class=&quot;c k&quot; id=&quot;k0&quot; style=&quot;left:14px;top:88px;width:381px;height:86px&quot;></div>
+<div class=&quot;c k&quot; id=&quot;k1&quot; style=&quot;left:411px;top:88px;width:381px;height:86px&quot;></div>
+<div class=&quot;c k&quot; id=&quot;k2&quot; style=&quot;left:808px;top:88px;width:381px;height:86px&quot;></div>
+<div class=&quot;c k hero&quot; id=&quot;k3&quot; style=&quot;left:1205px;top:88px;width:381px;height:86px&quot;></div>
 
 <!-- 2와 3은 같은 줄에 좌우로 둔다. 왼쪽에서 오른쪽으로 읽으면
      '광고 유입 → 랜딩 도착 후 행동'이라는 시간 순서가 그대로 나온다. -->
-<div class=&quot;sec&quot; style=&quot;left:8px;top:148px;width:545px;height:16px&quot;>
+<div class=&quot;sec&quot; style=&quot;left:14px;top:182px;width:540px;height:18px&quot;>
   <span class=&quot;n&quot;>2</span><span class=&quot;st&quot;>광고 유입별 성과</span><span class=&quot;ln&quot;></span></div>
-<div class=&quot;sec&quot; style=&quot;left:565px;top:148px;width:775px;height:16px&quot;>
+<div class=&quot;sec&quot; style=&quot;left:570px;top:182px;width:760px;height:18px&quot;>
   <span class=&quot;n&quot;>3</span><span class=&quot;st&quot;>랜딩페이지 행동 퍼널</span>
   <span class=&quot;sd&quot; id=&quot;sec3&quot;></span><span class=&quot;ln&quot;></span></div>
-<div class=&quot;sec&quot; style=&quot;left:1352px;top:148px;width:240px;height:16px&quot;>
+<div class=&quot;sec&quot; style=&quot;left:1346px;top:182px;width:240px;height:18px&quot;>
   <span class=&quot;st&quot; style=&quot;font-size:10px;color:var(--c45)&quot;>ACTION</span><span class=&quot;ln&quot;></span></div>
 
-<div class=&quot;c&quot; style=&quot;left:8px;top:164px;width:545px;height:238px&quot;>
+<div class=&quot;c&quot; style=&quot;left:14px;top:204px;width:540px;height:254px&quot;>
   <div class=&quot;t&quot;>어떤 광고가 유입을 만들었나?
     <button class=&quot;qm&quot; data-hp=&quot;hpCmp&quot; title=&quot;세는 법 보기&quot;>?</button>
     <span class=&quot;badge k&quot;>막대 클릭</span></div>
@@ -1036,7 +1040,7 @@ table.dt td.dim{color:var(--c25)}
   <div class=&quot;kf&quot; id=&quot;cmpFind&quot;></div>
 </div>
 
-<div class=&quot;c&quot; style=&quot;left:565px;top:164px;width:775px;height:238px&quot;>
+<div class=&quot;c&quot; style=&quot;left:570px;top:204px;width:760px;height:254px&quot;>
   <div class=&quot;t&quot;>유입 후 어디에서 이탈했나? <span class=&quot;badge k&quot;>단계 클릭</span>
     <button class=&quot;qm&quot; id=&quot;qmFn&quot; title=&quot;단계 정의 보기&quot;>?</button>
     <span class=&quot;badge&quot; style=&quot;margin-left:auto&quot;>단계를 누르면 전환율 계산식</span></div>
@@ -1045,24 +1049,24 @@ table.dt td.dim{color:var(--c25)}
   <div class=&quot;ckp&quot;><div class=&quot;kf&quot; id=&quot;ckp&quot; style=&quot;margin-top:0;border-top:none;padding-top:0&quot;></div></div>
 </div>
 
-<div class=&quot;c rail&quot; style=&quot;left:1352px;top:164px;width:240px;height:238px&quot;>
+<div class=&quot;c rail&quot; style=&quot;left:1346px;top:204px;width:240px;height:254px&quot;>
   <div class=&quot;rl&quot; id=&quot;rlAd&quot;></div>
   <div class=&quot;rl&quot; id=&quot;rlFn&quot;></div>
 </div>
 
 <!-- 옛 3(무엇을·어디에서)과 4(언제)를 한 섹션으로 합쳤다. 라벨 한 줄만큼 공간이 남는다. -->
-<div class=&quot;sec&quot; style=&quot;left:8px;top:406px;width:1584px;height:16px&quot;>
+<div class=&quot;sec&quot; style=&quot;left:14px;top:466px;width:1572px;height:18px&quot;>
   <span class=&quot;n&quot;>4</span><span class=&quot;st&quot;>방문자 행동 분석</span>
   <span class=&quot;sd&quot; id=&quot;sec4&quot; style=&quot;color:var(--c25)&quot;></span><span class=&quot;ln&quot;></span></div>
 
-<div class=&quot;c&quot; style=&quot;left:8px;top:422px;width:788px;height:148px&quot;>
+<div class=&quot;c&quot; style=&quot;left:14px;top:488px;width:778px;height:180px&quot;>
   <div class=&quot;t&quot;>어떤 CTA를 눌렀나? <span class=&quot;badge k&quot;>막대 클릭</span>
     <span class=&quot;badge&quot; style=&quot;margin-left:auto&quot;>예약·방문 의도 표현 방식</span></div>
   <div class=&quot;bl&quot; id=&quot;ctList&quot; style=&quot;--nw:82px;margin-top:5px&quot;></div>
   <div class=&quot;kf&quot; id=&quot;ctFind&quot;></div>
 </div>
 
-<div class=&quot;c&quot; style=&quot;left:804px;top:422px;width:788px;height:148px&quot;>
+<div class=&quot;c&quot; style=&quot;left:808px;top:488px;width:778px;height:180px&quot;>
   <div class=&quot;t&quot;>페이지 어디에서 눌렀나? <span class=&quot;badge k&quot;>막대 클릭</span>
     <span class=&quot;badge&quot; style=&quot;margin-left:auto&quot;>페이지 어디를 고칠 것인가</span></div>
   <div class=&quot;bl&quot; id=&quot;clList&quot; style=&quot;--nw:96px;margin-top:5px&quot;></div>
@@ -1070,7 +1074,7 @@ table.dt td.dim{color:var(--c25)}
 </div>
 
 <!-- 히트맵은 7행이라 세로 여유가 없다. 핵심 발견을 제목 줄 안쪽에 넣는다. -->
-<div class=&quot;c&quot; style=&quot;left:8px;top:574px;width:1290px;height:168px&quot;>
+<div class=&quot;c&quot; style=&quot;left:14px;top:676px;width:1280px;height:184px&quot;>
   <div class=&quot;t&quot;>예약 의사는 언제 나왔나? <span class=&quot;badge k&quot;>칸 클릭</span>
     <span class=&quot;kf inl&quot; id=&quot;hmFind&quot;></span>
     <div class=&quot;seg&quot; id=&quot;hmMode&quot;><div data-hm=&quot;sess&quot;>방문</div><div data-hm=&quot;cta&quot;>CTA</div>
@@ -1079,35 +1083,35 @@ table.dt td.dim{color:var(--c25)}
   <div class=&quot;hm&quot; id=&quot;hm&quot; style=&quot;margin-top:6px&quot;></div>
 </div>
 
-<div class=&quot;c&quot; style=&quot;left:1306px;top:574px;width:286px;height:168px&quot;>
+<div class=&quot;c&quot; style=&quot;left:1310px;top:676px;width:276px;height:184px&quot;>
   <div class=&quot;t&quot;>보조 지표 <span class=&quot;badge&quot; style=&quot;margin-left:auto&quot;>참고</span></div>
   <div class=&quot;aux&quot; id=&quot;aux&quot;></div>
   <div class=&quot;axn&quot;><b>내비게이션 클릭</b> — 상단 메뉴를 눌러 메뉴·위치 등
     다른 섹션으로 이동한 사람. 어디서 나갔는지가 아니라 <b>무엇을 더 보려 했는지</b>를 뜻합니다.</div>
 </div>
 
-<div class=&quot;sec&quot; style=&quot;left:8px;top:746px;width:1332px;height:16px&quot;>
+<div class=&quot;sec&quot; style=&quot;left:14px;top:868px;width:1572px;height:18px&quot;>
   <span class=&quot;n&quot;>5</span><span class=&quot;st&quot;>소재별 랜딩 이후 성과</span>
   <span class=&quot;sd&quot; id=&quot;sec5&quot;></span>
   <button class=&quot;tgl&quot; id=&quot;tglDt&quot;>소재별 표 ▾</button>
   <button class=&quot;tgl&quot; id=&quot;tglNx&quot;>전체 ACTION 요약 ▾</button><span class=&quot;ln&quot;></span></div>
-<div class=&quot;sec&quot; style=&quot;left:1352px;top:746px;width:240px;height:16px&quot;>
-  <span class=&quot;st&quot; style=&quot;font-size:10px;color:var(--c45)&quot;>ACTION</span><span class=&quot;ln&quot;></span></div>
 
-<div class=&quot;c&quot; id=&quot;dtCard&quot; style=&quot;left:8px;top:762px;width:1332px;height:130px;padding:5px 11px;display:none&quot;>
-  <div class=&quot;t&quot; style=&quot;font-size:11.5px&quot;>어떤 소재가 예약 유도까지 연결했나?
-    <span class=&quot;badge k&quot;>행 클릭 시 상세</span>
-    <span class=&quot;badge&quot; id=&quot;dtSub&quot; style=&quot;margin-left:auto&quot;></span>
-    <span class=&quot;badge&quot;>광고 외 직접 유입 제외 · Meta 지표는 2페이지</span></div>
-  <div class=&quot;dtw&quot; id=&quot;dtw&quot;><table class=&quot;dt&quot; id=&quot;dt&quot;></table></div>
-</div>
-
-<div class=&quot;c rail&quot; id=&quot;dtRail&quot; style=&quot;left:1352px;top:762px;width:240px;height:130px&quot;>
-  <div class=&quot;rl&quot; id=&quot;rlDt&quot;></div>
+<!-- 표와 그 ACTION 은 떠 있는 패널. 바닥에 자리를 비워 두지 않아도 되므로
+     그만큼을 위쪽 카드들의 여백으로 돌렸다. -->
+<div class=&quot;hp wide&quot; id=&quot;dtCard&quot; style=&quot;left:236px;top:252px;width:1128px&quot;>
+  <h4>어떤 소재가 예약 유도까지 연결했나?
+    <span style=&quot;font-weight:500;color:var(--c45);font-size:10px&quot;>— 행을 누르면 상세 · 광고 외 직접 유입 제외 · Meta 지표(노출·CTR·CPC·비용)는 2페이지</span>
+    <span class=&quot;badge&quot; id=&quot;dtSub&quot; style=&quot;float:right&quot;></span></h4>
+  <div style=&quot;display:flex;gap:18px;align-items:flex-start;margin-top:4px&quot;>
+    <div style=&quot;flex:1;min-width:0&quot;><div class=&quot;dtw&quot; id=&quot;dtw&quot;><table class=&quot;dt&quot; id=&quot;dt&quot;></table></div></div>
+    <div class=&quot;rail&quot; id=&quot;dtRail&quot; style=&quot;width:252px;flex:none;border:1px solid var(--lg);border-radius:10px&quot;>
+      <div class=&quot;rl&quot; id=&quot;rlDt&quot;></div>
+    </div>
+  </div>
 </div>
 
 <!-- 보드 높이를 늘리지 않으려고 접기 패널이 아니라 떠 있는 오버레이로 둔다 -->
-<div class=&quot;hp wide&quot; id=&quot;nextCard&quot; style=&quot;left:250px;top:300px;width:1050px&quot;>
+<div class=&quot;hp wide&quot; id=&quot;nextCard&quot; style=&quot;left:264px;top:300px;width:1050px&quot;>
   <h4>전체 ACTION 요약 <span style=&quot;font-weight:500;color:var(--c45);font-size:10px&quot;>— 현재 필터 기준 · 원인 확정이 아니라 우선 점검 영역입니다</span></h4>
   <div class=&quot;nx2&quot; style=&quot;margin-top:6px&quot;>
     <div>
@@ -1121,7 +1125,7 @@ table.dt td.dim{color:var(--c25)}
   </div>
 </div>
 
-<div class=&quot;hp&quot; id=&quot;hpCmp&quot; style=&quot;left:20px;top:196px;width:560px&quot;>
+<div class=&quot;hp&quot; id=&quot;hpCmp&quot; style=&quot;left:26px;top:240px;width:560px&quot;>
   <h4>이 막대는 이렇게 셉니다 <span style=&quot;font-weight:500;color:var(--c45);font-size:10px&quot;>— 모두 고유 사용자(device_id) 기준</span></h4>
   <table>
     <tr><td>막대 높이</td><td><b>예약 유도 사람 수</b> — 메신저 예약 또는 전화 걸기를 누른 사람</td></tr>
@@ -1135,7 +1139,7 @@ table.dt td.dim{color:var(--c25)}
     나머지는 표본이 작아 제외합니다.</div>
 </div>
 
-<div class=&quot;hp&quot; id=&quot;hpFn&quot; style=&quot;left:585px;top:202px;width:600px&quot;>
+<div class=&quot;hp&quot; id=&quot;hpFn&quot; style=&quot;left:590px;top:244px;width:600px&quot;>
   <h4>퍼널 4단계는 이렇게 셉니다 <span style=&quot;font-weight:500;color:var(--c45);font-size:10px&quot;>— 모두 고유 사용자(device_id) 기준</span></h4>
   <table>
     <tr><td>방문자</td><td>랜딩페이지가 열린 사람. 로그인이 없어 기기 단위로 셉니다</td><td>8,084명</td></tr>
@@ -1151,7 +1155,7 @@ table.dt td.dim{color:var(--c25)}
     한 사람이 메신저와 전화를 모두 눌렀을 수 있어 56 + 38 = 94가 아니라 90명입니다.</div>
 </div>
 
-<div class=&quot;hp&quot; id=&quot;hpAct&quot; style=&quot;left:700px;top:148px;width:600px&quot;>
+<div class=&quot;hp&quot; id=&quot;hpAct&quot; style=&quot;left:700px;top:176px;width:600px&quot;>
   <h4>&quot;의미 있는 행동&quot;이란</h4>
   <table>
     <tr><td>포함</td><td>페이지가 <b>실제로 반응한</b> 조작 — 메뉴 상세 열기, 메뉴 탭 전환,
@@ -1163,7 +1167,7 @@ table.dt td.dim{color:var(--c25)}
     클릭이며, 그중 페이지가 실제로 반응하지 않은 것으로 판정된 사람(Dead Click)은 <b>69명</b>입니다.</div>
 </div>
 
-<div class=&quot;hp&quot; id=&quot;hpRes&quot; style=&quot;left:992px;top:148px;width:600px&quot;>
+<div class=&quot;hp&quot; id=&quot;hpRes&quot; style=&quot;left:986px;top:176px;width:600px&quot;>
   <h4>예약 유도는 이렇게 셉니다</h4>
   <table>
     <tr><td>메신저 예약</td><td>Nhắn tin đặt bàn — 테이블 예약 메시지 보내기</td><td>56명</td></tr>
@@ -1199,11 +1203,11 @@ const lb=(m,k)=>m[k]||k, n=v=>v.toLocaleString();
 const pc=(a,b)=>b?(a/b*100).toFixed(2)+'%':'—', pc1=(a,b)=>b?(a/b*100).toFixed(1)+'%':'—';
 /* 작은 비율은 소수 첫째 자리로 자르면 1.86% 가 1.9% 가 되어 KPI 와 어긋난다 */
 const pcx=(a,b)=>!b?'—':(a/b*100<10?pc(a,b):pc1(a,b));
-/* 값이 클수록 진한 빨강 — 태블로 '하남 레드 순차'와 같은 양 끝 */
-const RL=[248,201,205], RD=[176,0,14];
+/* 값이 클수록 진한 슬레이트. 빨강은 최종 전환에만 남긴다. */
+const RL=[203,213,225], RD=[71,85,105];
 const ramp=r=>`rgb(${RL.map((v,i)=>Math.round(v+(RD[i]-v)*r)).join(',')})`;
 /* 퍼널 단계색 — 마지막만 빨강 */
-const FNC=['#C4C4C4','#8A8A80','#3D3D38','#E60012'];
+const FNC=['#CBD5E1','#94A3B8','#64748B','#E60012'];
 
 let F={per:'all',day:null,set:null,cre:null,cell:null,stage:null,ct:null,cl:null};
 let M={hm:'res'};
@@ -1333,7 +1337,9 @@ function drawCkp(o){
 function bars(id,items,onclick){
   const box=document.getElementById(id);
   if(!items.length){box.innerHTML='<div class=&quot;empty&quot;>데이터 없음</div>';return;}
-  const mx=Math.max(...items.filter(i=>!i.split).map(i=>i.v))||1;
+  /* 축 최대치를 실제 최댓값의 1.4배로 잡는다. 1위 막대가 카드 끝까지
+     닿으면 답답하고, 값끼리의 길이 비교도 눈에 덜 들어온다. */
+  const mx=(Math.max(...items.filter(i=>!i.split).map(i=>i.v))||1)*1.4;
   box.innerHTML=items.map((it,i)=>it.split
     ?`<div class=&quot;split&quot;>${it.split}</div>`
     :`<div class=&quot;br${it.on?' on':''}${it.dim?' sub':''}&quot; data-i=&quot;${i}&quot;>
@@ -1353,7 +1359,7 @@ function drawCTA(rows,o){
   const hot=idx.filter(i=>INTENT.includes(C.ctaType[i])).map(mk).filter(x=>x.v>0)
               .sort((a,b)=>b.v-a.v);
   const cold=idx.filter(i=>!INTENT.includes(C.ctaType[i])).map(mk).filter(x=>x.v>0)
-               .sort((a,b)=>b.v-a.v).map(x=>Object.assign(x,{dim:1,c:'#D8D8D2'}));
+               .sort((a,b)=>b.v-a.v).map(x=>Object.assign(x,{dim:1,c:'#DCE1E8'}));
   const items=cold.length?hot.concat([{split:'방문·탐색 의도 (예약 유도에는 포함하지 않음)'}],cold):hot;
   bars('ctList',items,it=>{if(it.split)return;F.ct=F.ct===it.i?null:it.i;render();});
   const hv=o.res;   // 메신저·전화를 모두 누른 사람이 있어 단순 합(94)은 틀리다
@@ -1383,7 +1389,7 @@ function drawAux(o){
       <span class=&quot;v&quot;>${n(v)}<span class=&quot;u&quot;> 명</span></span></div>`).join('');
 }
 
-const HMC=['#EFEFEC','#C9C9C2','#93938B','#5C5C56','#2B2B27'];
+const HMC=['#EFF1F5','#CBD5E1','#94A3B8','#64748B','#334155'];
 function drawHM(rows){
   const g=Array.from({length:7},()=>Array(24).fill(0));
   const us=Array.from({length:7},()=>Array.from({length:24},()=>null));
@@ -1419,14 +1425,14 @@ function drawCmp(rows){
   const all=Object.keys(grp).map(k=>{const a=agg(grp[k]);
     a.key=+k;a.raw=C.set[+k];a.label=lb(SETLB,a.raw);
     a.actR=a.users?a.act/a.users:0;a.resR=a.users?a.res/a.users:0;return a;});
-  const CLR={hanoi_2549_mf_business:'#B0000E',hanoi_2549_mf_family:'#F8C9CD'};
+  const CLR={hanoi_2549_mf_business:'#475569',hanoi_2549_mf_family:'#CBD5E1'};
   const main=all.filter(x=>CLR[x.raw]).sort((a,b)=>b.users-a.users),rest=all.filter(x=>!CLR[x.raw]);
   /* 막대 높이는 예약 유도 사람 수. 비율로 그리면 규모가 작은 쪽이 커 보인다. */
   const mx=Math.max(...main.map(x=>x.res),0)||1;
   document.getElementById('cmp').innerHTML=main.map(x=>
     `<div class=&quot;cb${F.set===x.key?' on':''}&quot; data-k=&quot;${x.key}&quot;>
-      <div class=&quot;p&quot; style=&quot;color:${CLR[x.raw]==='#F8C9CD'?'#C4909A':CLR[x.raw]}&quot;>${n(x.res)}<span style=&quot;font-size:12px&quot;> 명</span></div>
-      <div class=&quot;col&quot; style=&quot;height:${Math.max(x.res/mx*90,3).toFixed(0)}px;background:${CLR[x.raw]}&quot;></div>
+      <div class=&quot;p&quot; style=&quot;color:${CLR[x.raw]==='#CBD5E1'?'#94A3B8':CLR[x.raw]}&quot;>${n(x.res)}<span style=&quot;font-size:12px&quot;> 명</span></div>
+      <div class=&quot;col&quot; style=&quot;height:${Math.max(x.res/mx*84,3).toFixed(0)}px;background:${CLR[x.raw]}&quot;></div>
       <div class=&quot;nm&quot;>${x.label}</div>
       <div class=&quot;sb&quot;>방문 <b>${n(x.users)}명</b> · CTA ${n(x.cta)}<br>
         유도율 ${pc(x.res,x.users)}</div></div>`).join('')
@@ -1558,10 +1564,11 @@ function drawNext(rows,o){
 
 /* 소재별 표는 기본 접힘. 섹션 라벨이 이미 1위 소재와 유도율을 들고 있어서
    자세히 볼 때만 편다. 보드 높이는 그대로다 — 자리는 늘 비워 두었다. */
-const DTB=document.getElementById('tglDt');
-DTB.onclick=()=>{const on=DTB.textContent.indexOf('▾')>=0;
-  document.getElementById('dtCard').style.display=on?'block':'none';
-  DTB.textContent='소재별 표 '+(on?'▴':'▾');DTB.classList.toggle('on',on);};
+const DTB=document.getElementById('tglDt'),DTP=document.getElementById('dtCard');
+DTB.onclick=e=>{e.stopPropagation();
+  const on=!DTP.classList.contains('on');
+  closeHelp();DTP.classList.toggle('on',on);DTB.classList.toggle('on',on);
+  DTB.textContent='소재별 표 '+(on?'▴':'▾');};
 
 /* 전체 ACTION 요약은 떠 있는 패널로 연다. 보드를 늘리면 900을 넘기 때문이다. */
 const NXB=document.getElementById('tglNx'),NXC=document.getElementById('nextCard');
@@ -1578,6 +1585,8 @@ function closeHelp(){
   document.querySelectorAll('.qm').forEach(x=>x.classList.remove('on'));
   const b=document.getElementById('tglNx');
   if(b){b.classList.remove('on');b.textContent='전체 ACTION 요약 ▾';}
+  const d=document.getElementById('tglDt');
+  if(d){d.classList.remove('on');d.textContent='소재별 표 ▾';}
 }
 function bindHelp(){
   document.querySelectorAll('.qm').forEach(b=>{
@@ -1589,7 +1598,7 @@ function bindHelp(){
 document.getElementById('qmFn').dataset.hp='hpFn';
 bindHelp();
 document.addEventListener('click',e=>{
-  if(!e.target.closest('.hp')&amp;&amp;e.target.id!=='tglNx')closeHelp();});
+  if(!e.target.closest('.hp')&amp;&amp;e.target.id!=='tglNx'&amp;&amp;e.target.id!=='tglDt')closeHelp();});
 
 function drawChips(){
   const cs=[];
