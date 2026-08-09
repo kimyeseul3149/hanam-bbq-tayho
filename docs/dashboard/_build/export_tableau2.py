@@ -75,6 +75,8 @@ def main():
             # ── v2 신규 ──
             g(r, 'nav'), g(r, 'tab'), g(r, 'jump'),
             g(r, 'vmenu'), g(r, 'dirs'), g(r, 'langsw'), g(r, 'priv'),
+            # 소재가 둘인 세션을 소재별로 복제한 행. 세션 수에서 제외한다.
+            g(r, 'dup'),
         ])
     write('sessions.csv', [
         'session_key', 'user_id', 'date', 'hour',
@@ -85,7 +87,7 @@ def main():
         'is_reserve', 'is_message', 'is_call', 'is_menu_view',
         'is_dead_click', 'is_rage_click',
         'is_nav', 'is_menu_tab', 'is_menu_group',
-        'is_view_menu', 'is_directions', 'is_lang_switch', 'is_privacy',
+        'is_view_menu', 'is_directions', 'is_lang_switch', 'is_privacy', 'is_dup',
     ], rows)
 
     RES = ('message_book', 'call_phone')

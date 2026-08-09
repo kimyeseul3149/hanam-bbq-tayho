@@ -475,8 +475,12 @@ function sel(dayOverride){
 const KEYS=['arrive','anyclick','act','cta','res','msg','call','dead','rage','nav'];
 function agg(rows){
   const st={};KEYS.forEach(k=>st[k]=new Set());
-  rows.forEach(i=>{const r=S[i],u=r[COL.u];KEYS.forEach(k=>{if(r[COL[k]])st[k].add(u);});});
-  const o={sess:rows.length};KEYS.forEach(k=>o[k]=st[k].size);
+  /* dup=1 은 한 세션이 소재를 둘 거쳐 복제된 행이다. 사람 수는 COUNTD 라
+     영향이 없지만 세션 수는 원본만 센다. */
+  let ns=0;
+  rows.forEach(i=>{const r=S[i],u=r[COL.u];if(!r[COL.dup])ns++;
+    KEYS.forEach(k=>{if(r[COL[k]])st[k].add(u);});});
+  const o={sess:ns};KEYS.forEach(k=>o[k]=st[k].size);
   o.users=o.arrive;o.spu=o.users?rows.length/o.users:0;
   return o;
 }
@@ -649,7 +653,7 @@ function drawHM(rows){
   const g=Array.from({length:7},()=>Array(24).fill(0));
   const us=Array.from({length:7},()=>Array.from({length:24},()=>null));
   rows.forEach(i=>{const r=S[i],w=r[COL.wd],h=r[COL.hour];
-    if(M.hm==='sess'){g[w][h]++;return;}
+    if(M.hm==='sess'){if(!r[COL.dup])g[w][h]++;return;}
     if(!r[COL[M.hm]])return;
     (us[w][h]=us[w][h]||new Set()).add(r[COL.u]);});
   if(M.hm!=='sess')for(let w=0;w<7;w++)for(let h=0;h<24;h++)g[w][h]=us[w][h]?us[w][h].size:0;

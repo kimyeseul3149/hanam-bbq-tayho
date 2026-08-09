@@ -116,6 +116,37 @@ def main():
     flag(d.cta_type == 'directions_reserve', 'dirs')
 
     sess = sess.reset_index()
+    sess['dup'] = 0
+
+    # ── 한 세션에 소재가 둘 이상이면 소재 수만큼 행을 복제한다 ──────
+    # 워크북 03_소재별성과 와 같은 기준. 복제본은 dup=1 이라 세션 수에서 빠지고,
+    # 사용자 수는 COUNTD 라 복제해도 늘지 않는다.
+    arr_all = d[d.event_type.isin(ARRIVE)].copy()
+    arr_all['creative'] = arr_all['creative'].fillna('(none)')
+    arr_all['utm_term'] = arr_all['utm_term'].fillna('(none)')
+    pairs = (arr_all.groupby('session_id')[['creative', 'utm_term']]
+             .apply(lambda g: sorted(set(zip(g.creative, g.utm_term)))))
+    cre_i = {v: i for i, v in enumerate(cats['cre'])}
+    set_i = {v: i for i, v in enumerate(cats['set'])}
+    base = sess.set_index('session_id')
+    extra = []
+    for sid, ps in pairs.items():
+        if len(ps) < 2 or sid not in base.index:
+            continue
+        row = base.loc[sid]
+        have = (row['cre'], row['set'])
+        for c, t in ps:
+            if (cre_i.get(c), set_i.get(t)) == have:
+                continue
+            r = row.copy()
+            r['cre'], r['set'], r['dup'] = cre_i[c], set_i[t], 1
+            extra.append(r)
+    if extra:
+        import pandas as _pd
+        sess = _pd.concat([sess, _pd.DataFrame(extra).reset_index(names='session_id')],
+                          ignore_index=True)
+        print(f'  소재 분리로 {len(extra)}행 추가 (세션 수에는 미포함)')
+
     sidx = {v: i for i, v in enumerate(sess.session_id)}
 
     # ── 이벤트 상세 (세션 인덱스 참조) ──────────────────────────────
@@ -137,7 +168,7 @@ def main():
     def uniq(col):
         return sess.loc[sess[col] == 1, 'u'].nunique()
 
-    chk = {'방문자': int(uniq('arrive')), '세션': int(len(sess)),
+    chk = {'방문자': int(uniq('arrive')), '세션': int((sess.dup == 0).sum()),
            '무엇이라도 클릭': int(uniq('anyclick')), '행동': int(uniq('act')),
            'CTA': int(uniq('cta')), '예약유도': int(uniq('res')),
            '메신저': int(uniq('msg')), '전화': int(uniq('call'))}
@@ -153,6 +184,16 @@ def main():
     print('\n── 콘텐츠 관심 신호 (사용자 수) ──')
     for f, lab, sec in INTEREST:
         print(f'  {lab:16s} {uniq(f):>4,}명   [{sec}]')
+
+    print('\n── 소재별 방문자 (워크북 03_소재별성과 대조) ──')
+    WB = {'business_taste': 4415, 'family_taste': 2028, 'family_bday_vid': 1442,
+          'business_space_vid': 122, 'family_bday_img': 120,
+          'business_space_carousel': 48, '(none)': 42}
+    for i, nm in enumerate(cats['cre']):
+        u = sess.loc[(sess.cre == i) & (sess.arrive == 1), 'u'].nunique()
+        w = WB.get(nm)
+        tag = '' if w is None else ('  OK' if u == w else f'  MISMATCH (워크북 {w})')
+        print(f'  {nm:26s} {u:>5,}{tag}')
 
     print('\n── OS별 (device_family) ──')
     for i, nm in enumerate(cats['ofam']):
@@ -176,7 +217,7 @@ def main():
         phase[name] = '전기간' if (a and b) else ('1차' if a else '2차')
 
     # ── 출력 ───────────────────────────────────────────────────────
-    cols = ['u', 'date', 'hour', 'wd', 'cre', 'set', 'dv', 'os', 'ofam', 'city', 'lang',
+    cols = ['u', 'date', 'hour', 'wd', 'cre', 'set', 'dv', 'os', 'ofam', 'city', 'lang', 'dup',
             'arrive', 'anyclick', 'act', 'cta', 'res', 'msg', 'call', 'menu',
             'dead', 'rage', 'nav', 'tab', 'jump', 'langsw', 'priv', 'vmenu', 'dirs']
     out = {
