@@ -1083,7 +1083,8 @@ table.dt td.dim{color:var(--c25)}
 </div>
 
 <div class=&quot;c&quot; style=&quot;left:782px;top:488px;width:516px;height:200px&quot;>
-  <div class=&quot;t&quot;>예약 의사는 언제 나왔나? <span class=&quot;badge k&quot;>칸 클릭</span>
+  <div class=&quot;t&quot;>언제 많았나? <span class=&quot;badge k&quot;>칸 클릭</span>
+    <span class=&quot;badge&quot;>요일 × 시간 · 오른쪽에서 지표 선택</span>
     <div class=&quot;seg&quot; id=&quot;hmMode&quot;><div data-hm=&quot;sess&quot;>방문</div><div data-hm=&quot;cta&quot;>CTA</div>
       <div class=&quot;on&quot; data-hm=&quot;res&quot;>예약 유도</div></div>
   </div>
@@ -1210,6 +1211,10 @@ const INTENT=['message_book','call_phone'];
 /* 소재 순위의 최소 표본. 이 아래는 비율이 표본에 따라 출렁여 비교하지 않는다. */
 const MIN_N=300;
 const lb=(m,k)=>m[k]||k, n=v=>v.toLocaleString();
+/* 받침이 있으면 '이', 없으면 '가'. 방문→이 · CTA 클릭→이 · 예약 유도→가 */
+const josa=w=>{const c=w.charCodeAt(w.length-1);
+  const kor=c>=0xAC00&amp;&amp;c<=0xD7A3;
+  return w+((kor?((c-0xAC00)%28!==0):true)?'이':'가');};
 const pc=(a,b)=>b?(a/b*100).toFixed(2)+'%':'—', pc1=(a,b)=>b?(a/b*100).toFixed(1)+'%':'—';
 /* 작은 비율은 소수 첫째 자리로 자르면 1.86% 가 1.9% 가 되어 KPI 와 어긋난다 */
 const pcx=(a,b)=>!b?'—':(a/b*100<10?pc(a,b):pc1(a,b));
@@ -1450,7 +1455,7 @@ function drawHM(rows){
     F.cell=(F.cell&amp;&amp;F.cell[0]===w&amp;&amp;F.cell[1]===h)?null:[w,h];render();});
   const ML={sess:'방문',cta:'CTA 클릭',res:'예약 유도'}[M.hm];
   find('hmFind',tot
-    ?`${ML}가 가장 많았던 때는 <b>${WD[bw]} ${bh}시</b> — ${n(bv)}${M.hm==='sess'?'':'명'}
+    ?`${josa(ML)} 가장 많았던 때는 <b>${WD[bw]} ${bh}시</b> — ${n(bv)}${M.hm==='sess'?'':'명'}
       · 저녁 18~22시에 <b>${pc1(ev,tot)}</b> 집중`
     :`해당 조건에 ${ML} 없음`);
 }
@@ -1666,7 +1671,7 @@ function drawChips(){
 function drawSec(rows,o){
   document.getElementById('sec3').innerHTML=
     `방문자 <b>${n(o.users)}</b> → 행동 <b>${n(o.act)}</b> → CTA <b>${n(o.cta)}</b> → 예약 유도 <b>${n(o.res)}</b> (모두 명)`;
-  document.getElementById('sec4').innerHTML='무엇을 · 어디에서 · 언제 눌렀는가';
+  document.getElementById('sec4').innerHTML='무엇을 · 어디에서 · 언제';
 }
 function render(){
   const rows=sel(),o=agg(rows);
