@@ -1495,7 +1495,7 @@ function drawCmp(rows){
 /* 소재 표 — 요약은 화면에, 상세는 행 클릭으로.
    행동률·예약 유도율은 지우지 않고 펼침 행으로 내렸다.
    Meta 지표(노출·CTR·CPC·비용)는 2페이지 소관이라 넣지 않는다. */
-const DTC=[['방문자','users',0],['행동','act',0],['CTA','cta',0]];
+const DTC=[['방문자(명)','users',0],['행동(명)','act',0],['CTA(명)','cta',0]];
 function drawDT(rows){
   const NONE=C.cre.indexOf('(none)');
   const grp={};rows.forEach(i=>{const k=S[i][COL.cre];if(k===NONE)return;(grp[k]=grp[k]||[]).push(i);});
@@ -1519,7 +1519,7 @@ function drawDT(rows){
   items.forEach(r=>{
     const on=F.cre===r.key;
     h+=`<tr class=&quot;clk${on?' on':''}&quot; data-k=&quot;${r.key}&quot;><td>${r.label}${
-      r.small?' <span class=&quot;sm&quot;>N작음</span>':''}</td>`
+      r.small?` <span class=&quot;sm&quot;>방문 ${n(MIN_N)}명 미만</span>`:''}</td>`
       +DTC.map(c=>`<td class=&quot;${r[c[1]]?'':'dim'}&quot;>${fmt(r,c[1])}</td>`).join('')
       +`<td class=&quot;b${r.res?'':' dim'}&quot;>${res(r)}</td></tr>`;
     /* 상세 — 요약에서 뺀 행동률·예약 유도율과 소속 광고세트를 여기서 보여 준다 */
@@ -1527,7 +1527,7 @@ function drawDT(rows){
       행동률 <b>${(r.actR*100).toFixed(2)}%</b> (${n(r.act)} / ${n(r.users)} 방문자) ·
       예약 유도율 <b>${(r.resR*100).toFixed(2)}%</b> (${n(r.res)} / ${n(r.users)} 방문자) ·
       CTA → 예약 유도 <b>${pc1(r.res,r.cta)}</b> · 세션 ${n(r.sess)} · 광고세트 <b>${setOf(r.key)}</b>
-      ${r.small?' · <span style=&quot;color:var(--c45)&quot;>방문 300명 미만이라 순위 비교에서 제외</span>':''}</td></tr>`;});
+      ${r.small?` · <span style=&quot;color:var(--c45)&quot;>방문 ${n(MIN_N)}명 미만이라 비율이 출렁여 순위 비교에서 제외</span>`:''}</td></tr>`;});
   h+='</tbody><tfoot><tr class=&quot;tot&quot;><td>전체 <span class=&quot;sm&quot;>광고 유입만</span></td>'
     +DTC.map(c=>`<td>${fmt(T,c[1])}</td>`).join('')+`<td>${res(T)}</td></tr></tfoot>`;
   const el=document.getElementById('dt');el.innerHTML=h;
